@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +52,9 @@ public class Deepworld {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // Register blocks and tile entities
-        //DeepworldBlocks.registerBlocks(event.getRegistry());
+        logger.info("Registering blocks...");
+        DeepworldBlocks.registerBlocks(event.getRegistry());
+        logger.info("Done!");
     }
 
     @SubscribeEvent
@@ -61,7 +62,7 @@ public class Deepworld {
         // Register items and itemBlocks
         logger.info("Registering items...");
         DeepworldItems.registerItems(event.getRegistry());
-        //DeepworldBlocks.registerItemBlocks(event.getRegistry());
+        DeepworldItems.registerItemBlocks(event.getRegistry());
         // Integrate certain OreDictionary recipes
         //registerOreDict();
         logger.info("Done!");

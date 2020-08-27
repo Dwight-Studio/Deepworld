@@ -1,0 +1,7 @@
+{
+    "parent": "deepworld:block/casing",
+    "textures": {
+      "casing": "deepworld:blocks/iron_casing",
+      "particle": "deepworld:blocks/iron_casing"
+    }
+}

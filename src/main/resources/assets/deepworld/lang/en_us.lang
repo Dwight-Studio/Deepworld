@@ -3,5 +3,5 @@
 ##################
 
 # Items
-item.wooden_casing.name=Wooden Casing
+tile.wooden_casing.name=Wooden Casing
 itemGroup.tabDeepworld=The Deep World

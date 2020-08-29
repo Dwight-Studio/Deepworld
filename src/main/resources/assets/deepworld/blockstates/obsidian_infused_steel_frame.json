@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "deepworld:obsidian_infused_steel_frame"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

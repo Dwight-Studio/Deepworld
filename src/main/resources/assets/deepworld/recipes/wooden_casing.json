@@ -1,9 +1,9 @@
 {
   "type": "forge:ore_shaped",
   "pattern": [
-    "SPS",
-    "PBP",
-    "SPS"
+    "PSP",
+    "SBS",
+    "PSP"
   ],
   "key": {
     "S": {
@@ -19,7 +19,7 @@
     }
   },
   "result": {
-    "item": "deepworld:wooden_casing",
+    "item": "deepworld:wooden_frame",
     "count": 1
   }
 }

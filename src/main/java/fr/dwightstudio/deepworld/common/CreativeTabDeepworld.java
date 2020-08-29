@@ -10,6 +10,6 @@ public class CreativeTabDeepworld extends CreativeTabs {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(DeepworldBlocks.WOODEN_CASING);
+        return new ItemStack(DeepworldBlocks.WOODEN_FRAME);
     }
 }

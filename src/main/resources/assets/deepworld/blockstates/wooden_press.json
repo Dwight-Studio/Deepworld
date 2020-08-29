@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "deepworld:wooden_press"
+  },
+  "variants": {
+    "facing=north": {
+      "model": "deepworld:wooden_press"
+    },
+    "facing=east": {
+      "model": "deepworld:wooden_press",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "deepworld:wooden_press",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "deepworld:wooden_press",
+      "y": 270
+    }
+  }
+}

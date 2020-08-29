@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockIronCasing extends Block {
-    public BlockIronCasing() {
+public class BlockIronFrame extends Block {
+    public BlockIronFrame() {
         super(Material.IRON);
         setSoundType(SoundType.METAL);
         setCreativeTab(Deepworld.creativeTab);
@@ -26,12 +26,12 @@ public class BlockIronCasing extends Block {
 
     @Override
     public int quantityDropped(Random random) {
-        return 4;
+        return 1;
     }
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return DeepworldItems.IRON_CASING;
+        return DeepworldItems.IRON_FRAME;
     }
 
     @Override
@@ -48,5 +48,15 @@ public class BlockIronCasing extends Block {
     @Override
     public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
         return false;
+    }
+
+    @Override
+    public int getHarvestLevel(IBlockState state) {
+        return 1;
+    }
+
+    @Override
+    public String getHarvestTool(IBlockState state) {
+        return "pickaxe";
     }
 }

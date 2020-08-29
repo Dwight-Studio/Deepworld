@@ -1,7 +1,0 @@
-{
-    "parent": "deepworld:block/casing",
-    "textures": {
-      "casing": "deepworld:blocks/wooden_casing",
-      "particle": "deepworld:blocks/wooden_casing"
-    }
-}

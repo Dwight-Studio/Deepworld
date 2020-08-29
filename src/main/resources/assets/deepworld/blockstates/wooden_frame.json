@@ -1,0 +1,93 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "deepworld:wooden_frame"
+      }
+    },
+    {
+      "when": {
+        "bottom": "true"
+      },
+      "apply": {
+        "model": "deepworld:wooden_case_panel_bottom"
+      }
+    },
+    {
+      "when": {
+        "top": "true"
+      },
+      "apply": {
+        "model": "deepworld:wooden_case_panel_top"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"front":  "true", "facing": "north"},
+        {"back":  "true", "facing": "south"},
+        {"right":  "true", "facing": "east"},
+        {"left":  "true", "facing": "west"}
+      ]},
+      "apply": {
+        "model": "deepworld:wooden_case_panel_front"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"back":  "true", "facing": "north"},
+        {"front":  "true", "facing": "south"},
+        {"left":  "true", "facing": "east"},
+        {"right":  "true", "facing": "west"}
+      ]},
+      "apply": {
+        "model": "deepworld:wooden_case_panel_back"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"left":  "true", "facing": "north"},
+        {"right":  "true", "facing": "south"},
+        {"back":  "true", "facing": "east"},
+        {"front":  "true", "facing": "west"}
+      ]},
+      "apply": {
+        "model": "deepworld:wooden_case_panel_left"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"right":  "true", "facing": "north"},
+        {"left":  "true", "facing": "south"},
+        {"front":  "true", "facing": "east"},
+        {"back":  "true", "facing": "west"}
+      ]},
+      "apply": {
+        "model": "deepworld:wooden_case_panel_right"
+      }
+    },
+    {
+      "when": {
+        "main_component":  "1"
+      },
+      "apply": {
+        "model": "deepworld:simple_pressing_chamber"
+      }
+    },
+    {
+      "when": {
+        "secondary_component":  "1"
+      },
+      "apply": {
+        "model": "deepworld:wooden_gearbox"
+      }
+    },
+    {
+      "when": {
+        "tertiary_component":  "1"
+      },
+      "apply": {
+        "model": "deepworld:wooden_crank"
+      }
+    }
+  ]
+}

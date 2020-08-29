@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "deepworld:iron_casing"
+    "model": "deepworld:obsidian_infused_steel_frame"
   },
   "variants": {
     "normal": [{}],

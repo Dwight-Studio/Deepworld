@@ -1,14 +1,19 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +38,7 @@ public class Deepworld {
      */
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
-
+        registerTileEntity();
     }
 
     // This is the second initialization event. Register custom recipes
@@ -52,19 +57,35 @@ public class Deepworld {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // Register blocks and tile entities
-        logger.info("Registering blocks...");
+        logger.debug("Registering blocks...");
         DeepworldBlocks.registerBlocks(event.getRegistry());
-        logger.info("Done!");
+        logger.debug("Done!");
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // Register items and itemBlocks
-        logger.info("Registering items...");
+        logger.debug("Registering items...");
         DeepworldItems.registerItems(event.getRegistry());
         DeepworldItems.registerItemBlocks(event.getRegistry());
         // Integrate certain OreDictionary recipes
-        //registerOreDict();
-        logger.info("Done!");
+        registerOreDict();
+        logger.debug("Done!");
+    }
+
+    public static void registerTileEntity() {
+        logger.debug("Registering tileEntities...");
+        GameRegistry.registerTileEntity(TileEntityWoodenFrame.class, new ResourceLocation(Deepworld.MOD_ID, "wooden_frame"));
+        logger.debug("Done!");
+
+    }
+
+    private static void registerOreDict() {
+
+        OreDictionary.registerOre("frameWood", DeepworldItems.WOODEN_FRAME);
+        OreDictionary.registerOre("frameIron", DeepworldItems.IRON_FRAME);
+        OreDictionary.registerOre("frameSteel", DeepworldItems.STEEL_FRAME);
+        OreDictionary.registerOre("frameObsidianSteel", DeepworldItems.OBSIDIAN_INFUSED_STEEL_FRAME);
+
     }
 }

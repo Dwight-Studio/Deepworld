@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "deepworld:wooden_casing"
+    "model": "deepworld:iron_frame"
   },
   "variants": {
     "normal": [{}],

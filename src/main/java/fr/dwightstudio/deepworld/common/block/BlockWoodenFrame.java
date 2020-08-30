@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.block;
 
+import fr.dwightstudio.deepworld.common.DeepworldItemRegister;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.frame.ComponentClass;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;

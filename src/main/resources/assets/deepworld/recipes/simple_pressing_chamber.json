@@ -1,0 +1,25 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "GPG",
+    "C C",
+    "GPG"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gearWood"
+    },
+  },
+  "result": {
+    "item": "deepworld:simple_pressing_chamber",
+    "count": 1
+  }
+}

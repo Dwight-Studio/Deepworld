@@ -1,0 +1,25 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "PPP",
+    "GSG",
+    "PPP"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "N": {
+      "item": "deepworld:wooden_gear"
+    },
+  },
+  "result": {
+    "item": "deepworld:wooden_case_plate",
+    "count": 1
+  }
+}

@@ -5,32 +5,34 @@ import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum WoodenFrameComponent {
 
     // Components
     SIMPLE_PRESSING_CHAMBER(
-            DeepworldItems.SIMPLE_PRESSING_CHAMBER,
+            "simple_pressing_chamber",
             ComponentClass.PRIMARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
+            new String[] {"wooden_press"}
     ),
     WOODEN_GEARBOX(
-            DeepworldItems.WOODEN_GEARBOX,
+            "wooden_gearbox",
             ComponentClass.SECONDARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
+            new String[] {"wooden_press"}
             ),
     WOODEN_CRANK(
-            DeepworldItems.WOODEN_CRANK,
+            "wooden_crank",
             ComponentClass.TERTIARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
+            new String[] {"wooden_press"}
             );
 
     // Var
-    private final Item item;
+    private final String item;
     private final ComponentClass componentClass;
-    private final Block[] machineBlocks;
+    private final String[] machineBlocks;
     private final int ID;
     
     // Static neasted class to store LastData.lastID
@@ -38,7 +40,7 @@ public enum WoodenFrameComponent {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(Item item, ComponentClass componentClass, Block[] machineBlocks) {
+    WoodenFrameComponent(String item, ComponentClass componentClass, String[] machineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
         this.machineBlocks = machineBlocks;
@@ -80,7 +82,7 @@ public enum WoodenFrameComponent {
     }
 
     public Item getItem() {
-        return this.item;
+        return Item.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, this.item));
     }
 
     public ComponentClass getComponentClass() {
@@ -88,7 +90,13 @@ public enum WoodenFrameComponent {
     }
 
     public Block[] getMachineBlocks() {
-        return this.machineBlocks;
+        List<Block> rtn = new ArrayList<Block>();
+
+        for (String block : this.machineBlocks) {
+            rtn.add(Block.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, block)));
+        }
+
+        return (Block[]) rtn.toArray(new Block[0]);
     }
 
     public int getID() {

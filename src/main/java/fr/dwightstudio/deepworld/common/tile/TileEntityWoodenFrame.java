@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.tile;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import net.minecraft.block.Block;
@@ -9,6 +10,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.util.Constants;
+
+import java.util.Arrays;
 
 public class TileEntityWoodenFrame extends TileEntity implements ITickable {
 
@@ -206,14 +209,18 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
 
     // Check if the assembly of the components is coherent
     public Block getMachineBlock() {
-        for (Block primaryComponentBlock : WoodenFrameComponent.getByID(primaryComponent).getMachineBlocks()) {
-            for (Block secondaryComponentBlock : WoodenFrameComponent.getByID(secondaryComponent).getMachineBlocks()) {
-                for (Block tertiaryComponentBlock : WoodenFrameComponent.getByID(tertiaryComponent).getMachineBlocks()) {
-                    if (primaryComponentBlock == secondaryComponentBlock && secondaryComponentBlock == tertiaryComponentBlock) {
-                        return primaryComponentBlock;
+        try {
+            for (Block primaryComponentBlock : WoodenFrameComponent.getByID(primaryComponent).getMachineBlocks()) {
+                for (Block secondaryComponentBlock : WoodenFrameComponent.getByID(secondaryComponent).getMachineBlocks()) {
+                    for (Block tertiaryComponentBlock : WoodenFrameComponent.getByID(tertiaryComponent).getMachineBlocks()) {
+                        if (primaryComponentBlock == secondaryComponentBlock && secondaryComponentBlock == tertiaryComponentBlock) {
+                            return primaryComponentBlock;
+                        }
                     }
                 }
             }
+        } catch (NullPointerException ignored) {
+
         }
 
         return null;

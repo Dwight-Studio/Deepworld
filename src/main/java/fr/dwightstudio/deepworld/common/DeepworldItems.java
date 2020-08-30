@@ -1,50 +1,54 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.item.ItemSimplePressingChamber;
-import fr.dwightstudio.deepworld.common.item.ItemWoodenCasePanel;
-import fr.dwightstudio.deepworld.common.item.ItemWoodenCrank;
-import fr.dwightstudio.deepworld.common.item.ItemWoodenGearbox;
+import net.minecraft.init.Bootstrap;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
-@GameRegistry.ObjectHolder(Deepworld.MOD_ID)
 public class DeepworldItems {
 
-    // Items initialization
-    public static final Item WOODEN_CASE_PANEL = new ItemWoodenCasePanel();
-    public static final Item SIMPLE_PRESSING_CHAMBER = new ItemSimplePressingChamber();
-    public static final Item WOODEN_GEARBOX = new ItemWoodenGearbox();
-    public static final Item WOODEN_CRANK = new ItemWoodenCrank();
-
-    // Itemblocks initialization
-    public static final Item WOODEN_FRAME = new ItemBlock(DeepworldBlocks.WOODEN_FRAME);
-    public static final Item WOODEN_PRESS = new ItemBlock(DeepworldBlocks.WOODEN_PRESS);
-    public static final Item IRON_FRAME = new ItemBlock(DeepworldBlocks.IRON_FRAME);
-    public static final Item STEEL_FRAME = new ItemBlock(DeepworldBlocks.STEEL_FRAME);
-    public static final Item OBSIDIAN_INFUSED_STEEL_FRAME = new ItemBlock(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME);
-
-    // Items registration
-    public static void registerItems(IForgeRegistry<Item> registry) {
-        registry.register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
-        registry.register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
-        registry.register(prepare(WOODEN_GEARBOX, "wooden_gearbox"));
-        registry.register(prepare(WOODEN_CRANK, "wooden_crank"));
-    }
+    // Items
+    public static final Item WOODEN_CASE_PANEL;
+    public static final Item SIMPLE_PRESSING_CHAMBER;
+    public static final Item WOODEN_GEARBOX;
+    public static final Item WOODEN_CRANK;
 
     // Itemblocks
-    public static void registerItemBlocks(IForgeRegistry<Item> registry) {
-        registry.register(DeepworldItems.prepare(WOODEN_FRAME, "wooden_frame"));
-        registry.register(DeepworldItems.prepare(WOODEN_PRESS, "wooden_press"));
-        registry.register(DeepworldItems.prepare(IRON_FRAME, "iron_frame"));
-        registry.register(DeepworldItems.prepare(STEEL_FRAME, "steel_frame"));
-        registry.register(DeepworldItems.prepare(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
+    public static final Item WOODEN_FRAME;
+    public static final Item WOODEN_PRESS;
+    public static final Item IRON_FRAME;
+    public static final Item STEEL_FRAME;
+    public static final Item OBSIDIAN_INFUSED_STEEL_FRAME;
+    public static final Item WOODEN_GEAR;
+
+    // Constants init
+    static {
+        // Items
+        WOODEN_CASE_PANEL = getRegisteredItem("wooden_case_panel");
+        SIMPLE_PRESSING_CHAMBER = getRegisteredItem("simple_pressing_chamber");
+        WOODEN_GEARBOX = getRegisteredItem("wooden_gearbox");
+        WOODEN_CRANK = getRegisteredItem("wooden_crank");
+        WOODEN_GEAR = getRegisteredItem("wooden_gear");
+
+        // Itemblocks
+        WOODEN_FRAME = getRegisteredItem("wooden_frame");
+        WOODEN_PRESS = getRegisteredItem("wooden_press");
+        IRON_FRAME = getRegisteredItem("iron_frame");
+        STEEL_FRAME = getRegisteredItem("steel_frame");
+        OBSIDIAN_INFUSED_STEEL_FRAME = getRegisteredItem("obsidian_infused_steel_frame");
     }
 
-    // Prepare items
-    public static Item prepare(Item item, String name) {
-        return item.setTranslationKey(name).setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
+    private static Item getRegisteredItem(String name)
+    {
+        Item item = Item.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, name));
+
+        if (item == null)
+        {
+            throw new IllegalStateException("Invalid Item requested: " + name);
+        }
+        else
+        {
+            return item;
+        }
     }
+
 }

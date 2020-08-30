@@ -1,8 +1,6 @@
 package fr.dwightstudio.deepworld.client;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldBlocks;
-import fr.dwightstudio.deepworld.common.DeepworldItems;
+import fr.dwightstudio.deepworld.common.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -20,26 +18,23 @@ public class DeepworldClient extends Deepworld {
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event) {
 
-        logger.debug("Registering items models...");
-
         // Register itemBlocks
-        registerBlockModel(DeepworldItems.WOODEN_FRAME, 0, DeepworldBlocks.WOODEN_FRAME);
-        registerBlockModel(DeepworldItems.WOODEN_PRESS, 0, DeepworldBlocks.WOODEN_PRESS);
-        registerBlockModel(DeepworldItems.IRON_FRAME, 0, DeepworldBlocks.IRON_FRAME);
-        registerBlockModel(DeepworldItems.STEEL_FRAME, 0, DeepworldBlocks.STEEL_FRAME);
-        registerBlockModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_FRAME, 0, DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME);
+        registerBlockModel(DeepworldBlocks.WOODEN_FRAME, 0);
+        registerBlockModel(DeepworldBlocks.WOODEN_PRESS, 0);
+        registerBlockModel(DeepworldBlocks.IRON_FRAME, 0);
+        registerBlockModel(DeepworldBlocks.STEEL_FRAME, 0);
+        registerBlockModel(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME, 0);
 
         // Register items
         registerItemModel(DeepworldItems.WOODEN_CASE_PANEL, 0);
         registerItemModel(DeepworldItems.WOODEN_GEARBOX, 0);
         registerItemModel(DeepworldItems.WOODEN_CRANK, 0);
         registerItemModel(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 0);
-
-        logger.debug("Done!");
+        registerItemModel(DeepworldItems.WOODEN_GEAR, 0);
     }
 
-    private static void registerBlockModel(Item item, int metadata, Block block) {
-        ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(block.getRegistryName(),"inventory"));
+    private static void registerBlockModel(Block block, int metadata) {
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), metadata, new ModelResourceLocation(block.getRegistryName(),"inventory"));
     }
 
     private static void registerItemModel(Item item, int metadata) {

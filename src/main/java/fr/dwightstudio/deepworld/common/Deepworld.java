@@ -56,33 +56,25 @@ public class Deepworld {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // Register blocks and tile entities
-        logger.debug("Registering blocks...");
-        DeepworldBlocks.registerBlocks(event.getRegistry());
-        logger.debug("Done!");
+        DeepworldBlockRegister.registerBlocks(event.getRegistry());
     }
 
     // Items and itemBlocks registration
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // Items and itemBlocks registration
-        logger.debug("Registering items...");
-        DeepworldItems.registerItems(event.getRegistry());
-        DeepworldItems.registerItemBlocks(event.getRegistry());
+        DeepworldItemRegister.registerItems(event.getRegistry());
+        DeepworldItemRegister.registerItemBlocks(event.getRegistry());
 
         // OreDictionnary registration
         OreDictionary.registerOre("frameWood", DeepworldItems.WOODEN_FRAME);
         OreDictionary.registerOre("frameIron", DeepworldItems.IRON_FRAME);
         OreDictionary.registerOre("frameSteel", DeepworldItems.STEEL_FRAME);
         OreDictionary.registerOre("frameObsidianSteel", DeepworldItems.OBSIDIAN_INFUSED_STEEL_FRAME);
-
-        logger.debug("Done!");
     }
 
     // TileEntities registration
     public static void registerTileEntity() {
-        logger.debug("Registering tileEntities...");
         GameRegistry.registerTileEntity(TileEntityWoodenFrame.class, new ResourceLocation(Deepworld.MOD_ID, "wooden_frame"));
-        logger.debug("Done!");
-
     }
 }

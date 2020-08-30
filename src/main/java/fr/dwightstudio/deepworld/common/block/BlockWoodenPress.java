@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.DeepworldItemRegister;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

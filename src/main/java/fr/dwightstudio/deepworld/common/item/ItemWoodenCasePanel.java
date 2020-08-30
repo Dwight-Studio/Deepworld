@@ -45,7 +45,7 @@ public class ItemWoodenCasePanel extends Item {
             }
             return EnumActionResult.SUCCESS;
     } else {
-            return EnumActionResult.FAIL;
+            return EnumActionResult.PASS;
         }
     }
 }

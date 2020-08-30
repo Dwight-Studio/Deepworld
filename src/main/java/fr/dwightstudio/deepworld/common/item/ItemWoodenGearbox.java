@@ -42,7 +42,7 @@ public class ItemWoodenGearbox extends Item {
             }
             return EnumActionResult.SUCCESS;
         } else {
-            return EnumActionResult.FAIL;
+            return EnumActionResult.PASS;
         }
     }
 }

@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.common.item;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,11 +24,11 @@ public class ItemSimplePressingChamber extends ItemDeepworld {
         if (aTileEntity instanceof TileEntityWoodenFrame) {
             TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
 
-            if (!(tileEntity.getMainComponent() == 0)) {
+            if (!(tileEntity.getPrimaryComponent() == 0)) {
                 return EnumActionResult.FAIL;
             }
 
-            tileEntity.setMainComponent(1);
+            tileEntity.setPrimaryComponent(1);
 
             if (!player.capabilities.isCreativeMode) {
                 stack.shrink(1);

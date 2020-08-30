@@ -1,16 +1,14 @@
 package fr.dwightstudio.deepworld.common.tile;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
+import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.util.Constants;
-
-import java.util.Arrays;
 
 public class TileEntityWoodenFrame extends TileEntity implements ITickable {
 
@@ -22,10 +20,11 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
     private boolean leftCover = false;
     private boolean rightCover = false;
 
-    private int mainComponent = 0;
+    private int primaryComponent = 0;
     private int secondaryComponent = 0;
     private int tertiaryComponent = 0;
 
+    // Convert NBT to internal vars
     @Override
     public void readFromNBT(NBTTagCompound compound) {
 
@@ -53,8 +52,8 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
             rightCover = compound.getBoolean("RightCover");
         }
 
-        if (compound.hasKey("MainComponent")) {
-            mainComponent = compound.getInteger("MainComponent");
+        if (compound.hasKey("PrimaryComponent")) {
+            primaryComponent = compound.getInteger("PrimaryComponent");
         }
 
         if (compound.hasKey("SecondaryComponent")) {
@@ -67,6 +66,7 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
 
     }
 
+    // Convert internal vars to NBT
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
@@ -79,13 +79,19 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
         compound.setBoolean("LeftCover", leftCover);
         compound.setBoolean("RightCover", rightCover);
 
-        compound.setInteger("MainComponent", mainComponent);
+        compound.setInteger("PrimaryComponent", primaryComponent);
         compound.setInteger("SecondaryComponent", secondaryComponent);
         compound.setInteger("TertiaryComponent", tertiaryComponent);
 
         return compound;
     }
 
+    /*
+     * Network handling
+     *
+     * getUpdatePacket() and onDataPacket() are used for one-at-a-time TileEntity updates
+     * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
+     */
     @Override
     public NBTTagCompound getUpdateTag() {
 
@@ -115,6 +121,7 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
         readFromNBT(pkt.getNbtCompound());
     }
 
+    // Get placed covers
     public boolean[] getCovers() {
 
         boolean[] covers = new boolean[6];
@@ -129,6 +136,7 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
         return covers;
     }
 
+    // Place a cover
     public boolean addCover() {
         if (!bottomCover) {
             bottomCover = true;
@@ -150,26 +158,30 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
         return true;
     }
 
+    // Update method (ran every tick)
     @Override
     public void update() {
         world.markBlockRangeForRenderUpdate(pos, pos);
 
         Boolean complete = bottomCover && topCover && frontCover && backCover && rightCover && leftCover;
+        Block machineBlock = getMachineBlock();
 
         // Check if valid and set the block
-        if (isValid() && complete) {
-            world.setBlockState(pos, DeepworldBlocks.WOODEN_PRESS.getDefaultState().withProperty(BlockWoodenPress.FACING, world.getBlockState(pos).getValue(BlockWoodenPress.FACING)));
+        if (machineBlock != null && complete) {
+            world.setBlockState(pos, machineBlock.getDefaultState().withProperty(BlockWoodenPress.FACING, world.getBlockState(pos).getValue(BlockWoodenPress.FACING)));
         }
     }
 
-    public int getMainComponent() {
-        return mainComponent;
+
+    // Component management (getters and setters)
+    public int getPrimaryComponent() {
+        return primaryComponent;
     }
 
-    public void setMainComponent(int mainComponent) {
+    public void setPrimaryComponent(int primaryComponent) {
         this.markDirty();
         this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
-        this.mainComponent = mainComponent;
+        this.primaryComponent = primaryComponent;
     }
 
     public int getSecondaryComponent() {
@@ -192,11 +204,18 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
         this.tertiaryComponent = tertiaryComponent;
     }
 
-    public boolean isValid() {
-        if (mainComponent == 1 && secondaryComponent == 1 && tertiaryComponent == 1) {
-            return true;
+    // Check if the assembly of the components is coherent
+    public Block getMachineBlock() {
+        for (Block primaryComponentBlock : WoodenFrameComponent.getByID(primaryComponent).getMachineBlocks()) {
+            for (Block secondaryComponentBlock : WoodenFrameComponent.getByID(secondaryComponent).getMachineBlocks()) {
+                for (Block tertiaryComponentBlock : WoodenFrameComponent.getByID(tertiaryComponent).getMachineBlocks()) {
+                    if (primaryComponentBlock == secondaryComponentBlock && secondaryComponentBlock == tertiaryComponentBlock) {
+                        return primaryComponentBlock;
+                    }
+                }
+            }
         }
 
-        return false;
+        return null;
     }
 }

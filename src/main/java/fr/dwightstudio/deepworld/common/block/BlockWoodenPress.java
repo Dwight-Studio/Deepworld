@@ -21,6 +21,17 @@ import net.minecraft.world.IBlockAccess;
 import java.util.Random;
 
 public class BlockWoodenPress extends Block {
+
+    // Block property initializing
+    public static final IProperty<EnumFacing> FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+
+    // Block state creation (registering properties)
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, FACING);
+    }
+
+    // Constructor
     public BlockWoodenPress() {
         super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
@@ -34,37 +45,47 @@ public class BlockWoodenPress extends Block {
         );
     }
 
+    // Setting customs drops
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        drops.add(new ItemStack(DeepworldItems.WOODEN_CRANK, 1));
+        drops.add(new ItemStack(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 1));
+        drops.add(new ItemStack(DeepworldItems.WOODEN_GEARBOX, 1));
         drops.add(new ItemStack(Items.STICK, 4));
         drops.add(new ItemStack(Blocks.PLANKS, 4));
         drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, 6));
         super.getDrops(drops, world, pos, state, fortune);
     }
 
-    public static final IProperty<EnumFacing> FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
-
+    // Disabling regular drop (the block itself)
     @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    // Setting visual block properties
     @Override
     @Deprecated
     public boolean isOpaqueCube(IBlockState state) {
         return true;
     }
 
-    @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return true;
-    }
-
+    /*
+     * Setting custom harvest level & tool
+     * -> Harvest level
+     *      0 - wood
+     *      1 - stone
+     *      2 - iron
+     *      3 - diamond
+     *      >3 - custom (mod implemented tools)
+     *
+     *  -> Harvest tool
+     *      pickaxe
+     *      axe
+     *      shovel
+     *      sword
+     *      hoe
+     */
     @Override
     public int getHarvestLevel(IBlockState state) {
         return 0;
@@ -75,11 +96,20 @@ public class BlockWoodenPress extends Block {
         return "axe";
     }
 
+    // Allow transparency
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
+    /*
+     * Those functions are required but may be optional if
+     * block state is saved in a Tile Entity.
+     * (functions must be declared anyway to avoid crashing but
+     * can just return default state & 0)
+     *
+     * Here, only the facing property is saved within the metadata
+     */
     @Override
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing facing = EnumFacing.NORTH;

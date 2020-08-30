@@ -1,12 +1,6 @@
 package fr.dwightstudio.deepworld.common.item;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldBlocks;
-import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -30,7 +24,7 @@ public class ItemWoodenCasePanel extends ItemDeepworld {
         if (aTileEntity instanceof TileEntityWoodenFrame) {
             TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
 
-            if (!tileEntity.isValid()) {
+            if (tileEntity.getMachineBlock() != null) {
                 return EnumActionResult.FAIL;
             }
 

@@ -67,7 +67,7 @@
     },
     {
       "when": {
-        "main_component":  "1"
+        "primary_component":  "1"
       },
       "apply": {
         "model": "deepworld:simple_pressing_chamber"

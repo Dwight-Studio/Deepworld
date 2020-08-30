@@ -48,7 +48,7 @@ public class Deepworld {
         logger.info("Joining the stage...");
     }
 
-    // This is the final initialization event. Register actions from other mods here
+    // This is the final initialization event. Registering actions from other mods
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) {}
 

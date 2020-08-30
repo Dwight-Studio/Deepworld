@@ -42,7 +42,7 @@ public class Deepworld {
         registerTileEntity();
     }
 
-    // This is the second initialization event. Register custom recipes
+    // This is the second initialization event.
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         logger.info("Joining the stage...");

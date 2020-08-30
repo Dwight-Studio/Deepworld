@@ -14,12 +14,13 @@
       "type": "forge:ore_dict",
       "ore": "plankWood"
     },
-    "N": {
-      "item": "deepworld:wooden_gear"
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gearWood"
     }
   },
   "result": {
-    "item": "deepworld:wooden_case_plate",
+    "item": "deepworld:wooden_gearbox",
     "count": 1
   }
 }

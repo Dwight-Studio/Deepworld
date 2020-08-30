@@ -6,10 +6,6 @@
     "N N"
   ],
   "key": {
-    "S": {
-      "type": "forge:ore_dict",
-      "ore": "stickWood"
-    },
     "P": {
       "type": "forge:ore_dict",
       "ore": "plankWood"
@@ -20,7 +16,7 @@
     }
   },
   "result": {
-    "item": "deepworld:wooden_case_plate",
+    "item": "deepworld:wooden_case_panel",
     "count": 1
   }
 }

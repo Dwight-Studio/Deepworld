@@ -67,6 +67,7 @@ public class Deepworld {
         DeepworldItemRegister.registerItemBlocks(event.getRegistry());
 
         // OreDictionnary registration
+        OreDictionary.registerOre("gearWood", DeepworldItems.WOODEN_GEAR);
         OreDictionary.registerOre("frameWood", DeepworldItems.WOODEN_FRAME);
         OreDictionary.registerOre("frameIron", DeepworldItems.IRON_FRAME);
         OreDictionary.registerOre("frameSteel", DeepworldItems.STEEL_FRAME);

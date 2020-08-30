@@ -16,7 +16,7 @@
     "G": {
       "type": "forge:ore_dict",
       "ore": "gearWood"
-    },
+    }
   },
   "result": {
     "item": "deepworld:simple_pressing_chamber",

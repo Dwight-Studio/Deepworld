@@ -17,7 +17,7 @@
     "N": {
       "type": "forge:ore_dict",
       "ore": "nuggetIron"
-    },
+    }
   },
   "result": {
     "item": "deepworld:wooden_case_plate",

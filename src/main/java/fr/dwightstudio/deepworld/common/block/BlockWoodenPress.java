@@ -8,6 +8,7 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -26,11 +27,12 @@ public class BlockWoodenPress extends Block {
 
     // Block property initializing
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
+    public static final IProperty<Boolean> WORKING = PropertyBool.create("working");
 
     // Block state creation (registering properties)
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING, WORKING);
     }
 
     // Constructor
@@ -44,6 +46,7 @@ public class BlockWoodenPress extends Block {
         this.setDefaultState(
                 this.getBlockState().getBaseState()
                         .withProperty(FACING, EnumFacing.NORTH)
+                        .withProperty(WORKING, false)
         );
     }
 

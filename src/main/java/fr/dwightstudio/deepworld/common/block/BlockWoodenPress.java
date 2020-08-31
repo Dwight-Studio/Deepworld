@@ -4,6 +4,7 @@ import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldItemRegister;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -24,7 +25,7 @@ import java.util.Random;
 public class BlockWoodenPress extends Block {
 
     // Block property initializing
-    public static final IProperty<EnumFacing> FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     // Block state creation (registering properties)
     @Override

@@ -2,6 +2,7 @@ package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -27,7 +28,7 @@ import java.util.List;
 public class BlockFrame extends Block {
 
     // Block property initializing
-    public static final IProperty<EnumFacing> FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final IProperty<Boolean> BOTTOM = PropertyBool.create("bottom");
     public static final IProperty<Boolean> TOP = PropertyBool.create("top");
     public static final IProperty<Boolean> FRONT = PropertyBool.create("front");
@@ -137,12 +138,6 @@ public class BlockFrame extends Block {
         return meta;
     }
 
-    // Enable directional placement
-    @Override
-    public final IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-        return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand).withProperty(FACING, placer.getHorizontalFacing());
-    }
-
     // Override default methode to delay block deletion (to run get drops before block deletion)
     @Override
     public final boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest)
@@ -182,5 +177,10 @@ public class BlockFrame extends Block {
         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
         world.markBlockRangeForRenderUpdate(pos, pos);
         return true;
+    }
+
+    // Enable directional placement
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 }

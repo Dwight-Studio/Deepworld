@@ -30,10 +30,22 @@ public class BlockIronFrame extends BlockFrame {
         return Item.getItemFromBlock(DeepworldBlocks.IRON_FRAME);
     }
 
-    @Override
-    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-        return true;
-    }
+    /*
+     * Setting custom harvest level & tool
+     * -> Harvest level
+     *      0 - wood
+     *      1 - stone
+     *      2 - iron
+     *      3 - diamond
+     *      >3 - custom (mod implemented tools)
+     *
+     *  -> Harvest tool
+     *      pickaxe
+     *      axe
+     *      shovel
+     *      sword
+     *      hoe
+     */
 
     @Override
     public int getHarvestLevel(IBlockState state) {

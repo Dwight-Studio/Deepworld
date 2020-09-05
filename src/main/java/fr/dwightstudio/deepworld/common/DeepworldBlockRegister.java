@@ -13,12 +13,14 @@ public class DeepworldBlockRegister {
     public static void registerBlocks(IForgeRegistry<Block> registry) {
         Block WOODEN_FRAME = new BlockWoodenFrame();
         Block WOODEN_PRESS =  new BlockWoodenPress();
+        Block WOODEN_ROLLING_MACHINE = new BlockWoodenRollingMachine();
         Block IRON_FRAME = new BlockIronFrame();
         Block STEEL_FRAME = new BlockSteelFrame();
         Block OBSIDIAN_INFUSED_STEEL_FRAME = new BlockObsidianInfusedSteelFrame();
 
         registry.register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
         registry.register(prepareBlock(WOODEN_PRESS, "wooden_press"));
+        registry.register(prepareBlock(WOODEN_ROLLING_MACHINE, "wooden_rolling_machine"));
         registry.register(prepareBlock(IRON_FRAME, "iron_frame"));
         registry.register(prepareBlock(STEEL_FRAME, "steel_frame"));
         registry.register(prepareBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));

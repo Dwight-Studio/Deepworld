@@ -8,6 +8,7 @@ itemGroup.tabDeepworld=The Deep World
 # Itemblocks
 tile.wooden_frame.name=Wooden Frame
 tile.wooden_press.name=Wooden Press
+tile.wooden_rolling_machine.name=Wooden Rolling Machine
 tile.iron_frame.name=Iron Frame
 tile.steel_frame.name=Steel Frame
 tile.obsidian_infused_steel_frame.name=Obsidian-Infused Steel Frame

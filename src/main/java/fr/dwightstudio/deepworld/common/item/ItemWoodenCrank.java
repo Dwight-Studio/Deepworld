@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.item;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -34,7 +35,7 @@ public class ItemWoodenCrank extends Item {
                 return EnumActionResult.FAIL;
             }
 
-            tileEntity.setTertiaryComponent(1);
+            tileEntity.setTertiaryComponent(WoodenFrameComponent.WOODEN_CRANK.getID());
 
             if (!player.capabilities.isCreativeMode) {
                 stack.shrink(1);

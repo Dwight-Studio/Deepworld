@@ -34,27 +34,79 @@
     "elements": [
         {
             "name": "Cube",
-            "from": [ 0, 0, 0 ], 
-            "to": [ 16, 16, 15 ], 
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 15 ],
             "faces": {
                 "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 16, 16 ] },
                 "east": { "texture": "#wooden_frame", "uv": [ 1, 0, 16, 16 ] },
-                "south": { "texture": "#wooden_press", "uv": [ 0, 0, 16, 16 ] },
+                "south": { "texture": "#wooden_machine", "uv": [ 0, 0, 16, 16 ] },
                 "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 15, 16 ] },
                 "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 16, 15 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 16, 15 ] }
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 1, 16, 16 ] }
             }
         },
         {
-            "name": "Cube",
-            "from": [ 0, 0, 15 ], 
-            "to": [ 16, 16, 16 ], 
+            "name": "Facade",
+            "from": [ 0, 0, 15 ],
+            "to": [ 16, 16, 16 ],
             "faces": {
                 "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 16 ] },
-                "south": { "texture": "#wooden_press_front", "uv": [ 0, 0, 16, 16 ] },
+                "south": { "texture": "#wooden_front", "uv": [ 0, 0, 16, 16 ] },
                 "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 16 ] },
                 "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 16, 1 ] },
                 "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 16, 1 ] }
+            }
+        },
+        {
+            "name": "Mur gauche",
+            "from": [ 2, 4, 15 ],
+            "to": [ 2, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 10 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 10 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 10 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 10 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 1 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 1 ] }
+            }
+        },
+        {
+            "name": "Mur droite",
+            "from": [ 14, 4, 15 ],
+            "to": [ 14, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 10 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 10 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 10 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 10 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 1 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 0, 1 ] }
+            }
+        },
+        {
+            "name": "Mur haut",
+            "from": [ 2, 14, 15 ],
+            "to": [ 14, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 0 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 0 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 0 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 0 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] }
+            }
+        },
+        {
+            "name": "Mur bas",
+            "from": [ 2, 4, 15 ],
+            "to": [ 14, 4, 16 ],
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 0 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 0 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 0 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 0 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] }
             }
         }
     ]

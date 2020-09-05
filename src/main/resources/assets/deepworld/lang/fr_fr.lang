@@ -6,16 +6,16 @@
 itemGroup.tabDeepworld=Le Monde Profond
 
 # Itemblocks
-tile.wooden_frame.name=Cadre en Bois
-tile.wooden_press.name=Presse en Bois
-tile.wooden_gear_shaper.name=Façonneur d'engrenages en Bois
-tile.iron_frame.name=Cadre en Fer
-tile.steel_frame.name=Cadre en Acier
-tile.obsidian_infused_steel_frame.name=Cadre en Acier imprégné d'Obsidienne
+tile.deepworld_wooden_frame.name=Cadre en Bois
+tile.deepworld_wooden_press.name=Presse en Bois
+tile.deepworld_wooden_gear_shaper.name=Façonneur d'engrenages en Bois
+tile.deepworld_iron_frame.name=Cadre en Fer
+tile.deepworld_steel_frame.name=Cadre en Acier
+tile.deepworld_obsidian_infused_steel_frame.name=Cadre en Acier imprégné d'Obsidienne
 
 # Items
-item.wooden_case_panel.name=Plaque de chassîs en Bois (Composant)
-item.wooden_gearbox.name=Boîte à engrenages en Bois (Composant)
-item.wooden_crank.name=Manivelle en Bois (Composant)
-item.simple_pressing_chamber.name=Chambre de pressage simple (Composant)
-item.wooden_gear.name=Engrenage en Bois
+item.deepworld_wooden_case_panel.name=Plaque de chassîs en Bois (Composant)
+item.deepworld_wooden_gearbox.name=Boîte à engrenages en Bois (Composant)
+item.deepworld_wooden_crank.name=Manivelle en Bois (Composant)
+item.deepworld_simple_pressing_chamber.name=Chambre de pressage simple (Composant)
+item.deepworld_wooden_gear.name=Engrenage en Bois

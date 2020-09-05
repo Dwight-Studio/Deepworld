@@ -6,16 +6,16 @@
 itemGroup.tabDeepworld=The Deep World
 
 # Itemblocks
-tile.wooden_frame.name=Wooden Frame
-tile.wooden_press.name=Wooden Press
-tile.wooden_gear_shaper.name=Wooden Gear Shaper
-tile.iron_frame.name=Iron Frame
-tile.steel_frame.name=Steel Frame
-tile.obsidian_infused_steel_frame.name=Obsidian-Infused Steel Frame
+tile.deepworld_wooden_frame.name=Wooden Frame
+tile.deepworld_wooden_press.name=Wooden Press
+tile.deepworld_wooden_gear_shaper.name=Wooden Gear Shaper
+tile.deepworld_iron_frame.name=Iron Frame
+tile.deepworld_steel_frame.name=Steel Frame
+tile.deepworld_obsidian_infused_steel_frame.name=Obsidian-Infused Steel Frame
 
 # Items
-item.wooden_case_panel.name=Wooden Case Panel (Component)
-item.wooden_gearbox.name=Wooden Gearbox (Component)
-item.wooden_crank.name=Wooden Crank (Component)
-item.simple_pressing_chamber.name=Simple Pressing Chamber (Component)
-item.wooden_gear.name=Wooden Gear
+item.deepworld_wooden_case_panel.name=Wooden Case Panel (Component)
+item.deepworld_wooden_gearbox.name=Wooden Gearbox (Component)
+item.deepworld_wooden_crank.name=Wooden Crank (Component)
+item.deepworld_simple_pressing_chamber.name=Simple Pressing Chamber (Component)
+item.deepworld_wooden_gear.name=Wooden Gear

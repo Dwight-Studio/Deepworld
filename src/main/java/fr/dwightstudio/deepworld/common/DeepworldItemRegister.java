@@ -46,10 +46,10 @@ public class DeepworldItemRegister {
 
     // Prepare items
     public static Item prepare(Item item, String name) {
-        return item.setTranslationKey(name).setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
+        return item.setTranslationKey(Deepworld.MOD_ID + "_" + name).setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
     }
 
     public static ItemBlock prepareItemBlock(ItemBlock item, String name) {
-        return (ItemBlock) item.setTranslationKey(name).setRegistryName(item.getBlock().getRegistryName());
+        return (ItemBlock) item.setTranslationKey(Deepworld.MOD_ID + "_" + name).setRegistryName(item.getBlock().getRegistryName());
     }
 }

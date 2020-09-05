@@ -28,6 +28,6 @@ public class DeepworldBlockRegister {
 
     // Prepare block
     public static Block prepareBlock(Block block, String name) {
-        return block.setTranslationKey(name).setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
+        return block.setTranslationKey(Deepworld.MOD_ID + "_" + name).setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
     }
 }

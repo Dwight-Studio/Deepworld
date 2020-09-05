@@ -13,7 +13,7 @@ public class DeepworldBlocks {
     // Blocks initialization
     public static final Block WOODEN_FRAME;
     public static final Block WOODEN_PRESS;
-    public static final Block WOODEN_ROLLING_MACHINE;
+    public static final Block WOODEN_GEAR_SHAPER;
     public static final Block IRON_FRAME;
     public static final Block STEEL_FRAME;
     public static final Block OBSIDIAN_INFUSED_STEEL_FRAME;
@@ -22,7 +22,7 @@ public class DeepworldBlocks {
     static {
         WOODEN_PRESS = getRegisteredBlock("wooden_press");
         WOODEN_FRAME = getRegisteredBlock("wooden_frame");
-        WOODEN_ROLLING_MACHINE = getRegisteredBlock("wooden_rolling_machine");
+        WOODEN_GEAR_SHAPER = getRegisteredBlock("wooden_gear_shaper");
         IRON_FRAME = getRegisteredBlock("iron_frame");
         STEEL_FRAME = getRegisteredBlock("steel_frame");
         OBSIDIAN_INFUSED_STEEL_FRAME = getRegisteredBlock("obsidian_infused_steel_frame");

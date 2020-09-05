@@ -23,7 +23,7 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockWoodenRollingMachine extends Block{
+public class BlockWoodenGearShaper extends Block{
     // Block property initializing
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final IProperty<Boolean> WORKING = PropertyBool.create("working");
@@ -35,7 +35,7 @@ public class BlockWoodenRollingMachine extends Block{
     }
 
     // Constructor
-    public BlockWoodenRollingMachine() {
+    public BlockWoodenGearShaper() {
         super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
         this.setCreativeTab(Deepworld.creativeTab);

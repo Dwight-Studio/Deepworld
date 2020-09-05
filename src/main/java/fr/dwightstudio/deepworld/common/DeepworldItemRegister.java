@@ -31,14 +31,14 @@ public class DeepworldItemRegister {
 
         ItemBlock WOODEN_FRAME = new ItemBlock(DeepworldBlocks.WOODEN_FRAME);
         ItemBlock WOODEN_PRESS = new ItemBlock(DeepworldBlocks.WOODEN_PRESS);
-        ItemBlock WOODEN_ROLLING_MACHINE = new ItemBlock(DeepworldBlocks.WOODEN_ROLLING_MACHINE);
+        ItemBlock WOODEN_GEAR_SHAPER = new ItemBlock(DeepworldBlocks.WOODEN_GEAR_SHAPER);
         ItemBlock IRON_FRAME = new ItemBlock(DeepworldBlocks.IRON_FRAME);
         ItemBlock STEEL_FRAME = new ItemBlock(DeepworldBlocks.STEEL_FRAME);
         ItemBlock OBSIDIAN_INFUSED_STEEL_FRAME = new ItemBlock(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME);
 
         registry.register(prepareItemBlock(WOODEN_FRAME, "wooden_frame"));
         registry.register(prepareItemBlock(WOODEN_PRESS, "wooden_press"));
-        registry.register(prepareItemBlock(WOODEN_ROLLING_MACHINE, "wooden_rolling_machine"));
+        registry.register(prepareItemBlock(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
         registry.register(prepareItemBlock(IRON_FRAME, "iron_frame"));
         registry.register(prepareItemBlock(STEEL_FRAME, "steel_frame"));
         registry.register(prepareItemBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));

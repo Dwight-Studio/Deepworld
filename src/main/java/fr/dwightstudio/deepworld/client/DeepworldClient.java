@@ -21,7 +21,7 @@ public class DeepworldClient extends Deepworld {
         // Register itemBlocks
         registerBlockModel(DeepworldBlocks.WOODEN_FRAME, 0);
         registerBlockModel(DeepworldBlocks.WOODEN_PRESS, 0);
-        registerBlockModel(DeepworldBlocks.WOODEN_ROLLING_MACHINE, 0);
+        registerBlockModel(DeepworldBlocks.WOODEN_GEAR_SHAPER, 0);
         registerBlockModel(DeepworldBlocks.IRON_FRAME, 0);
         registerBlockModel(DeepworldBlocks.STEEL_FRAME, 0);
         registerBlockModel(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME, 0);

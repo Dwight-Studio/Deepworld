@@ -1,37 +1,37 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "deepworld:wooden_press_idling"
+    "model": "deepworld:wooden_gear_shaper"
   },
   "variants": {
     "facing=north,working=false": {
-      "model": "deepworld:wooden_press_idling"
+      "model": "deepworld:wooden_gear_shaper"
     },
     "facing=east,working=false": {
-      "model": "deepworld:wooden_press_idling",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 90
     },
     "facing=south,working=false": {
-      "model": "deepworld:wooden_press_idling",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 180
     },
     "facing=west,working=false": {
-      "model": "deepworld:wooden_press_idling",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 270
     },
     "facing=north,working=true": {
-      "model": "deepworld:wooden_press_working"
+      "model": "deepworld:wooden_gear_shaper"
     },
     "facing=east,working=true": {
-      "model": "deepworld:wooden_press_working",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 90
     },
     "facing=south,working=true": {
-      "model": "deepworld:wooden_press_working",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 180
     },
     "facing=west,working=true": {
-      "model": "deepworld:wooden_press_working",
+      "model": "deepworld:wooden_gear_shaper",
       "y": 270
     }
   }

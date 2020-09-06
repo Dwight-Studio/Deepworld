@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.common.ToolType;
 
 import java.util.List;
 import java.util.Random;
@@ -47,10 +48,11 @@ public class BlockWoodenFrame extends BlockFrame {
 
     // Constructor
     public BlockWoodenFrame() {
-        super(Material.WOOD);
-        this.setSoundType(SoundType.WOOD);
-        this.setHardness(3);
-        this.setResistance(2);
+        super(Properties.create(Material.WOOD)
+        .sound(SoundType.WOOD)
+        .hardnessAndResistance(3, 2)
+        .harvestLevel(0)
+        .harvestTool(ToolType.AXE));
     }
 
     // Assign the TileEntity
@@ -95,11 +97,11 @@ public class BlockWoodenFrame extends BlockFrame {
     }
 
 
-    // Setting customs drops (depends on what was stored inside)
     @Override
+    // Setting customs drops (depends on what was stored inside)
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 
-        TileEntity aTileEntity = builder..getTileEntity(pos);
+        TileEntity aTileEntity = builder.getWorld();
 
         if (aTileEntity instanceof TileEntityWoodenFrame) {
             TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
@@ -134,37 +136,5 @@ public class BlockWoodenFrame extends BlockFrame {
         drops.add(new ItemStack(Items.STICK, 4));
         drops.add(new ItemStack(Blocks.PLANKS, 4));
         super.getDrops(drops, world, pos, state, fortune);
-    }
-
-    // Disabling regular drop (the block itself)
-    @Override
-    public int quantityDropped(Random random) {
-        return 0;
-    }
-
-    /*
-     * Setting custom harvest level & tool
-     * -> Harvest level
-     *      0 - wood
-     *      1 - stone
-     *      2 - iron
-     *      3 - diamond
-     *      >3 - custom (mod implemented tools)
-     *
-     *  -> Harvest tool
-     *      pickaxe
-     *      axe
-     *      shovel
-     *      sword
-     *      hoe
-     */
-    @Override
-    public int getHarvestLevel(IBlockState state) {
-        return 0;
-    }
-
-    @Override
-    public String getHarvestTool(IBlockState state) {
-        return "axe";
     }
 }

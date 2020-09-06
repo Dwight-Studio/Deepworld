@@ -171,7 +171,7 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
 
         // Check if valid and set the block
         if (machineBlock != null && complete) {
-            world.setBlockState(pos, machineBlock.getDefaultState().withProperty(BlockWoodenPress.FACING, world.getBlockState(pos).getValue(BlockWoodenPress.FACING)));
+            world.setBlockState(pos, machineBlock.getDefaultState().with(BlockWoodenPress.FACING, world.getBlockState(pos).get(BlockWoodenPress.FACING)));
         }
     }
 

@@ -3,19 +3,17 @@ package fr.dwightstudio.deepworld.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -61,7 +59,7 @@ public class BlockFrame extends Block {
 
     // Block state creation (registering properties)
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    final protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         List<IProperty<?>> list = new ArrayList<IProperty<?>>();
 
         list.add(FACING);
@@ -77,35 +75,20 @@ public class BlockFrame extends Block {
         builder.add(list.toArray(new IProperty[0]));
     }
 
-    // Setting visual block properties
-    @Override
-    @Deprecated
-    public final boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-
-    // Allow transparency
-    @Override
-    public final BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
-
-    // Deny torch placing
-    @Override
-    public final boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return false;
-    }
-
     // Notify block update when activated
     @Override
-    public final boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
-        world.markBlockRangeForRenderUpdate(pos, pos);
-        return true;
+    final public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), state, Constants.BlockFlags.DEFAULT);
+        return ActionResultType.PASS;
     }
 
+
+
     // Enable directional placement
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    @Override
+    final public BlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing());
     }
+
+
 }

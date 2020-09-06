@@ -5,6 +5,7 @@ import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -15,6 +16,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.IProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -28,8 +32,8 @@ import java.util.Random;
 public class BlockWoodenPress extends Block {
 
     // Block property initializing
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
-    public static final IProperty<Boolean> WORKING = PropertyBool.create("working");
+    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final IProperty<Boolean> WORKING = BooleanProperty.create("working");
 
     // Block state creation (registering properties)
     @Override

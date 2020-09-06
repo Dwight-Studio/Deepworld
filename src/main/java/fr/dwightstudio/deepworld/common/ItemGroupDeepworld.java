@@ -1,10 +1,10 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-public class CreativeTabDeepworld extends CreativeTabs {
-    public CreativeTabDeepworld() {
+public class ItemGroupDeepworld extends ItemGroup {
+    public ItemGroupDeepworld() {
         super("tabDeepworld");
     }
 

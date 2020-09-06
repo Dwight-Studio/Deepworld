@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class ItemWoodenGearbox extends Item {
 
     public ItemWoodenGearbox() {
-        setCreativeTab(Deepworld.creativeTab);
+        setCreativeTab(Deepworld.itemGroup);
     }
 
     @Override

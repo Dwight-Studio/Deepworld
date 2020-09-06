@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemWoodenCasePanel extends Item {
 
     public ItemWoodenCasePanel() {
-        setCreativeTab(Deepworld.creativeTab);
+        setCreativeTab(Deepworld.itemGroup);
     }
 
     @Override

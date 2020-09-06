@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemSimplePressingChamber extends Item {
 
     public ItemSimplePressingChamber() {
-        setCreativeTab(Deepworld.creativeTab);
+        setCreativeTab(Deepworld.itemGroup);
     }
 
     @Override

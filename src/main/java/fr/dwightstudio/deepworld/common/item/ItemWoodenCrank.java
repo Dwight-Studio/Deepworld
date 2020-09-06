@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class ItemWoodenCrank extends Item {
 
     public ItemWoodenCrank() {
-        setCreativeTab(Deepworld.creativeTab);
+        setCreativeTab(Deepworld.itemGroup);
     }
 
     @Override

@@ -1,0 +1,36 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml"
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+# Forge for 1.15.2 is version 31
+loaderVersion="[31,)"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="github.com/Dwight-Studio/Deepworld/issues"
+# If the mods defined in this file should show as seperate resource packs
+showAsResourcePack=false
+
+[[mods]]
+modId="deepworld"
+version="${version}"
+displayName="The Deep World"
+updateJSONURL="raw.githubusercontent.com/Dwight-Studio/Deepworld/master/versions.json"
+displayURL="dwightstudio.fr/mc/deepworld (WIP)"
+logoFile="assets/deepworld/textures/logo.png"
+credits="This mod is made by the Dwight Studio Team."
+authors="Deleranax, WhiteRed & GamerMine"
+description='''
+      To make the nether go truly deep.\n§bThe Deep World§r is a mod that introduces a new intermediate dimension between the overworld and the nether to complexify the access to the latter.
+      '''
+
+[[dependencies.deepworld]]
+modId="forge"
+mandatory=true
+versionRange="[31,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.deepworld]]
+modId="minecraft"
+mandatory=true
+versionRange="[${mc_version}]"
+ordering="NONE"
+side="BOTH"

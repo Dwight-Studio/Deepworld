@@ -1,9 +1,7 @@
 package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldItemRegister;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
@@ -43,7 +41,7 @@ public class BlockWoodenPress extends Block {
     public BlockWoodenPress() {
         super(Material.WOOD);
         this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(Deepworld.creativeTab);
+        this.setCreativeTab(Deepworld.itemGroup);
         this.setHardness(3);
         this.setResistance(2);
 

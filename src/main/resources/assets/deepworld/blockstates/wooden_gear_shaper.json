@@ -5,33 +5,33 @@
   },
   "variants": {
     "facing=north,working=false": {
-      "model": "deepworld:wooden_gear_shaper"
+      "model": "deepworld:wooden_gear_shaper_idling"
     },
     "facing=east,working=false": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_idling",
       "y": 90
     },
     "facing=south,working=false": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_idling",
       "y": 180
     },
     "facing=west,working=false": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_idling",
       "y": 270
     },
     "facing=north,working=true": {
-      "model": "deepworld:wooden_gear_shaper"
+      "model": "deepworld:wooden_gear_shaper_working"
     },
     "facing=east,working=true": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_working",
       "y": 90
     },
     "facing=south,working=true": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_working",
       "y": 180
     },
     "facing=west,working=true": {
-      "model": "deepworld:wooden_gear_shaper",
+      "model": "deepworld:wooden_gear_shaper_working",
       "y": 270
     }
   }

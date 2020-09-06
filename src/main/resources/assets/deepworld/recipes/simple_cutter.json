@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "GSG",
+    "G G",
+    "GSG"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gearWood"
+    }
+  },
+  "result": {
+    "item": "deepworld:simple_cutter",
+    "count": 1
+  }
+}

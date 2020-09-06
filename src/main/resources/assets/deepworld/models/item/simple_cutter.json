@@ -1,0 +1,251 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "wooden_frame": "deepworld:blocks/wooden_frame",
+        "wooden_gear": "deepworld:items/wooden_gear"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Barre de gauche",
+            "from": [ 7, 12, 1 ], 
+            "to": [ 8, 13, 15 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 14, 1 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 14, 1 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 14 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 14 ] }
+            }
+        },
+        {
+            "name": "Barre de droite",
+            "from": [ 12, 7, 1 ], 
+            "to": [ 13, 8, 15 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
+                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 14, 1 ] },
+                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
+                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 14, 1 ] },
+                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 14 ] },
+                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 14 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 2 ], 
+            "to": [ 10, 15, 2 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 4 ], 
+            "to": [ 10, 15, 4 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 6 ], 
+            "to": [ 10, 15, 6 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 8 ], 
+            "to": [ 10, 15, 8 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 10 ], 
+            "to": [ 10, 15, 10 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 12 ], 
+            "to": [ 10, 15, 12 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 5, 10, 14 ], 
+            "to": [ 10, 15, 14 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 13 ], 
+            "to": [ 15, 10, 13 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 11 ], 
+            "to": [ 15, 10, 11 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 9 ], 
+            "to": [ 15, 10, 9 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 7 ], 
+            "to": [ 15, 10, 7 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 5 ], 
+            "to": [ 15, 10, 5 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        },
+        {
+            "name": "Dent",
+            "from": [ 10, 5, 3 ], 
+            "to": [ 15, 10, 3 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+            }
+        }
+    ]
+}

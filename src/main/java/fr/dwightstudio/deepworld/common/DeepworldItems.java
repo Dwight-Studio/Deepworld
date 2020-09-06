@@ -9,6 +9,7 @@ public class DeepworldItems {
     // Items
     public static final Item WOODEN_CASE_PANEL;
     public static final Item SIMPLE_PRESSING_CHAMBER;
+    public static final Item SIMPLE_CUTTER;
     public static final Item WOODEN_GEARBOX;
     public static final Item WOODEN_CRANK;
     public static final Item IRON_PLATE;
@@ -27,6 +28,7 @@ public class DeepworldItems {
         // Items
         WOODEN_CASE_PANEL = getRegisteredItem("wooden_case_panel");
         SIMPLE_PRESSING_CHAMBER = getRegisteredItem("simple_pressing_chamber");
+        SIMPLE_CUTTER = getRegisteredItem("simple_cutter");
         WOODEN_GEARBOX = getRegisteredItem("wooden_gearbox");
         WOODEN_CRANK = getRegisteredItem("wooden_crank");
         WOODEN_GEAR = getRegisteredItem("wooden_gear");

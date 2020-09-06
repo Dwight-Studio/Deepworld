@@ -21,13 +21,18 @@ public enum WoodenFrameComponent {
     WOODEN_GEARBOX(
             "wooden_gearbox",
             ComponentClass.SECONDARY,
-            new String[] {"wooden_press"}
+            new String[] {"wooden_press", "wooden_gear_shaper"}
             ),
     WOODEN_CRANK(
             "wooden_crank",
             ComponentClass.TERTIARY,
-            new String[] {"wooden_press"}
-            );
+            new String[] {"wooden_press", "wooden_gear_shaper"}
+            ),
+    SIMPLE_CUTTER(
+            "simple_cutter",
+            ComponentClass.PRIMARY,
+            new String[] {"wooden_gear_shaper"}
+    );
 
     // Var
     private final String item;

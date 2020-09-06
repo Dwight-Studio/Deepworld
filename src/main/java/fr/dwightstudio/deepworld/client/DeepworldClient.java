@@ -32,6 +32,7 @@ public class DeepworldClient extends Deepworld {
         registerItemModel(DeepworldItems.WOODEN_CRANK, 0);
         registerItemModel(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 0);
         registerItemModel(DeepworldItems.WOODEN_GEAR, 0);
+        registerItemModel(DeepworldItems.IRON_PLATE, 0);
     }
 
     private static void registerBlockModel(Block block, int metadata) {

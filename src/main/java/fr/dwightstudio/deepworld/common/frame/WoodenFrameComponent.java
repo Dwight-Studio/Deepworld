@@ -101,7 +101,7 @@ public enum WoodenFrameComponent {
             rtn.add(Block.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, block)));
         }
 
-        return (Block[]) rtn.toArray(new Block[0]);
+        return (Block[]) rtn.toArray(new Block[1]);
     }
 
     public int getID() {

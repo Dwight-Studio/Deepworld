@@ -31,12 +31,14 @@ public class ItemWoodenCasePanel extends Item {
             TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
 
             if (tileEntity.getMachineBlock() == null) {
+                Deepworld.logger.info("FAIL1");
                 return EnumActionResult.FAIL;
             }
 
             boolean success = tileEntity.addCover();
 
             if (!success) {
+                Deepworld.logger.info("FAIL2");
                 return EnumActionResult.FAIL;
             }
 
@@ -45,6 +47,7 @@ public class ItemWoodenCasePanel extends Item {
             }
             return EnumActionResult.SUCCESS;
     } else {
+            Deepworld.logger.info("PASS");
             return EnumActionResult.PASS;
         }
     }

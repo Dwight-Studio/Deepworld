@@ -88,6 +88,14 @@
       "apply": {
         "model": "deepworld:wooden_crank"
       }
+    },
+    {
+      "when": {
+        "primary_component":  "2"
+      },
+      "apply": {
+        "model": "deepworld:simple_cutter"
+      }
     }
   ]
 }

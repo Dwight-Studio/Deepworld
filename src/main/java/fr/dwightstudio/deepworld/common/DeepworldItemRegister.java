@@ -21,6 +21,8 @@ public class DeepworldItemRegister {
         Item WOODEN_CRANK = new ItemWoodenCrank();
         Item WOODEN_GEAR = new ItemWoodenGear();
         Item IRON_PLATE = new ItemIronPlate();
+        Item STEEL_PLATE = new ItemSteelPlate();
+        Item OBSIDIAN_INFUSED_STEEL_PLATE = new ItemObsidianInfusedSteelPlate();
 
         registry.register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         registry.register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
@@ -29,6 +31,8 @@ public class DeepworldItemRegister {
         registry.register(prepare(WOODEN_CRANK, "wooden_crank"));
         registry.register(prepare(WOODEN_GEAR, "wooden_gear"));
         registry.register(prepare(IRON_PLATE, "iron_plate"));
+        registry.register(prepare(STEEL_PLATE, "steel_plate"));
+        registry.register(prepare(OBSIDIAN_INFUSED_STEEL_PLATE, "obsidian_infused_steel_plate"));
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {

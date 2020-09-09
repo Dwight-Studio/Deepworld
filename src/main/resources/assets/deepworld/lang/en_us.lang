@@ -20,3 +20,6 @@ item.deepworld_wooden_crank.name=Wooden Crank (Component)
 item.deepworld_simple_pressing_chamber.name=Simple Pressing Chamber (Component)
 item.deepworld_simple_cutter.name=Simple Cutter (Component)
 item.deepworld_wooden_gear.name=Wooden Gear
+item.deepworld_iron_plate.name=Iron Plate
+item.deepworld_steel_plate.name=Steel Plate
+item.deepworld_obsidian_infused_steel_plate.name=Obsidian-Infused Steel Plate

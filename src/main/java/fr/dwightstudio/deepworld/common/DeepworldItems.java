@@ -13,6 +13,8 @@ public class DeepworldItems {
     public static final Item WOODEN_GEARBOX;
     public static final Item WOODEN_CRANK;
     public static final Item IRON_PLATE;
+    public static final Item STEEL_PLATE;
+    public static final Item OBSIDIAN_INFUSED_STEEL_PLATE;
 
     // Itemblocks
     public static final Item WOODEN_FRAME;
@@ -33,6 +35,8 @@ public class DeepworldItems {
         WOODEN_CRANK = getRegisteredItem("wooden_crank");
         WOODEN_GEAR = getRegisteredItem("wooden_gear");
         IRON_PLATE = getRegisteredItem("iron_plate");
+        STEEL_PLATE = getRegisteredItem("steel_plate");
+        OBSIDIAN_INFUSED_STEEL_PLATE = getRegisteredItem("obsidian_infused_steel_plate");
 
         // Itemblocks
         WOODEN_FRAME = getRegisteredItem("wooden_frame");

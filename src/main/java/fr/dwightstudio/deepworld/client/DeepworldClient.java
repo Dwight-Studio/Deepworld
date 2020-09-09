@@ -33,6 +33,8 @@ public class DeepworldClient extends Deepworld {
         registerItemModel(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 0);
         registerItemModel(DeepworldItems.WOODEN_GEAR, 0);
         registerItemModel(DeepworldItems.IRON_PLATE, 0);
+        registerItemModel(DeepworldItems.STEEL_PLATE, 0);
+        registerItemModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_PLATE, 0);
         registerItemModel(DeepworldItems.SIMPLE_CUTTER, 0);
     }
 

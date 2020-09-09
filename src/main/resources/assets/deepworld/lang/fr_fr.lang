@@ -21,3 +21,5 @@ item.deepworld_simple_pressing_chamber.name=Chambre de pressage simple (Composan
 item.deepworld_simple_cutter.name=Coupeuse simple (Composant)
 item.deepworld_wooden_gear.name=Engrenage en Bois
 item.deepworld_iron_plate.name=Plaque en fer
+item.deepworld_steel_plate.name=Plaque en acier
+item.deepworld_obsidian_infused_steel_plate.name=Plaque en acier imprégné d'obsidienne

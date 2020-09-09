@@ -67,184 +67,184 @@
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 2 ], 
-            "to": [ 10, 15, 2 ], 
+            "from": [ 4, 9, 2 ], 
+            "to": [ 11, 16, 2 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 4 ], 
-            "to": [ 10, 15, 4 ], 
+            "from": [ 4, 9, 4 ], 
+            "to": [ 11, 16, 4 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 6 ], 
-            "to": [ 10, 15, 6 ], 
+            "from": [ 4, 9, 6 ], 
+            "to": [ 11, 16, 6 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 8 ], 
-            "to": [ 10, 15, 8 ], 
+            "from": [ 4, 9, 8 ], 
+            "to": [ 11, 16, 8 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 10 ], 
-            "to": [ 10, 15, 10 ], 
+            "from": [ 4, 9, 10 ], 
+            "to": [ 11, 16, 10 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 12 ], 
-            "to": [ 10, 15, 12 ], 
+            "from": [ 4, 9, 12 ], 
+            "to": [ 11, 16, 12 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 5, 10, 14 ], 
-            "to": [ 10, 15, 14 ], 
+            "from": [ 4, 9, 14 ], 
+            "to": [ 11, 16, 14 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 13 ], 
-            "to": [ 15, 10, 13 ], 
+            "from": [ 9, 4, 13 ], 
+            "to": [ 16, 11, 13 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 11 ], 
-            "to": [ 15, 10, 11 ], 
+            "from": [ 9, 4, 11 ], 
+            "to": [ 16, 11, 11 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 9 ], 
-            "to": [ 15, 10, 9 ], 
+            "from": [ 9, 4, 9 ], 
+            "to": [ 16, 11, 9 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 7 ], 
-            "to": [ 15, 10, 7 ], 
+            "from": [ 9, 4, 7 ], 
+            "to": [ 16, 11, 7 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 5 ], 
-            "to": [ 15, 10, 5 ], 
+            "from": [ 9, 4, 5 ], 
+            "to": [ 16, 11, 5 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         },
         {
             "name": "Dent",
-            "from": [ 10, 5, 3 ], 
-            "to": [ 15, 10, 3 ], 
+            "from": [ 9, 4, 3 ], 
+            "to": [ 16, 11, 3 ], 
             "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
             "faces": {
                 "north": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
+                "east": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
                 "south": { "texture": "#wooden_gear", "uv": [ 0, 0, 16, 16 ] },
-                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 5 ] },
-                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] },
-                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 5, 0 ] }
+                "west": { "texture": "#wooden_gear", "uv": [ 0, 0, 0, 7 ] },
+                "up": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] },
+                "down": { "texture": "#wooden_gear", "uv": [ 0, 0, 7, 0 ] }
             }
         }
     ]

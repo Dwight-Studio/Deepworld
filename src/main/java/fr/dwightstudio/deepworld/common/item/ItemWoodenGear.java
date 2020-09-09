@@ -6,6 +6,6 @@ import net.minecraft.item.Item;
 public class ItemWoodenGear extends Item {
 
     public ItemWoodenGear() {
-        setCreativeTab(Deepworld.itemGroup);
+        super(new Item.Properties().group(Deepworld.itemGroup));
     }
 }

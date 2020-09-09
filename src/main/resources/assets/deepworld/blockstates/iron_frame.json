@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "deepworld:iron_frame"
+        "model": "deepworld:block/iron_frame"
       }
     }
   ]

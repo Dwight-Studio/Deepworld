@@ -2,67 +2,121 @@
   "multipart": [
     {
       "apply": {
-        "model": "deepworld:wooden_frame"
-      }
-    },
-    {
-      "when": {
-        "bottom": "true"
-      },
-      "apply": {
-        "model": "deepworld:wooden_case_panel_bottom"
-      }
-    },
-    {
-      "when": {
-        "top": "true"
-      },
-      "apply": {
-        "model": "deepworld:wooden_case_panel_top"
+        "model": "deepworld:block/wooden_frame"
       }
     },
     {
       "when": { "OR" : [
-        {"front":  "true", "facing": "north"},
-        {"back":  "true", "facing": "south"},
-        {"right":  "true", "facing": "east"},
-        {"left":  "true", "facing": "west"}
+        {"cover":  "1"},
+        {"cover":  "2"},
+        {"cover":  "3"},
+        {"cover":  "4"},
+        {"cover":  "5"},
+        {"cover":  "6"}
       ]},
       "apply": {
-        "model": "deepworld:wooden_case_panel_front"
+        "model": "deepworld:block/wooden_case_panel_bottom"
       }
     },
     {
       "when": { "OR" : [
-        {"back":  "true", "facing": "north"},
-        {"front":  "true", "facing": "south"},
-        {"left":  "true", "facing": "east"},
-        {"right":  "true", "facing": "west"}
+        {"cover":  "5"},
+        {"cover":  "6"}
       ]},
       "apply": {
-        "model": "deepworld:wooden_case_panel_back"
+        "model": "deepworld:block/wooden_case_panel_top"
       }
     },
     {
       "when": { "OR" : [
-        {"left":  "true", "facing": "north"},
-        {"right":  "true", "facing": "south"},
-        {"back":  "true", "facing": "east"},
-        {"front":  "true", "facing": "west"}
+        {"cover":  "6", "facing": "north"},
+
+        {"cover":  "4", "facing": "east"},
+        {"cover":  "5", "facing": "east"},
+        {"cover":  "6", "facing": "east"},
+
+        {"cover":  "3", "facing": "south"},
+        {"cover":  "4", "facing": "south"},
+        {"cover":  "5", "facing": "south"},
+        {"cover":  "6", "facing": "south"},
+
+        {"cover":  "2", "facing": "west"},
+        {"cover":  "3", "facing": "west"},
+        {"cover":  "4", "facing": "west"},
+        {"cover":  "5", "facing": "west"},
+        {"cover":  "6", "facing": "west"}
       ]},
       "apply": {
-        "model": "deepworld:wooden_case_panel_left"
+        "model": "deepworld:block/wooden_case_panel_front"
       }
     },
     {
       "when": { "OR" : [
-        {"right":  "true", "facing": "north"},
-        {"left":  "true", "facing": "south"},
-        {"front":  "true", "facing": "east"},
-        {"back":  "true", "facing": "west"}
+        {"cover":  "6", "facing": "south"},
+
+        {"cover":  "4", "facing": "east"},
+        {"cover":  "5", "facing": "east"},
+        {"cover":  "6", "facing": "east"},
+
+        {"cover":  "3", "facing": "north"},
+        {"cover":  "4", "facing": "north"},
+        {"cover":  "5", "facing": "north"},
+        {"cover":  "6", "facing": "north"},
+
+        {"cover":  "2", "facing": "east"},
+        {"cover":  "3", "facing": "east"},
+        {"cover":  "4", "facing": "east"},
+        {"cover":  "5", "facing": "east"},
+        {"cover":  "6", "facing": "east"}
       ]},
       "apply": {
-        "model": "deepworld:wooden_case_panel_right"
+        "model": "deepworld:block/wooden_case_panel_back"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"cover":  "6", "facing": "west"},
+
+        {"cover":  "4", "facing": "south"},
+        {"cover":  "5", "facing": "south"},
+        {"cover":  "6", "facing": "south"},
+
+        {"cover":  "3", "facing": "east"},
+        {"cover":  "4", "facing": "east"},
+        {"cover":  "5", "facing": "east"},
+        {"cover":  "6", "facing": "east"},
+
+        {"cover":  "2", "facing": "north"},
+        {"cover":  "3", "facing": "north"},
+        {"cover":  "4", "facing": "north"},
+        {"cover":  "5", "facing": "north"},
+        {"cover":  "6", "facing": "north"}
+      ]},
+      "apply": {
+        "model": "deepworld:block/wooden_case_panel_left"
+      }
+    },
+    {
+      "when": { "OR" : [
+        {"cover":  "6", "facing": "east"},
+
+        {"cover":  "4", "facing": "north"},
+        {"cover":  "5", "facing": "north"},
+        {"cover":  "6", "facing": "north"},
+
+        {"cover":  "3", "facing": "west"},
+        {"cover":  "4", "facing": "west"},
+        {"cover":  "5", "facing": "west"},
+        {"cover":  "6", "facing": "west"},
+
+        {"cover":  "2", "facing": "south"},
+        {"cover":  "3", "facing": "south"},
+        {"cover":  "4", "facing": "south"},
+        {"cover":  "5", "facing": "south"},
+        {"cover":  "6", "facing": "south"}
+      ]},
+      "apply": {
+        "model": "deepworld:block/wooden_case_panel_right"
       }
     },
     {
@@ -70,7 +124,7 @@
         "primary_component":  "1"
       },
       "apply": {
-        "model": "deepworld:simple_pressing_chamber"
+        "model": "deepworld:item/simple_pressing_chamber"
       }
     },
     {
@@ -78,7 +132,7 @@
         "secondary_component":  "1"
       },
       "apply": {
-        "model": "deepworld:wooden_gearbox"
+        "model": "deepworld:item/wooden_gearbox"
       }
     },
     {
@@ -86,7 +140,7 @@
         "tertiary_component":  "1"
       },
       "apply": {
-        "model": "deepworld:wooden_crank"
+        "model": "deepworld:item/wooden_crank"
       }
     }
   ]

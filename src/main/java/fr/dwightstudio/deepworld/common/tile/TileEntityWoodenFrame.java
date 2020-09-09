@@ -213,13 +213,6 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
             for (Block primaryComponentBlock : WoodenFrameComponent.getByID(primaryComponent).getMachineBlocks()) {
                 for (Block secondaryComponentBlock : WoodenFrameComponent.getByID(secondaryComponent).getMachineBlocks()) {
                     for (Block tertiaryComponentBlock : WoodenFrameComponent.getByID(tertiaryComponent).getMachineBlocks()) {
-                        Deepworld.logger.info(primaryComponentBlock.getRegistryName().getPath());
-                        Deepworld.logger.info(secondaryComponentBlock.getRegistryName().getPath());
-                        Deepworld.logger.info(tertiaryComponentBlock.getRegistryName().getPath());
-                        Deepworld.logger.info(primaryComponent);
-                        Deepworld.logger.info(secondaryComponent);
-                        Deepworld.logger.info(tertiaryComponent);
-                        Deepworld.logger.info("----------------------");
                         if (primaryComponentBlock == secondaryComponentBlock && secondaryComponentBlock == tertiaryComponentBlock) {
                             return primaryComponentBlock;
                         }

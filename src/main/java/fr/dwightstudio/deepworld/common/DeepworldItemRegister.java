@@ -23,6 +23,15 @@ public class DeepworldItemRegister {
         Item IRON_PLATE = new ItemIronPlate();
         Item STEEL_PLATE = new ItemSteelPlate();
         Item OBSIDIAN_INFUSED_STEEL_PLATE = new ItemObsidianInfusedSteelPlate();
+        Item IRON_ROD = new ItemIronRod();
+        Item STEEL_ROD = new ItemSteelRod();
+        Item OBSIDIAN_INFUSED_STEEL_ROD = new ItemObsidianInfusedSteelRod();
+        Item IRON_NAIL = new ItemIronNail();
+        Item STEEL_NAIL = new ItemSteelNail();
+        Item OBSIDIAN_INFUSED_STEEL_NAIL = new ItemObsidianInfusedSteelNail();
+        Item IRON_SCREW = new ItemIronScrew();
+        Item STEEL_SCREW = new ItemSteelScrew();
+        Item OBSIDIAN_INFUSED_STEEL_SCREW = new ItemObsidianInfusedSteelScrew();
 
         registry.register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         registry.register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
@@ -33,6 +42,15 @@ public class DeepworldItemRegister {
         registry.register(prepare(IRON_PLATE, "iron_plate"));
         registry.register(prepare(STEEL_PLATE, "steel_plate"));
         registry.register(prepare(OBSIDIAN_INFUSED_STEEL_PLATE, "obsidian_infused_steel_plate"));
+        registry.register(prepare(IRON_ROD, "iron_rod"));
+        registry.register(prepare(STEEL_ROD, "steel_rod"));
+        registry.register(prepare(OBSIDIAN_INFUSED_STEEL_ROD, "obsidian_infused_steel_rod"));
+        registry.register(prepare(IRON_NAIL, "iron_nail"));
+        registry.register(prepare(STEEL_NAIL, "steel_nail"));
+        registry.register(prepare(OBSIDIAN_INFUSED_STEEL_NAIL, "obsidian_infused_steel_nail"));
+        registry.register(prepare(IRON_SCREW, "iron_screw"));
+        registry.register(prepare(STEEL_SCREW, "steel_screw"));
+        registry.register(prepare(OBSIDIAN_INFUSED_STEEL_SCREW, "obsidian_infused_steel_screw"));
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {

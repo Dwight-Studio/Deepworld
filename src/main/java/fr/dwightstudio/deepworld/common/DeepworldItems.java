@@ -15,6 +15,15 @@ public class DeepworldItems {
     public static final Item IRON_PLATE;
     public static final Item STEEL_PLATE;
     public static final Item OBSIDIAN_INFUSED_STEEL_PLATE;
+    public static final Item IRON_ROD;
+    public static final Item STEEL_ROD;
+    public static final Item OBSIDIAN_INFUSED_STEEL_ROD;
+    public static final Item IRON_NAIL;
+    public static final Item STEEL_NAIL;
+    public static final Item OBSIDIAN_INFUSED_STEEL_NAIL;
+    public static final Item IRON_SCREW;
+    public static final Item STEEL_SCREW;
+    public static final Item OBSIDIAN_INFUSED_STEEL_SCREW;
 
     // Itemblocks
     public static final Item WOODEN_FRAME;
@@ -37,6 +46,15 @@ public class DeepworldItems {
         IRON_PLATE = getRegisteredItem("iron_plate");
         STEEL_PLATE = getRegisteredItem("steel_plate");
         OBSIDIAN_INFUSED_STEEL_PLATE = getRegisteredItem("obsidian_infused_steel_plate");
+        IRON_ROD = getRegisteredItem("iron_rod");
+        STEEL_ROD = getRegisteredItem("steel_rod");
+        OBSIDIAN_INFUSED_STEEL_ROD = getRegisteredItem("obsidian_infused_steel_rod");
+        IRON_NAIL = getRegisteredItem("iron_nail");
+        STEEL_NAIL = getRegisteredItem("steel_nail");
+        OBSIDIAN_INFUSED_STEEL_NAIL = getRegisteredItem("obsidian_infused_steel_nail");
+        IRON_SCREW = getRegisteredItem("iron_screw");
+        STEEL_SCREW = getRegisteredItem("steel_screw");
+        OBSIDIAN_INFUSED_STEEL_SCREW = getRegisteredItem("obsidian_infused_steel_screw");
 
         // Itemblocks
         WOODEN_FRAME = getRegisteredItem("wooden_frame");

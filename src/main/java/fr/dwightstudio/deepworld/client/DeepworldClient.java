@@ -31,11 +31,20 @@ public class DeepworldClient extends Deepworld {
         registerItemModel(DeepworldItems.WOODEN_GEARBOX, 0);
         registerItemModel(DeepworldItems.WOODEN_CRANK, 0);
         registerItemModel(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 0);
+        registerItemModel(DeepworldItems.SIMPLE_CUTTER, 0);
         registerItemModel(DeepworldItems.WOODEN_GEAR, 0);
         registerItemModel(DeepworldItems.IRON_PLATE, 0);
         registerItemModel(DeepworldItems.STEEL_PLATE, 0);
         registerItemModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_PLATE, 0);
-        registerItemModel(DeepworldItems.SIMPLE_CUTTER, 0);
+        registerItemModel(DeepworldItems.IRON_ROD, 0);
+        registerItemModel(DeepworldItems.STEEL_ROD, 0);
+        registerItemModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_ROD, 0);
+        registerItemModel(DeepworldItems.IRON_NAIL, 0);
+        registerItemModel(DeepworldItems.STEEL_NAIL, 0);
+        registerItemModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_NAIL, 0);
+        registerItemModel(DeepworldItems.IRON_SCREW, 0);
+        registerItemModel(DeepworldItems.STEEL_SCREW, 0);
+        registerItemModel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_SCREW, 0);
     }
 
     private static void registerBlockModel(Block block, int metadata) {

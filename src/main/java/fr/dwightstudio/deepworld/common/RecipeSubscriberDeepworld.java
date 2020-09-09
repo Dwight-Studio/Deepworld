@@ -1,7 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 
-@GameRegistry.ObjectHolder(Deepworld.MOD_ID)
+@ObjectHolder(Deepworld.MOD_ID)
 public class RecipeSubscriberDeepworld {
 }

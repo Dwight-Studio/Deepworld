@@ -3,7 +3,7 @@ package fr.dwightstudio.deepworld.common;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder("deepworld")
+@ObjectHolder(Deepworld.MOD_ID)
 public class DeepworldItems {
 
     // Items

@@ -1,7 +1,6 @@
 package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -10,17 +9,14 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.ToolType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class BlockWoodenPress extends Block implements ITileEntityProvider {
+public class BlockWoodenPress extends Block /*implements ITileEntityProvider*/ {
 
     // Block property initializing
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -47,7 +43,7 @@ public class BlockWoodenPress extends Block implements ITileEntityProvider {
                 .with(WORKING, false)
         );
     }
-
+    /*
     // Assign the TileEntity
     @Override
     public boolean hasTileEntity() {
@@ -63,7 +59,7 @@ public class BlockWoodenPress extends Block implements ITileEntityProvider {
     public TileEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenPress();
     }
-
+    */
     // Setting customs drops
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {

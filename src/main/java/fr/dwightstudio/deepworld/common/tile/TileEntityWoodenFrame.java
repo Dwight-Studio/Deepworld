@@ -1,90 +1,55 @@
 package fr.dwightstudio.deepworld.common.tile;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
+import fr.dwightstudio.deepworld.common.block.BlockFrame;
+import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.Arrays;
-
-public class TileEntityWoodenFrame extends TileEntity implements ITickable {
+public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEntity {
 
     // TileEntity vars
-    private boolean bottomCover = false;
-    private boolean topCover = false;
-    private boolean frontCover = false;
-    private boolean backCover = false;
-    private boolean leftCover = false;
-    private boolean rightCover = false;
+    private int covers = 0;
 
     private int primaryComponent = 0;
     private int secondaryComponent = 0;
     private int tertiaryComponent = 0;
 
+    public TileEntityWoodenFrame() {
+        super(DeepworldTileEntities.WOODEN_FRAME_TILE_ENTITY_TYPE);
+    }
+
     // Convert NBT to internal vars
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void read(CompoundNBT compound) {
 
-        super.readFromNBT(compound); // The super call is required to load the tiles location
-        
-        if (compound.hasKey("BottomCover")) {
-            bottomCover = compound.getBoolean("BottomCover");
-        }
+        super.read(compound); // The super call is required to load the tiles location
 
-        if (compound.hasKey("TopCover")) {
-            topCover = compound.getBoolean("TopCover");
-        }
-
-        if (compound.hasKey("FrontCover")) {
-            frontCover = compound.getBoolean("FrontCover");
-        }
-        if (compound.hasKey("BackCover")) {
-            backCover = compound.getBoolean("BackCover");
-        }
-        if (compound.hasKey("LeftCover")) {
-            leftCover = compound.getBoolean("LeftCover");
-        }
-
-        if (compound.hasKey("RightCover")) {
-            rightCover = compound.getBoolean("RightCover");
-        }
-
-        if (compound.hasKey("PrimaryComponent")) {
-            primaryComponent = compound.getInteger("PrimaryComponent");
-        }
-
-        if (compound.hasKey("SecondaryComponent")) {
-            secondaryComponent = compound.getInteger("SecondaryComponent");
-        }
-
-        if (compound.hasKey("TertiaryComponent")) {
-            tertiaryComponent = compound.getInteger("TertiaryComponent");
-        }
-
+        covers = compound.getInt("Cover");
+        primaryComponent = compound.getInt("PrimaryComponent");
+        secondaryComponent = compound.getInt("SecondaryComponent");
+        tertiaryComponent = compound.getInt("TertiaryComponent");
     }
 
     // Convert internal vars to NBT
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT write(CompoundNBT compound) {
 
-        super.writeToNBT(compound); // The super call is required to save the tiles location
+        super.write(compound); // The super call is required to save the tiles location
 
-        compound.setBoolean("BottomCover", bottomCover);
-        compound.setBoolean("TopCover", topCover);
-        compound.setBoolean("FrontCover", frontCover);
-        compound.setBoolean("BackCover", backCover);
-        compound.setBoolean("LeftCover", leftCover);
-        compound.setBoolean("RightCover", rightCover);
+        compound.putInt("cover", covers);
 
-        compound.setInteger("PrimaryComponent", primaryComponent);
-        compound.setInteger("SecondaryComponent", secondaryComponent);
-        compound.setInteger("TertiaryComponent", tertiaryComponent);
+        compound.putInt("PrimaryComponent", primaryComponent);
+        compound.putInt("SecondaryComponent", secondaryComponent);
+        compound.putInt("TertiaryComponent", tertiaryComponent);
 
         return compound;
     }
@@ -96,81 +61,72 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
      * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
      */
     @Override
-    public NBTTagCompound getUpdateTag() {
+    public CompoundNBT  getUpdateTag() {
 
-        NBTTagCompound compound = new NBTTagCompound();
-        writeToNBT(compound);
+        CompoundNBT  compound = new CompoundNBT();
+        write(compound);
 
         return compound;
     }
 
     @Override
-    public void handleUpdateTag(NBTTagCompound compound) {
-        this.readFromNBT(compound);
-        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
+    public void handleUpdateTag(CompoundNBT compound) {
+        this.read(compound);
+
+        if (world != null) world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket()
+    public SUpdateTileEntityPacket getUpdatePacket()
     {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        writeToNBT(nbtTagCompound);
-        int metadata = getBlockMetadata();
-        return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+        CompoundNBT nbtTagCompound = new CompoundNBT();
+        write(nbtTagCompound);
+        return new SUpdateTileEntityPacket(this.pos, 0, nbtTagCompound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.getNbtCompound());
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        read(pkt.getNbtCompound());
     }
 
     // Get placed covers
-    public boolean[] getCovers() {
-
-        boolean[] covers = new boolean[6];
-
-        covers[0] = bottomCover;
-        covers[1] = topCover;
-        covers[2] = frontCover;
-        covers[3] = backCover;
-        covers[4] = leftCover;
-        covers[5] = rightCover;
-
+    public int getCovers() {
         return covers;
     }
 
     // Place a cover
     public boolean addCover() {
-        if (!bottomCover) {
-            bottomCover = true;
-        } else if (!topCover) {
-            topCover = true;
-        } else if (!leftCover) {
-            leftCover = true;
-        } else if (!backCover) {
-            backCover = true;
-        } else if (!rightCover) {
-            rightCover = true;
-        } else if (!frontCover) {
-            frontCover = true;
+        if (covers >= 0 && covers < 6) {
+            covers++;
         } else {
             return false;
         }
-        this.markDirty();
-        this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
+
+        updateBlockState();
         return true;
+    }
+
+    // Update BlockState
+    private void updateBlockState() {
+
+        BlockState currentBlockState = world.getBlockState(this.pos);
+        BlockState newBlockState = currentBlockState.with(BlockFrame.COVER, covers)
+                .with(BlockWoodenFrame.PRIMARY_COMPONENT, primaryComponent)
+                .with(BlockWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
+                .with(BlockWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
+        if (!newBlockState.equals(currentBlockState)) {
+            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+            markDirty();
+        }
     }
 
     // Update method (ran every tick)
     @Override
-    public void update() {
-        world.markBlockRangeForRenderUpdate(pos, pos);
-
-        Boolean complete = bottomCover && topCover && frontCover && backCover && rightCover && leftCover;
+    public void tick() {
         Block machineBlock = getMachineBlock();
 
         // Check if valid and set the block
-        if (machineBlock != null && complete) {
+        if (machineBlock != null && covers >= 6) {
             world.setBlockState(pos, machineBlock.getDefaultState().with(BlockWoodenPress.FACING, world.getBlockState(pos).get(BlockWoodenPress.FACING)));
         }
     }
@@ -182,9 +138,8 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
     }
 
     public void setPrimaryComponent(int primaryComponent) {
-        this.markDirty();
-        this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
         this.primaryComponent = primaryComponent;
+        updateBlockState();
     }
 
     public int getSecondaryComponent() {
@@ -192,9 +147,8 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
     }
 
     public void setSecondaryComponent(int secondaryComponent) {
-        this.markDirty();
-        this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
         this.secondaryComponent = secondaryComponent;
+        updateBlockState();
     }
 
     public int getTertiaryComponent() {
@@ -202,9 +156,8 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickable {
     }
 
     public void setTertiaryComponent(int tertiaryComponent) {
-        this.markDirty();
-        this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
         this.tertiaryComponent = tertiaryComponent;
+        updateBlockState();
     }
 
     // Check if the assembly of the components is coherent

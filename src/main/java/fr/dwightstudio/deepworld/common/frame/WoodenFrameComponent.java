@@ -14,25 +14,25 @@ public enum WoodenFrameComponent {
 
     // Components
     SIMPLE_PRESSING_CHAMBER(
-            "simple_pressing_chamber",
+            DeepworldItems.SIMPLE_PRESSING_CHAMBER,
             ComponentClass.PRIMARY,
-            new String[] {"wooden_press"}
+            new Block[] {DeepworldBlocks.WOODEN_PRESS}
     ),
     WOODEN_GEARBOX(
-            "wooden_gearbox",
+            DeepworldItems.WOODEN_GEARBOX,
             ComponentClass.SECONDARY,
-            new String[] {"wooden_press"}
+            new Block[] {DeepworldBlocks.WOODEN_PRESS}
             ),
     WOODEN_CRANK(
-            "wooden_crank",
+            DeepworldItems.WOODEN_CRANK,
             ComponentClass.TERTIARY,
-            new String[] {"wooden_press"}
+            new Block[] {DeepworldBlocks.WOODEN_PRESS}
             );
 
     // Var
-    private final String item;
+    private final Item item;
     private final ComponentClass componentClass;
-    private final String[] machineBlocks;
+    private final Block[] machineBlocks;
     private final int ID;
     
     // Static neasted class to store LastData.lastID
@@ -40,7 +40,7 @@ public enum WoodenFrameComponent {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(String item, ComponentClass componentClass, String[] machineBlocks) {
+    WoodenFrameComponent(Item item, ComponentClass componentClass, Block[] machineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
         this.machineBlocks = machineBlocks;
@@ -82,7 +82,7 @@ public enum WoodenFrameComponent {
     }
 
     public Item getItem() {
-        return Item.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, this.item));
+        return item;
     }
 
     public ComponentClass getComponentClass() {
@@ -90,13 +90,7 @@ public enum WoodenFrameComponent {
     }
 
     public Block[] getMachineBlocks() {
-        List<Block> rtn = new ArrayList<Block>();
-
-        for (String block : this.machineBlocks) {
-            rtn.add(Block.REGISTRY.getObject(new ResourceLocation(Deepworld.MOD_ID, block)));
-        }
-
-        return (Block[]) rtn.toArray(new Block[0]);
+        return machineBlocks;
     }
 
     public int getID() {

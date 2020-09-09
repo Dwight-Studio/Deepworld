@@ -2,6 +2,8 @@ package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.block.*;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +21,14 @@ public class DeepworldBlockRegister {
         Block IRON_FRAME = new BlockIronFrame();
         Block STEEL_FRAME = new BlockSteelFrame();
         Block OBSIDIAN_INFUSED_STEEL_FRAME = new BlockObsidianInfusedSteelFrame();
+
+        // Set render type
+        RenderTypeLookup.setRenderLayer(WOODEN_FRAME, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(IRON_FRAME, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(STEEL_FRAME, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(OBSIDIAN_INFUSED_STEEL_FRAME, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(WOODEN_GEAR_SHAPER, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(WOODEN_PRESS, RenderType.getTranslucent());
 
         event.getRegistry().register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlock(WOODEN_PRESS, "wooden_press"));

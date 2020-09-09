@@ -5,10 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.state.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -25,12 +22,7 @@ public class BlockFrame extends Block {
 
     // Block property initializing
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-    public static final IProperty<Boolean> BOTTOM = BooleanProperty.create("bottom");
-    public static final IProperty<Boolean> TOP = BooleanProperty.create("top");
-    public static final IProperty<Boolean> FRONT = BooleanProperty.create("front");
-    public static final IProperty<Boolean> BACK = BooleanProperty.create("back");
-    public static final IProperty<Boolean> LEFT = BooleanProperty.create("left");
-    public static final IProperty<Boolean> RIGHT = BooleanProperty.create("right");
+    public static final IntegerProperty COVER = IntegerProperty.create("cover", 0, 6);
 
     // Constructor
     public BlockFrame(Block.Properties properties) {
@@ -38,12 +30,7 @@ public class BlockFrame extends Block {
 
         this.setDefaultState(setComponentPropertiesDefaultValues(this.getStateContainer().getBaseState()
                         .with(FACING, Direction.NORTH)
-                        .with(BOTTOM, false)
-                        .with(TOP, false)
-                        .with(FRONT, false)
-                        .with(BACK, false)
-                        .with(LEFT, false)
-                        .with(RIGHT, false)
+                        .with(COVER, 0)
         ));
     }
 
@@ -63,12 +50,7 @@ public class BlockFrame extends Block {
         List<IProperty<?>> list = new ArrayList<IProperty<?>>();
 
         list.add(FACING);
-        list.add(BOTTOM);
-        list.add(TOP);
-        list.add(FRONT);
-        list.add(BACK);
-        list.add(LEFT);
-        list.add(RIGHT);
+        list.add(COVER);
 
         Collections.addAll(list, getComponentsProperties());
 

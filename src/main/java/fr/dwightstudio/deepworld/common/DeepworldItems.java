@@ -11,6 +11,18 @@ public class DeepworldItems {
     public static final Item SIMPLE_PRESSING_CHAMBER = null;
     public static final Item WOODEN_GEARBOX = null;
     public static final Item WOODEN_CRANK = null;
+    public static final Item IRON_PLATE = null;
+    public static final Item STEEL_PLATE = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_PLATE = null;
+    public static final Item IRON_ROD = null;
+    public static final Item STEEL_ROD = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_ROD = null;
+    public static final Item IRON_NAIL = null;
+    public static final Item STEEL_NAIL = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_NAIL = null;
+    public static final Item IRON_SCREW = null;
+    public static final Item STEEL_SCREW = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_SCREW = null;
 
     // BlockItems
     public static final Item WOODEN_FRAME = null;

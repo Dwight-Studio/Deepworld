@@ -13,11 +13,25 @@
   "block.deepworld.iron_frame": "Iron Frame",
   "block.deepworld.steel_frame": "Steel Frame",
   "block.deepworld.obsidian_infused_steel_frame": "Obsidian-Infused Steel Frame",
+  "block.deepworld.steel_block": "Steel Block",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Wooden Case Panel (Component)",
   "item.deepworld.wooden_gearbox": "Wooden Gearbox (Component)",
   "item.deepworld.wooden_crank": "Wooden Crank (Component)",
   "item.deepworld.simple_pressing_chamber": "Simple Pressing Chamber (Component)",
-  "item.deepworld.wooden_gear": "Wooden Gear"
+  "item.deepworld.wooden_gear": "Wooden Gear",
+  "item.deepworld.simple_cutter": "Simple Cutter (Component)",
+  "item.deepworld.iron_plate": "Iron Plate",
+  "item.deepworld.steel_plate": "Steel Plate",
+  "item.deepworld.obsidian_infused_steel_plate": "Obsidian-Infused Steel Plate",
+  "item.deepworld.iron_rod": "Iron Rod",
+  "item.deepworld.steel_rod": "Steel Rod",
+  "item.deepworld.obsidian_infused_steel_rod": "Obsidian-Infused Steel Rod",
+  "item.deepworld.iron_nail": "Iron Nail",
+  "item.deepworld.steel_nail": "Steel Nail",
+  "item.deepworld.obsidian_infused_steel_nail": "Obsidian-Infused Steel Nail",
+  "item.deepworld.iron_screw": "Iron Screw",
+  "item.deepworld.steel_screw": "Steel Screw",
+  "item.deepworld.obsidian_infused_steel_screw": "Obsidian-Infused Steel Screw"
 }

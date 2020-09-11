@@ -9,6 +9,7 @@ public class DeepworldItems {
     // Items
     public static final Item WOODEN_CASE_PANEL = null;
     public static final Item SIMPLE_PRESSING_CHAMBER = null;
+    public static final Item SIMPLE_CUTTER = null;
     public static final Item WOODEN_GEARBOX = null;
     public static final Item WOODEN_CRANK = null;
     public static final Item IRON_PLATE = null;
@@ -23,6 +24,7 @@ public class DeepworldItems {
     public static final Item IRON_SCREW = null;
     public static final Item STEEL_SCREW = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_SCREW = null;
+    public static final Item STEEL_INGOT = null;
 
     // BlockItems
     public static final Item WOODEN_FRAME = null;

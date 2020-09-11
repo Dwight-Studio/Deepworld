@@ -16,13 +16,18 @@ public enum WoodenFrameComponent {
     WOODEN_GEARBOX(
             DeepworldItems.WOODEN_GEARBOX,
             ComponentClass.SECONDARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
+            new Block[] {DeepworldBlocks.WOODEN_PRESS, DeepworldBlocks.WOODEN_GEAR_SHAPER}
             ),
     WOODEN_CRANK(
             DeepworldItems.WOODEN_CRANK,
             ComponentClass.TERTIARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
-            );
+            new Block[] {DeepworldBlocks.WOODEN_PRESS, DeepworldBlocks.WOODEN_GEAR_SHAPER}
+            ),
+    SIMPLE_CUTTER(
+            DeepworldItems.SIMPLE_CUTTER,
+            ComponentClass.PRIMARY,
+            new Block[] {DeepworldBlocks.WOODEN_GEAR_SHAPER}
+    );
 
     // Var
     private final Item item;

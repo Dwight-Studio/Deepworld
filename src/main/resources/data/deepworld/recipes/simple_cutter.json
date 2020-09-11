@@ -1,17 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SS",
-    "S ",
-    "SS"
+    "GSG",
+    "G G",
+    "GSG"
   ],
   "key": {
     "S": {
       "tag": "forge:rods/wooden"
+    },
+    "G": {
+      "tag": "forge:gear/wooden"
     }
   },
   "result": {
-    "item": "deepworld:wooden_crank",
+    "item": "deepworld:simple_cutter",
     "count": 1
   }
 }

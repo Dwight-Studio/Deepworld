@@ -15,6 +15,7 @@ public class DeepworldItemRegister {
 
         Item WOODEN_CASE_PANEL = new ItemWoodenCasePanel();
         Item SIMPLE_PRESSING_CHAMBER = new ItemSimplePressingChamber();
+        Item SIMPLE_CUTTER = new ItemSimpleCutter();
         Item WOODEN_GEARBOX = new ItemWoodenGearbox();
         Item WOODEN_CRANK = new ItemWoodenCrank();
         Item WOODEN_GEAR = new ItemWoodenGear();
@@ -30,9 +31,11 @@ public class DeepworldItemRegister {
         Item IRON_SCREW = new ItemIronScrew();
         Item STEEL_SCREW = new ItemSteelScrew();
         Item OBSIDIAN_INFUSED_STEEL_SCREW = new ItemObsidianInfusedSteelScrew();
+        Item STEEL_INGOT = new ItemSteelIngot();
 
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
+        event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
         event.getRegistry().register(prepare(WOODEN_GEARBOX, "wooden_gearbox"));
         event.getRegistry().register(prepare(WOODEN_CRANK, "wooden_crank"));
         event.getRegistry().register(prepare(WOODEN_GEAR, "wooden_gear"));
@@ -48,6 +51,7 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(IRON_SCREW, "iron_screw"));
         event.getRegistry().register(prepare(STEEL_SCREW, "steel_screw"));
         event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SCREW, "obsidian_infused_steel_screw"));
+        event.getRegistry().register(prepare(STEEL_INGOT, "steel_ingot"));
 
 
         // Simple itemProperties for BlockItem

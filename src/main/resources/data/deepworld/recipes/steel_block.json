@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SS",
-    "S ",
-    "SS"
+    "SSS",
+    "SSS",
+    "SSS"
   ],
   "key": {
     "S": {
-      "tag": "forge:rods/wooden"
+      "item": "deepworld:steel_ingot"
     }
   },
   "result": {
-    "item": "deepworld:wooden_crank",
+    "item": "deepworld:steel_block",
     "count": 1
   }
 }

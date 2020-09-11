@@ -1,5 +1,5 @@
 {
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "GPG",
     "C C",
@@ -7,15 +7,13 @@
   ],
   "key": {
     "C": {
-      "type": "forge:ore_dict",
-      "ore": "cobblestone"
+      "tag": "forge:cobblestone"
     },
     "P": {
       "item": "minecraft:piston"
     },
     "G": {
-      "type": "forge:ore_dict",
-      "ore": "gearWood"
+      "tag": "forge:gear/wooden"
     }
   },
   "result": {

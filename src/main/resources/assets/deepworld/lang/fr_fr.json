@@ -13,11 +13,25 @@
   "block.deepworld.iron_frame": "Cadre en Fer",
   "block.deepworld.steel_frame": "Cadre en Acier",
   "block.deepworld.obsidian_infused_steel_frame": "Cadre en Acier imprégné d'Obsidienne",
+  "block.deepworld.steel_block": "Bloc d'Acier",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Plaque de chassîs en Bois (Composant)",
   "item.deepworld.wooden_gearbox": "Boîte à engrenages en Bois (Composant)",
   "item.deepworld.wooden_crank": "Manivelle en Bois (Composant)",
   "item.deepworld.simple_pressing_chamber": "Chambre de pressage simple (Composant)",
-  "item.deepworld.wooden_gear": "Engrenage en Bois"
+  "item.deepworld.wooden_gear": "Engrenage en Bois",
+  "item.deepworld.simple_cutter": "Coupeuse simple (Composant)",
+  "item.deepworld.iron_plate": "Plaque en Fer",
+  "item.deepworld.steel_plate": "Plaque en Acier",
+  "item.deepworld.obsidian_infused_steel_plate": "Plaque en Acier imprégné d'Obsidienne",
+  "item.deepworld.iron_rod": "Tige en Fer",
+  "item.deepworld.steel_rod": "Tige en Acier",
+  "item.deepworld.obsidian_infused_steel_rod": "Tige en Acier imprégné d'Obsidienne",
+  "item.deepworld.iron_nail": "Clou en Fer",
+  "item.deepworld.steel_nail": "Clou en Acier",
+  "item.deepworld.obsidian_infused_steel_nail": "Clou en Acier imprégné d'Obsidienne",
+  "item.deepworld.iron_screw": "Vis en Fer",
+  "item.deepworld.steel_screw": "Vis en Acier",
+  "item.deepworld.obsidian_infused_steel_screw": "Vis en Acier imprégné d'Obsidienne"
 }

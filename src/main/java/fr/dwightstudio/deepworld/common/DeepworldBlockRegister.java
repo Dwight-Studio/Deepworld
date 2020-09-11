@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 
 public class DeepworldBlockRegister {
 
@@ -23,6 +22,14 @@ public class DeepworldBlockRegister {
         Block OBSIDIAN_INFUSED_STEEL_FRAME = new BlockObsidianInfusedSteelFrame();
         Block STEEL_BLOCK = new BlockSteelBlock();
 
+        event.getRegistry().register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
+        event.getRegistry().register(prepareBlock(WOODEN_PRESS, "wooden_press"));
+        event.getRegistry().register(prepareBlock(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
+        event.getRegistry().register(prepareBlock(IRON_FRAME, "iron_frame"));
+        event.getRegistry().register(prepareBlock(STEEL_FRAME, "steel_frame"));
+        event.getRegistry().register(prepareBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
+        event.getRegistry().register(prepareBlock(STEEL_BLOCK, "steel_block"));
+
         // Set render type
         RenderTypeLookup.setRenderLayer(WOODEN_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(IRON_FRAME, RenderType.getCutout());
@@ -31,14 +38,6 @@ public class DeepworldBlockRegister {
         RenderTypeLookup.setRenderLayer(WOODEN_GEAR_SHAPER, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WOODEN_PRESS, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(STEEL_BLOCK, RenderType.getSolid());
-
-        event.getRegistry().register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
-        event.getRegistry().register(prepareBlock(WOODEN_PRESS, "wooden_press"));
-        event.getRegistry().register(prepareBlock(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
-        event.getRegistry().register(prepareBlock(IRON_FRAME, "iron_frame"));
-        event.getRegistry().register(prepareBlock(STEEL_FRAME, "steel_frame"));
-        event.getRegistry().register(prepareBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
-        event.getRegistry().register(prepareBlock(STEEL_BLOCK, "steel_block"));
     }
 
     // Prepare block

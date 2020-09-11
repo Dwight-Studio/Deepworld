@@ -4,7 +4,10 @@ import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.frame.ComponentClass;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -45,7 +48,8 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
         .hardnessAndResistance(3, 2)
         .harvestLevel(0)
         .harvestTool(ToolType.AXE)
-        .noDrops());
+        .noDrops()
+        .notSolid());
     }
 
     // Assign the TileEntity

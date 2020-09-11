@@ -71,6 +71,7 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
     // Setting customs drops (depends on what was stored inside)
     @Override
     public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+
         TileEntity aTileEntity = world.getTileEntity(pos);
 
         if (aTileEntity instanceof TileEntityWoodenFrame) {

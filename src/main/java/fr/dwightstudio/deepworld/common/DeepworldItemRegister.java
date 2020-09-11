@@ -1,8 +1,11 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.item.*;
+import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +36,10 @@ public class DeepworldItemRegister {
         Item OBSIDIAN_INFUSED_STEEL_SCREW = new ItemObsidianInfusedSteelScrew();
         Item STEEL_INGOT = new ItemSteelIngot();
 
+        //Tools
+        Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 0, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 8, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
+
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
         event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
@@ -52,6 +59,8 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(STEEL_SCREW, "steel_screw"));
         event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SCREW, "obsidian_infused_steel_screw"));
         event.getRegistry().register(prepare(STEEL_INGOT, "steel_ingot"));
+        event.getRegistry().register(prepare(STEEL_PICKAXE, "steel_pickaxe"));
+        event.getRegistry().register(prepare(STEEL_SWORD, "steel_sword"));
 
 
         // Simple itemProperties for BlockItem

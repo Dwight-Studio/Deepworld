@@ -34,5 +34,7 @@
   "item.deepworld.iron_screw": "Iron Screw",
   "item.deepworld.steel_screw": "Steel Screw",
   "item.deepworld.obsidian_infused_steel_screw": "Obsidian-Infused Steel Screw",
-  "item.deepworld.steel_ingot": "Steel Ingot"
+  "item.deepworld.steel_ingot": "Steel Ingot",
+  "item.deepworld.steel_pickaxe": "Steel Pickaxe",
+  "item.deepworld.steel_sword": "Steel Sword"
 }

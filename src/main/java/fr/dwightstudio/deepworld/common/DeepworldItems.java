@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.common.item.ItemIronPlate;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -25,6 +26,10 @@ public class DeepworldItems {
     public static final Item STEEL_SCREW = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_SCREW = null;
     public static final Item STEEL_INGOT = null;
+
+    // Tools
+    public static final Item STEEL_PICKAXE = null;
+    public static final Item STEEL_SWORD = null;
 
     // BlockItems
     public static final Item WOODEN_FRAME = null;

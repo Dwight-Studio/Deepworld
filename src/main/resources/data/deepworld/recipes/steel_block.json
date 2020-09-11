@@ -7,7 +7,7 @@
   ],
   "key": {
     "S": {
-      "item": "deepworld:steel_ingot"
+      "tag": "forge:ingots/steel"
     }
   },
   "result": {

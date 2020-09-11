@@ -50,6 +50,7 @@ public class BlockWoodenGearShaper extends Block {
         List<ItemStack> drops = new ArrayList<ItemStack>();
 
         drops.add(new ItemStack(DeepworldItems.WOODEN_CRANK, 1));
+        drops.add(new ItemStack(DeepworldItems.SIMPLE_CUTTER, 1));
         drops.add(new ItemStack(DeepworldItems.WOODEN_GEARBOX, 1));
         drops.add(new ItemStack(Items.STICK, 4));
         drops.add(new ItemStack(Blocks.OAK_PLANKS, 4));

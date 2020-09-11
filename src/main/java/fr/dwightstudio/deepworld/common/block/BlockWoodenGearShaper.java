@@ -1,12 +1,10 @@
 package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
@@ -51,6 +49,10 @@ public class BlockWoodenGearShaper extends Block {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         List<ItemStack> drops = new ArrayList<ItemStack>();
 
+        drops.add(new ItemStack(DeepworldItems.WOODEN_CRANK, 1));
+        drops.add(new ItemStack(DeepworldItems.WOODEN_GEARBOX, 1));
+        drops.add(new ItemStack(Items.STICK, 4));
+        drops.add(new ItemStack(Blocks.OAK_PLANKS, 4));
         drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, 6));
 
         return drops;

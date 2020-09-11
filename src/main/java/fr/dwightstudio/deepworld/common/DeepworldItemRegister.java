@@ -18,6 +18,7 @@ public class DeepworldItemRegister {
 
         Item WOODEN_CASE_PANEL = new ItemWoodenCasePanel();
         Item SIMPLE_PRESSING_CHAMBER = new ItemSimplePressingChamber();
+        Item SIMPLE_CUTTER = new ItemSimpleCutter();
         Item WOODEN_GEARBOX = new ItemWoodenGearbox();
         Item WOODEN_CRANK = new ItemWoodenCrank();
         Item WOODEN_GEAR = new ItemWoodenGear();
@@ -36,6 +37,7 @@ public class DeepworldItemRegister {
 
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
+        event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
         event.getRegistry().register(prepare(WOODEN_GEARBOX, "wooden_gearbox"));
         event.getRegistry().register(prepare(WOODEN_CRANK, "wooden_crank"));
         event.getRegistry().register(prepare(WOODEN_GEAR, "wooden_gear"));

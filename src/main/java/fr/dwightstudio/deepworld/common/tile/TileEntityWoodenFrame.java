@@ -24,7 +24,7 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
     private int tertiaryComponent = 0;
 
     public TileEntityWoodenFrame() {
-        super(DeepworldTileEntities.WOODEN_FRAME_TILE_ENTITY_TYPE);
+        super(DeepworldTileEntities.WOODEN_FRAME);
     }
 
     // Convert NBT to internal vars

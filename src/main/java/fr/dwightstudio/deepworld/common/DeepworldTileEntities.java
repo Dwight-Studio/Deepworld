@@ -7,6 +7,6 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(Deepworld.MOD_ID)
 public class DeepworldTileEntities {
 
-    public static final TileEntityType<TileEntityWoodenFrame> WOODEN_FRAME_TILE_ENTITY_TYPE = null;
-    // public static final TileEntityType<TileEntityWoodenPress> WOODEN_PRESS_TILE_ENTITY_TYPE = null;
+    public static final TileEntityType<TileEntityWoodenFrame> WOODEN_FRAME = null;
+    // public static final TileEntityType<TileEntityWoodenPress> WOODEN_PRESS = null;
 }

@@ -129,6 +129,14 @@
     },
     {
       "when": {
+        "primary_component":  "2"
+      },
+      "apply": {
+        "model": "deepworld:item/simple_cutter"
+      }
+    },
+    {
+      "when": {
         "secondary_component":  "1"
       },
       "apply": {

@@ -18,6 +18,5 @@ public class DeepworldTileEntityRegister {
 
         event.getRegistry().register(WOODEN_FRAME_TILE_ENTITY_TYPE);
         // event.getRegistry().register(WOODEN_PRESS_ENTITY_TYPE);
-        Deepworld.logger.info("#JESUISLA");
     }
 }

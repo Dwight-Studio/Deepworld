@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.item.*;
+import jdk.nashorn.internal.ir.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
@@ -63,6 +64,7 @@ public class DeepworldItemRegister {
         BlockItem IRON_FRAME = new BlockItem(DeepworldBlocks.IRON_FRAME, simpleItemProperties);
         BlockItem STEEL_FRAME = new BlockItem(DeepworldBlocks.STEEL_FRAME, simpleItemProperties);
         BlockItem OBSIDIAN_INFUSED_STEEL_FRAME = new BlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME, simpleItemProperties);
+        BlockItem STEEL_BLOCK = new BlockItem(DeepworldBlocks.STEEL_BLOCK, simpleItemProperties);
 
         event.getRegistry().register(prepareBlockItem(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlockItem(WOODEN_PRESS, "wooden_press"));
@@ -70,6 +72,7 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepareBlockItem(IRON_FRAME, "iron_frame"));
         event.getRegistry().register(prepareBlockItem(STEEL_FRAME, "steel_frame"));
         event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
+        event.getRegistry().register(prepareBlockItem(STEEL_BLOCK, "steel_block"));
     }
 
     // Prepare items

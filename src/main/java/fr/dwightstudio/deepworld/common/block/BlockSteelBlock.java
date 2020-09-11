@@ -4,9 +4,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 
-public class BlockSteelFrame extends BlockFrame {
+public class BlockSteelBlock extends BlockFrame {
 
-    public BlockSteelFrame() {
+    public BlockSteelBlock() {
         super(Properties.create(Material.IRON)
                 .sound(SoundType.METAL)
                 .hardnessAndResistance(10, 9)

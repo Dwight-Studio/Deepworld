@@ -32,4 +32,5 @@ public class DeepworldItems {
     public static final Item STEEL_FRAME = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_FRAME = null;
     public static final Item WOODEN_GEAR = null;
+    public static final Item STEEL_BLOCK = null;
 }

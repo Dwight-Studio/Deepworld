@@ -1,0 +1,13 @@
+
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "deepworld:blocks/steel_block",
+    "up": "deepworld:blocks/steel_block",
+    "north": "deepworld:blocks/steel_block",
+    "east": "deepworld:blocks/steel_block",
+    "south": "deepworld:blocks/steel_block",
+    "west": "deepworld:blocks/steel_block",
+    "particle": "block/lapis_block"
+  }
+}

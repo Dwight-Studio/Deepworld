@@ -1,5 +1,5 @@
 {
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "PPP",
     "GSG",
@@ -7,16 +7,13 @@
   ],
   "key": {
     "S": {
-      "type": "forge:ore_dict",
-      "ore": "stickWood"
+      "tag": "forge:rods/wooden"
     },
     "P": {
-      "type": "forge:ore_dict",
-      "ore": "plankWood"
+      "tag": "minecraft:planks"
     },
     "G": {
-      "type": "forge:ore_dict",
-      "ore": "gearWood"
+      "tag": "forge:gear/wooden"
     }
   },
   "result": {

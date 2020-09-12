@@ -35,9 +35,9 @@ public class DeepworldItemRegister {
 
         //Tools
         Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 7, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 5, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
         Item STEEL_AXE = new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.STEEL, 2, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.STEEL, 3.5F, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
         Item STEEL_HOE = new HoeItem(ToolsMaterialsTier.STEEL, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
 
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));

@@ -35,8 +35,7 @@ public class BlockWoodenPress extends Block /*implements ITileEntityProvider*/ {
                 .sound(SoundType.WOOD)
                 .hardnessAndResistance(3, 2)
                 .harvestLevel(0)
-                .harvestTool(ToolType.AXE)
-                .noDrops());
+                .harvestTool(ToolType.AXE));
 
         this.setDefaultState(this.getStateContainer().getBaseState()
                 .with(FACING, Direction.NORTH)

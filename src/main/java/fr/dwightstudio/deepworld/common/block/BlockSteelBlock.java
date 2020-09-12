@@ -20,14 +20,4 @@ public class BlockSteelBlock extends BlockFrame {
                 .harvestLevel(2)
                 .harvestTool(ToolType.PICKAXE));
     }
-
-    @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-
-        List<ItemStack> rtn = new ArrayList<ItemStack>();
-
-        rtn.add(new ItemStack(DeepworldItems.STEEL_BLOCK, 1));
-
-        return rtn;
-    }
 }

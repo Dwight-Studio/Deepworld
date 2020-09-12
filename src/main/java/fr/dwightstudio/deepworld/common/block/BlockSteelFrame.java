@@ -11,6 +11,7 @@ public class BlockSteelFrame extends BlockFrame {
                 .sound(SoundType.METAL)
                 .hardnessAndResistance(10, 9)
                 .harvestLevel(2)
-                .harvestTool(ToolType.PICKAXE));
+                .harvestTool(ToolType.PICKAXE)
+                .notSolid());
     }
 }

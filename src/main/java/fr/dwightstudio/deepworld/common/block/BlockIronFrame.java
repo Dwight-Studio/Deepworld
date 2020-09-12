@@ -11,6 +11,6 @@ public class BlockIronFrame extends BlockFrame {
                 .hardnessAndResistance(4, 3)
                 .harvestLevel(1)
                 .harvestTool(ToolType.PICKAXE)
-                .noDrops());
+                .notSolid());
     }
 }

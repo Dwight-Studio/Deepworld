@@ -13,7 +13,7 @@
       "tag": "minecraft:planks"
     },
     "G": {
-      "tag": "forge:gear/wooden"
+      "tag": "deepworld:gear/wooden"
     }
   },
   "result": {

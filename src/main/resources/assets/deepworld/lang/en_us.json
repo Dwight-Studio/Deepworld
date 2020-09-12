@@ -14,6 +14,7 @@
   "block.deepworld.steel_frame": "Steel Frame",
   "block.deepworld.obsidian_infused_steel_frame": "Obsidian-Infused Steel Frame",
   "block.deepworld.steel_block": "Steel Block",
+  "block.deepworld.obsidian_infused_steel_block": "Obsidian-Infused Steel Block",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Wooden Case Panel (Component)",
@@ -34,10 +35,19 @@
   "item.deepworld.iron_screw": "Iron Screw",
   "item.deepworld.steel_screw": "Steel Screw",
   "item.deepworld.obsidian_infused_steel_screw": "Obsidian-Infused Steel Screw",
+  "item.deepworld.iron_gear": "Iron Gear",
+  "item.deepworld.steel_gear": "Steel Gear",
+  "item.deepworld.obsidian_infused_steel_gear": "Obsidian-Infused Steel Gear",
   "item.deepworld.steel_ingot": "Steel Ingot",
+  "item.deepworld.obsidian_infused_steel_ingot": "Obsidian-Infused Steel Ingot",
   "item.deepworld.steel_pickaxe": "Steel Pickaxe",
   "item.deepworld.steel_sword": "Steel Sword",
   "item.deepworld.steel_axe": "Steel Axe",
   "item.deepworld.steel_shovel": "Steel Shovel",
-  "item.deepworld.steel_hoe": "Steel Hoe"
+  "item.deepworld.steel_hoe": "Steel Hoe",
+  "item.deepworld.obsidian_infused_steel_pickaxe": "Obsidian-Infused Steel Pickaxe",
+  "item.deepworld.obsidian_infused_steel_sword": "Obsidian-Infused Steel Sword",
+  "item.deepworld.obsidian_infused_steel_axe": "Obsidian-Infused Steel Axe",
+  "item.deepworld.obsidian_infused_steel_shovel": "Obsidian-Infused Steel Shovel",
+  "item.deepworld.obsidian_infused_steel_hoe": "Obsidian-Infused Steel Hoe"
 }

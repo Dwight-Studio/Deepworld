@@ -14,6 +14,7 @@
   "block.deepworld.steel_frame": "Cadre en Acier",
   "block.deepworld.obsidian_infused_steel_frame": "Cadre en Acier imprégné d'Obsidienne",
   "block.deepworld.steel_block": "Bloc d'Acier",
+  "block.deepworld.obsidian_infused_steel_block": "Bloc d'Acier imprégné d'Obsidienne",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Plaque de chassîs en Bois (Composant)",
@@ -34,10 +35,19 @@
   "item.deepworld.iron_screw": "Vis en Fer",
   "item.deepworld.steel_screw": "Vis en Acier",
   "item.deepworld.obsidian_infused_steel_screw": "Vis en Acier imprégné d'Obsidienne",
+  "item.deepworld.iron_gear": "Engrenage en Fer",
+  "item.deepworld.steel_gear": "Engrenage en Acier",
+  "item.deepworld.obsidian_infused_steel_gear": "Engrenage en Acier imprégné d'Obsidienne",
   "item.deepworld.steel_ingot": "Lingot d'Acier",
+  "item.deepworld.obsidian_infused_steel_ingot": "Lingot d'Acier imprégné d'Obsidienne",
   "item.deepworld.steel_pickaxe": "Pioche en Acier",
   "item.deepworld.steel_sword": "Épée en Acier",
   "item.deepworld.steel_axe": "Hache en Acier",
   "item.deepworld.steel_shovel": "Pelle en Acier",
-  "item.deepworld.steel_hoe": "Houe en Acier"
+  "item.deepworld.steel_hoe": "Houe en Acier",
+  "item.deepworld.obsidian_infused_steel_pickaxe": "Pioche en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_sword": "Épée en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_axe": "Hache en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_shovel": "Pelle en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_hoe": "Houe en Acier imprégné d'Obsidienne"
 }

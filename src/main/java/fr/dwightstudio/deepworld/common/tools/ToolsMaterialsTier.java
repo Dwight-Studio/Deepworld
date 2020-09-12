@@ -8,8 +8,12 @@ import java.util.function.Supplier;
 
 public enum ToolsMaterialsTier implements IItemTier {
 
-    STEEL(2, 1800, 6.5F, 0.0F, 14, () -> {
+    STEEL(2, 1800, 6.5F, 0.0F, 12, () -> {
         return Ingredient.fromItems(DeepworldItems.STEEL_INGOT);
+    }),
+
+    OBSIDIAN_INFUSED_STEEL(3, 1600, 9.0F, 0.0F, 14, () -> {
+        return Ingredient.fromItems(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
     });
 
     private final int harvest_level;

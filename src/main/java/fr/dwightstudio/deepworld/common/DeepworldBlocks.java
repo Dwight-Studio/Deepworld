@@ -14,4 +14,5 @@ public class DeepworldBlocks {
     public static final Block STEEL_FRAME = null;
     public static final Block OBSIDIAN_INFUSED_STEEL_FRAME = null;
     public static final Block STEEL_BLOCK = null;
+    public static final Block OBSIDIAN_INFUSED_STEEL_BLOCK = null;
 }

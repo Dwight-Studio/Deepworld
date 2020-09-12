@@ -25,7 +25,12 @@ public class DeepworldItems {
     public static final Item IRON_SCREW = null;
     public static final Item STEEL_SCREW = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_SCREW = null;
+    public static final Item WOODEN_GEAR = null;
+    public static final Item IRON_GEAR = null;
+    public static final Item STEEL_GEAR = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_GEAR = null;
     public static final Item STEEL_INGOT = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_INGOT = null;
 
     // Tools
     public static final Item STEEL_PICKAXE = null;
@@ -41,6 +46,6 @@ public class DeepworldItems {
     public static final Item IRON_FRAME = null;
     public static final Item STEEL_FRAME = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_FRAME = null;
-    public static final Item WOODEN_GEAR = null;
     public static final Item STEEL_BLOCK = null;
+    public static final Item OBSIDIAN_INFUSED_STEEL_BLOCK = null;
 }

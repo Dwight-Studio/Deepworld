@@ -2,10 +2,7 @@ package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.item.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,8 +34,11 @@ public class DeepworldItemRegister {
         Item STEEL_INGOT = new ItemSteelIngot();
 
         //Tools
-        Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 0, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 8, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 7, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_AXE = new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.STEEL, 2, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_HOE = new HoeItem(ToolsMaterialsTier.STEEL, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
 
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
@@ -61,6 +61,9 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(STEEL_INGOT, "steel_ingot"));
         event.getRegistry().register(prepare(STEEL_PICKAXE, "steel_pickaxe"));
         event.getRegistry().register(prepare(STEEL_SWORD, "steel_sword"));
+        event.getRegistry().register(prepare(STEEL_AXE, "steel_axe"));
+        event.getRegistry().register(prepare(STEEL_SHOVEL, "steel_shovel"));
+        event.getRegistry().register(prepare(STEEL_HOE, "steel_hoe"));
 
 
         // Simple itemProperties for BlockItem

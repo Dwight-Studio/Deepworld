@@ -36,5 +36,8 @@
   "item.deepworld.obsidian_infused_steel_screw": "Vis en Acier imprégné d'Obsidienne",
   "item.deepworld.steel_ingot": "Lingot d'Acier",
   "item.deepworld.steel_pickaxe": "Pioche en Acier",
-  "item.deepworld.steel_sword": "Épée en Acier"
+  "item.deepworld.steel_sword": "Épée en Acier",
+  "item.deepworld.steel_axe": "Hache en Acier",
+  "item.deepworld.steel_shovel": "Pelle en Acier",
+  "item.deepworld.steel_hoe": "Houe en Acier"
 }

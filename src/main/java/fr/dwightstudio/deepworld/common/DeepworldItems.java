@@ -30,6 +30,9 @@ public class DeepworldItems {
     // Tools
     public static final Item STEEL_PICKAXE = null;
     public static final Item STEEL_SWORD = null;
+    public static final Item STEEL_AXE = null;
+    public static final Item STEEL_SHOVEL = null;
+    public static final Item STEEL_HOE = null;
 
     // BlockItems
     public static final Item WOODEN_FRAME = null;

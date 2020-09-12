@@ -13,7 +13,7 @@
       "item": "minecraft:piston"
     },
     "G": {
-      "tag": "deepworld:gear/wooden"
+      "tag": "forge:gear/wooden"
     }
   },
   "result": {

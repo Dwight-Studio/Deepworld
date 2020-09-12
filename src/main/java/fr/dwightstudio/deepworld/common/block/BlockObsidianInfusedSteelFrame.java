@@ -12,6 +12,6 @@ public class BlockObsidianInfusedSteelFrame extends BlockFrame {
                 .hardnessAndResistance(25, 18)
                 .harvestLevel(3)
                 .harvestTool(ToolType.PICKAXE)
-                .noDrops());
+                .notSolid());
     }
 }

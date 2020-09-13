@@ -11,7 +11,7 @@
     }
   },
   "result": {
-    "item": "deepworld:steel_block",
+    "item": "forge:storage_blocks/steel",
     "count": 1
   }
 }

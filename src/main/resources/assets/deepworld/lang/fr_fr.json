@@ -49,5 +49,9 @@
   "item.deepworld.obsidian_infused_steel_sword": "Épée en Acier imprégné d'Obsidienne",
   "item.deepworld.obsidian_infused_steel_axe": "Hache en Acier imprégné d'Obsidienne",
   "item.deepworld.obsidian_infused_steel_shovel": "Pelle en Acier imprégné d'Obsidienne",
-  "item.deepworld.obsidian_infused_steel_hoe": "Houe en Acier imprégné d'Obsidienne"
+  "item.deepworld.obsidian_infused_steel_hoe": "Houe en Acier imprégné d'Obsidienne",
+  "item.deepworld.steel_helmet": "Casque en Acier",
+  "item.deepworld.steel_chestplate": "Plastron en Acier",
+  "item.deepworld.steel_leggings": "Jambières en Acier",
+  "item.deepworld.steel_boots": "Bottes en Acier"
 }

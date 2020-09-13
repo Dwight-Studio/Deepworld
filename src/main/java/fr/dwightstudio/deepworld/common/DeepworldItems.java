@@ -39,6 +39,12 @@ public class DeepworldItems {
     public static final Item STEEL_SHOVEL = null;
     public static final Item STEEL_HOE = null;
 
+    // Armor
+    public static final Item STEEL_HELMET = null;
+    public static final Item STEEL_CHESTPLATE = null;
+    public static final Item STEEL_LEGGINGS = null;
+    public static final Item STEEL_BOOTS = null;
+
     // BlockItems
     public static final Item WOODEN_FRAME = null;
     public static final Item WOODEN_PRESS = null;

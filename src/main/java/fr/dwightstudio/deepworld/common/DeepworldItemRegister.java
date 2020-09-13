@@ -1,7 +1,9 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.common.armor.ArmorMaterialsTier;
 import fr.dwightstudio.deepworld.common.item.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -49,6 +51,12 @@ public class DeepworldItemRegister {
         Item OBSIDIAN_INFUSED_STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4.5F, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
         Item OBSIDIAN_INFUSED_STEEL_HOE = new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
 
+        //Armors
+        Item STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.HEAD, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.FEET, new Item.Properties().group(Deepworld.itemGroup));
+
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
         event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
@@ -85,6 +93,11 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SHOVEL, "obsidian_infused_steel_shovel"));
         event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_HOE, "obsidian_infused_steel_hoe"));
 
+        //Armors
+        event.getRegistry().register(prepare(STEEL_HELMET, "steel_helmet"));
+        event.getRegistry().register(prepare(STEEL_CHESTPLATE, "steel_chestplate"));
+        event.getRegistry().register(prepare(STEEL_LEGGINGS, "steel_leggings"));
+        event.getRegistry().register(prepare(STEEL_BOOTS, "steel_boots"));
 
         // Simple itemProperties for BlockItem
         Item.Properties simpleItemProperties = new Item.Properties()

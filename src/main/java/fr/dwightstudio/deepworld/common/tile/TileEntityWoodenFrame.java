@@ -5,16 +5,20 @@ import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
+import javafx.geometry.HorizontalDirection;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Rotation;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEntity {
+public class TileEntityWoodenFrame extends TileEntity {
 
     // TileEntity vars
     private int covers = 0;
@@ -102,7 +106,11 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
             return false;
         }
 
-        updateBlockState();
+        if (covers == 6) {
+            ApplyCraft();
+        } else {
+            updateBlockState();
+        }
         return true;
     }
 
@@ -110,7 +118,8 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
     private void updateBlockState() {
 
         BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockFrame.COVER, covers)
+        BlockState newBlockState = currentBlockState
+                .with(BlockFrame.COVER, covers)
                 .with(BlockWoodenFrame.PRIMARY_COMPONENT, primaryComponent)
                 .with(BlockWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
                 .with(BlockWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
@@ -120,9 +129,19 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
         }
     }
 
-    // Update method (ran every tick)
-    @Override
-    public void tick() {
+    // Apply craft
+    private void ApplyCraft() {
+        Block result = WoodenFrameComponent.getResultFromTile(this);
+        BlockState state = result.getDefaultState();
+
+        if (state.getProperties().contains(HorizontalBlock.HORIZONTAL_FACING)) {
+            state = state.with(HorizontalBlock.HORIZONTAL_FACING, world.getBlockState(pos).get(BlockFrame.FACING));
+        }
+
+        world.setBlockState(this.pos, state);
+
+        world.setBlockState(this.pos, state, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+        markDirty();
     }
 
 

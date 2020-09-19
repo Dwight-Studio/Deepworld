@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;

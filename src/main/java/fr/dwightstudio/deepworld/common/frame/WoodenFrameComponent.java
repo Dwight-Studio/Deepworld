@@ -1,13 +1,12 @@
 package fr.dwightstudio.deepworld.common.frame;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import org.lwjgl.system.CallbackI;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public enum WoodenFrameComponent {
 
@@ -15,36 +14,36 @@ public enum WoodenFrameComponent {
     SIMPLE_PRESSING_CHAMBER(
             DeepworldItems.SIMPLE_PRESSING_CHAMBER,
             ComponentClass.PRIMARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS}
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press")}
     ),
     WOODEN_GEARBOX(
             DeepworldItems.WOODEN_GEARBOX,
             ComponentClass.SECONDARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS, DeepworldBlocks.WOODEN_GEAR_SHAPER}
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
             ),
     WOODEN_CRANK(
             DeepworldItems.WOODEN_CRANK,
             ComponentClass.TERTIARY,
-            new Block[] {DeepworldBlocks.WOODEN_PRESS, DeepworldBlocks.WOODEN_GEAR_SHAPER}
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
             ),
     SIMPLE_CUTTER(
             DeepworldItems.SIMPLE_CUTTER,
             ComponentClass.PRIMARY,
-            new Block[] {DeepworldBlocks.WOODEN_GEAR_SHAPER}
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
     );
 
     // Var
     private final Item item;
     private final ComponentClass componentClass;
-    private final Block[] machineBlocks;
+    private final ResourceLocation[] machineBlocks;
     private final int ID;
     
-    // Static neasted class to store LastData.lastID
+    // Static nested class to store LastData.lastID
     private static class LastData {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(Item item, ComponentClass componentClass, Block[] machineBlocks) {
+    WoodenFrameComponent(Item item, ComponentClass componentClass, ResourceLocation[] machineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
         this.machineBlocks = machineBlocks;
@@ -60,9 +59,9 @@ public enum WoodenFrameComponent {
         return LastData.lastID[componentClass.getIndex()];
     }
 
-    public static WoodenFrameComponent getByID(int ID) {
+    public static WoodenFrameComponent getByID(int ID, ComponentClass componentClass) {
         for (WoodenFrameComponent component : WoodenFrameComponent.values()) {
-            if (component.getID() == ID) {
+            if (component.getComponentClass() == componentClass && component.getID() == ID) {
                 return component;
             }
         }
@@ -90,26 +89,26 @@ public enum WoodenFrameComponent {
     }
 
     public static Block getResult(int ci1, int ci2, int ci3) {
-        WoodenFrameComponent c1 = getByID(ci1);
-        WoodenFrameComponent c2 = getByID(ci2);
-        WoodenFrameComponent c3 = getByID(ci3);
+        WoodenFrameComponent c1 = getByID(ci1, ComponentClass.PRIMARY);
+        WoodenFrameComponent c2 = getByID(ci2, ComponentClass.SECONDARY);
+        WoodenFrameComponent c3 = getByID(ci3, ComponentClass.TERTIARY);
 
         return getResult(c1, c2, c3);
     }
 
     public static Block getResult(WoodenFrameComponent c1, WoodenFrameComponent c2, WoodenFrameComponent c3) {
         if (c1 == null || c2 == null || c3 == null) return null;
-        Deepworld.logger.info("---");
+
+        Deepworld.logger.info(c1.getMachineBlocks().length * c2.getMachineBlocks().length * c3.getMachineBlocks().length);
 
         for (Block PrimaryMachineBlock : c1.getMachineBlocks()) {
             for (Block SecondaryMachineBlock : c2.getMachineBlocks()) {
                 for (Block TertiaryMachineBlock : c3.getMachineBlocks()) {
-                    Deepworld.logger.info(PrimaryMachineBlock.getRegistryName().getPath() + " " + SecondaryMachineBlock.getRegistryName().getPath() + " " + TertiaryMachineBlock.getRegistryName().getPath());
+                    Deepworld.logger.info(PrimaryMachineBlock.getRegistryName().toString() + " " + SecondaryMachineBlock.getRegistryName().toString() + " " + TertiaryMachineBlock.getRegistryName().toString());
                     if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock) return PrimaryMachineBlock;
                 }
             }
         }
-        Deepworld.logger.info("NF");
         return null;
     }
 
@@ -122,7 +121,15 @@ public enum WoodenFrameComponent {
     }
 
     public Block[] getMachineBlocks() {
-        return machineBlocks;
+        Block[] rtn = new Block[machineBlocks.length];
+
+        int i = 0;
+        for (ResourceLocation machineBlock : machineBlocks) {
+            rtn[i] = ForgeRegistries.BLOCKS.getValue(machineBlock);
+            i++;
+        }
+
+        return rtn;
     }
 
     public int getID() {

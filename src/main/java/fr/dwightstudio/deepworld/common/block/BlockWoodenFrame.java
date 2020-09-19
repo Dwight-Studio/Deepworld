@@ -17,7 +17,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.ToolType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider {
 
@@ -65,5 +69,31 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
     @Override
     public TileEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenFrame();
+    }
+
+    // Setting drops
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> drops = new ArrayList<ItemStack>();
+
+        drops.add(new ItemStack(DeepworldItems.WOODEN_FRAME, 1));
+
+        if (state.get(COVER) > 0) {
+            drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, state.get(COVER)));
+        }
+
+        if (state.get(PRIMARY_COMPONENT) > 0) {
+            drops.add(new ItemStack(WoodenFrameComponent.getByID(state.get(PRIMARY_COMPONENT), ComponentClass.PRIMARY).getItem(), 1));
+        }
+
+        if (state.get(SECONDARY_COMPONENT) > 0) {
+            drops.add(new ItemStack(WoodenFrameComponent.getByID(state.get(SECONDARY_COMPONENT), ComponentClass.SECONDARY).getItem(), 1));
+        }
+
+        if (state.get(TERTIARY_COMPONENT) > 0) {
+            drops.add(new ItemStack(WoodenFrameComponent.getByID(state.get(TERTIARY_COMPONENT), ComponentClass.TERTIARY).getItem(), 1));
+        }
+
+        return drops;
     }
 }

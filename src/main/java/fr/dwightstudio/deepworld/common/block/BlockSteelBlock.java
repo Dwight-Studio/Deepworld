@@ -19,5 +19,16 @@ public class BlockSteelBlock extends BlockFrame {
                 .hardnessAndResistance(10, 9)
                 .harvestLevel(2)
                 .harvestTool(ToolType.PICKAXE));
+
+    }
+
+    // Setting drops
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> drops = new ArrayList<ItemStack>();
+
+        drops.add(new ItemStack(DeepworldItems.STEEL_BLOCK, 1));
+
+        return drops;
     }
 }

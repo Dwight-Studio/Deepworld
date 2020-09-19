@@ -12,28 +12,28 @@ public enum WoodenFrameComponent {
 
     // Components
     SIMPLE_PRESSING_CHAMBER(
-            DeepworldItems.SIMPLE_PRESSING_CHAMBER,
+            new ResourceLocation(Deepworld.MOD_ID, "simple_pressing_chamber"),
             ComponentClass.PRIMARY,
             new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press")}
     ),
     WOODEN_GEARBOX(
-            DeepworldItems.WOODEN_GEARBOX,
+            new ResourceLocation(Deepworld.MOD_ID, "wooden_gearbox"),
             ComponentClass.SECONDARY,
             new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
             ),
     WOODEN_CRANK(
-            DeepworldItems.WOODEN_CRANK,
+            new ResourceLocation(Deepworld.MOD_ID, "wooden_crank"),
             ComponentClass.TERTIARY,
             new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
             ),
     SIMPLE_CUTTER(
-            DeepworldItems.SIMPLE_CUTTER,
+            new ResourceLocation(Deepworld.MOD_ID, "simple_cutter"),
             ComponentClass.PRIMARY,
             new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
     );
 
     // Var
-    private final Item item;
+    private final ResourceLocation item;
     private final ComponentClass componentClass;
     private final ResourceLocation[] machineBlocks;
     private final int ID;
@@ -43,7 +43,7 @@ public enum WoodenFrameComponent {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(Item item, ComponentClass componentClass, ResourceLocation[] machineBlocks) {
+    WoodenFrameComponent(ResourceLocation item, ComponentClass componentClass, ResourceLocation[] machineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
         this.machineBlocks = machineBlocks;
@@ -113,7 +113,7 @@ public enum WoodenFrameComponent {
     }
 
     public Item getItem() {
-        return item;
+        return ForgeRegistries.ITEMS.getValue(item);
     }
 
     public ComponentClass getComponentClass() {

@@ -66,39 +66,4 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
     public TileEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenFrame();
     }
-
-    // Setting customs drops (depends on what was stored inside)
-    @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
-
-        TileEntity aTileEntity = world.getTileEntity(pos);
-
-        if (aTileEntity instanceof TileEntityWoodenFrame) {
-            TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
-
-            // CasePlate
-            int casePlate = tileEntity.getCovers();
-
-            if (casePlate > 0) {
-                spawnAsEntity(world, pos, new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, casePlate));
-            }
-
-            // Components
-            if (tileEntity.getPrimaryComponent() != 0) {
-                spawnAsEntity(world, pos, new ItemStack(WoodenFrameComponent.getByID(tileEntity.getPrimaryComponent()).getItem(), 1));
-            }
-
-            if (tileEntity.getSecondaryComponent() != 0) {
-                spawnAsEntity(world, pos, new ItemStack(WoodenFrameComponent.getByID(tileEntity.getSecondaryComponent()).getItem(), 1));
-            }
-
-            if (tileEntity.getTertiaryComponent() != 0) {
-                spawnAsEntity(world, pos, new ItemStack(WoodenFrameComponent.getByID(tileEntity.getTertiaryComponent()).getItem(), 1));
-            }
-
-        }
-
-        spawnAsEntity(world, pos, new ItemStack(Items.STICK, 4));
-        spawnAsEntity(world, pos, new ItemStack(Blocks.OAK_PLANKS, 4));
-    }
 }

@@ -1,9 +1,13 @@
 package fr.dwightstudio.deepworld.common.frame;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
+import fr.dwightstudio.deepworld.common.block.BlockFrame;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import org.lwjgl.system.CallbackI;
 
 public enum WoodenFrameComponent {
 
@@ -79,6 +83,34 @@ public enum WoodenFrameComponent {
         }
 
         return rtn;
+    }
+
+    public static Block getResultFromTile(TileEntityWoodenFrame tile) {
+        return getResult(tile.getPrimaryComponent(), tile.getSecondaryComponent(), tile.getTertiaryComponent());
+    }
+
+    public static Block getResult(int ci1, int ci2, int ci3) {
+        WoodenFrameComponent c1 = getByID(ci1);
+        WoodenFrameComponent c2 = getByID(ci2);
+        WoodenFrameComponent c3 = getByID(ci3);
+
+        return getResult(c1, c2, c3);
+    }
+
+    public static Block getResult(WoodenFrameComponent c1, WoodenFrameComponent c2, WoodenFrameComponent c3) {
+        if (c1 == null || c2 == null || c3 == null) return null;
+        Deepworld.logger.info("---");
+
+        for (Block PrimaryMachineBlock : c1.getMachineBlocks()) {
+            for (Block SecondaryMachineBlock : c2.getMachineBlocks()) {
+                for (Block TertiaryMachineBlock : c3.getMachineBlocks()) {
+                    Deepworld.logger.info(PrimaryMachineBlock.getRegistryName().getPath() + " " + SecondaryMachineBlock.getRegistryName().getPath() + " " + TertiaryMachineBlock.getRegistryName().getPath());
+                    if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock) return PrimaryMachineBlock;
+                }
+            }
+        }
+        Deepworld.logger.info("NF");
+        return null;
     }
 
     public Item getItem() {

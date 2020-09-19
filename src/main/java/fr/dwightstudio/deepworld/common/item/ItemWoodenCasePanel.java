@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.item;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +26,7 @@ public class ItemWoodenCasePanel extends Item {
         if (aTileEntity instanceof TileEntityWoodenFrame) {
             TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
 
-            if (tileEntity.getMachineBlock() == null) {
+            if (WoodenFrameComponent.getResultFromTile(tileEntity) == null) {
                 return ActionResultType.FAIL;
             }
 

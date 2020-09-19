@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.recipe.DeepworldRecipeRegister;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,6 +35,8 @@ public class Deepworld {
     // Register common events handlers
     public static void registerCommonEventsHandler() {
         MOD_EVENT_BUS.register(DeepworldTileEntityRegister.class);
+
+        MOD_EVENT_BUS.register(DeepworldRecipeRegister.class);
 
         MOD_EVENT_BUS.register(DeepworldBlockRegister.class);
         MOD_EVENT_BUS.register(DeepworldItemRegister.class);

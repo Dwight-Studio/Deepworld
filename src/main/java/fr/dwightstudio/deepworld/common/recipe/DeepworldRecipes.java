@@ -1,0 +1,11 @@
+package fr.dwightstudio.deepworld.common.recipe;
+
+import fr.dwightstudio.deepworld.common.Deepworld;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraftforge.registries.ObjectHolder;
+
+@ObjectHolder(Deepworld.MOD_ID)
+public class DeepworldRecipes {
+
+    public static final IRecipeSerializer<?> WOODEN_PRESS_PRESSING = null;
+}

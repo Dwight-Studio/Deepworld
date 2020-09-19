@@ -9,35 +9,14 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 
-public class ItemWoodenCrank extends Item {
+public class ItemWoodenCrank extends ItemWoodenFrameComponent {
 
     public ItemWoodenCrank() {
         super(new Item.Properties().group(Deepworld.itemGroup));
     }
 
     @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        if (context.getWorld().isRemote) {
-            return ActionResultType.PASS;
-        }
-
-        TileEntity aTileEntity = context.getWorld().getTileEntity(context.getPos());
-
-        if (aTileEntity instanceof TileEntityWoodenFrame) {
-            TileEntityWoodenFrame tileEntity = (TileEntityWoodenFrame) aTileEntity;
-
-            if (!(tileEntity.getTertiaryComponent() == 0)) {
-                return ActionResultType.FAIL;
-            }
-
-            tileEntity.setTertiaryComponent(WoodenFrameComponent.WOODEN_CRANK.getID());
-
-            if (!context.getPlayer().isCreative()) {
-                stack.shrink(1);
-            }
-            return ActionResultType.SUCCESS;
-        } else {
-            return ActionResultType.FAIL;
-        }
+    public WoodenFrameComponent getComponent() {
+        return WoodenFrameComponent.WOODEN_CRANK;
     }
 }

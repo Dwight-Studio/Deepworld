@@ -47,7 +47,8 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
         .sound(SoundType.WOOD)
         .hardnessAndResistance(3, 2)
         .harvestLevel(0)
-        .harvestTool(ToolType.AXE));
+        .harvestTool(ToolType.AXE)
+        .notSolid());
     }
 
     // Assign the TileEntity

@@ -123,12 +123,6 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
     // Update method (ran every tick)
     @Override
     public void tick() {
-        Block machineBlock = getMachineBlock();
-
-        // Check if valid and set the block
-        if (machineBlock != null && covers >= 6) {
-            world.setBlockState(pos, machineBlock.getDefaultState().with(BlockWoodenPress.FACING, world.getBlockState(pos).get(BlockWoodenPress.FACING)));
-        }
     }
 
 
@@ -158,24 +152,5 @@ public class TileEntityWoodenFrame extends TileEntity implements ITickableTileEn
     public void setTertiaryComponent(int tertiaryComponent) {
         this.tertiaryComponent = tertiaryComponent;
         updateBlockState();
-    }
-
-    // Check if the assembly of the components is coherent
-    public Block getMachineBlock() {
-        try {
-            for (Block primaryComponentBlock : WoodenFrameComponent.getByID(primaryComponent).getMachineBlocks()) {
-                for (Block secondaryComponentBlock : WoodenFrameComponent.getByID(secondaryComponent).getMachineBlocks()) {
-                    for (Block tertiaryComponentBlock : WoodenFrameComponent.getByID(tertiaryComponent).getMachineBlocks()) {
-                        if (primaryComponentBlock == secondaryComponentBlock && secondaryComponentBlock == tertiaryComponentBlock) {
-                            return primaryComponentBlock;
-                        }
-                    }
-                }
-            }
-        } catch (NullPointerException ignored) {
-
-        }
-
-        return null;
     }
 }

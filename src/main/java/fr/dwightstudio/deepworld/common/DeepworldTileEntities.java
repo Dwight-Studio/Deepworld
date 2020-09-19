@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -8,5 +9,5 @@ import net.minecraftforge.registries.ObjectHolder;
 public class DeepworldTileEntities {
 
     public static final TileEntityType<TileEntityWoodenFrame> WOODEN_FRAME = null;
-    // public static final TileEntityType<TileEntityWoodenPress> WOODEN_PRESS = null;
+    public static final TileEntityType<TileEntityWoodenPress> WOODEN_PRESS = null;
 }

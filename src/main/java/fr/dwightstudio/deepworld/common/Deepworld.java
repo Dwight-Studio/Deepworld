@@ -34,10 +34,10 @@ public class Deepworld {
 
     // Register common events handlers
     public static void registerCommonEventsHandler() {
+
         MOD_EVENT_BUS.register(DeepworldTileEntityRegister.class);
-
         MOD_EVENT_BUS.register(DeepworldRecipeRegister.class);
-
+        MOD_EVENT_BUS.register(DeepworldContainerRegister.class);
         MOD_EVENT_BUS.register(DeepworldBlockRegister.class);
         MOD_EVENT_BUS.register(DeepworldItemRegister.class);
     }

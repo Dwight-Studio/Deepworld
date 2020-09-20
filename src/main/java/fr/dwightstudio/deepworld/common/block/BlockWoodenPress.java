@@ -4,6 +4,9 @@ import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
@@ -11,10 +14,16 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +71,24 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
         return new TileEntityWoodenPress();
     }
 
+    @Override
+    public int getLightValue(BlockState state) {
+        return state.get(WORKING) ? 10 : 0;
+    }
+
+    // Drop all contents
+    @Override
+    public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            TileEntity tileentity = world.getTileEntity(blockPos);
+            if (tileentity instanceof TileEntityWoodenPress) {
+                TileEntityWoodenPress tileEntityFurnace = (TileEntityWoodenPress)tileentity;
+                tileEntityFurnace.dropAllContents(world, blockPos);
+            }
+            super.onReplaced(state, world, blockPos, newState, isMoving);  // call it last, because it removes the TileEntity
+        }
+    }
+
     // Setting customs drops
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
@@ -75,6 +102,21 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
         drops.add(new ItemStack(Blocks.OAK_PLANKS, 4));
         drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, 6));
 
+
         return drops;
+    }
+
+    // Open gui
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if (worldIn.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+
+        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        if (namedContainerProvider != null) {
+
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer)->{});
+        }
+        return ActionResultType.SUCCESS;
     }
 }

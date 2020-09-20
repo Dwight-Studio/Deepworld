@@ -9,8 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenPress> {
 
@@ -74,11 +72,11 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
         this.blit(edgeSpacingX, edgeSpacingY, 0, 0, this.xSize, this.ySize);
 
         // draw the cook progress bar
-        double cookProgress = containerWoodenPress.fractionOfCookTimeComplete();
+        double cookProgress = containerWoodenPress.fractionOfProcessTimeComplete();
         blit(guiLeft + PROCESS_BAR_XPOS, guiTop + PROCESS_BAR_YPOS, PROCESS_BAR_ICON_U, PROCESS_BAR_ICON_V,
                 (int)(cookProgress * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
 
-        // draw the fuel remaining bar for each fuel slot flame
+        // draw the inertia remaining bar
             double burnRemaining = containerWoodenPress.getInertiaFraction();
             int yOffset = (int)((1.0 - burnRemaining) * GEAR_HEIGHT);
             blit(guiLeft + GEAR_XPOS, guiTop + GEAR_YPOS + yOffset,

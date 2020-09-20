@@ -99,12 +99,9 @@ public enum WoodenFrameComponent {
     public static Block getResult(WoodenFrameComponent c1, WoodenFrameComponent c2, WoodenFrameComponent c3) {
         if (c1 == null || c2 == null || c3 == null) return null;
 
-        Deepworld.logger.info(c1.getMachineBlocks().length * c2.getMachineBlocks().length * c3.getMachineBlocks().length);
-
         for (Block PrimaryMachineBlock : c1.getMachineBlocks()) {
             for (Block SecondaryMachineBlock : c2.getMachineBlocks()) {
                 for (Block TertiaryMachineBlock : c3.getMachineBlocks()) {
-                    Deepworld.logger.info(PrimaryMachineBlock.getRegistryName().toString() + " " + SecondaryMachineBlock.getRegistryName().toString() + " " + TertiaryMachineBlock.getRegistryName().toString());
                     if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock) return PrimaryMachineBlock;
                 }
             }

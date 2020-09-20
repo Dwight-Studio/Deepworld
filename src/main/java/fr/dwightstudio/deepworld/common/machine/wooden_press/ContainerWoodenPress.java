@@ -1,87 +1,80 @@
 package fr.dwightstudio.deepworld.common.machine.wooden_press;
 
-import net.minecraft.block.ContainerBlock;
+import fr.dwightstudio.deepworld.common.DeepworldContainers;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 
 public class ContainerWoodenPress extends Container {
 
         public static ContainerWoodenPress createContainerServerSide(int windowID, PlayerInventory playerInventory,
-                                                                 FurnaceZoneContents inputZoneContents,
-                                                                 FurnaceZoneContents outputZoneContents,
-                                                                 FurnaceZoneContents fuelZoneContents,
-                                                                 FurnaceStateData furnaceStateData) {
-            return new ContainerWoodenPress(windowID, playerInventory,
-                    inputZoneContents, outputZoneContents, fuelZoneContents, furnaceStateData);
+                                                                 WoodenPressZoneContents inputZoneContents,
+                                                                 WoodenPressZoneContents outputZoneContents,
+                                                                 WoodenPressStateData woodenPressStateData) {
+            return new ContainerWoodenPress(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenPressStateData);
         }
 
         public static ContainerWoodenPress createContainerClientSide(int windowID, PlayerInventory playerInventory, net.minecraft.network.PacketBuffer extraData) {
             //  don't need extraData for this example; if you want you can use it to provide extra information from the server, that you can use
             //  when creating the client container
             //  eg String detailedDescription = extraData.readString(128);
-            FurnaceZoneContents inputZoneContents = FurnaceZoneContents.createForClientSideContainer(INPUT_SLOTS_COUNT);
-            FurnaceZoneContents outputZoneContents = FurnaceZoneContents.createForClientSideContainer(OUTPUT_SLOTS_COUNT);
-            FurnaceZoneContents fuelZoneContents = FurnaceZoneContents.createForClientSideContainer(FUEL_SLOTS_COUNT);
-            FurnaceStateData furnaceStateData = new FurnaceStateData();
+            WoodenPressZoneContents inputZoneContents = WoodenPressZoneContents.createForClientSideContainer(INPUT_SLOTS_COUNT);
+            WoodenPressZoneContents outputZoneContents = WoodenPressZoneContents.createForClientSideContainer(OUTPUT_SLOTS_COUNT);
+            WoodenPressStateData woodenPressStateData = new WoodenPressStateData();
 
             // on the client side there is no parent TileEntity to communicate with, so we:
             // 1) use dummy inventories and furnace state data (tracked ints)
             // 2) use "do nothing" lambda functions for canPlayerAccessInventory and markDirty
-            return new ContainerWoodenPress(windowID, playerInventory,
-                    inputZoneContents, outputZoneContents, fuelZoneContents, furnaceStateData);
+            return new ContainerWoodenPress(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenPressStateData);
         }
 
         // must assign a slot index to each of the slots used by the GUI.
-        // For this container, we can see the furnace fuel, input, and output slots as well as the player inventory slots and the hotbar.
         // Each time we add a Slot to the container using addSlotToContainer(), it automatically increases the slotIndex, which means
         //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
         //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-        //  36 - 39 = fuel slots (furnaceStateData 0 - 3)
-        //  40 - 44 = input slots (furnaceStateData 4 - 8)
-        //  45 - 49 = output slots (furnaceStateData 9 - 13)
+        //  37 = input slots (woodenPressStateData 1)
+        //  38 = output slots (woodenPressStateData 2)
 
         private static final int HOTBAR_SLOT_COUNT = 9;
         private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
         private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
         private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
         private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
+        
+        public static final int INPUT_SLOTS_COUNT = TileEntityWoodenPress.INPUT_SLOTS_COUNT;
+        public static final int OUTPUT_SLOTS_COUNT = TileEntityWoodenPress.OUTPUT_SLOTS_COUNT;
+        public static final int WOODEN_PRESS_SLOTS_COUNT = INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
 
-        public static final int FUEL_SLOTS_COUNT = TileEntityFurnace.FUEL_SLOTS_COUNT;
-        public static final int INPUT_SLOTS_COUNT = TileEntityFurnace.INPUT_SLOTS_COUNT;
-        public static final int OUTPUT_SLOTS_COUNT = TileEntityFurnace.OUTPUT_SLOTS_COUNT;
-        public static final int FURNACE_SLOTS_COUNT = FUEL_SLOTS_COUNT + INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
-
-        // slot index is the unique index for all slots in this container i.e. 0 - 35 for invPlayer then 36 - 49 for furnaceContents
+        // slot index is the unique index for all slots in this container
         private static final int VANILLA_FIRST_SLOT_INDEX = 0;
         private static final int HOTBAR_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX;
         private static final int PLAYER_INVENTORY_FIRST_SLOT_INDEX = HOTBAR_FIRST_SLOT_INDEX + HOTBAR_SLOT_COUNT;
-        private static final int FIRST_FUEL_SLOT_INDEX = PLAYER_INVENTORY_FIRST_SLOT_INDEX + PLAYER_INVENTORY_SLOT_COUNT;
-        private static final int FIRST_INPUT_SLOT_INDEX = FIRST_FUEL_SLOT_INDEX + FUEL_SLOTS_COUNT;
+        private static final int FIRST_INPUT_SLOT_INDEX = PLAYER_INVENTORY_FIRST_SLOT_INDEX + PLAYER_INVENTORY_SLOT_COUNT;
         private static final int FIRST_OUTPUT_SLOT_INDEX = FIRST_INPUT_SLOT_INDEX + INPUT_SLOTS_COUNT;
 
         // slot number is the slot number within each component;
         // i.e. invPlayer slots 0 - 35 (hotbar 0 - 8 then main inventory 9 to 35)
-        // and furnace: inputZone slots 0 - 4, outputZone slots 0 - 4, fuelZone 0 - 3
+        // and furnace: inputZone slots 0, outputZone slots 0
 
         public ContainerWoodenPress(int windowID, PlayerInventory invPlayer,
-                                FurnaceZoneContents inputZoneContents,
-                                FurnaceZoneContents outputZoneContents,
-                                FurnaceZoneContents fuelZoneContents,
-                                FurnaceStateData furnaceStateData) {
-            super(StartupCommon.containerTypeContainerWoodenPress, windowID);
-            if (StartupCommon.containerTypeContainerWoodenPress == null)
+                                WoodenPressZoneContents inputZoneContents,
+                                WoodenPressZoneContents outputZoneContents,
+                                WoodenPressStateData woodenPressStateData) {
+            super(DeepworldContainers.WOODEN_PRESS_CONTAINER, windowID);
+            if (DeepworldContainers.WOODEN_PRESS_CONTAINER == null)
                 throw new IllegalStateException("Must initialise containerTypeContainerWoodenPress before constructing a ContainerWoodenPress!");
             this.inputZoneContents = inputZoneContents;
             this.outputZoneContents = outputZoneContents;
-            this.fuelZoneContents = fuelZoneContents;
-            this.furnaceStateData = furnaceStateData;
+            this.woodenPressStateData = woodenPressStateData;
             this.world = invPlayer.player.world;
 
-            trackIntArray(furnaceStateData);    // tell vanilla to keep the furnaceStateData synchronised between client and server Containers
+            trackIntArray(woodenPressStateData);    // tell vanilla to keep the woodenPressStateData synchronised between client and server Containers
 
             final int SLOT_X_SPACING = 18;
             final int SLOT_Y_SPACING = 18;
@@ -105,20 +98,12 @@ public class ContainerWoodenPress extends Container {
                 }
             }
 
-            final int FUEL_SLOTS_XPOS = 53;
-            final int FUEL_SLOTS_YPOS = 96;
-            // Add the tile fuel slots
-            for (int x = 0; x < FUEL_SLOTS_COUNT; x++) {
-                int slotNumber = x;
-                addSlot(new SlotFuel(fuelZoneContents, slotNumber, FUEL_SLOTS_XPOS + SLOT_X_SPACING * x, FUEL_SLOTS_YPOS));
-            }
-
             final int INPUT_SLOTS_XPOS = 26;
             final int INPUT_SLOTS_YPOS = 24;
             // Add the tile input slots
             for (int y = 0; y < INPUT_SLOTS_COUNT; y++) {
                 int slotNumber = y;
-                addSlot(new SlotSmeltableInput(inputZoneContents, slotNumber, INPUT_SLOTS_XPOS, INPUT_SLOTS_YPOS+ SLOT_Y_SPACING * y));
+                addSlot(new SlotProcessableInput(inputZoneContents, slotNumber, INPUT_SLOTS_XPOS, INPUT_SLOTS_YPOS + SLOT_Y_SPACING * y));
             }
 
             final int OUTPUT_SLOTS_XPOS = 134;
@@ -132,16 +117,14 @@ public class ContainerWoodenPress extends Container {
 
         // Checks each tick to make sure the player is still able to access the inventory and if not closes the gui
         @Override
-        public boolean canInteractWith(PlayerEntity player)
-        {
-            return fuelZoneContents.isUsableByPlayer(player) && inputZoneContents.isUsableByPlayer(player)
-                    && outputZoneContents.isUsableByPlayer(player);
+        public boolean canInteractWith(PlayerEntity player) {
+            return inputZoneContents.isUsableByPlayer(player)  && outputZoneContents.isUsableByPlayer(player);
         }
 
         // This is where you specify what happens when a player shift clicks a slot in the gui
         //  (when you shift click a slot in the TileEntity Inventory, it moves it to the first available position in the hotbar and/or
         //    player inventory.  When you you shift-click a hotbar or player inventory item, it moves it to the first available
-        //    position in the TileEntity inventory - either input or fuel as appropriate for the item you clicked)
+        //    position in the TileEntity inventory
         // At the very least you must override this and return ItemStack.EMPTY or the game will crash when the player shift clicks a slot.
         // returns ItemStack.EMPTY if the source slot is empty, or if none of the source slot item could be moved.
         //   otherwise, returns a copy of the source stack
@@ -168,8 +151,7 @@ public class ContainerWoodenPress extends Container {
                     }
                     break;
 
-                case INPUT_ZONE:
-                case FUEL_ZONE: // taking out of input zone or fuel zone - try player main inv first, then hotbar.  fill from the start
+                case INPUT_ZONE: // taking out of input zone - try player main inv first, then hotbar.  fill from the start
                     successfulTransfer = mergeInto(SlotZone.PLAYER_MAIN_INVENTORY, sourceItemStack, false);
                     if (!successfulTransfer) {
                         successfulTransfer = mergeInto(SlotZone.PLAYER_HOTBAR, sourceItemStack, false);
@@ -178,11 +160,8 @@ public class ContainerWoodenPress extends Container {
 
                 case PLAYER_HOTBAR:
                 case PLAYER_MAIN_INVENTORY: // taking out of inventory - find the appropriate furnace zone
-                    if (!TileEntityFurnace.getSmeltingResultForItem(world, sourceItemStack).isEmpty()) { // smeltable -> add to input
+                    if (!TileEntityWoodenPress.getProcessingResultForItem(world, sourceItemStack).isEmpty()) { // processable -> add to input
                         successfulTransfer = mergeInto(SlotZone.INPUT_ZONE, sourceItemStack, false);
-                    }
-                    if (!successfulTransfer && TileEntityFurnace.getItemBurnTime(world, sourceItemStack) > 0) { //burnable -> add to fuel from the bottom slot first
-                        successfulTransfer = mergeInto(SlotZone.FUEL_ZONE, sourceItemStack, true);
                     }
                     if (!successfulTransfer) {  // didn't fit into furnace; try player main inventory or hotbar
                         if (sourceZone == SlotZone.PLAYER_HOTBAR) { // main inventory
@@ -227,67 +206,42 @@ public class ContainerWoodenPress extends Container {
         // -------- methods used by the ContainerScreen to render parts of the display
 
         /**
-         * Returns the amount of fuel remaining on the currently burning item in the given fuel slot.
-         * @fuelSlot the number of the fuel slot (0..3)
+         * Returns the amount of inertia remaining on the currently processing item.
          * @return fraction remaining, between 0.0 - 1.0
          */
-        public double fractionOfFuelRemaining(int fuelSlot) {
-            if (furnaceStateData.burnTimeInitialValues[fuelSlot] <= 0 ) return 0;
-            double fraction = furnaceStateData.burnTimeRemainings[fuelSlot] / (double)furnaceStateData.burnTimeInitialValues[fuelSlot];
+        public double getInertiaFraction() {
+            if (woodenPressStateData.inertiaTimeInitialValue <= 0 ) return 0;
+            double fraction = woodenPressStateData.inertiaTimeRemaining / (double)woodenPressStateData.inertiaTimeInitialValue;
             return MathHelper.clamp(fraction, 0.0, 1.0);
         }
 
         /**
-         * return the remaining burn time of the fuel in the given slot
-         * @param fuelSlot the number of the fuel slot (0..3)
-         * @return seconds remaining
-         */
-        public int secondsOfFuelRemaining(int fuelSlot)	{
-            if (furnaceStateData.burnTimeRemainings[fuelSlot] <= 0 ) return 0;
-            return furnaceStateData.burnTimeRemainings[fuelSlot] / 20; // 20 ticks per second
-        }
-
-        /**
-         * Returns the amount of cook time completed on the currently cooking item.
+         * Returns the amount of process time completed on the currently processing item.
          * @return fraction remaining, between 0 - 1
          */
-        public double fractionOfCookTimeComplete() {
-            if (furnaceStateData.cookTimeForCompletion == 0) return 0;
-            double fraction = furnaceStateData.cookTimeElapsed / (double)furnaceStateData.cookTimeForCompletion;
+        public double fractionOfProcessTimeComplete() {
+            if (woodenPressStateData.processTimeForCompletion == 0) return 0;
+            double fraction = woodenPressStateData.processTimeElapsed / (double)woodenPressStateData.processTimeForCompletion;
             return MathHelper.clamp(fraction, 0.0, 1.0);
         }
 
         // --------- Customise the different slots (in particular - what items they will accept)
 
-
-        // SlotFuel is a slot for fuel items
-        public class SlotFuel extends Slot {
-            public SlotFuel(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+        // SlotProcessableInput is a slot for input item
+        public static class SlotProcessableInput extends Slot {
+            public SlotProcessableInput(IInventory inventoryIn, int index, int xPosition, int yPosition) {
                 super(inventoryIn, index, xPosition, yPosition);
             }
 
             // if this function returns false, the player won't be able to insert the given item into this slot
             @Override
             public boolean isItemValid(ItemStack stack) {
-                return TileEntityFurnace.isItemValidForFuelSlot(stack);
-            }
-        }
-
-        // SlotSmeltableInput is a slot for input item
-        public class SlotSmeltableInput extends Slot {
-            public SlotSmeltableInput(IInventory inventoryIn, int index, int xPosition, int yPosition) {
-                super(inventoryIn, index, xPosition, yPosition);
-            }
-
-            // if this function returns false, the player won't be able to insert the given item into this slot
-            @Override
-            public boolean isItemValid(ItemStack stack) {
-                return TileEntityFurnace.isItemValidForInputSlot(stack);
+                return TileEntityWoodenPress.isItemValidForInputSlot(stack);
             }
         }
 
         // SlotOutput is a slot that will not accept any item
-        public class SlotOutput extends Slot {
+        public static class SlotOutput extends Slot {
             public SlotOutput(IInventory inventoryIn, int index, int xPosition, int yPosition) {
                 super(inventoryIn, index, xPosition, yPosition);
             }
@@ -295,23 +249,20 @@ public class ContainerWoodenPress extends Container {
             // if this function returns false, the player won't be able to insert the given item into this slot
             @Override
             public boolean isItemValid(ItemStack stack) {
-                return TileEntityFurnace.isItemValidForOutputSlot(stack);
+                return TileEntityWoodenPress.isItemValidForOutputSlot(stack);
             }
         }
 
-        private FurnaceZoneContents inputZoneContents;
-        private FurnaceZoneContents outputZoneContents;
-        private FurnaceZoneContents fuelZoneContents;
-        private FurnaceStateData furnaceStateData;
+        private WoodenPressZoneContents inputZoneContents;
+        private WoodenPressZoneContents outputZoneContents;
+        private WoodenPressStateData woodenPressStateData;
 
         private World world; //needed for some helper methods
-        private static final Logger LOGGER = LogManager.getLogger();
 
         /**
          * Helper enum to make the code more readable
          */
         private enum SlotZone {
-            FUEL_ZONE(FIRST_FUEL_SLOT_INDEX, FUEL_SLOTS_COUNT),
             INPUT_ZONE(FIRST_INPUT_SLOT_INDEX, INPUT_SLOTS_COUNT),
             OUTPUT_ZONE(FIRST_OUTPUT_SLOT_INDEX, OUTPUT_SLOTS_COUNT),
             PLAYER_MAIN_INVENTORY(PLAYER_INVENTORY_FIRST_SLOT_INDEX, PLAYER_INVENTORY_SLOT_COUNT),

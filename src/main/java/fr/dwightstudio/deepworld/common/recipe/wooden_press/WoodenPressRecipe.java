@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class WoodenPressRecipe implements IRecipe<IInventory> {
 
     // Infos
-    public static final IRecipeType<WoodenPressRecipe> pressing = IRecipeType.register("wooden_press_pressing");
+    public static final IRecipeType<WoodenPressRecipe> PRESSING = IRecipeType.register("wooden_press_pressing");
 
     private final IRecipeType<?> type;;
     private final ResourceLocation id;
@@ -24,7 +24,7 @@ public class WoodenPressRecipe implements IRecipe<IInventory> {
     final int processingTime;
 
     public WoodenPressRecipe(ResourceLocation resourceLocation, String group, Ingredient ingredient, ItemStack result, int processingTime) {
-        type = pressing;
+        type = PRESSING;
         id = resourceLocation;
         this.group = group;
         this.ingredient = ingredient;

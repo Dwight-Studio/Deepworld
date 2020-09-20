@@ -38,8 +38,8 @@ public class ContainerWoodenPress extends Container {
         // Each time we add a Slot to the container using addSlotToContainer(), it automatically increases the slotIndex, which means
         //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
         //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-        //  37 = input slots (woodenPressStateData 1)
-        //  38 = output slots (woodenPressStateData 2)
+        //  37 = input slot (woodenPressStateData 0)
+        //  38 = output slot (woodenPressStateData 1)
 
         private static final int HOTBAR_SLOT_COUNT = 9;
         private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
@@ -228,6 +228,7 @@ public class ContainerWoodenPress extends Container {
     @Override
     public boolean enchantItem(PlayerEntity playerIn, int id) {
         woodenPressStateData.inertiaTimeRemaining += 10;
+        woodenPressStateData.inertiaTimeRemaining = Math.min(woodenPressStateData.inertiaTimeRemaining, woodenPressStateData.inertiaTimeInitialValue);
         woodenPressStateData.inertiaTimeInitialValue = 100;
         return true;
     }

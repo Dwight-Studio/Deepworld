@@ -35,7 +35,7 @@ public class WoodenPressRecipe implements IRecipe<IInventory> {
     // Check if input is valid
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        return false;
+        return this.ingredient.test(inv.getStackInSlot(0));
     }
 
     // Get output

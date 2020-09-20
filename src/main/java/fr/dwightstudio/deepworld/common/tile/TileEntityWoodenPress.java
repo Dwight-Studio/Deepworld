@@ -13,24 +13,28 @@ import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IRecipeHolder;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenPress extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
+public class TileEntityWoodenPress extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -83,7 +87,7 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
 
             // If inertia is greater than 0, process block
             if (woodenPressStateData.inertiaTimeRemaining > 0) {
-                woodenPressStateData.processTimeElapsed += 10;
+                woodenPressStateData.processTimeElapsed += (int) (((float)woodenPressStateData.inertiaTimeRemaining/(float)woodenPressStateData.inertiaTimeInitialValue) * (float)10);
             }
 
             if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
@@ -311,5 +315,99 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
     @Override
     public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
         return ContainerWoodenPress.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenPressStateData);
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            return new int[] {1};
+        } else {
+            return new int[] {0};
+        }
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
+        return isItemValidForInputSlot(itemStackIn);
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+        return index == 1;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return inputZoneContents.getSizeInventory() + outputZoneContents.getSizeInventory();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return inputZoneContents.getStackInSlot(0).isEmpty() && outputZoneContents.getStackInSlot(0).isEmpty();
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        switch (index) {
+            case 0:
+                return inputZoneContents.getStackInSlot(0);
+            case 1:
+                return outputZoneContents.getStackInSlot(0);
+        };
+        throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        switch (index) {
+            case 0:
+                return inputZoneContents.decrStackSize(0, count);
+            case 1:
+                return outputZoneContents.decrStackSize(0, count);
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+        switch (index) {
+            case 0:
+                return inputZoneContents.removeStackFromSlot(0);
+            case 1:
+                return outputZoneContents.removeStackFromSlot(0);
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        switch (index) {
+            case 0:
+                inputZoneContents.setInventorySlotContents(0, stack);
+                return;
+            case 1:
+                outputZoneContents.setInventorySlotContents(0, stack);
+                return;
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public boolean isUsableByPlayer(PlayerEntity player) {
+        return true;
+    }
+
+    @Override
+    public void clear() {
+        inputZoneContents.clear();
+        outputZoneContents.clear();
+    }
+
+    @Override
+    public void setRecipeUsed(IRecipe<?> recipe) {}
+
+    @Override
+    public IRecipe<?> getRecipeUsed() {
+        return null;
     }
 }

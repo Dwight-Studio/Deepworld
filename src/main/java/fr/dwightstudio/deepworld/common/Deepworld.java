@@ -1,7 +1,11 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.client.DeepworldClient;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.recipe.DeepworldRecipeRegister;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
+import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -44,6 +48,6 @@ public class Deepworld {
 
     // Register client events handlers
     public static void registerClientEventsHandler() {
-
+        MOD_EVENT_BUS.register(DeepworldClient.class);
     }
 }

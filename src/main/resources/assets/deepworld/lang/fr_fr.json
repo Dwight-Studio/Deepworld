@@ -6,6 +6,9 @@
   "_comment": "Creative tab",
   "itemGroup.tabDeepworld": "The Deep World",
 
+  "_comment": "Containers",
+  "container.deepworld.wooden_press": "Presse en Bois",
+
   "_comment": "Itemblocks",
   "block.deepworld.wooden_frame": "Cadre en Bois",
   "block.deepworld.wooden_press": "Presse en Bois",

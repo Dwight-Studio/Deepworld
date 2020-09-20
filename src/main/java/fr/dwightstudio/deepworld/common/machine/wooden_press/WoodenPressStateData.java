@@ -62,14 +62,18 @@ public class WoodenPressStateData implements IIntArray {
             switch (index) {
                 case PROCESS_TIME_INDEX:
                     processTimeElapsed = value;
+                    return;
                 case PROCESS_TIME_FOR_COMPLETION_INDEX:
                     processTimeForCompletion = value;
+                    return;
                 case INERTIA_TIME_INITIAL_VALUE_INDEX:
                     inertiaTimeInitialValue = value;
+                    return;
                 case INERTIA_TIME_REMAINING_INDEX:
                     inertiaTimeRemaining = value;
+                    return;
             }
-            throw new IndexOutOfBoundsException("The index must be between " + PROCESS_TIME_INDEX + " and " + INERTIA_TIME_REMAINING_INDEX + " included");
+            throw new IndexOutOfBoundsException("The index must be between " + PROCESS_TIME_INDEX + " and " + INERTIA_TIME_REMAINING_INDEX + " included, not " + index);
         }
 
         @Override

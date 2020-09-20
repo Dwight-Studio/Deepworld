@@ -6,6 +6,9 @@
   "_comment": "Creative tab",
   "itemGroup.tabDeepworld": "The Deep World",
 
+  "_comment": "Containers",
+  "container.deepworld.wooden_press": "Wooden Press",
+
   "_comment": "Itemblocks",
   "block.deepworld.wooden_frame": "Wooden Frame",
   "block.deepworld.wooden_press": "Wooden Press",

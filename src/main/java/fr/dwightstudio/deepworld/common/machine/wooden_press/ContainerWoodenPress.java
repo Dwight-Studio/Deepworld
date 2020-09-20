@@ -79,7 +79,7 @@ public class ContainerWoodenPress extends Container {
             final int SLOT_X_SPACING = 18;
             final int SLOT_Y_SPACING = 18;
             final int HOTBAR_XPOS = 8;
-            final int HOTBAR_YPOS = 183;
+            final int HOTBAR_YPOS = 142;
             // Add the players hotbar to the gui - the [xpos, ypos] location of each item
             for (int x = 0; x < HOTBAR_SLOT_COUNT; x++) {
                 int slotNumber = x;
@@ -87,7 +87,7 @@ public class ContainerWoodenPress extends Container {
             }
 
             final int PLAYER_INVENTORY_XPOS = 8;
-            final int PLAYER_INVENTORY_YPOS = 125;
+            final int PLAYER_INVENTORY_YPOS = 84;
             // Add the rest of the players inventory to the gui
             for (int y = 0; y < PLAYER_INVENTORY_ROW_COUNT; y++) {
                 for (int x = 0; x < PLAYER_INVENTORY_COLUMN_COUNT; x++) {
@@ -98,20 +98,20 @@ public class ContainerWoodenPress extends Container {
                 }
             }
 
-            final int INPUT_SLOTS_XPOS = 26;
-            final int INPUT_SLOTS_YPOS = 24;
+            final int INPUT_SLOT_XPOS = 56;
+            final int INPUT_SLOT_YPOS = 17;
             // Add the tile input slots
             for (int y = 0; y < INPUT_SLOTS_COUNT; y++) {
                 int slotNumber = y;
-                addSlot(new SlotProcessableInput(inputZoneContents, slotNumber, INPUT_SLOTS_XPOS, INPUT_SLOTS_YPOS + SLOT_Y_SPACING * y));
+                addSlot(new SlotProcessableInput(inputZoneContents, slotNumber, INPUT_SLOT_XPOS, INPUT_SLOT_YPOS));
             }
 
-            final int OUTPUT_SLOTS_XPOS = 134;
-            final int OUTPUT_SLOTS_YPOS = 24;
+            final int OUTPUT_SLOT_XPOS = 116;
+            final int OUTPUT_SLOT_YPOS = 35;
             // Add the tile output slots
             for (int y = 0; y < OUTPUT_SLOTS_COUNT; y++) {
                 int slotNumber = y;
-                addSlot(new SlotOutput(outputZoneContents, slotNumber, OUTPUT_SLOTS_XPOS, OUTPUT_SLOTS_YPOS + SLOT_Y_SPACING * y));
+                addSlot(new SlotOutput(outputZoneContents, slotNumber, OUTPUT_SLOT_XPOS, OUTPUT_SLOT_YPOS));
             }
         }
 
@@ -224,6 +224,13 @@ public class ContainerWoodenPress extends Container {
             double fraction = woodenPressStateData.processTimeElapsed / (double)woodenPressStateData.processTimeForCompletion;
             return MathHelper.clamp(fraction, 0.0, 1.0);
         }
+
+    @Override
+    public boolean enchantItem(PlayerEntity playerIn, int id) {
+        woodenPressStateData.inertiaTimeRemaining += 10;
+        woodenPressStateData.inertiaTimeInitialValue = 100;
+        return true;
+    }
 
         // --------- Customise the different slots (in particular - what items they will accept)
 

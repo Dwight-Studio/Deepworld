@@ -71,11 +71,6 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
         return new TileEntityWoodenPress();
     }
 
-    @Override
-    public int getLightValue(BlockState state) {
-        return state.get(WORKING) ? 10 : 0;
-    }
-
     // Drop all contents
     @Override
     public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
@@ -118,5 +113,10 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
             NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer)->{});
         }
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

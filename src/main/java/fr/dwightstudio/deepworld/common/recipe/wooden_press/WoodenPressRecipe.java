@@ -41,7 +41,7 @@ public class WoodenPressRecipe implements IRecipe<IInventory> {
     // Get output
     @Override
     public ItemStack getCraftingResult(IInventory inv) {
-        return null;
+        return result;
     }
 
     // N/A

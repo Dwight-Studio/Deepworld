@@ -1,6 +1,9 @@
 package fr.dwightstudio.deepworld.common.tile;
 
+import java.util.Collection;
 import java.util.Optional;
+
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
@@ -59,7 +62,6 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
 
     // This method is called every tick to update the tile entity, i.e.
     // - see if the current smelting input item has finished smelting; if so, convert it to output
-    // - burn fuel slots
     // It runs both on the server and the client but we only need to do updates on the server side.
     @Override
     public void tick() {
@@ -67,19 +69,21 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
         ItemStack currentlyProcessingItem = inputZoneContents.getStackInSlot(0);
 
         // if user has changed the input slots, reset the smelting time
-        if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItem)) {  // == and != don't work!
+        if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
             woodenPressStateData.processTimeElapsed = 0;
         }
+
         currentlyProcessingItemLastTick = currentlyProcessingItem.copy();
 
+        if (woodenPressStateData.inertiaTimeRemaining > 0) {
+            --woodenPressStateData.inertiaTimeRemaining;
+        }
+
         if (!currentlyProcessingItem.isEmpty()) {
-            reduceInertia();
 
             // If inertia is greater than 0, process block
             if (woodenPressStateData.inertiaTimeRemaining > 0) {
-
-                double fraction = woodenPressStateData.inertiaTimeRemaining / (double) woodenPressStateData.inertiaTimeInitialValue;
-                woodenPressStateData.processTimeElapsed += Math.ceil(fraction * 2);
+                woodenPressStateData.processTimeElapsed += 10;
             }
 
             if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
@@ -87,7 +91,7 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
             int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
             woodenPressStateData.processTimeForCompletion = processTimeForCurrentItem;
 
-            // If cookTime has reached maxCookTime smelt the item and reset cookTime
+            // If processTime has reached maxProcessTime process the item and reset processTime
             if (woodenPressStateData.processTimeElapsed >= processTimeForCurrentItem) {
                 processInputItem(true);
                 woodenPressStateData.processTimeElapsed = 0;
@@ -108,15 +112,6 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
             markDirty();
-        }
-    }
-
-    /**
-     * 	for each fuel slot: decreases the burn time, checks if burnTimeRemainings = 0 and tries to consume a new piece of fuel if one is available
-     */
-    private void reduceInertia() {
-        if (woodenPressStateData.inertiaTimeRemaining > 0) {
-            --woodenPressStateData.inertiaTimeRemaining;
         }
     }
 
@@ -180,17 +175,14 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
 
     // returns the smelting result for the given stack. Returns ItemStack.EMPTY if the given stack can not be smelted
     public static ItemStack getProcessingResultForItem(World world, ItemStack itemStack) {
-        Optional<WoodenPressRecipe> matchingRecipe = getMatchingRecipeForInput(world, itemStack);
-        if (!matchingRecipe.isPresent()) return ItemStack.EMPTY;
-        return matchingRecipe.get().getRecipeOutput().copy();  // beware! You must deep copy otherwise you will alter the recipe itself
+        WoodenPressRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+        if (matchingRecipe == null) return ItemStack.EMPTY;
+        return matchingRecipe.getRecipeOutput().copy();  // beware! You must deep copy otherwise you will alter the recipe itself
     }
 
     // gets the recipe which matches the given input, or Missing if none.
-    public static Optional<WoodenPressRecipe> getMatchingRecipeForInput(World world, ItemStack itemStack) {
-        RecipeManager recipeManager = world.getRecipeManager();
-        Inventory singleItemInventory = new Inventory(itemStack);
-        Optional<WoodenPressRecipe> matchingRecipe = recipeManager.getRecipe(WoodenPressRecipe.PRESSING, singleItemInventory, world);
-        return matchingRecipe;
+    public static WoodenPressRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
+        return world.getRecipeManager().getRecipe(WoodenPressRecipe.PRESSING, new Inventory(itemStack), world).orElse(null);
     }
 
     /**
@@ -200,22 +192,14 @@ public class TileEntityWoodenPress extends TileEntity implements INamedContainer
      * @return processing time (ticks) or 0 if no matching recipe
      */
     public static int getProcessTime(World world, ItemStack itemStack) {
-        Optional<WoodenPressRecipe> matchingRecipe = getMatchingRecipeForInput(world, itemStack);
-        if (!matchingRecipe.isPresent()) return 0;
-        return matchingRecipe.get().getProcessingTime();
-    }
-
-    // Return true if the given stack is allowed to be inserted in the given slot
-    // Unlike the vanilla furnace, we allow anything to be placed in the fuel slots
-    static public boolean isItemValidForFuelSlot(ItemStack itemStack)
-    {
-        return true;
+        WoodenPressRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+        if (matchingRecipe == null) return 0;
+        return matchingRecipe.getProcessingTime();
     }
 
     // Return true if the given stack is allowed to be inserted in the given slot
     // Unlike the vanilla furnace, we allow anything to be placed in the input slots
-    static public boolean isItemValidForInputSlot(ItemStack itemStack)
-    {
+    static public boolean isItemValidForInputSlot(ItemStack itemStack) {
         return true;
     }
 

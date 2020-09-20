@@ -3,7 +3,9 @@ package fr.dwightstudio.deepworld.client.container;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
+import net.minecraft.client.gui.screen.LecternScreen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -30,6 +32,9 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
     final int GEAR_XPOS = 57;
     final int GEAR_YPOS = 36;
 
+    final int BUTTON_XPOS = 53;
+    final int BUTTON_YPOS = 52;
+
     // Texture position of graphical elements [u,v]
     final int PROCESS_BAR_ICON_U = 176;
     final int PROCESS_BAR_ICON_V = 14;
@@ -37,12 +42,27 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
     final int GEAR_ICON_U = 176;
     final int GEAR_ICON_V = 0;
 
+    final int BUTTON_ICON_U = 176;
+    final int BUTTON_ICON_V = 31;
+
     // With & Height
     final int PROCESS_BAR_WIDTH = 24;
     final int PROCESS_BAR_HEIGHT = 17;
 
     final int GEAR_WIDTH = 14;
     final int GEAR_HEIGHT = 14;
+
+    final int BUTTON_WIDTH = 22;
+    final int BUTTON_HEIGHT = 22;
+
+    @Override
+    protected void init() {
+        super.init();
+
+        addButton(new ImageButton(guiLeft + BUTTON_XPOS, guiTop + BUTTON_YPOS, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_ICON_U, BUTTON_ICON_V, BUTTON_HEIGHT, TEXTURE, (pressable) -> {
+            minecraft.playerController.sendEnchantPacket(containerWoodenPress.windowId, 0);
+        }));
+    }
 
     public void render(int mouseX, int mouseY, float partialTicks) {
         this.renderBackground();
@@ -72,23 +92,23 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
         this.blit(edgeSpacingX, edgeSpacingY, 0, 0, this.xSize, this.ySize);
 
         // draw the cook progress bar
-        double cookProgress = containerWoodenPress.fractionOfProcessTimeComplete();
+        double progressFraction = containerWoodenPress.fractionOfProcessTimeComplete();
         blit(guiLeft + PROCESS_BAR_XPOS, guiTop + PROCESS_BAR_YPOS, PROCESS_BAR_ICON_U, PROCESS_BAR_ICON_V,
-                (int)(cookProgress * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
+                (int)(progressFraction * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
 
         // draw the inertia remaining bar
-            double burnRemaining = containerWoodenPress.getInertiaFraction();
-            int yOffset = (int)((1.0 - burnRemaining) * GEAR_HEIGHT);
-            blit(guiLeft + GEAR_XPOS, guiTop + GEAR_YPOS + yOffset,
-                    GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
+        double burnRemaining = containerWoodenPress.getInertiaFraction();
+        int yOffset = (int)((1.0 - burnRemaining) * GEAR_HEIGHT);
+        blit(guiLeft + GEAR_XPOS, guiTop + GEAR_YPOS + yOffset,
+                GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        final int LABEL_XPOS = 5;
-        final int LABEL_YPOS = 5;
-        font.drawString(title.getFormattedText(), LABEL_XPOS, LABEL_YPOS, Color.darkGray.getRGB());
+
+        this.font.drawString(title.getFormattedText(), (float)(this.xSize / 2 - this.font.getStringWidth(title.getString()) / 2), 6.0F, Color.darkGray.getRGB());
+        font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, (float)(this.ySize - 96 + 2), Color.darkGray.getRGB());
     }
 
     // Returns true if the given x,y coordinates are within the given rectangle

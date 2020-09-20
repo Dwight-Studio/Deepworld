@@ -23,7 +23,7 @@ public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends ne
     @Override
     public T read(ResourceLocation recipeId, JsonObject json) {
 
-        String s = JSONUtils.getString(json, "group", "");
+        String group = JSONUtils.getString(json, "group", "");
         JsonElement jsonelement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
         Ingredient ingredient = Ingredient.deserialize(jsonelement);
         ItemStack itemstack;
@@ -43,9 +43,9 @@ public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends ne
             itemstack = new ItemStack(ForgeRegistries.ITEMS.getValue(resourcelocation));
         }
 
-        int i = JSONUtils.getInt(json, "processing_time", 200);
+        int processTime = JSONUtils.getInt(json, "processingTime", 200);
 
-        return this.factory.create(recipeId, s, ingredient, itemstack, i);
+        return this.factory.create(recipeId, group, ingredient, itemstack, processTime);
     }
 
     @Override

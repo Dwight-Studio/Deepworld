@@ -1,0 +1,12 @@
+{
+  "type": "deepworld:wooden_press_pressing",
+  "processingTime": 200,
+  "ingredient": {
+    "tag": "forge:ingots/steel",
+    "count": 1
+  },
+  "result": {
+    "item": "deepworld:steel_plate",
+    "count": 1
+  }
+}

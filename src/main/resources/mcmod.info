@@ -6,7 +6,7 @@
         "version": "${version}",
         "mcversion": "${mc_version}",
         "url": "https://dwightstudio.fr/mc/deepworld (WIP)",
-        "updateUrl": "raw.githubusercontent.com/Dwight-Studio/Deepworld-public/master/versions.json",
+        "updateUrl": "http://pastebin.com/raw/8WPVG1iu",
         "authorList": ["Deleranax"],
         "credits": "This mod is made by the Dwight Studio Team.",
         "logoFile": "",

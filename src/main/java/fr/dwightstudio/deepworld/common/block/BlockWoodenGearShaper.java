@@ -4,6 +4,9 @@ import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenGearShaper;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
@@ -11,17 +14,21 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockWoodenGearShaper extends Block implements ITileEntityProvider {
+public class BlockWoodenGearShaper extends ContainerBlock implements ITileEntityProvider {
 
     // Block property initializing
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
@@ -90,5 +97,23 @@ public class BlockWoodenGearShaper extends Block implements ITileEntityProvider 
         drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, 6));
 
         return drops;
+    }
+    // Open gui
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if (worldIn.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+
+        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        if (namedContainerProvider != null) {
+
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer)->{});
+        }
+        return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

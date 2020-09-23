@@ -3,7 +3,7 @@
   "processingTime": 1600,
   "ingredient": {
     "tag": "forge:ingots/iron",
-    "count": 2
+    "count": 1
   },
   "result": {
     "item": "deepworld:iron_plate",

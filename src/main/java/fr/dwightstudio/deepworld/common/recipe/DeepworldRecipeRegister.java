@@ -1,10 +1,10 @@
 package fr.dwightstudio.deepworld.common.recipe;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
-import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipeSerializer;
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipeSerializer;
+import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
+import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

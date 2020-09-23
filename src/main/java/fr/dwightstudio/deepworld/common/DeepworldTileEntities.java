@@ -1,8 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
-import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenGearShaper;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 

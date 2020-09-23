@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.common.item;
 
-import fr.dwightstudio.deepworld.common.frame.ComponentClass;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.item.Item;

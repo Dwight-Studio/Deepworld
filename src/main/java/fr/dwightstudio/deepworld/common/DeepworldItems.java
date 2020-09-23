@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.item.ItemIronPlate;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 

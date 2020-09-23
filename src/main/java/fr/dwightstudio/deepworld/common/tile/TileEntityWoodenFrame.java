@@ -3,19 +3,14 @@ package fr.dwightstudio.deepworld.common.tile;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
-import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
-import javafx.geometry.HorizontalDirection;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Rotation;
 import net.minecraftforge.common.util.Constants;
 
 public class TileEntityWoodenFrame extends TileEntity {

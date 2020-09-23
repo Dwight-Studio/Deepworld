@@ -3,9 +3,10 @@ package fr.dwightstudio.deepworld.common.tile;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenGearShaper;
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperStateData;
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperZoneContents;
+import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
+import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -78,25 +79,30 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
             --woodenGearShaperStateData.inertiaTimeRemaining;
         }
 
-        if (!currentlyProcessingItem.isEmpty()) {
+        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
 
-            // If inertia is greater than 0, process block
-            if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
-                woodenGearShaperStateData.processTimeElapsed += (int) (((float)woodenGearShaperStateData.inertiaTimeRemaining/(float)woodenGearShaperStateData.inertiaTimeInitialValue) * (float)10);
-            }
 
-            if (woodenGearShaperStateData.processTimeElapsed < 0) woodenGearShaperStateData.processTimeElapsed = 0;
+        if (recipe != null) {
+            if (recipe.isValidInput(inputZoneContents, this.world)) {
 
-            int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-            woodenGearShaperStateData.processTimeForCompletion = processTimeForCurrentItem;
+                // If inertia is greater than 0, process block
+                if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
+                    woodenGearShaperStateData.processTimeElapsed += (int) (((float) woodenGearShaperStateData.inertiaTimeRemaining / (float) woodenGearShaperStateData.inertiaTimeInitialValue) * (float) 10);
+                }
 
-            // If processTime has reached maxProcessTime process the item and reset processTime
-            if (woodenGearShaperStateData.processTimeElapsed >= processTimeForCurrentItem) {
-                processInputItem(true);
+                if (woodenGearShaperStateData.processTimeElapsed < 0) woodenGearShaperStateData.processTimeElapsed = 0;
+
+                int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
+                woodenGearShaperStateData.processTimeForCompletion = processTimeForCurrentItem;
+
+                // If processTime has reached maxProcessTime process the item and reset processTime
+                if (woodenGearShaperStateData.processTimeElapsed >= processTimeForCurrentItem) {
+                    processInputItem();
+                    woodenGearShaperStateData.processTimeElapsed = 0;
+                }
+            } else {
                 woodenGearShaperStateData.processTimeElapsed = 0;
             }
-        } else {
-            woodenGearShaperStateData.processTimeElapsed = 0;
         }
 
         // when the state of the machine change, we need to force the block to re-render, otherwise the change in
@@ -117,32 +123,24 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     /**
      * checks that there is an item to be smelted in one of the input slots and that there is room for the result in the output slots
      * If desired, performs the smelt
-     * @param performProcess if true, perform the process.  if false, check whether processing is possible, but don't change the inventory
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
-    private ItemStack processInputItem(boolean performProcess) {
-        ItemStack result;
+    private ItemStack processInputItem() {
+        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
 
-        // finds the first input slot which is processable and whose result fits into an output slot (stacking if possible)
-        ItemStack itemStackToProcess = inputZoneContents.getStackInSlot(0);
+        if (recipe.isValidInput(inputZoneContents, this.world)) {
+            ItemStack result = recipe.getResult();
 
-        if (!itemStackToProcess.isEmpty()) {
-            result = getProcessingResultForItem(this.world, itemStackToProcess);
+                    // is output slot suitable for process - either empty, or with identical item that has enough space
+                    if (willItemStackFit(outputZoneContents, 0, result)) {
+                        ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
 
-            if (!result.isEmpty()) {
-                // is output slot suitable for process - either empty, or with identical item that has enough space
-                if (willItemStackFit(outputZoneContents, 0, result)) {
-                    ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
+                       recipe.applyCraft(inputZoneContents, this.world);
+                        outputZoneContents.increaseStackSize(0, result);
 
-                    if (!performProcess) return rtn;
-
-                    inputZoneContents.decrStackSize(0, 1);
-                    outputZoneContents.increaseStackSize(0, result);
-
-                    markDirty();
-                    return rtn;
-                }
-            }
+                        markDirty();
+                        return rtn;
+                    }
         }
         return ItemStack.EMPTY;
     }
@@ -170,13 +168,6 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
             return true;
         }
         return false;
-    }
-
-    // returns the smelting result for the given stack. Returns ItemStack.EMPTY if the given stack can not be smelted
-    public static ItemStack getProcessingResultForItem(World world, ItemStack itemStack) {
-        WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
-        if (matchingRecipe == null) return ItemStack.EMPTY;
-        return matchingRecipe.getCraftingResult(new Inventory(itemStack)).copy();  // beware! You must deep copy otherwise you will alter the recipe itself
     }
 
     // gets the recipe which matches the given input, or Missing if none.

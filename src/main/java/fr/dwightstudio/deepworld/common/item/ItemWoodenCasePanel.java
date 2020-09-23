@@ -9,8 +9,6 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 
-import java.util.Arrays;
-
 public class ItemWoodenCasePanel extends Item {
 
     public ItemWoodenCasePanel() {

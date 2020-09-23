@@ -1,7 +1,6 @@
 package fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper;
 
 import fr.dwightstudio.deepworld.common.DeepworldContainers;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenGearShaper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -160,7 +159,7 @@ public class ContainerWoodenGearShaper extends Container {
 
             case PLAYER_HOTBAR:
             case PLAYER_MAIN_INVENTORY: // taking out of inventory - find the appropriate furnace zone
-                if (!TileEntityWoodenGearShaper.getProcessingResultForItem(world, sourceItemStack).isEmpty()) { // processable -> add to input
+                if (TileEntityWoodenGearShaper.getMatchingRecipeForInput(world, sourceItemStack) != null) { // processable -> add to input
                     successfulTransfer = mergeInto(ContainerWoodenGearShaper.SlotZone.INPUT_ZONE, sourceItemStack, false);
                 }
                 if (!successfulTransfer) {  // didn't fit into furnace; try player main inventory or hotbar

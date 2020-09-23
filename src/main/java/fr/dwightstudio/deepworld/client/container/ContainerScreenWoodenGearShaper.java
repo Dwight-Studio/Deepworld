@@ -2,7 +2,7 @@ package fr.dwightstudio.deepworld.client.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
+import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,13 +11,12 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 
-public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenPress> {
+public class ContainerScreenWoodenGearShaper extends ContainerScreen<ContainerWoodenGearShaper>{
+    private ContainerWoodenGearShaper containerWoodenGearShaper;
 
-    private ContainerWoodenPress containerWoodenPress;
-
-    public ContainerScreenWoodenPress(ContainerWoodenPress containerWoodenPress, PlayerInventory playerInventory, ITextComponent title) {
-        super(containerWoodenPress, playerInventory, title);
-        this.containerWoodenPress = containerWoodenPress;
+    public ContainerScreenWoodenGearShaper(ContainerWoodenGearShaper containerWoodenGearShaper, PlayerInventory playerInventory, ITextComponent title) {
+        super(containerWoodenGearShaper, playerInventory, title);
+        this.containerWoodenGearShaper = containerWoodenGearShaper;
 
         // Set the width and height of the gui.  Should match the size of the texture!
         xSize = 176;
@@ -59,7 +58,7 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
         super.init();
 
         addButton(new ImageButton(guiLeft + BUTTON_XPOS, guiTop + BUTTON_YPOS, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_ICON_U, BUTTON_ICON_V, BUTTON_HEIGHT, TEXTURE, (pressable) -> {
-            minecraft.playerController.sendEnchantPacket(containerWoodenPress.windowId, 0);
+            minecraft.playerController.sendEnchantPacket(containerWoodenGearShaper.windowId, 0);
         }));
     }
 
@@ -91,12 +90,12 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
         this.blit(edgeSpacingX, edgeSpacingY, 0, 0, this.xSize, this.ySize);
 
         // draw the cook progress bar
-        double progressFraction = containerWoodenPress.fractionOfProcessTimeComplete();
+        double progressFraction = containerWoodenGearShaper.fractionOfProcessTimeComplete();
         blit(guiLeft + PROCESS_BAR_XPOS, guiTop + PROCESS_BAR_YPOS, PROCESS_BAR_ICON_U, PROCESS_BAR_ICON_V,
                 (int)(progressFraction * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
 
         // draw the inertia remaining bar
-        double burnRemaining = containerWoodenPress.getInertiaFraction();
+        double burnRemaining = containerWoodenGearShaper.getInertiaFraction();
         int yOffset = (int)((1.0 - burnRemaining) * GEAR_HEIGHT);
         blit(guiLeft + GEAR_XPOS, guiTop + GEAR_YPOS + yOffset,
                 GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
@@ -116,5 +115,6 @@ public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenP
     }
 
     // This is the resource location for the background image
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Deepworld.MOD_ID, "textures/gui/wooden_press.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Deepworld.MOD_ID, "textures/gui/wooden_gear_shaper.png");
+
 }

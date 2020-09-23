@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.recipe.wooden_press;
+package fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,11 +11,11 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+public class WoodenGearShaperRecipeSerializer <T extends WoodenGearShaperRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T>{
 
-    private final WoodenPressRecipeSerializer.IFactory<T> factory;
+    private final WoodenGearShaperRecipeSerializer.IFactory<T> factory;
 
-    public WoodenPressRecipeSerializer(WoodenPressRecipeSerializer.IFactory<T> factory) {
+    public WoodenGearShaperRecipeSerializer(WoodenGearShaperRecipeSerializer.IFactory<T> factory) {
         this.factory = factory;
     }
 
@@ -65,7 +65,7 @@ public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends ne
         buffer.writeVarInt(recipe.processingTime);
     }
 
-    public interface IFactory<T extends WoodenPressRecipe> {
+    public interface IFactory<T extends WoodenGearShaperRecipe> {
         T create(ResourceLocation resourceLocation, String group, Ingredient ingredient, ItemStack result, int processingTime);
     }
 }

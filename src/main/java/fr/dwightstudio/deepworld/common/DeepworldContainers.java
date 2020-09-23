@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
+import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -8,4 +9,5 @@ import net.minecraftforge.registries.ObjectHolder;
 public class DeepworldContainers {
 
     public static final ContainerType<ContainerWoodenPress> WOODEN_PRESS_CONTAINER = null;
+    public static final ContainerType<ContainerWoodenGearShaper> WOODEN_GEAR_SHAPER_CONTAINER = null;
 }

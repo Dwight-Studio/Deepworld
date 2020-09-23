@@ -13,5 +13,15 @@
   "result": {
     "item": "deepworld:wooden_gear",
     "count": 1
+  },
+  "type": "deepworld:wooden_gear_shaper_shaping",
+  "processingTime": 1600,
+  "ingredient": {
+    "tag": "minecraft:planks",
+    "count": 2
+  },
+  "result": {
+    "item": "deepworld:wooden_gear",
+    "count": 1
   }
 }

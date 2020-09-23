@@ -1,11 +1,11 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
-import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressStateData;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressZoneContents;
-import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
+import fr.dwightstudio.deepworld.common.block.BlockWoodenGearShaper;
+import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
+import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
+import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperStateData;
+import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperZoneContents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -29,22 +29,22 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenPress extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity {
+public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity{
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
     public static final int TOTAL_SLOTS_COUNT = INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
 
-    private WoodenPressZoneContents inputZoneContents;
-    private WoodenPressZoneContents outputZoneContents;
+    private WoodenGearShaperZoneContents inputZoneContents;
+    private WoodenGearShaperZoneContents outputZoneContents;
 
-    private final WoodenPressStateData woodenPressStateData = new WoodenPressStateData();
+    private final WoodenGearShaperStateData woodenGearShaperStateData = new WoodenGearShaperStateData();
     private ItemStack currentlyProcessingItemLastTick = ItemStack.EMPTY;
 
-    public TileEntityWoodenPress(){
-        super(DeepworldTileEntities.WOODEN_PRESS);
-        inputZoneContents = WoodenPressZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
-        outputZoneContents = WoodenPressZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+    public TileEntityWoodenGearShaper(){
+        super(DeepworldTileEntities.WOODEN_GEAR_SHAPER);
+        inputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        outputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
@@ -69,34 +69,34 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
         // if user has changed the input slots, reset the smelting time
         if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
-            woodenPressStateData.processTimeElapsed = 0;
+            woodenGearShaperStateData.processTimeElapsed = 0;
         }
 
         currentlyProcessingItemLastTick = currentlyProcessingItem.copy();
 
-        if (woodenPressStateData.inertiaTimeRemaining > 0) {
-            --woodenPressStateData.inertiaTimeRemaining;
+        if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
+            --woodenGearShaperStateData.inertiaTimeRemaining;
         }
 
         if (!currentlyProcessingItem.isEmpty()) {
 
             // If inertia is greater than 0, process block
-            if (woodenPressStateData.inertiaTimeRemaining > 0) {
-                woodenPressStateData.processTimeElapsed += (int) (((float)woodenPressStateData.inertiaTimeRemaining/(float)woodenPressStateData.inertiaTimeInitialValue) * (float)10);
+            if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
+                woodenGearShaperStateData.processTimeElapsed += (int) (((float)woodenGearShaperStateData.inertiaTimeRemaining/(float)woodenGearShaperStateData.inertiaTimeInitialValue) * (float)10);
             }
 
-            if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
+            if (woodenGearShaperStateData.processTimeElapsed < 0) woodenGearShaperStateData.processTimeElapsed = 0;
 
             int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-            woodenPressStateData.processTimeForCompletion = processTimeForCurrentItem;
+            woodenGearShaperStateData.processTimeForCompletion = processTimeForCurrentItem;
 
             // If processTime has reached maxProcessTime process the item and reset processTime
-            if (woodenPressStateData.processTimeElapsed >= processTimeForCurrentItem) {
+            if (woodenGearShaperStateData.processTimeElapsed >= processTimeForCurrentItem) {
                 processInputItem(true);
-                woodenPressStateData.processTimeElapsed = 0;
+                woodenGearShaperStateData.processTimeElapsed = 0;
             }
         } else {
-            woodenPressStateData.processTimeElapsed = 0;
+            woodenGearShaperStateData.processTimeElapsed = 0;
         }
 
         // when the state of the machine change, we need to force the block to re-render, otherwise the change in
@@ -105,7 +105,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
         //    the client needs it for rendering and the server needs it for crop growth etc
 
         BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
+        BlockState newBlockState = currentBlockState.with(BlockWoodenGearShaper.WORKING, woodenGearShaperStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
@@ -149,13 +149,13 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     /**
      * Will the given ItemStack fully fit into the target slot?
-     * @param woodenPressZoneContents
+     * @param woodenGearShaperZoneContents
      * @param slotIndex
      * @param itemStackOrigin
      * @return true if the given ItemStack will fit completely; false otherwise
      */
-    public boolean willItemStackFit(WoodenPressZoneContents woodenPressZoneContents, int slotIndex, ItemStack itemStackOrigin) {
-        ItemStack itemStackDestination = woodenPressZoneContents.getStackInSlot(0);
+    public boolean willItemStackFit(WoodenGearShaperZoneContents woodenGearShaperZoneContents, int slotIndex, ItemStack itemStackOrigin) {
+        ItemStack itemStackDestination = woodenGearShaperZoneContents.getStackInSlot(0);
 
         if (itemStackDestination.isEmpty() || itemStackOrigin.isEmpty()) {
             return true;
@@ -166,7 +166,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
         }
 
         int sizeAfterMerge = itemStackDestination.getCount() + itemStackOrigin.getCount();
-        if (sizeAfterMerge <= woodenPressZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
+        if (sizeAfterMerge <= woodenGearShaperZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
             return true;
         }
         return false;
@@ -174,14 +174,14 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     // returns the smelting result for the given stack. Returns ItemStack.EMPTY if the given stack can not be smelted
     public static ItemStack getProcessingResultForItem(World world, ItemStack itemStack) {
-        WoodenPressRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+        WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
         if (matchingRecipe == null) return ItemStack.EMPTY;
         return matchingRecipe.getRecipeOutput().copy();  // beware! You must deep copy otherwise you will alter the recipe itself
     }
 
     // gets the recipe which matches the given input, or Missing if none.
-    public static WoodenPressRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
-        return world.getRecipeManager().getRecipe(WoodenPressRecipe.PRESSING, new Inventory(itemStack), world).orElse(null);
+    public static WoodenGearShaperRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
+        return world.getRecipeManager().getRecipe(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
     }
 
     /**
@@ -191,7 +191,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
      * @return processing time (ticks) or 0 if no matching recipe
      */
     public static int getProcessTime(World world, ItemStack itemStack) {
-        WoodenPressRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+        WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
         if (matchingRecipe == null) return 0;
         return matchingRecipe.getProcessingTime();
     }
@@ -219,7 +219,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
-        woodenPressStateData.putIntoNBT(parentNBTTagCompound);
+        woodenGearShaperStateData.putIntoNBT(parentNBTTagCompound);
         parentNBTTagCompound.put(INPUT_SLOTS_NBT, inputZoneContents.serializeNBT());
         parentNBTTagCompound.put(OUTPUT_SLOTS_NBT, outputZoneContents.serializeNBT());
         return parentNBTTagCompound;
@@ -231,7 +231,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
-        woodenPressStateData.readFromNBT(nbtTagCompound);
+        woodenGearShaperStateData.readFromNBT(nbtTagCompound);
 
         CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
@@ -297,7 +297,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
      */
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("container.deepworld.wooden_press");
+        return new TranslationTextComponent("container.deepworld.wooden_gear_shaper");
     }
 
     /**
@@ -309,7 +309,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
      */
     @Override
     public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return ContainerWoodenPress.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenPressStateData);
+        return ContainerWoodenGearShaper.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenGearShaperStateData);
     }
 
     @Override

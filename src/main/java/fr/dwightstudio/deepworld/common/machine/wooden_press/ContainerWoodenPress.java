@@ -160,7 +160,7 @@ public class ContainerWoodenPress extends Container {
 
                 case PLAYER_HOTBAR:
                 case PLAYER_MAIN_INVENTORY: // taking out of inventory - find the appropriate furnace zone
-                    if (!TileEntityWoodenPress.getProcessingResultForItem(world, sourceItemStack).isEmpty()) { // processable -> add to input
+                    if (TileEntityWoodenPress.getMatchingRecipeForInput(this.world, sourceItemStack) != null) { // processable -> add to input
                         successfulTransfer = mergeInto(SlotZone.INPUT_ZONE, sourceItemStack, false);
                     }
                     if (!successfulTransfer) {  // didn't fit into furnace; try player main inventory or hotbar

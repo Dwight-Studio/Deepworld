@@ -15,6 +15,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
@@ -78,72 +79,68 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
             --woodenPressStateData.inertiaTimeRemaining;
         }
 
-        if (!currentlyProcessingItem.isEmpty()) {
+        WoodenPressRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
 
-            // If inertia is greater than 0, process block
-            if (woodenPressStateData.inertiaTimeRemaining > 0) {
-                woodenPressStateData.processTimeElapsed += (int) (((float)woodenPressStateData.inertiaTimeRemaining/(float)woodenPressStateData.inertiaTimeInitialValue) * (float)10);
-            }
+        if (recipe != null) {
+            if (recipe.isValidInput(inputZoneContents, this.world)) {
 
-            if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
+                // If inertia is greater than 0, process block
+                if (woodenPressStateData.inertiaTimeRemaining > 0) {
+                    woodenPressStateData.processTimeElapsed += (int) (((float) woodenPressStateData.inertiaTimeRemaining / (float) woodenPressStateData.inertiaTimeInitialValue) * (float) 10);
+                }
 
-            int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-            woodenPressStateData.processTimeForCompletion = processTimeForCurrentItem;
+                if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
 
-            // If processTime has reached maxProcessTime process the item and reset processTime
-            if (woodenPressStateData.processTimeElapsed >= processTimeForCurrentItem) {
-                processInputItem(true);
+                int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
+                woodenPressStateData.processTimeForCompletion = processTimeForCurrentItem;
+
+                // If processTime has reached maxProcessTime process the item and reset processTime
+                if (woodenPressStateData.processTimeElapsed >= processTimeForCurrentItem) {
+                    processInputItem();
+                    woodenPressStateData.processTimeElapsed = 0;
+                }
+            } else {
                 woodenPressStateData.processTimeElapsed = 0;
             }
-        } else {
-            woodenPressStateData.processTimeElapsed = 0;
-        }
 
-        // when the state of the machine change, we need to force the block to re-render, otherwise the change in
-        //   state will not be visible.  Likewise, we need to force a lighting recalculation.
-        // The block update (for renderer) is only required on client side, but the lighting is required on both, since
-        //    the client needs it for rendering and the server needs it for crop growth etc
+            // when the state of the machine change, we need to force the block to re-render, otherwise the change in
+            //   state will not be visible.  Likewise, we need to force a lighting recalculation.
+            // The block update (for renderer) is only required on client side, but the lighting is required on both, since
+            //    the client needs it for rendering and the server needs it for crop growth etc
 
-        BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
+            BlockState currentBlockState = world.getBlockState(this.pos);
+            BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
 
-        if (!newBlockState.equals(currentBlockState)) {
-            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+            if (!newBlockState.equals(currentBlockState)) {
+                world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
-            markDirty();
+                markDirty();
+            }
         }
     }
 
     /**
      * checks that there is an item to be smelted in one of the input slots and that there is room for the result in the output slots
      * If desired, performs the smelt
-     * @param performProcess if true, perform the process.  if false, check whether processing is possible, but don't change the inventory
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
-    private ItemStack processInputItem(boolean performProcess) {
-        ItemStack result;
+    private ItemStack processInputItem() {
+        WoodenPressRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
 
-        // finds the first input slot which is processable and whose result fits into an output slot (stacking if possible)
-        ItemStack itemStackToProcess = inputZoneContents.getStackInSlot(0);
+        if (recipe.isValidInput(inputZoneContents, this.world)) {
+            ItemStack result = recipe.getResult();
 
-        if (!itemStackToProcess.isEmpty()) {
-            result = getProcessingResultForItem(this.world, itemStackToProcess);
-
-            if (!result.isEmpty()) {
                 // is output slot suitable for process - either empty, or with identical item that has enough space
                 if (willItemStackFit(outputZoneContents, 0, result)) {
                     ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
 
-                    if (!performProcess) return rtn;
-
-                    inputZoneContents.decrStackSize(0, 1);
+                    recipe.applyCraft(inputZoneContents, this.world);
                     outputZoneContents.increaseStackSize(0, result);
 
                     markDirty();
                     return rtn;
                 }
             }
-        }
         return ItemStack.EMPTY;
     }
 
@@ -170,13 +167,6 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
             return true;
         }
         return false;
-    }
-
-    // returns the smelting result for the given stack. Returns ItemStack.EMPTY if the given stack can not be smelted
-    public static ItemStack getProcessingResultForItem(World world, ItemStack itemStack) {
-        WoodenPressRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
-        if (matchingRecipe == null) return ItemStack.EMPTY;
-        return matchingRecipe.getRecipeOutput().copy();  // beware! You must deep copy otherwise you will alter the recipe itself
     }
 
     // gets the recipe which matches the given input, or Missing if none.

@@ -176,7 +176,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     public static ItemStack getProcessingResultForItem(World world, ItemStack itemStack) {
         WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
         if (matchingRecipe == null) return ItemStack.EMPTY;
-        return matchingRecipe.getRecipeOutput().copy();  // beware! You must deep copy otherwise you will alter the recipe itself
+        return matchingRecipe.getCraftingResult(new Inventory(itemStack)).copy();  // beware! You must deep copy otherwise you will alter the recipe itself
     }
 
     // gets the recipe which matches the given input, or Missing if none.

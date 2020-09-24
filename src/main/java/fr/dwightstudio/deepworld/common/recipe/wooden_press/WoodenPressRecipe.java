@@ -67,7 +67,7 @@ public class WoodenPressRecipe extends DeepworldMachineRecipe {
     }
 
     public ItemStack getResult() {
-        return result;
+        return result.copy();
     }
 
     /**

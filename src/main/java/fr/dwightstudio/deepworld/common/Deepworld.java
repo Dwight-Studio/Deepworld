@@ -40,6 +40,7 @@ public class Deepworld {
         MOD_EVENT_BUS.register(DeepworldContainerRegister.class);
         MOD_EVENT_BUS.register(DeepworldBlockRegister.class);
         MOD_EVENT_BUS.register(DeepworldItemRegister.class);
+        MOD_EVENT_BUS.register(DeepworldSoundEventRegister.class);
     }
 
     // Register client events handlers

@@ -30,7 +30,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity{
+public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine{
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -395,5 +395,10 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     @Override
     public IRecipe<?> getRecipeUsed() {
         return null;
+    }
+
+    @Override
+    public float getVolume() {
+        return (float)woodenGearShaperStateData.inertiaTimeRemaining / (float)woodenGearShaperStateData.inertiaTimeInitialValue;
     }
 }

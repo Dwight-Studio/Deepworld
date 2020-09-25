@@ -30,6 +30,7 @@ public class DeepworldItems {
     public static final Item OBSIDIAN_INFUSED_STEEL_GEAR = null;
     public static final Item STEEL_INGOT = null;
     public static final Item OBSIDIAN_INFUSED_STEEL_INGOT = null;
+    public static final Item IRON_PUMP = null;
 
     // Tools
     public static final Item STEEL_PICKAXE = null;

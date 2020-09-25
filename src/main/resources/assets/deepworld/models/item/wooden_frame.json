@@ -2,6 +2,6 @@
     "parent": "deepworld:block/frame",
     "textures": {
       "frame": "deepworld:blocks/wooden_frame",
-      "particle" : "deepworld:blocks/wooden_frame"
+      "particle": "deepworld:blocks/wooden_frame"
     }
 }

@@ -17,6 +17,7 @@ public class DeepworldBlockRegister {
         Block WOODEN_FRAME = new BlockWoodenFrame();
         Block WOODEN_PRESS =  new BlockWoodenPress();
         Block WOODEN_GEAR_SHAPER = new BlockWoodenGearShaper();
+        Block WOODEN_LATHE = new BlockWoodenLathe();
         Block IRON_FRAME = new BlockIronFrame();
         Block STEEL_FRAME = new BlockSteelFrame();
         Block OBSIDIAN_INFUSED_STEEL_FRAME = new BlockObsidianInfusedSteelFrame();
@@ -26,6 +27,7 @@ public class DeepworldBlockRegister {
         event.getRegistry().register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlock(WOODEN_PRESS, "wooden_press"));
         event.getRegistry().register(prepareBlock(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
+        event.getRegistry().register(prepareBlock(WOODEN_LATHE, "wooden_lathe"));
         event.getRegistry().register(prepareBlock(IRON_FRAME, "iron_frame"));
         event.getRegistry().register(prepareBlock(STEEL_FRAME, "steel_frame"));
         event.getRegistry().register(prepareBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
@@ -38,6 +40,7 @@ public class DeepworldBlockRegister {
         RenderTypeLookup.setRenderLayer(STEEL_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OBSIDIAN_INFUSED_STEEL_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WOODEN_GEAR_SHAPER, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(WOODEN_LATHE, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WOODEN_PRESS, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(STEEL_BLOCK, RenderType.getSolid());
         RenderTypeLookup.setRenderLayer(OBSIDIAN_INFUSED_STEEL_BLOCK, RenderType.getSolid());

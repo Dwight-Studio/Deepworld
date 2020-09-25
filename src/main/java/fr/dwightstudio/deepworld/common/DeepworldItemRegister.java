@@ -18,6 +18,8 @@ public class DeepworldItemRegister {
         Item WOODEN_CASE_PANEL = new ItemWoodenCasePanel();
         Item SIMPLE_PRESSING_CHAMBER = new ItemSimplePressingChamber();
         Item SIMPLE_CUTTER = new ItemSimpleCutter();
+        Item SIMPLE_LEFT_PART_HOLDER = new ItemSimpleLeftPartHolder();
+        Item SIMPLE_RIGHT_PART_HOLDER = new ItemSimpleRightPartHolder();
         Item WOODEN_GEARBOX = new ItemWoodenGearbox();
         Item WOODEN_CRANK = new ItemWoodenCrank();
         Item IRON_PLATE = new ItemIronPlate();
@@ -61,6 +63,8 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
         event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
+        event.getRegistry().register(prepare(SIMPLE_LEFT_PART_HOLDER, "simple_left_part_holder"));
+        event.getRegistry().register(prepare(SIMPLE_RIGHT_PART_HOLDER, "simple_right_part_holder"));
         event.getRegistry().register(prepare(WOODEN_GEARBOX, "wooden_gearbox"));
         event.getRegistry().register(prepare(WOODEN_CRANK, "wooden_crank"));
         event.getRegistry().register(prepare(IRON_PLATE, "iron_plate"));
@@ -109,6 +113,7 @@ public class DeepworldItemRegister {
         BlockItem WOODEN_FRAME = new BlockItem(DeepworldBlocks.WOODEN_FRAME, simpleItemProperties);
         BlockItem WOODEN_PRESS = new BlockItem(DeepworldBlocks.WOODEN_PRESS, simpleItemProperties);
         BlockItem WOODEN_GEAR_SHAPER = new BlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER, simpleItemProperties);
+        BlockItem WOODEN_LATHE = new BlockItem(DeepworldBlocks.WOODEN_LATHE, simpleItemProperties);
         BlockItem IRON_FRAME = new BlockItem(DeepworldBlocks.IRON_FRAME, simpleItemProperties);
         BlockItem STEEL_FRAME = new BlockItem(DeepworldBlocks.STEEL_FRAME, simpleItemProperties);
         BlockItem OBSIDIAN_INFUSED_STEEL_FRAME = new BlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME, simpleItemProperties);
@@ -118,6 +123,7 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepareBlockItem(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlockItem(WOODEN_PRESS, "wooden_press"));
         event.getRegistry().register(prepareBlockItem(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
+        event.getRegistry().register(prepareBlockItem(WOODEN_LATHE, "wooden_lathe"));
         event.getRegistry().register(prepareBlockItem(IRON_FRAME, "iron_frame"));
         event.getRegistry().register(prepareBlockItem(STEEL_FRAME, "steel_frame"));
         event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));

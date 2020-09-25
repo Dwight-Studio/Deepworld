@@ -1,11 +1,11 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
-import fr.dwightstudio.deepworld.common.block.BlockWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperStateData;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperZoneContents;
-import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
+import fr.dwightstudio.deepworld.common.block.BlockWoodenLathe;
+import fr.dwightstudio.deepworld.common.machine.wooden_lathe.ContainerWoodenLathe;
+import fr.dwightstudio.deepworld.common.machine.wooden_lathe.WoodenLatheStateData;
+import fr.dwightstudio.deepworld.common.machine.wooden_lathe.WoodenLatheZoneContents;
+import fr.dwightstudio.deepworld.common.recipe.wooden_lathe.WoodenLatheRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -29,22 +29,22 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity{
+public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
     public static final int TOTAL_SLOTS_COUNT = INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
 
-    private WoodenGearShaperZoneContents inputZoneContents;
-    private WoodenGearShaperZoneContents outputZoneContents;
+    private WoodenLatheZoneContents inputZoneContents;
+    private WoodenLatheZoneContents outputZoneContents;
 
-    private final WoodenGearShaperStateData woodenGearShaperStateData = new WoodenGearShaperStateData();
+    private final WoodenLatheStateData woodenLatheStateData = new WoodenLatheStateData();
     private ItemStack currentlyProcessingItemLastTick = ItemStack.EMPTY;
 
-    public TileEntityWoodenGearShaper(){
-        super(DeepworldTileEntities.WOODEN_GEAR_SHAPER);
-        inputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
-        outputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+    public TileEntityWoodenLathe(){
+        super(DeepworldTileEntities.WOODEN_LATHE);
+        inputZoneContents = WoodenLatheZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        outputZoneContents = WoodenLatheZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
@@ -69,52 +69,52 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
         // if user has changed the input slots, reset the smelting time
         if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
-            woodenGearShaperStateData.processTimeElapsed = 0;
+            woodenLatheStateData.processTimeElapsed = 0;
         }
 
         currentlyProcessingItemLastTick = currentlyProcessingItem.copy();
 
-        if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
-            --woodenGearShaperStateData.inertiaTimeRemaining;
+        if (woodenLatheStateData.inertiaTimeRemaining > 0) {
+            --woodenLatheStateData.inertiaTimeRemaining;
         }
 
-        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
+        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
 
         if (recipe != null) {
             if (recipe.isValidInput(inputZoneContents, this.world)) {
 
                 // If inertia is greater than 0, process block
-                if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
-                    woodenGearShaperStateData.processTimeElapsed += (int) (((float) woodenGearShaperStateData.inertiaTimeRemaining / (float) woodenGearShaperStateData.inertiaTimeInitialValue) * (float) 10);
+                if (woodenLatheStateData.inertiaTimeRemaining > 0) {
+                    woodenLatheStateData.processTimeElapsed += (int) (((float) woodenLatheStateData.inertiaTimeRemaining / (float) woodenLatheStateData.inertiaTimeInitialValue) * (float) 10);
                 }
 
-                if (woodenGearShaperStateData.processTimeElapsed < 0) woodenGearShaperStateData.processTimeElapsed = 0;
+                if (woodenLatheStateData.processTimeElapsed < 0) woodenLatheStateData.processTimeElapsed = 0;
 
                 int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-                woodenGearShaperStateData.processTimeForCompletion = processTimeForCurrentItem;
+                woodenLatheStateData.processTimeForCompletion = processTimeForCurrentItem;
 
                 // If processTime has reached maxProcessTime process the item and reset processTime
-                if (woodenGearShaperStateData.processTimeElapsed >= processTimeForCurrentItem) {
+                if (woodenLatheStateData.processTimeElapsed >= processTimeForCurrentItem) {
                     processInputItem();
-                    woodenGearShaperStateData.processTimeElapsed = 0;
+                    woodenLatheStateData.processTimeElapsed = 0;
                 }
             } else {
-                woodenGearShaperStateData.processTimeElapsed = 0;
+                woodenLatheStateData.processTimeElapsed = 0;
             }
-        }
 
-        // when the state of the machine change, we need to force the block to re-render, otherwise the change in
-        //   state will not be visible.  Likewise, we need to force a lighting recalculation.
-        // The block update (for renderer) is only required on client side, but the lighting is required on both, since
-        //    the client needs it for rendering and the server needs it for crop growth etc
+            // when the state of the machine change, we need to force the block to re-render, otherwise the change in
+            //   state will not be visible.  Likewise, we need to force a lighting recalculation.
+            // The block update (for renderer) is only required on client side, but the lighting is required on both, since
+            //    the client needs it for rendering and the server needs it for crop growth etc
 
-        BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenGearShaper.WORKING, woodenGearShaperStateData.inertiaTimeRemaining > 0);
+            BlockState currentBlockState = world.getBlockState(this.pos);
+            BlockState newBlockState = currentBlockState.with(BlockWoodenLathe.WORKING, woodenLatheStateData.inertiaTimeRemaining > 0);
 
-        if (!newBlockState.equals(currentBlockState)) {
-            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+            if (!newBlockState.equals(currentBlockState)) {
+                world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
-            markDirty();
+                markDirty();
+            }
         }
     }
 
@@ -124,34 +124,34 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
     private ItemStack processInputItem() {
-        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
+        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
 
         if (recipe.isValidInput(inputZoneContents, this.world)) {
             ItemStack result = recipe.getResult();
 
-                    // is output slot suitable for process - either empty, or with identical item that has enough space
-                    if (willItemStackFit(outputZoneContents, 0, result)) {
-                        ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
+            // is output slot suitable for process - either empty, or with identical item that has enough space
+            if (willItemStackFit(outputZoneContents, 0, result)) {
+                ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
 
-                       recipe.applyCraft(inputZoneContents, this.world);
-                        outputZoneContents.increaseStackSize(0, result);
+                recipe.applyCraft(inputZoneContents, this.world);
+                outputZoneContents.increaseStackSize(0, result);
 
-                        markDirty();
-                        return rtn;
-                    }
+                markDirty();
+                return rtn;
+            }
         }
         return ItemStack.EMPTY;
     }
 
     /**
      * Will the given ItemStack fully fit into the target slot?
-     * @param woodenGearShaperZoneContents
+     * @param woodenLatheZoneContents
      * @param slotIndex
      * @param itemStackOrigin
      * @return true if the given ItemStack will fit completely; false otherwise
      */
-    public boolean willItemStackFit(WoodenGearShaperZoneContents woodenGearShaperZoneContents, int slotIndex, ItemStack itemStackOrigin) {
-        ItemStack itemStackDestination = woodenGearShaperZoneContents.getStackInSlot(0);
+    public boolean willItemStackFit(WoodenLatheZoneContents woodenLatheZoneContents, int slotIndex, ItemStack itemStackOrigin) {
+        ItemStack itemStackDestination = woodenLatheZoneContents.getStackInSlot(0);
 
         if (itemStackDestination.isEmpty() || itemStackOrigin.isEmpty()) {
             return true;
@@ -162,15 +162,15 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         }
 
         int sizeAfterMerge = itemStackDestination.getCount() + itemStackOrigin.getCount();
-        if (sizeAfterMerge <= woodenGearShaperZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
+        if (sizeAfterMerge <= woodenLatheZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
             return true;
         }
         return false;
     }
 
     // gets the recipe which matches the given input, or Missing if none.
-    public static WoodenGearShaperRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
-        return world.getRecipeManager().getRecipe(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
+    public static WoodenLatheRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
+        return world.getRecipeManager().getRecipe(WoodenLatheRecipe.LATHING, new Inventory(itemStack), world).orElse(null);
     }
 
     /**
@@ -180,7 +180,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      * @return processing time (ticks) or 0 if no matching recipe
      */
     public static int getProcessTime(World world, ItemStack itemStack) {
-        WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+        WoodenLatheRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
         if (matchingRecipe == null) return 0;
         return matchingRecipe.getProcessingTime();
     }
@@ -208,7 +208,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
-        woodenGearShaperStateData.putIntoNBT(parentNBTTagCompound);
+        woodenLatheStateData.putIntoNBT(parentNBTTagCompound);
         parentNBTTagCompound.put(INPUT_SLOTS_NBT, inputZoneContents.serializeNBT());
         parentNBTTagCompound.put(OUTPUT_SLOTS_NBT, outputZoneContents.serializeNBT());
         return parentNBTTagCompound;
@@ -220,7 +220,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
-        woodenGearShaperStateData.readFromNBT(nbtTagCompound);
+        woodenLatheStateData.readFromNBT(nbtTagCompound);
 
         CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
@@ -286,7 +286,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      */
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("container.deepworld.wooden_gear_shaper");
+        return new TranslationTextComponent("container.deepworld.wooden_lathe");
     }
 
     /**
@@ -298,7 +298,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      */
     @Override
     public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return ContainerWoodenGearShaper.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenGearShaperStateData);
+        return ContainerWoodenLathe.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenLatheStateData);
     }
 
     @Override

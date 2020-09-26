@@ -1,7 +1,6 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;

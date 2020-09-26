@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.client.sound;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldSoundEvents;
 import fr.dwightstudio.deepworld.common.tile.ITileEntityWoodenMachine;
 import net.minecraft.client.Minecraft;

@@ -18,6 +18,6 @@ public class DeepworldContainerRegister {
 
         event.getRegistry().register(WOODEN_PRESS_CONTAINER.setRegistryName(Deepworld.MOD_ID, "wooden_press_container"));
         event.getRegistry().register(WOODEN_GEAR_SHAPER_CONTAINER.setRegistryName(Deepworld.MOD_ID, "wooden_gear_shaper_container"));
-        event.getRegistry().register(WOODEN_LATHE_CONTAINER.setRegistryName(Deepworld.MOD_ID, "wooden_lathe"));
+        event.getRegistry().register(WOODEN_LATHE_CONTAINER.setRegistryName(Deepworld.MOD_ID, "wooden_lathe_container"));
     }
 }

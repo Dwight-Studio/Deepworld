@@ -17,7 +17,7 @@ public class DeepworldRecipeRegister {
     public static void onRecipeSerializerRegister(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
         event.getRegistry().registerAll(new WoodenPressRecipeSerializer<>(WoodenPressRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_press_pressing"));
         event.getRegistry().registerAll(new WoodenGearShaperRecipeSerializer<>(WoodenGearShaperRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_gear_shaper_shaping"));
-        event.getRegistry().registerAll(new WoodenLatheRecipeSerializer<>(WoodenLatheRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_lathe"));
+        event.getRegistry().registerAll(new WoodenLatheRecipeSerializer<>(WoodenLatheRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_lathe_lathing"));
     }
 
 }

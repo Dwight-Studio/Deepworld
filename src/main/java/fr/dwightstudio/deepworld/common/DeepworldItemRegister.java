@@ -39,6 +39,8 @@ public class DeepworldItemRegister {
         Item STEEL_INGOT = new ItemSteelIngot();
         Item OBSIDIAN_INFUSED_STEEL_INGOT = new ItemObsidianInfusedSteelIngot();
         Item IRON_PUMP = new ItemIronPump();
+        Item IRON_SMALL_GEAR = new ItemIronSmallGear();
+        Item VALVE_ASSEMBLY = new ItemValveAssembly();
 
         //Tools
         Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
@@ -82,6 +84,8 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(STEEL_INGOT, "steel_ingot"));
         event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_INGOT, "obsidian_infused_steel_ingot"));
         event.getRegistry().register(prepare(IRON_PUMP, "iron_pump"));
+        event.getRegistry().register(prepare(IRON_SMALL_GEAR, "iron_small_gear"));
+        event.getRegistry().register(prepare(VALVE_ASSEMBLY, "valve_assembly"));
 
         //Tools
         event.getRegistry().register(prepare(STEEL_PICKAXE, "steel_pickaxe"));

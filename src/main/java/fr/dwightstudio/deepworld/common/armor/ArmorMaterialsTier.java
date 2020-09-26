@@ -17,6 +17,11 @@ public enum ArmorMaterialsTier implements IArmorMaterial {
     STEEL(Deepworld.MOD_ID + ":steel", 18, new int[] {3, 5, 6, 3}, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> {
         return Ingredient.fromItems(DeepworldItems.STEEL_INGOT);
+    }),
+
+    OBSIDIAN_INFUSED_STEEL(Deepworld.MOD_ID + ":obsidian_infused_steel", 18, new int[] {3, 5, 6, 3}, 14,
+    SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> {
+        return Ingredient.fromItems(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
     });
 
     private static final int[] MAX_DAMAGE = new int[] {11, 16, 15, 13};

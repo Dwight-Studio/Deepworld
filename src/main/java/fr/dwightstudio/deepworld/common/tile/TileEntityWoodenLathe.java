@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.tile;
 
+import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenLathe;
 import fr.dwightstudio.deepworld.common.machine.wooden_lathe.ContainerWoodenLathe;
@@ -7,6 +8,7 @@ import fr.dwightstudio.deepworld.common.machine.wooden_lathe.WoodenLatheStateDat
 import fr.dwightstudio.deepworld.common.machine.wooden_lathe.WoodenLatheZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_lathe.WoodenLatheRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IRecipeHolder;
@@ -24,12 +26,13 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity {
+public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -45,6 +48,13 @@ public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory
         super(DeepworldTileEntities.WOODEN_LATHE);
         inputZoneContents = WoodenLatheZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
         outputZoneContents = WoodenLatheZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+    }
+
+    @Override
+    public void onLoad() {
+        if (world.isRemote()) {
+            Minecraft.getInstance().getSoundHandler().play(new TickableSoundWoodenMachine(pos));
+        }
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
@@ -114,7 +124,9 @@ public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory
                 world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
                 markDirty();
-            }
+            } else if (woodenLatheStateData.inertiaTimeRemaining > 0) {
+            world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
+        }
         }
     }
 
@@ -393,5 +405,12 @@ public class TileEntityWoodenLathe extends TileEntity implements ISidedInventory
     @Override
     public IRecipe<?> getRecipeUsed() {
         return null;
+    }
+
+    @Override
+    public float getVolume() {
+        if (woodenLatheStateData.inertiaTimeInitialValue <= 0 ) return 0;
+        double fraction = woodenLatheStateData.inertiaTimeRemaining / (double)woodenLatheStateData.inertiaTimeInitialValue;
+        return (float) MathHelper.clamp(fraction, 0.0, 1.0);
     }
 }

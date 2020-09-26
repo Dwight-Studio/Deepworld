@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;

@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.tile;
 
+import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenGearShaper;
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
@@ -7,6 +8,7 @@ import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearSha
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IRecipeHolder;
@@ -24,6 +26,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -45,6 +48,13 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         super(DeepworldTileEntities.WOODEN_GEAR_SHAPER);
         inputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
         outputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+    }
+
+    @Override
+    public void onLoad() {
+        if (world.isRemote()) {
+            Minecraft.getInstance().getSoundHandler().play(new TickableSoundWoodenMachine(pos));
+        }
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
@@ -115,6 +125,8 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
             markDirty();
+        } else if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
+            world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
     }
 
@@ -397,6 +409,8 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
     @Override
     public float getVolume() {
-        return (float)woodenGearShaperStateData.inertiaTimeRemaining / (float)woodenGearShaperStateData.inertiaTimeInitialValue;
+        if (woodenGearShaperStateData.inertiaTimeInitialValue <= 0 ) return 0;
+        double fraction = woodenGearShaperStateData.inertiaTimeRemaining / (double)woodenGearShaperStateData.inertiaTimeInitialValue;
+        return (float)MathHelper.clamp(fraction, 0.0, 1.0);
     }
 }

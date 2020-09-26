@@ -1,8 +1,8 @@
 package fr.dwightstudio.deepworld.client;
 
 import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenGearShaper;
-import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenPress;
 import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenLathe;
+import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenPress;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldContainers;
 import net.minecraft.client.gui.ScreenManager;

@@ -3,7 +3,6 @@ package fr.dwightstudio.deepworld.client.sound;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldSoundEvents;
 import fr.dwightstudio.deepworld.common.tile.ITileEntityWoodenMachine;
-import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.TickableSound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +20,7 @@ public class TickableSoundWoodenMachine extends TickableSound {
         this.x = blockPos.getX() + 0.5F;
         this.y = blockPos.getY() + 0.5F;
         this.z = blockPos.getZ() + 0.5F;
-        this.volume = 0F;
+        this.volume = 0.0F;
 
         this.repeat = true;
         this.repeatDelay = 0;
@@ -29,7 +28,7 @@ public class TickableSoundWoodenMachine extends TickableSound {
 
     @Override
     public void tick() {
-        this.volume = (this.volume + getTileVolume())/2;
+        this.volume = getTileVolume();
     }
 
     @Override

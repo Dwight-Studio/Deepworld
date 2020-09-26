@@ -27,6 +27,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -60,6 +61,17 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
         final double Z_CENTRE_OFFSET = 0.5;
         final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
         return player.getDistanceSq(pos.getX() + X_CENTRE_OFFSET, pos.getY() + Y_CENTRE_OFFSET, pos.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
+    }
+
+    /**
+     * Called when this is first added to the world (by {@link World#addTileEntity(TileEntity)}).
+     * Override instead of adding {@code if (firstTick)} stuff in update.
+     */
+    @Override
+    public void onLoad() {
+        if (world.isRemote()) {
+            Minecraft.getInstance().getSoundHandler().play(new TickableSoundWoodenMachine(pos));
+        }
     }
 
     // This method is called every tick to update the tile entity, i.e.
@@ -118,6 +130,8 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
             markDirty();
+        } else if (woodenPressStateData.inertiaTimeRemaining > 0) {
+            world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
     }
 
@@ -396,6 +410,8 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     @Override
     public float getVolume() {
-        return (float)woodenPressStateData.inertiaTimeRemaining / (float)woodenPressStateData.inertiaTimeInitialValue;
+        if (woodenPressStateData.inertiaTimeInitialValue <= 0 ) return 0.0F;
+        float fraction = (float)woodenPressStateData.inertiaTimeRemaining / (float)woodenPressStateData.inertiaTimeInitialValue;
+        return (float) MathHelper.clamp(fraction, 0.0, 1.0);
     }
 }

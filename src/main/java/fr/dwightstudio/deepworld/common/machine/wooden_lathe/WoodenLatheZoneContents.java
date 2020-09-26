@@ -1,6 +1,5 @@
 package fr.dwightstudio.deepworld.common.machine.wooden_lathe;
 
-import fr.dwightstudio.deepworld.common.machine.wooden_lathe.WoodenLatheZoneContents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

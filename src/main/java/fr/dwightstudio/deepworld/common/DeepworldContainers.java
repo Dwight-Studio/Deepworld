@@ -1,8 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
 import fr.dwightstudio.deepworld.common.machine.wooden_lathe.ContainerWoodenLathe;
+import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.registries.ObjectHolder;
 

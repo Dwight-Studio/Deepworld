@@ -145,10 +145,26 @@
     },
     {
       "when": {
+        "secondary_component":  "2"
+      },
+      "apply": {
+        "model": "deepworld:item/simple_left_part_holder"
+      }
+    },
+    {
+      "when": {
         "tertiary_component":  "1"
       },
       "apply": {
         "model": "deepworld:item/wooden_crank"
+      }
+    },
+    {
+      "when": {
+        "tertiary_component":  "2"
+      },
+      "apply": {
+        "model": "deepworld:item/simple_right_part_holder"
       }
     }
   ]

@@ -3,17 +3,22 @@
   "_comment": "The Deep World #",
   "_comment": "#################",
 
+  "_comment": "Subtitles",
+  "deepworld.subtitle.wooden_machine": "Rotating wooden mechanism",
+
   "_comment": "Creative tab",
   "itemGroup.tabDeepworld": "The Deep World",
 
   "_comment": "Containers",
   "container.deepworld.wooden_press": "Wooden Press",
   "container.deepworld.wooden_gear_shaper": "Wooden Gear Shaper",
+  "container.deepworld.wooden_lathe": "Wooden Lathe",
 
   "_comment": "Itemblocks",
   "block.deepworld.wooden_frame": "Wooden Frame",
   "block.deepworld.wooden_press": "Wooden Press",
   "block.deepworld.wooden_gear_shaper": "Wooden Gear Shaper",
+  "block.deepworld.wooden_lathe": "Wooden Lathe",
   "block.deepworld.iron_frame": "Iron Frame",
   "block.deepworld.steel_frame": "Steel Frame",
   "block.deepworld.obsidian_infused_steel_frame": "Obsidian-Infused Steel Frame",
@@ -24,6 +29,8 @@
   "item.deepworld.wooden_case_panel": "Wooden Case Panel (Component)",
   "item.deepworld.wooden_gearbox": "Wooden Gearbox (Component)",
   "item.deepworld.wooden_crank": "Wooden Crank (Component)",
+  "item.deepworld.simple_left_part_holder": "Simple Left Part Holder (Component)",
+  "item.deepworld.simple_right_part_holder": "Simple Right Part Holder (Component)",
   "item.deepworld.simple_pressing_chamber": "Simple Pressing Chamber (Component)",
   "item.deepworld.wooden_gear": "Wooden Gear",
   "item.deepworld.simple_cutter": "Simple Cutter (Component)",

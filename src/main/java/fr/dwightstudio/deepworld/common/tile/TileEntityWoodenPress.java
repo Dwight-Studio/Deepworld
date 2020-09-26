@@ -1,5 +1,7 @@
 package fr.dwightstudio.deepworld.common.tile;
 
+import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
 import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
@@ -7,6 +9,7 @@ import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressStateDat
 import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IRecipeHolder;
@@ -29,7 +32,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenPress extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity {
+public class TileEntityWoodenPress extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -101,20 +104,20 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
             } else {
                 woodenPressStateData.processTimeElapsed = 0;
             }
+        }
 
-            // when the state of the machine change, we need to force the block to re-render, otherwise the change in
-            //   state will not be visible.  Likewise, we need to force a lighting recalculation.
-            // The block update (for renderer) is only required on client side, but the lighting is required on both, since
-            //    the client needs it for rendering and the server needs it for crop growth etc
+        // when the state of the machine change, we need to force the block to re-render, otherwise the change in
+        //   state will not be visible.  Likewise, we need to force a lighting recalculation.
+        // The block update (for renderer) is only required on client side, but the lighting is required on both, since
+        //    the client needs it for rendering and the server needs it for crop growth etc
 
-            BlockState currentBlockState = world.getBlockState(this.pos);
-            BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
+        BlockState currentBlockState = world.getBlockState(this.pos);
+        BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
 
-            if (!newBlockState.equals(currentBlockState)) {
-                world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+        if (!newBlockState.equals(currentBlockState)) {
+            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
-                markDirty();
-            }
+            markDirty();
         }
     }
 
@@ -204,8 +207,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     // This is where you save any data that you don't want to lose when the tile entity unloads
     // In this case, it saves the state of the furnace (burn time etc) and the itemstacks stored in the fuel, input, and output slots
     @Override
-    public CompoundNBT write(CompoundNBT parentNBTTagCompound)
-    {
+    public CompoundNBT write(CompoundNBT parentNBTTagCompound) {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
         woodenPressStateData.putIntoNBT(parentNBTTagCompound);
@@ -216,8 +218,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     // This is where you load the data that you saved in writeToNBT
     @Override
-    public void read(CompoundNBT nbtTagCompound)
-    {
+    public void read(CompoundNBT nbtTagCompound) {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
         woodenPressStateData.readFromNBT(nbtTagCompound);
@@ -236,8 +237,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     //	When the world loads from disk, the server needs to send the TileEntity information to the client
     //  it uses getUpdatePacket(), getUpdateTag(), onDataPacket(), and handleUpdateTag() to do this
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
+    public SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT updateTagDescribingTileEntityState = getUpdateTag();
         final int METADATA = 42; // arbitrary.
         return new SUpdateTileEntityPacket(this.pos, METADATA, updateTagDescribingTileEntityState);
@@ -253,8 +253,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
        Warning - although our getUpdatePacket() uses this method, vanilla also calls it directly, so don't remove it.
      */
     @Override
-    public CompoundNBT getUpdateTag()
-    {
+    public CompoundNBT getUpdateTag() {
         CompoundNBT nbtTagCompound = new CompoundNBT();
         write(nbtTagCompound);
         return nbtTagCompound;
@@ -393,5 +392,10 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     @Override
     public IRecipe<?> getRecipeUsed() {
         return null;
+    }
+
+    @Override
+    public float getVolume() {
+        return (float)woodenPressStateData.inertiaTimeRemaining / (float)woodenPressStateData.inertiaTimeInitialValue;
     }
 }

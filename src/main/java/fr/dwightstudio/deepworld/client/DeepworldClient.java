@@ -2,6 +2,7 @@ package fr.dwightstudio.deepworld.client;
 
 import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenGearShaper;
 import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenPress;
+import fr.dwightstudio.deepworld.client.container.ContainerScreenWoodenLathe;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldContainers;
 import net.minecraft.client.gui.ScreenManager;
@@ -19,5 +20,6 @@ public class DeepworldClient extends Deepworld {
     public static void onClientSetupEvent(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(DeepworldContainers.WOODEN_PRESS_CONTAINER, ContainerScreenWoodenPress::new);
         ScreenManager.registerFactory(DeepworldContainers.WOODEN_GEAR_SHAPER_CONTAINER, ContainerScreenWoodenGearShaper::new);
+        ScreenManager.registerFactory(DeepworldContainers.WOODEN_LATHE_CONTAINER, ContainerScreenWoodenLathe::new);
     }
 }

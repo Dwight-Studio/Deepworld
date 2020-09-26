@@ -29,6 +29,16 @@ public enum WoodenFrameComponent {
             new ResourceLocation(Deepworld.MOD_ID, "simple_cutter"),
             ComponentClass.PRIMARY,
             new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
+    ),
+    SIMPLE_LEFT_PART_HOLDER(
+            new ResourceLocation(Deepworld.MOD_ID, "simple_left_part_holder"),
+            ComponentClass.SECONDARY,
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_lathe")}
+    ),
+    SIMPLE_RIGHT_PART_HOLDER(
+            new ResourceLocation(Deepworld.MOD_ID, "simple_right_part_holder"),
+            ComponentClass.TERTIARY,
+            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_lathe")}
     );
 
     // Var

@@ -1,12 +1,9 @@
 package fr.dwightstudio.deepworld.common.block;
 
-import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenLathe;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -25,17 +22,13 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvider {
-
+public class BlockWoodenLathe extends ContainerBlock implements ITileEntityProvider {
     // Block property initializing
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     public static final IProperty<Boolean> WORKING = BooleanProperty.create("working");
@@ -48,7 +41,7 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
     }
 
     // Constructor
-    public BlockWoodenPress() {
+    public BlockWoodenLathe() {
         super(Properties.create(Material.WOOD)
                 .sound(SoundType.WOOD)
                 .hardnessAndResistance(3, 2)
@@ -74,7 +67,7 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
 
     @Override
     public TileEntity createNewTileEntity(IBlockReader world) {
-        return new TileEntityWoodenPress();
+        return new TileEntityWoodenLathe();
     }
 
     // Drop all contents
@@ -82,8 +75,8 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
     public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tileentity = world.getTileEntity(blockPos);
-            if (tileentity instanceof TileEntityWoodenPress) {
-                TileEntityWoodenPress tileEntityFurnace = (TileEntityWoodenPress) tileentity;
+            if (tileentity instanceof TileEntityWoodenLathe) {
+                TileEntityWoodenLathe tileEntityFurnace = (TileEntityWoodenLathe)tileentity;
                 tileEntityFurnace.dropAllContents(world, blockPos);
             }
             super.onReplaced(state, world, blockPos, newState, isMoving);  // call it last, because it removes the TileEntity
@@ -93,20 +86,14 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
     // Setting customs drops
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-
         List<ItemStack> drops = new ArrayList<ItemStack>();
 
-        drops.add(new ItemStack(DeepworldItems.WOODEN_CRANK, 1));
-        drops.add(new ItemStack(DeepworldItems.SIMPLE_PRESSING_CHAMBER, 1));
-        drops.add(new ItemStack(DeepworldItems.WOODEN_GEARBOX, 1));
         drops.add(new ItemStack(Items.STICK, 4));
         drops.add(new ItemStack(Blocks.OAK_PLANKS, 4));
         drops.add(new ItemStack(DeepworldItems.WOODEN_CASE_PANEL, 6));
 
-
         return drops;
     }
-
     // Open gui
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {

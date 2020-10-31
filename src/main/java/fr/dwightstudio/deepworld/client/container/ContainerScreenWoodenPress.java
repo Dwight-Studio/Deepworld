@@ -2,7 +2,8 @@ package fr.dwightstudio.deepworld.client.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
+import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,11 +12,11 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 
-public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenPress> {
+public class ContainerScreenWoodenPress extends ContainerScreen<ContainerWoodenMachine<TileEntityWoodenPress>> {
 
-    private ContainerWoodenPress containerWoodenPress;
+    private ContainerWoodenMachine<TileEntityWoodenPress> containerWoodenPress;
 
-    public ContainerScreenWoodenPress(ContainerWoodenPress containerWoodenPress, PlayerInventory playerInventory, ITextComponent title) {
+    public ContainerScreenWoodenPress(ContainerWoodenMachine<TileEntityWoodenPress> containerWoodenPress, PlayerInventory playerInventory, ITextComponent title) {
         super(containerWoodenPress, playerInventory, title);
         this.containerWoodenPress = containerWoodenPress;
 

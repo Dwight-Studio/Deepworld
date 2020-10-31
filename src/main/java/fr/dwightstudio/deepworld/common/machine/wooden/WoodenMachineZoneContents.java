@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper;
+package fr.dwightstudio.deepworld.common.machine.wooden;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -7,10 +7,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.items.ItemStackHandler;
 import org.antlr.v4.runtime.misc.Predicate;
 
-public class WoodenGearShaperZoneContents implements IInventory {
+public class WoodenMachineZoneContents implements IInventory {
 
     /**
-     * Use this constructor to create a WoodenGearShaperZoneContents which is linked to its parent TileEntity.
+     * Use this constructor to create a WoodenMachineZoneContents which is linked to its parent TileEntity.
      * On the server, this link will be used by the Container to request information and provide notifications to the parent
      * On the client, the link will be unused.
      * There are additional notificationLambdas available; these two are explicitly specified because your TileEntity will
@@ -24,22 +24,22 @@ public class WoodenGearShaperZoneContents implements IInventory {
      *                                     this is TileEntity::markDirty
      * @return the new ChestContents.
      */
-    public static WoodenGearShaperZoneContents createForTileEntity(int size,
-                                                              Predicate<PlayerEntity> canPlayerAccessInventoryLambda,
-                                                              WoodenGearShaperZoneContents.Notify markDirtyNotificationLambda) {
-        return new WoodenGearShaperZoneContents(size, canPlayerAccessInventoryLambda, markDirtyNotificationLambda);
+    public static WoodenMachineZoneContents createForTileEntity(int size,
+                                                                   Predicate<PlayerEntity> canPlayerAccessInventoryLambda,
+                                                                WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
+        return new WoodenMachineZoneContents(size, canPlayerAccessInventoryLambda, markDirtyNotificationLambda);
     }
 
     /**
-     * Use this constructor to create a WoodenGearShaperZoneContents which is not linked to any parent TileEntity; i.e.
+     * Use this constructor to create a WoodenMachineZoneContents which is not linked to any parent TileEntity; i.e.
      *   is used by the client side container:
      * * does not permanently store items
      * * cannot ask questions/provide notifications to a parent TileEntity
      * @param size  the max number of ItemStacks in the inventory
      * @return the new ChestContents
      */
-    public static WoodenGearShaperZoneContents createForClientSideContainer(int size) {
-        return new WoodenGearShaperZoneContents(size);
+    public static WoodenMachineZoneContents createForClientSideContainer(int size) {
+        return new WoodenMachineZoneContents(size);
     }
 
     // ----Methods used to load / save the contents to NBT
@@ -49,7 +49,7 @@ public class WoodenGearShaperZoneContents implements IInventory {
      * @return the tag containing the contents
      */
     public CompoundNBT serializeNBT()  {
-        return WoodenGearShaperContents.serializeNBT();
+        return WoodenMachineZoneContents.serializeNBT();
     }
 
     /**
@@ -57,7 +57,7 @@ public class WoodenGearShaperZoneContents implements IInventory {
      * @param nbt
      */
     public void deserializeNBT(CompoundNBT nbt)   {
-        WoodenGearShaperContents.deserializeNBT(nbt);
+        WoodenMachineZoneContents.deserializeNBT(nbt);
     }
 
     //  ------------- linking methods  -------------
@@ -85,21 +85,21 @@ public class WoodenGearShaperZoneContents implements IInventory {
     // the function that the container should call in order to tell the parent TileEntity that the
     // contents of its inventory have been changed.
     // default is "do nothing"
-    public void setMarkDirtyNotificationLambda(WoodenGearShaperZoneContents.Notify markDirtyNotificationLambda) {
+    public void setMarkDirtyNotificationLambda(WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
         this.markDirtyNotificationLambda = markDirtyNotificationLambda;
     }
 
     // the function that the container should call in order to tell the parent TileEntity that the
     // container has been opened by a player (eg so that the chest can animate its lid being opened)
     // default is "do nothing"
-    public void setOpenInventoryNotificationLambda(WoodenGearShaperZoneContents.Notify openInventoryNotificationLambda) {
+    public void setOpenInventoryNotificationLambda(WoodenMachineZoneContents.Notify openInventoryNotificationLambda) {
         this.openInventoryNotificationLambda = openInventoryNotificationLambda;
     }
 
     // the function that the container should call in order to tell the parent TileEntity that the
     // container has been closed by a player
     // default is "do nothing"
-    public void setCloseInventoryNotificationLambda(WoodenGearShaperZoneContents.Notify closeInventoryNotificationLambda) {
+    public void setCloseInventoryNotificationLambda(WoodenMachineZoneContents.Notify closeInventoryNotificationLambda) {
         this.closeInventoryNotificationLambda = closeInventoryNotificationLambda;
     }
 
@@ -114,7 +114,7 @@ public class WoodenGearShaperZoneContents implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return WoodenGearShaperContents.isItemValid(index, stack);
+        return WoodenMachineZoneContents.isItemValid(index, stack);
     }
 
     // ----- Methods used to inform the parent tile entity that something has happened to the contents
@@ -145,42 +145,42 @@ public class WoodenGearShaperZoneContents implements IInventory {
 
     @Override
     public int getSizeInventory() {
-        return WoodenGearShaperContents.getSlots();
+        return WoodenMachineZoneContents.getSlots();
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < WoodenGearShaperContents.getSlots(); ++i) {
-            if (!WoodenGearShaperContents.getStackInSlot(i).isEmpty()) return false;
+        for (int i = 0; i < WoodenMachineZoneContents.getSlots(); ++i) {
+            if (!WoodenMachineZoneContents.getStackInSlot(i).isEmpty()) return false;
         }
         return true;
     }
 
     public ItemStack getStackInSlot(int index) {
-        return WoodenGearShaperContents.getStackInSlot(index);
+        return WoodenMachineZoneContents.getStackInSlot(index);
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
         if (count < 0) throw new IllegalArgumentException("count should be >= 0:" + count);
-        return WoodenGearShaperContents.extractItem(index, count, false);
+        return WoodenMachineZoneContents.extractItem(index, count, false);
     }
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        int maxPossibleItemStackSize = WoodenGearShaperContents.getSlotLimit(index);
-        return WoodenGearShaperContents.extractItem(index, maxPossibleItemStackSize, false);
+        int maxPossibleItemStackSize = WoodenMachineZoneContents.getSlotLimit(index);
+        return WoodenMachineZoneContents.extractItem(index, maxPossibleItemStackSize, false);
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        WoodenGearShaperContents.setStackInSlot(index, stack);
+        WoodenMachineZoneContents.setStackInSlot(index, stack);
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < WoodenGearShaperContents.getSlots(); ++i) {
-            WoodenGearShaperContents.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < WoodenMachineZoneContents.getSlots(); ++i) {
+            WoodenMachineZoneContents.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
 
@@ -194,7 +194,7 @@ public class WoodenGearShaperZoneContents implements IInventory {
      *         (eg if ItemStack has a size of 23, and only 12 will fit, then ItemStack with a size of 11 is returned
      */
     public ItemStack increaseStackSize(int index, ItemStack itemStackToInsert) {
-        ItemStack leftoverItemStack = WoodenGearShaperContents.insertItem(index, itemStackToInsert, false);
+        ItemStack leftoverItemStack = WoodenMachineZoneContents.insertItem(index, itemStackToInsert, false);
         return leftoverItemStack;
     }
 
@@ -206,18 +206,18 @@ public class WoodenGearShaperZoneContents implements IInventory {
      *         (eg if ItemStack has a size of 23, and only 12 will fit, then ItemStack with a size of 11 is returned
      */
     public boolean doesItemStackFit(int index, ItemStack itemStackToInsert) {
-        ItemStack leftoverItemStack = WoodenGearShaperContents.insertItem(index, itemStackToInsert, true);
+        ItemStack leftoverItemStack = WoodenMachineZoneContents.insertItem(index, itemStackToInsert, true);
         return leftoverItemStack.isEmpty();
     }
 
     // ---------
 
-    private WoodenGearShaperZoneContents(int size) {
-        this.WoodenGearShaperContents = new ItemStackHandler(size);
+    private WoodenMachineZoneContents(int size) {
+        this.WoodenMachineZoneContents = new ItemStackHandler(size);
     }
 
-    private WoodenGearShaperZoneContents(int size, Predicate<PlayerEntity> canPlayerAccessInventoryLambda, WoodenGearShaperZoneContents.Notify markDirtyNotificationLambda) {
-        this.WoodenGearShaperContents = new ItemStackHandler(size);
+    private WoodenMachineZoneContents(int size, Predicate<PlayerEntity> canPlayerAccessInventoryLambda, WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
+        this.WoodenMachineZoneContents = new ItemStackHandler(size);
         this.canPlayerAccessInventoryLambda = canPlayerAccessInventoryLambda;
         this.markDirtyNotificationLambda = markDirtyNotificationLambda;
     }
@@ -230,18 +230,17 @@ public class WoodenGearShaperZoneContents implements IInventory {
     // the function that the container should call in order to tell the parent TileEntity that the
     // contents of its inventory have been changed.
     // default is "do nothing"
-    private WoodenGearShaperZoneContents.Notify markDirtyNotificationLambda = ()->{};
+    private WoodenMachineZoneContents.Notify markDirtyNotificationLambda = ()->{};
 
     // the function that the container should call in order to tell the parent TileEntity that the
     // container has been opened by a player (eg so that the chest can animate its lid being opened)
     // default is "do nothing"
-    private WoodenGearShaperZoneContents.Notify openInventoryNotificationLambda = ()->{};
+    private WoodenMachineZoneContents.Notify openInventoryNotificationLambda = ()->{};
 
     // the function that the container should call in order to tell the parent TileEntity that the
     // container has been closed by a player
     // default is "do nothing"
-    private WoodenGearShaperZoneContents.Notify closeInventoryNotificationLambda = ()->{};
+    private WoodenMachineZoneContents.Notify closeInventoryNotificationLambda = ()->{};
 
-    private final ItemStackHandler WoodenGearShaperContents;
-
+    private final ItemStackHandler WoodenMachineZoneContents;
 }

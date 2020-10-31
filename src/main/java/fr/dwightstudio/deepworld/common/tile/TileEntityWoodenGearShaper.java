@@ -1,11 +1,12 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
+import fr.dwightstudio.deepworld.common.DeepworldContainers;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperStateData;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.WoodenGearShaperZoneContents;
+import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
+import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineStateData;
+import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -32,22 +34,22 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine{
+public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
     public static final int TOTAL_SLOTS_COUNT = INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
 
-    private WoodenGearShaperZoneContents inputZoneContents;
-    private WoodenGearShaperZoneContents outputZoneContents;
+    private final WoodenMachineZoneContents inputZoneContents;
+    private final WoodenMachineZoneContents outputZoneContents;
 
-    private final WoodenGearShaperStateData woodenGearShaperStateData = new WoodenGearShaperStateData();
+    private final WoodenMachineStateData woodenMachineStateData = new WoodenMachineStateData();
     private ItemStack currentlyProcessingItemLastTick = ItemStack.EMPTY;
 
     public TileEntityWoodenGearShaper(){
         super(DeepworldTileEntities.WOODEN_GEAR_SHAPER);
-        inputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
-        outputZoneContents = WoodenGearShaperZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        inputZoneContents = WoodenMachineZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        outputZoneContents = WoodenMachineZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
     }
 
     @Override
@@ -79,13 +81,13 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
         // if user has changed the input slots, reset the smelting time
         if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
-            woodenGearShaperStateData.processTimeElapsed = 0;
+            woodenMachineStateData.processTimeElapsed = 0;
         }
 
         currentlyProcessingItemLastTick = currentlyProcessingItem.copy();
 
-        if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
-            --woodenGearShaperStateData.inertiaTimeRemaining;
+        if (woodenMachineStateData.inertiaTimeRemaining > 0) {
+            --woodenMachineStateData.inertiaTimeRemaining;
         }
 
         WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
@@ -94,22 +96,22 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
             if (recipe.isValidInput(inputZoneContents, this.world)) {
 
                 // If inertia is greater than 0, process block
-                if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
-                    woodenGearShaperStateData.processTimeElapsed += (int) (((float) woodenGearShaperStateData.inertiaTimeRemaining / (float) woodenGearShaperStateData.inertiaTimeInitialValue) * (float) 10);
+                if (woodenMachineStateData.inertiaTimeRemaining > 0) {
+                    woodenMachineStateData.processTimeElapsed += (int) (((float) woodenMachineStateData.inertiaTimeRemaining / (float) woodenMachineStateData.inertiaTimeInitialValue) * (float) 10);
                 }
 
-                if (woodenGearShaperStateData.processTimeElapsed < 0) woodenGearShaperStateData.processTimeElapsed = 0;
+                if (woodenMachineStateData.processTimeElapsed < 0) woodenMachineStateData.processTimeElapsed = 0;
 
                 int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-                woodenGearShaperStateData.processTimeForCompletion = processTimeForCurrentItem;
+                woodenMachineStateData.processTimeForCompletion = processTimeForCurrentItem;
 
                 // If processTime has reached maxProcessTime process the item and reset processTime
-                if (woodenGearShaperStateData.processTimeElapsed >= processTimeForCurrentItem) {
+                if (woodenMachineStateData.processTimeElapsed >= processTimeForCurrentItem) {
                     processInputItem();
-                    woodenGearShaperStateData.processTimeElapsed = 0;
+                    woodenMachineStateData.processTimeElapsed = 0;
                 }
             } else {
-                woodenGearShaperStateData.processTimeElapsed = 0;
+                woodenMachineStateData.processTimeElapsed = 0;
             }
         }
 
@@ -119,13 +121,13 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         //    the client needs it for rendering and the server needs it for crop growth etc
 
         BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenGearShaper.WORKING, woodenGearShaperStateData.inertiaTimeRemaining > 0);
+        BlockState newBlockState = currentBlockState.with(BlockWoodenGearShaper.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
             markDirty();
-        } else if (woodenGearShaperStateData.inertiaTimeRemaining > 0) {
+        } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
             world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
     }
@@ -162,7 +164,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      * @param itemStackOrigin
      * @return true if the given ItemStack will fit completely; false otherwise
      */
-    public boolean willItemStackFit(WoodenGearShaperZoneContents woodenGearShaperZoneContents, int slotIndex, ItemStack itemStackOrigin) {
+    public boolean willItemStackFit(WoodenMachineZoneContents woodenGearShaperZoneContents, int slotIndex, ItemStack itemStackOrigin) {
         ItemStack itemStackDestination = woodenGearShaperZoneContents.getStackInSlot(0);
 
         if (itemStackDestination.isEmpty() || itemStackOrigin.isEmpty()) {
@@ -185,6 +187,10 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         return world.getRecipeManager().getRecipe(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
     }
 
+    public boolean isThereRecipeForInput(ItemStack sourceItemStack) {
+        return getMatchingRecipeForInput(world, sourceItemStack) != null;
+    }
+
     /**
      * Gets the processing time for this recipe input
      * @param world
@@ -199,12 +205,12 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
     // Return true if the given stack is allowed to be inserted in the given slot
     // Unlike the vanilla furnace, we allow anything to be placed in the input slots
-    static public boolean isItemValidForInputSlot(ItemStack itemStack) {
+    public boolean isItemValidForInputSlot(ItemStack itemStack) {
         return true;
     }
 
     // Return true if the given stack is allowed to be inserted in the given slot
-    static public boolean isItemValidForOutputSlot(ItemStack itemStack)
+    public boolean isItemValidForOutputSlot(ItemStack itemStack)
     {
         return false;
     }
@@ -220,7 +226,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
-        woodenGearShaperStateData.putIntoNBT(parentNBTTagCompound);
+        woodenMachineStateData.putIntoNBT(parentNBTTagCompound);
         parentNBTTagCompound.put(INPUT_SLOTS_NBT, inputZoneContents.serializeNBT());
         parentNBTTagCompound.put(OUTPUT_SLOTS_NBT, outputZoneContents.serializeNBT());
         return parentNBTTagCompound;
@@ -232,7 +238,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
-        woodenGearShaperStateData.readFromNBT(nbtTagCompound);
+        woodenMachineStateData.readFromNBT(nbtTagCompound);
 
         CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
@@ -310,7 +316,13 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      */
     @Override
     public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return ContainerWoodenGearShaper.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenGearShaperStateData);
+        return new ContainerWoodenMachine<>(DeepworldContainers.WOODEN_GEAR_SHAPER_CONTAINER,
+                this,
+                windowID,
+                playerInventory,
+                inputZoneContents,
+                outputZoneContents,
+                woodenMachineStateData);
     }
 
     @Override
@@ -409,8 +421,8 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
     @Override
     public float getVolume() {
-        if (woodenGearShaperStateData.inertiaTimeInitialValue <= 0 ) return 0;
-        double fraction = woodenGearShaperStateData.inertiaTimeRemaining / (double)woodenGearShaperStateData.inertiaTimeInitialValue;
+        if (woodenMachineStateData.inertiaTimeInitialValue <= 0 ) return 0;
+        double fraction = woodenMachineStateData.inertiaTimeRemaining / (double)woodenMachineStateData.inertiaTimeInitialValue;
         return (float)MathHelper.clamp(fraction, 0.0, 1.0);
     }
 }

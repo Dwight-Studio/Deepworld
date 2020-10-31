@@ -1,11 +1,12 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.client.sound.TickableSoundWoodenMachine;
+import fr.dwightstudio.deepworld.common.DeepworldContainers;
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenPress;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.ContainerWoodenPress;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressStateData;
-import fr.dwightstudio.deepworld.common.machine.wooden_press.WoodenPressZoneContents;
+import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
+import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineStateData;
+import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -38,16 +39,16 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     public static final int OUTPUT_SLOTS_COUNT = 1;
     public static final int TOTAL_SLOTS_COUNT = INPUT_SLOTS_COUNT + OUTPUT_SLOTS_COUNT;
 
-    private WoodenPressZoneContents inputZoneContents;
-    private WoodenPressZoneContents outputZoneContents;
+    private WoodenMachineZoneContents inputZoneContents;
+    private WoodenMachineZoneContents outputZoneContents;
 
-    private final WoodenPressStateData woodenPressStateData = new WoodenPressStateData();
+    private final WoodenMachineStateData woodenMachineStateData = new WoodenMachineStateData();
     private ItemStack currentlyProcessingItemLastTick = ItemStack.EMPTY;
 
     public TileEntityWoodenPress(){
         super(DeepworldTileEntities.WOODEN_PRESS);
-        inputZoneContents = WoodenPressZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
-        outputZoneContents = WoodenPressZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        inputZoneContents = WoodenMachineZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
+        outputZoneContents = WoodenMachineZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
@@ -83,13 +84,13 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
         // if user has changed the input slots, reset the smelting time
         if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
-            woodenPressStateData.processTimeElapsed = 0;
+            woodenMachineStateData.processTimeElapsed = 0;
         }
 
         currentlyProcessingItemLastTick = currentlyProcessingItem.copy();
 
-        if (woodenPressStateData.inertiaTimeRemaining > 0) {
-            --woodenPressStateData.inertiaTimeRemaining;
+        if (woodenMachineStateData.inertiaTimeRemaining > 0) {
+            --woodenMachineStateData.inertiaTimeRemaining;
         }
 
         WoodenPressRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
@@ -98,22 +99,22 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
             if (recipe.isValidInput(inputZoneContents, this.world)) {
 
                 // If inertia is greater than 0, process block
-                if (woodenPressStateData.inertiaTimeRemaining > 0) {
-                    woodenPressStateData.processTimeElapsed += (int) (((float) woodenPressStateData.inertiaTimeRemaining / (float) woodenPressStateData.inertiaTimeInitialValue) * (float) 10);
+                if (woodenMachineStateData.inertiaTimeRemaining > 0) {
+                    woodenMachineStateData.processTimeElapsed += (int) (((float) woodenMachineStateData.inertiaTimeRemaining / (float) woodenMachineStateData.inertiaTimeInitialValue) * (float) 10);
                 }
 
-                if (woodenPressStateData.processTimeElapsed < 0) woodenPressStateData.processTimeElapsed = 0;
+                if (woodenMachineStateData.processTimeElapsed < 0) woodenMachineStateData.processTimeElapsed = 0;
 
                 int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
-                woodenPressStateData.processTimeForCompletion = processTimeForCurrentItem;
+                woodenMachineStateData.processTimeForCompletion = processTimeForCurrentItem;
 
                 // If processTime has reached maxProcessTime process the item and reset processTime
-                if (woodenPressStateData.processTimeElapsed >= processTimeForCurrentItem) {
+                if (woodenMachineStateData.processTimeElapsed >= processTimeForCurrentItem) {
                     processInputItem();
-                    woodenPressStateData.processTimeElapsed = 0;
+                    woodenMachineStateData.processTimeElapsed = 0;
                 }
             } else {
-                woodenPressStateData.processTimeElapsed = 0;
+                woodenMachineStateData.processTimeElapsed = 0;
             }
         }
 
@@ -123,13 +124,13 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
         //    the client needs it for rendering and the server needs it for crop growth etc
 
         BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenPressStateData.inertiaTimeRemaining > 0);
+        BlockState newBlockState = currentBlockState.with(BlockWoodenPress.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
             world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
             markDirty();
-        } else if (woodenPressStateData.inertiaTimeRemaining > 0) {
+        } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
             world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
     }
@@ -166,7 +167,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
      * @param itemStackOrigin
      * @return true if the given ItemStack will fit completely; false otherwise
      */
-    public boolean willItemStackFit(WoodenPressZoneContents woodenPressZoneContents, int slotIndex, ItemStack itemStackOrigin) {
+    public boolean willItemStackFit(WoodenMachineZoneContents woodenPressZoneContents, int slotIndex, ItemStack itemStackOrigin) {
         ItemStack itemStackDestination = woodenPressZoneContents.getStackInSlot(0);
 
         if (itemStackDestination.isEmpty() || itemStackOrigin.isEmpty()) {
@@ -189,6 +190,10 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
         return world.getRecipeManager().getRecipe(WoodenPressRecipe.PRESSING, new Inventory(itemStack), world).orElse(null);
     }
 
+    public boolean isThereRecipeForInput(ItemStack sourceItemStack) {
+        return getMatchingRecipeForInput(world, sourceItemStack) != null;
+    }
+
     /**
      * Gets the processing time for this recipe input
      * @param world
@@ -203,12 +208,12 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     // Return true if the given stack is allowed to be inserted in the given slot
     // Unlike the vanilla furnace, we allow anything to be placed in the input slots
-    static public boolean isItemValidForInputSlot(ItemStack itemStack) {
+    public boolean isItemValidForInputSlot(ItemStack itemStack) {
         return true;
     }
 
     // Return true if the given stack is allowed to be inserted in the given slot
-    static public boolean isItemValidForOutputSlot(ItemStack itemStack)
+    public boolean isItemValidForOutputSlot(ItemStack itemStack)
     {
         return false;
     }
@@ -223,7 +228,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     public CompoundNBT write(CompoundNBT parentNBTTagCompound) {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
-        woodenPressStateData.putIntoNBT(parentNBTTagCompound);
+        woodenMachineStateData.putIntoNBT(parentNBTTagCompound);
         parentNBTTagCompound.put(INPUT_SLOTS_NBT, inputZoneContents.serializeNBT());
         parentNBTTagCompound.put(OUTPUT_SLOTS_NBT, outputZoneContents.serializeNBT());
         return parentNBTTagCompound;
@@ -234,7 +239,7 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
     public void read(CompoundNBT nbtTagCompound) {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
-        woodenPressStateData.readFromNBT(nbtTagCompound);
+        woodenMachineStateData.readFromNBT(nbtTagCompound);
 
         CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
@@ -310,7 +315,13 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
      */
     @Override
     public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return ContainerWoodenPress.createContainerServerSide(windowID, playerInventory, inputZoneContents, outputZoneContents, woodenPressStateData);
+        return new ContainerWoodenMachine<>(DeepworldContainers.WOODEN_PRESS_CONTAINER,
+                this,
+                windowID,
+                playerInventory,
+                inputZoneContents,
+                outputZoneContents,
+                woodenMachineStateData);
     }
 
     @Override
@@ -409,8 +420,8 @@ public class TileEntityWoodenPress extends TileEntity implements ISidedInventory
 
     @Override
     public float getVolume() {
-        if (woodenPressStateData.inertiaTimeInitialValue <= 0 ) return 0.0F;
-        float fraction = (float)woodenPressStateData.inertiaTimeRemaining / (float)woodenPressStateData.inertiaTimeInitialValue;
+        if (woodenMachineStateData.inertiaTimeInitialValue <= 0 ) return 0.0F;
+        float fraction = (float)woodenMachineStateData.inertiaTimeRemaining / (float)woodenMachineStateData.inertiaTimeInitialValue;
         return (float) MathHelper.clamp(fraction, 0.0, 1.0);
     }
 }

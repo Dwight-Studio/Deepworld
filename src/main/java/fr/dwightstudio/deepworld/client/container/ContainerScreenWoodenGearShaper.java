@@ -2,7 +2,8 @@ package fr.dwightstudio.deepworld.client.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.machine.wooden_gear_shaper.ContainerWoodenGearShaper;
+import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
+import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenGearShaper;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,10 +12,10 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 
-public class ContainerScreenWoodenGearShaper extends ContainerScreen<ContainerWoodenGearShaper>{
-    private ContainerWoodenGearShaper containerWoodenGearShaper;
+public class ContainerScreenWoodenGearShaper extends ContainerScreen<ContainerWoodenMachine<TileEntityWoodenGearShaper>>{
+    private ContainerWoodenMachine<TileEntityWoodenGearShaper> containerWoodenGearShaper;
 
-    public ContainerScreenWoodenGearShaper(ContainerWoodenGearShaper containerWoodenGearShaper, PlayerInventory playerInventory, ITextComponent title) {
+    public ContainerScreenWoodenGearShaper(ContainerWoodenMachine<TileEntityWoodenGearShaper> containerWoodenGearShaper, PlayerInventory playerInventory, ITextComponent title) {
         super(containerWoodenGearShaper, playerInventory, title);
         this.containerWoodenGearShaper = containerWoodenGearShaper;
 

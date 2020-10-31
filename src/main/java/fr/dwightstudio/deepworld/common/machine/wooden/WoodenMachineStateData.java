@@ -1,9 +1,9 @@
-package fr.dwightstudio.deepworld.common.machine.wooden_lathe;
+package fr.dwightstudio.deepworld.common.machine.wooden;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IIntArray;
 
-public class WoodenLatheStateData implements IIntArray {
+public class WoodenMachineStateData implements IIntArray {
 
     // The number of ticks that the current item has been processing
     public int processTimeElapsed;
@@ -80,5 +80,4 @@ public class WoodenLatheStateData implements IIntArray {
     public int size() {
         return END_OF_DATA_INDEX_PLUS_ONE;
     }
-
 }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "S S",
+    "   "
+  ],
+  "pattern": [
+    "   ",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/obsidian_infused_steel"
+    }
+  },
+  "result": {
+    "item": "deepworld:steel_boots",
+    "count": 1
+  }
+}

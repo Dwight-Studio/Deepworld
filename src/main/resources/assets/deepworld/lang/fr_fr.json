@@ -55,6 +55,8 @@
   "item.deepworld.iron_pump": "Pompe en Fer",
   "item.deepworld.iron_small_gear": "Petit engrenage en Fer",
   "item.deepworld.valve_assembly": "Assemblage de vanne",
+  "item.deepworld.iron_turbine": "Turbine en Fer",
+  "item.deepworld.pressure_regulator": "Regulateur de pression",
   "item.deepworld.steel_pickaxe": "Pioche en Acier",
   "item.deepworld.steel_sword": "Épée en Acier",
   "item.deepworld.steel_axe": "Hache en Acier",
@@ -68,5 +70,9 @@
   "item.deepworld.steel_helmet": "Casque en Acier",
   "item.deepworld.steel_chestplate": "Plastron en Acier",
   "item.deepworld.steel_leggings": "Jambières en Acier",
-  "item.deepworld.steel_boots": "Bottes en Acier"
+  "item.deepworld.steel_boots": "Bottes en Acier",
+  "item.deepworld.obsidian_infused_steel_helmet": "Casque en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_chestplate": "Plastron en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_leggings": "Jambières en Acier imprégné d'Obsidienne",
+  "item.deepworld.obsidian_infused_steel_boots": "Bottes en Acier imprégné d'Obsidienne"
 }

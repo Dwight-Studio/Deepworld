@@ -43,6 +43,8 @@ public class DeepworldItemRegister {
         Item IRON_PUMP = new ItemIronPump();
         Item IRON_SMALL_GEAR = new ItemIronSmallGear();
         Item VALVE_ASSEMBLY = new ItemValveAssembly();
+        Item IRON_TURBINE = new ItemIronTurbine();
+        Item PRESSURE_REGULATOR = new ItemPressureRegulator();
 
         //Tools
         Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
@@ -61,6 +63,10 @@ public class DeepworldItemRegister {
         Item STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(Deepworld.itemGroup));
         Item STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(Deepworld.itemGroup));
         Item STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.FEET, new Item.Properties().group(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.HEAD, new Item.Properties().group(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.FEET, new Item.Properties().group(Deepworld.itemGroup));
 
         event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
         event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
@@ -90,6 +96,8 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(IRON_PUMP, "iron_pump"));
         event.getRegistry().register(prepare(IRON_SMALL_GEAR, "iron_small_gear"));
         event.getRegistry().register(prepare(VALVE_ASSEMBLY, "valve_assembly"));
+        event.getRegistry().register(prepare(IRON_TURBINE, "iron_turbine"));
+        event.getRegistry().register(prepare(PRESSURE_REGULATOR, "pressure_regulator"));
 
         //Tools
         event.getRegistry().register(prepare(STEEL_PICKAXE, "steel_pickaxe"));
@@ -108,6 +116,10 @@ public class DeepworldItemRegister {
         event.getRegistry().register(prepare(STEEL_CHESTPLATE, "steel_chestplate"));
         event.getRegistry().register(prepare(STEEL_LEGGINGS, "steel_leggings"));
         event.getRegistry().register(prepare(STEEL_BOOTS, "steel_boots"));
+        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_HELMET, "obsidian_infused_steel_helmet"));
+        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_CHESTPLATE, "obsidian_infused_steel_chestplate"));
+        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_LEGGINGS, "obsidian_infused_steel_leggings"));
+        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_BOOTS, "obsidian_infused_steel_boots"));
 
         // Simple itemProperties for BlockItem
         Item.Properties simpleItemProperties = new Item.Properties()

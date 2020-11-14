@@ -55,6 +55,8 @@
   "item.deepworld.iron_pump": "Iron Pump",
   "item.deepworld.iron_small_gear": "Small Iron Gear",
   "item.deepworld.valve_assembly": "Valve Assembly",
+  "item.deepworld.iron_turbine": "Iron Turbine",
+  "item.deepworld.pressure_regulator": "Pressure Regulator",
   "item.deepworld.steel_pickaxe": "Steel Pickaxe",
   "item.deepworld.steel_sword": "Steel Sword",
   "item.deepworld.steel_axe": "Steel Axe",
@@ -68,5 +70,9 @@
   "item.deepworld.steel_helmet": "Steel Helmet",
   "item.deepworld.steel_chestplate": "Steel Chestplate",
   "item.deepworld.steel_leggings": "Steel Leggings",
-  "item.deepworld.steel_boots": "Steel Boots"
+  "item.deepworld.steel_boots": "Steel Boots",
+  "item.deepworld.obsidian_infused_steel_helmet": "Obsidian-Infused Steel Helmet",
+  "item.deepworld.obsidian_infused_steel_chestplate": "Obsidian-Infused Steel Chestplate",
+  "item.deepworld.obsidian_infused_steel_leggings": "Obsidian-Infused Steel Leggings",
+  "item.deepworld.obsidian_infused_steel_boots": "Obsidian-Infused Steel Boots"
 }

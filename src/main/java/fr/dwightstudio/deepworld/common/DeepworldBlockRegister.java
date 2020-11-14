@@ -18,25 +18,24 @@ public class DeepworldBlockRegister {
         Block WOODEN_PRESS =  new BlockWoodenPress();
         Block WOODEN_GEAR_SHAPER = new BlockWoodenGearShaper();
         Block WOODEN_LATHE = new BlockWoodenLathe();
-        Block IRON_FRAME = new BlockIronFrame();
         Block STEEL_FRAME = new BlockSteelFrame();
         Block OBSIDIAN_INFUSED_STEEL_FRAME = new BlockObsidianInfusedSteelFrame();
         Block STEEL_BLOCK = new BlockSteelBlock();
         Block OBSIDIAN_INFUSED_STEEL_BLOCK = new BlockObsidianInfusedSteelBlock();
+        Block PIPE = new BlockPipe();
 
         event.getRegistry().register(prepareBlock(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlock(WOODEN_PRESS, "wooden_press"));
         event.getRegistry().register(prepareBlock(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
         event.getRegistry().register(prepareBlock(WOODEN_LATHE, "wooden_lathe"));
-        event.getRegistry().register(prepareBlock(IRON_FRAME, "iron_frame"));
         event.getRegistry().register(prepareBlock(STEEL_FRAME, "steel_frame"));
         event.getRegistry().register(prepareBlock(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
         event.getRegistry().register(prepareBlock(STEEL_BLOCK, "steel_block"));
         event.getRegistry().register(prepareBlock(OBSIDIAN_INFUSED_STEEL_BLOCK, "obsidian_infused_steel_block"));
+        event.getRegistry().register(prepareBlock(PIPE,"pipe"));
 
         // Set render type
         RenderTypeLookup.setRenderLayer(WOODEN_FRAME, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(IRON_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(STEEL_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(OBSIDIAN_INFUSED_STEEL_FRAME, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(WOODEN_GEAR_SHAPER, RenderType.getCutout());
@@ -44,6 +43,7 @@ public class DeepworldBlockRegister {
         RenderTypeLookup.setRenderLayer(WOODEN_PRESS, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(STEEL_BLOCK, RenderType.getSolid());
         RenderTypeLookup.setRenderLayer(OBSIDIAN_INFUSED_STEEL_BLOCK, RenderType.getSolid());
+        RenderTypeLookup.setRenderLayer(PIPE, RenderType.getSolid());
     }
 
     // Prepare block

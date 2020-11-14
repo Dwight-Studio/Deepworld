@@ -118,21 +118,21 @@ public class DeepworldItemRegister {
         BlockItem WOODEN_PRESS = new BlockItem(DeepworldBlocks.WOODEN_PRESS, simpleItemProperties);
         BlockItem WOODEN_GEAR_SHAPER = new BlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER, simpleItemProperties);
         BlockItem WOODEN_LATHE = new BlockItem(DeepworldBlocks.WOODEN_LATHE, simpleItemProperties);
-        BlockItem IRON_FRAME = new BlockItem(DeepworldBlocks.IRON_FRAME, simpleItemProperties);
         BlockItem STEEL_FRAME = new BlockItem(DeepworldBlocks.STEEL_FRAME, simpleItemProperties);
         BlockItem OBSIDIAN_INFUSED_STEEL_FRAME = new BlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_FRAME, simpleItemProperties);
         BlockItem STEEL_BLOCK = new BlockItem(DeepworldBlocks.STEEL_BLOCK, simpleItemProperties);
         BlockItem OBSIDIAN_INFUSED_STEEL_BLOCK = new BlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK, simpleItemProperties);
+        BlockItem PIPE = new BlockItem(DeepworldBlocks.PIPE, simpleItemProperties);
 
         event.getRegistry().register(prepareBlockItem(WOODEN_FRAME, "wooden_frame"));
         event.getRegistry().register(prepareBlockItem(WOODEN_PRESS, "wooden_press"));
         event.getRegistry().register(prepareBlockItem(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
         event.getRegistry().register(prepareBlockItem(WOODEN_LATHE, "wooden_lathe"));
-        event.getRegistry().register(prepareBlockItem(IRON_FRAME, "iron_frame"));
         event.getRegistry().register(prepareBlockItem(STEEL_FRAME, "steel_frame"));
         event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
         event.getRegistry().register(prepareBlockItem(STEEL_BLOCK, "steel_block"));
         event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_BLOCK, "obsidian_infused_steel_block"));
+        event.getRegistry().register(prepareBlockItem(PIPE, "pipe"));
     }
 
     // Prepare items

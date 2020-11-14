@@ -1,6 +1,8 @@
 package fr.dwightstudio.deepworld.common.frame;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.DeepworldBlocks;
+import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -11,40 +13,40 @@ public enum WoodenFrameComponent {
 
     // Components
     SIMPLE_PRESSING_CHAMBER(
-            new ResourceLocation(Deepworld.MOD_ID, "simple_pressing_chamber"),
+            () -> DeepworldItems.SIMPLE_PRESSING_CHAMBER,
             ComponentClass.PRIMARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press")}
-    ),
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS}
+            ),
     WOODEN_GEARBOX(
-            new ResourceLocation(Deepworld.MOD_ID, "wooden_gearbox"),
+            () -> DeepworldItems.WOODEN_GEARBOX,
             ComponentClass.SECONDARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS, () -> DeepworldBlocks.WOODEN_GEAR_SHAPER}
             ),
     WOODEN_CRANK(
-            new ResourceLocation(Deepworld.MOD_ID, "wooden_crank"),
+            () -> DeepworldItems.WOODEN_CRANK,
             ComponentClass.TERTIARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_press"), new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS, () -> DeepworldBlocks.WOODEN_GEAR_SHAPER}
             ),
     SIMPLE_CUTTER(
-            new ResourceLocation(Deepworld.MOD_ID, "simple_cutter"),
+            () -> DeepworldItems.SIMPLE_CUTTER,
             ComponentClass.PRIMARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper")}
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_GEAR_SHAPER}
     ),
     SIMPLE_LEFT_PART_HOLDER(
-            new ResourceLocation(Deepworld.MOD_ID, "simple_left_part_holder"),
+            () -> DeepworldItems.SIMPLE_LEFT_PART_HOLDER,
             ComponentClass.SECONDARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_lathe")}
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_LATHE}
     ),
     SIMPLE_RIGHT_PART_HOLDER(
-            new ResourceLocation(Deepworld.MOD_ID, "simple_right_part_holder"),
+            () -> DeepworldItems.SIMPLE_RIGHT_PART_HOLDER,
             ComponentClass.TERTIARY,
-            new ResourceLocation[] {new ResourceLocation(Deepworld.MOD_ID, "wooden_lathe")}
+            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_LATHE}
     );
 
     // Var
-    private final ResourceLocation item;
+    private final ComponentItem item;
     private final ComponentClass componentClass;
-    private final ResourceLocation[] machineBlocks;
+    private final ComponentMachine[] machineBlocks;
     private final int ID;
     
     // Static nested class to store LastData.lastID
@@ -52,7 +54,7 @@ public enum WoodenFrameComponent {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(ResourceLocation item, ComponentClass componentClass, ResourceLocation[] machineBlocks) {
+    WoodenFrameComponent(ComponentItem item, ComponentClass componentClass, ComponentMachine[] machineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
         this.machineBlocks = machineBlocks;
@@ -119,7 +121,7 @@ public enum WoodenFrameComponent {
     }
 
     public Item getItem() {
-        return ForgeRegistries.ITEMS.getValue(item);
+        return item.get();
     }
 
     public ComponentClass getComponentClass() {
@@ -130,8 +132,8 @@ public enum WoodenFrameComponent {
         Block[] rtn = new Block[machineBlocks.length];
 
         int i = 0;
-        for (ResourceLocation machineBlock : machineBlocks) {
-            rtn[i] = ForgeRegistries.BLOCKS.getValue(machineBlock);
+        for (ComponentMachine machineBlock : machineBlocks) {
+            rtn[i] = machineBlock.get();
             i++;
         }
 
@@ -140,5 +142,13 @@ public enum WoodenFrameComponent {
 
     public int getID() {
         return this.ID;
+    }
+
+    private interface ComponentItem {
+        Item get();
+    }
+
+    private interface ComponentMachine {
+        Block get();
     }
 }

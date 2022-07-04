@@ -1,13 +1,13 @@
 package fr.dwightstudio.deepworld.common.machine.wooden;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import org.antlr.v4.runtime.misc.Predicate;
 
-public class WoodenMachineZoneContents implements IInventory {
+public class WoodenMachineZoneContents extends Inventory {
 
     /**
      * Use this constructor to create a WoodenMachineZoneContents which is linked to its parent TileEntity.
@@ -25,7 +25,7 @@ public class WoodenMachineZoneContents implements IInventory {
      * @return the new ChestContents.
      */
     public static WoodenMachineZoneContents createForTileEntity(int size,
-                                                                   Predicate<PlayerEntity> canPlayerAccessInventoryLambda,
+                                                                   Predicate<Player> canPlayerAccessInventoryLambda,
                                                                 WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
         return new WoodenMachineZoneContents(size, canPlayerAccessInventoryLambda, markDirtyNotificationLambda);
     }
@@ -48,7 +48,7 @@ public class WoodenMachineZoneContents implements IInventory {
      * Writes the chest contents to a CompoundNBT tag (used to save the contents to disk)
      * @return the tag containing the contents
      */
-    public CompoundNBT serializeNBT()  {
+    public CompoundTag serializeNBT()  {
         return WoodenMachineZoneContents.serializeNBT();
     }
 
@@ -56,7 +56,7 @@ public class WoodenMachineZoneContents implements IInventory {
      * Fills the chest contents from the nbt; resizes automatically to fit.  (used to load the contents from disk)
      * @param nbt
      */
-    public void deserializeNBT(CompoundNBT nbt)   {
+    public void deserializeNBT(CompoundTag nbt)   {
         WoodenMachineZoneContents.deserializeNBT(nbt);
     }
 
@@ -78,7 +78,7 @@ public class WoodenMachineZoneContents implements IInventory {
      * sets the function that the container should call in order to decide if the given player can access the container's
      *   contents not.  The lambda function is only used on the server side
      */
-    public void setCanPlayerAccessInventoryLambda(Predicate<PlayerEntity> canPlayerAccessInventoryLambda) {
+    public void setCanPlayerAccessInventoryLambda(Predicate<Player> canPlayerAccessInventoryLambda) {
         this.canPlayerAccessInventoryLambda = canPlayerAccessInventoryLambda;
     }
 
@@ -108,7 +108,7 @@ public class WoodenMachineZoneContents implements IInventory {
     //    or ask the parent TileEntity.
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean isUsableByPlayer(Player player) {
         return canPlayerAccessInventoryLambda.test(player);  // on the client, this does nothing. on the server, ask our parent TileEntity.
     }
 
@@ -132,12 +132,12 @@ public class WoodenMachineZoneContents implements IInventory {
     }
 
     @Override
-    public void openInventory(PlayerEntity player) {
+    public void openInventory(Player player) {
         openInventoryNotificationLambda.invoke();
     }
 
     @Override
-    public void closeInventory(PlayerEntity player) {
+    public void closeInventory(Player player) {
         closeInventoryNotificationLambda.invoke();
     }
 
@@ -216,7 +216,7 @@ public class WoodenMachineZoneContents implements IInventory {
         this.WoodenMachineZoneContents = new ItemStackHandler(size);
     }
 
-    private WoodenMachineZoneContents(int size, Predicate<PlayerEntity> canPlayerAccessInventoryLambda, WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
+    private WoodenMachineZoneContents(int size, Predicate<Player> canPlayerAccessInventoryLambda, WoodenMachineZoneContents.Notify markDirtyNotificationLambda) {
         this.WoodenMachineZoneContents = new ItemStackHandler(size);
         this.canPlayerAccessInventoryLambda = canPlayerAccessInventoryLambda;
         this.markDirtyNotificationLambda = markDirtyNotificationLambda;
@@ -225,7 +225,7 @@ public class WoodenMachineZoneContents implements IInventory {
     // the function that the container should call in order to decide if the
     // given player can access the container's Inventory or not.  Only valid server side
     //  default is "true".
-    private Predicate<PlayerEntity> canPlayerAccessInventoryLambda = x-> true;
+    private Predicate<Player> canPlayerAccessInventoryLambda = x-> true;
 
     // the function that the container should call in order to tell the parent TileEntity that the
     // contents of its inventory have been changed.

@@ -1,29 +1,26 @@
 package fr.dwightstudio.deepworld.common.tools;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-public enum ToolsMaterialsTier implements IItemTier {
+public enum ToolsMaterialsTier implements Tier {
 
-    STEEL(2, 850, 6.5F, 0.0F, 10, () -> {
-        return Ingredient.fromItems(DeepworldItems.STEEL_INGOT);
-    }),
+    STEEL(2, 850, 6.5F, 0.0F, 10, Ingredient.fromValues(Stream.of(DeepworldItems.STEEL_INGOT))),
 
-    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, () -> {
-        return Ingredient.fromItems(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
-    });
+    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, Ingredient.fromValues(Stream.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT)));
 
     private final int harvest_level;
     private final int durability;
     private final float efficiency;
     private final float attack_damage;
     private final int enchantability;
-    private final Supplier<Ingredient> repair_material;
+    private final Ingredient repair_material;
 
-    ToolsMaterialsTier(int harvest_level, int durability, float efficiency, float attack_damage, int enchantability, Supplier<Ingredient> repair_material){
+    ToolsMaterialsTier(int harvest_level, int durability, float efficiency, float attack_damage, int enchantability, Ingredient repair_material){
         this.harvest_level = harvest_level;
         this.durability = durability;
         this.efficiency = efficiency;
@@ -33,32 +30,32 @@ public enum ToolsMaterialsTier implements IItemTier {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
         return durability;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
         return efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return attack_damage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
         return harvest_level;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
-        return repair_material.get();
+    public @NotNull Ingredient getRepairIngredient() {
+        return repair_material;
     }
 }

@@ -8,9 +8,10 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+public class WoodenPressRecipeSerializer<T extends WoodenPressRecipe> extends net.minecraftforge.registries.RegistryBuilder<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private final WoodenPressRecipeSerializer.IFactory<T> factory;
 

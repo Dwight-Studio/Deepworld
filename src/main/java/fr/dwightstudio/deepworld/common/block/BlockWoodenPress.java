@@ -2,36 +2,27 @@ package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvider {
+public class BlockWoodenPress extends BaseContainerBlockEntity implements BlockEntityRendererProvider {
 
     // Block property initializing
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IProperty<Boolean> WORKING = BooleanProperty.create("working");
 
     // Block state creation (registering properties)
@@ -47,7 +38,7 @@ public class BlockWoodenPress extends ContainerBlock implements ITileEntityProvi
                 .sound(SoundType.WOOD)
                 .hardnessAndResistance(3, 2)
                 .harvestLevel(0)
-                .harvestTool(ToolType.AXE));
+                .harvestTool(Tool.AXE));
 
         this.setDefaultState(this.getStateContainer().getBaseState()
                 .with(FACING, Direction.NORTH)

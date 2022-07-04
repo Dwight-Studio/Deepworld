@@ -1,17 +1,17 @@
 package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockSteelBlock extends BlockFrame {
+public class BlockSteelBlock extends Block {
 
     public BlockSteelBlock() {
         super(Properties.create(Material.IRON)

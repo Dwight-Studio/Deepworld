@@ -1,9 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.world.level.block.Block;
 
-@ObjectHolder(Deepworld.MOD_ID)
 public class DeepworldBlocks {
 
     // Blocks initialization

@@ -1,21 +1,14 @@
 package fr.dwightstudio.deepworld.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+
+
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +17,7 @@ import java.util.List;
 public class BlockFrame extends Block {
 
     // Block property initializing
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING =  HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty COVER = IntegerProperty.create("cover", 0, 6);
 
     // Constructor
@@ -38,8 +31,8 @@ public class BlockFrame extends Block {
     }
 
     // Override this method to add new properties
-    protected IProperty<?>[] getComponentsProperties() {
-        return new IProperty[] {};
+    protected Property<?>[] getComponentsProperties() {
+        return new Property[] {};
     }
 
     // Override this method to add default properties values
@@ -50,7 +43,7 @@ public class BlockFrame extends Block {
     // Block state creation (registering properties)
     @Override
     final protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        List<IProperty<?>> list = new ArrayList<IProperty<?>>();
+        List<Property<?>> list = new ArrayList<Property<?>>();
 
         list.add(FACING);
         list.add(COVER);

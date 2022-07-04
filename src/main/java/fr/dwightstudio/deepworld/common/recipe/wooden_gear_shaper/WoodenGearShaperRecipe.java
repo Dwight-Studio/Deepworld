@@ -1,23 +1,26 @@
 package fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper;
 
 import fr.dwightstudio.deepworld.common.recipe.DeepworldMachineRecipe;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
 
     // Infos
-    public static final IRecipeType<WoodenGearShaperRecipe> SHAPING = IRecipeType.register("wooden_gear_shaper_shaping");
+    public static final RecipeType<WoodenGearShaperRecipe> SHAPING = RecipeType.register("wooden_gear_shaper_shaping");
 
-    private final IRecipeType<?> type;
-    final Item[] input;
+    private final RecipeType<?> type;
+    final TagKey<Item> input;
     final ItemStack result;
     final String ingredient;
     final int ingredientCount;
@@ -26,7 +29,7 @@ public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
     public WoodenGearShaperRecipe(ResourceLocation resourceLocation, String ingredient, int ingredientCount, ItemStack result, int processingTime) {
         super(resourceLocation);
         type = SHAPING;
-        this.input = ItemTags.getCollection().getOrCreate(new ResourceLocation(ingredient)).getAllElements().toArray(new Item[0]);
+        this.input = ItemTags.create(new ResourceLocation(ingredient));
         this.ingredient = ingredient;
         this.ingredientCount = ingredientCount;
         this.result = result;
@@ -35,15 +38,15 @@ public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
 
     // Check if input is valid
     @Override
-    public boolean matches(IInventory inv, World worldIn) {
-        for (Item item : input) {
-            if (inv.getStackInSlot(0).getItem() == item) return true;
+    public boolean matches(Inventory inv, Level worldIn) {
+        for (Item item : Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(this.input)) {
+            if (inv.getItem(0).getItem() == item) return true;
         }
         return false;
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return type;
     }
 
@@ -57,10 +60,10 @@ public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
      */
     @Override
     @Nonnull
-    public IInventory applyCraft(IInventory inv, World worldIn) {
+    public Inventory applyCraft(Inventory inv, Level worldIn) {
         if (matches(inv, worldIn)) {
-            for (int i = 0; i<inv.getSizeInventory(); i++) {
-                inv.decrStackSize(i, ingredientCount);
+            for (int i = 0; i < inv.getContainerSize(); i++) {
+                inv.removeItem(i, ingredientCount);
             }
         }
         return inv;
@@ -74,7 +77,7 @@ public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
      * @param inv Inputs inventory
      */
     @Override
-    public boolean isValidInput(IInventory inv, World worldIn) {
-        return matches(inv, worldIn) && inv.getStackInSlot(0).getCount() >= ingredientCount;
+    public boolean isValidInput(Inventory inv, Level worldIn) {
+        return matches(inv, worldIn) && inv.getItem(0).getCount() >= ingredientCount;
     }
 }

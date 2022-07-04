@@ -8,33 +8,21 @@ import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
 import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineStateData;
 import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IRecipeHolder;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import org.jetbrains.annotations.Nullable;
 
-public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
+public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvWrapper, RecipeHolder, NamedContainerProvider, BlockEntityTicker, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -54,21 +42,25 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
     @Override
     public void onLoad() {
-        if (world.isRemote()) {
-            Minecraft.getInstance().getSoundHandler().play(new TickableSoundWoodenMachine(pos));
+        assert this.level != null;
+        if (this.level.isClientSide) {
+            Minecraft.getInstance().getSoundManager().play(new TickableSoundWoodenMachine(this.worldPosition));
         }
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
     // 1) the world tileentity hasn't been replaced in the meantime, and
     // 2) the player isn't too far away from the centre of the block
-    public boolean canPlayerAccessInventory(PlayerEntity player) {
-        if (this.world.getTileEntity(this.pos) != this) return false;
+    public boolean canPlayerAccessInventory(Player player) {
+        assert this.level != null;
+        if (this.level.getBlockEntity(this.worldPosition) != this) return false;
         final double X_CENTRE_OFFSET = 0.5;
         final double Y_CENTRE_OFFSET = 0.5;
         final double Z_CENTRE_OFFSET = 0.5;
-        final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
-        return player.getDistanceSq(pos.getX() + X_CENTRE_OFFSET, pos.getY() + Y_CENTRE_OFFSET, pos.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
+        final double MAXIMUM_DISTANCE = 8.0 * 8.0;
+        return player.getPosition(0).x() + X_CENTRE_OFFSET < MAXIMUM_DISTANCE &&
+                player.getPosition(0).y() + Y_CENTRE_OFFSET < MAXIMUM_DISTANCE &&
+                player.getPosition(0).z() + Z_CENTRE_OFFSET < MAXIMUM_DISTANCE;
     }
 
     // This method is called every tick to update the tile entity, i.e.
@@ -76,11 +68,12 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     // It runs both on the server and the client but we only need to do updates on the server side.
     @Override
     public void tick() {
-        if (world.isRemote) return; // do nothing on client.
+        assert this.level != null;
+        if (this.level.isClientSide()) return; // do nothing on client.
         ItemStack currentlyProcessingItem = inputZoneContents.getStackInSlot(0);
 
         // if user has changed the input slots, reset the smelting time
-        if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
+        if (!ItemStack.isSameItemSameTags(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
             woodenMachineStateData.processTimeElapsed = 0;
         }
 
@@ -90,10 +83,10 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
             --woodenMachineStateData.inertiaTimeRemaining;
         }
 
-        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
+        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.level, currentlyProcessingItem);
 
         if (recipe != null) {
-            if (recipe.isValidInput(inputZoneContents, this.world)) {
+            if (recipe.isValidInput(inputZoneContents, this.level)) {
 
                 // If inertia is greater than 0, process block
                 if (woodenMachineStateData.inertiaTimeRemaining > 0) {
@@ -102,7 +95,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
 
                 if (woodenMachineStateData.processTimeElapsed < 0) woodenMachineStateData.processTimeElapsed = 0;
 
-                int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
+                int processTimeForCurrentItem = getProcessTime(this.level, currentlyProcessingItem);
                 woodenMachineStateData.processTimeForCompletion = processTimeForCurrentItem;
 
                 // If processTime has reached maxProcessTime process the item and reset processTime
@@ -120,15 +113,15 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         // The block update (for renderer) is only required on client side, but the lighting is required on both, since
         //    the client needs it for rendering and the server needs it for crop growth etc
 
-        BlockState currentBlockState = world.getBlockState(this.pos);
-        BlockState newBlockState = currentBlockState.with(BlockWoodenGearShaper.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
+        BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
+        BlockState newBlockState = currentBlockState.setValue(BlockWoodenGearShaper.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
-            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+            this.level.setBlockAndUpdate(this.worldPosition, newBlockState);
 
             markDirty();
         } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
-            world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
+            this.level.markAndNotifyBlock(this.worldPosition, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
     }
 
@@ -183,7 +176,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     }
 
     // gets the recipe which matches the given input, or Missing if none.
-    public static WoodenGearShaperRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
+    public static WoodenGearShaperRecipe getMatchingRecipeForInput(Level world, ItemStack itemStack) {
         return world.getRecipeManager().getRecipe(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
     }
 
@@ -197,7 +190,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
      * @param itemStack the input item to be smelted
      * @return processing time (ticks) or 0 if no matching recipe
      */
-    public static int getProcessTime(World world, ItemStack itemStack) {
+    public static int getProcessTime(Level world, ItemStack itemStack) {
         WoodenGearShaperRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
         if (matchingRecipe == null) return 0;
         return matchingRecipe.getProcessingTime();
@@ -401,7 +394,7 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean isUsableByPlayer(Player player) {
         return true;
     }
 
@@ -412,10 +405,12 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
     }
 
     @Override
-    public void setRecipeUsed(IRecipe<?> recipe) {}
+    public void setRecipeUsed(@Nullable Recipe<?> recipe) {
+
+    }
 
     @Override
-    public IRecipe<?> getRecipeUsed() {
+    public Recipe<?> getRecipeUsed() {
         return null;
     }
 
@@ -424,5 +419,10 @@ public class TileEntityWoodenGearShaper extends TileEntity implements ISidedInve
         if (woodenMachineStateData.inertiaTimeInitialValue <= 0 ) return 0;
         double fraction = woodenMachineStateData.inertiaTimeRemaining / (double)woodenMachineStateData.inertiaTimeInitialValue;
         return (float)MathHelper.clamp(fraction, 0.0, 1.0);
+    }
+
+    @Override
+    public void tick(Level p_155253_, BlockPos p_155254_, BlockState p_155255_, BlockEntity p_155256_) {
+
     }
 }

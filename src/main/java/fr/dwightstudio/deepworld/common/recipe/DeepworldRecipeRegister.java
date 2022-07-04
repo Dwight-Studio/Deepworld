@@ -7,17 +7,22 @@ import fr.dwightstudio.deepworld.common.recipe.wooden_lathe.WoodenLatheRecipe;
 import fr.dwightstudio.deepworld.common.recipe.wooden_lathe.WoodenLatheRecipeSerializer;
 import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipe;
 import fr.dwightstudio.deepworld.common.recipe.wooden_press.WoodenPressRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 public class DeepworldRecipeRegister {
 
     @SubscribeEvent
-    public static void onRecipeSerializerRegister(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
-        event.getRegistry().registerAll(new WoodenPressRecipeSerializer<>(WoodenPressRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_press_pressing"));
-        event.getRegistry().registerAll(new WoodenGearShaperRecipeSerializer<>(WoodenGearShaperRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_gear_shaper_shaping"));
-        event.getRegistry().registerAll(new WoodenLatheRecipeSerializer<>(WoodenLatheRecipe::new).setRegistryName(Deepworld.MOD_ID, "wooden_lathe_lathing"));
+    public static void onRecipeSerializerRegister(final RegisterEvent event) {
+        event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS, helper -> {
+
+            helper.register(new ResourceLocation(Deepworld.MOD_ID, "wooden_press_pressing"), new WoodenPressRecipeSerializer<>(WoodenPressRecipe::new));
+            helper.register(new ResourceLocation(Deepworld.MOD_ID, "wooden_gear_shaper_shaping"), new WoodenGearShaperRecipeSerializer<>(WoodenGearShaperRecipe::new));
+            helper.register(new ResourceLocation(Deepworld.MOD_ID, "wooden_lathe_lathing"), new WoodenLatheRecipeSerializer<>(WoodenLatheRecipe::new));
+        });
+
     }
 
 }

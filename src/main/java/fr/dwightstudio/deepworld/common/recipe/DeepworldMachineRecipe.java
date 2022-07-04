@@ -1,16 +1,16 @@
 package fr.dwightstudio.deepworld.common.recipe;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
-public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
+public abstract class DeepworldMachineRecipe implements Recipe<Inventory> {
 
     private final ResourceLocation id;
 
@@ -24,7 +24,7 @@ public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public final NonNullList<ItemStack> getRemainingItems(IInventory inv) {
+    public final NonNullList<ItemStack> getRemainingItems(Inventory inv) {
         return NonNullList.create();
     }
 
@@ -39,7 +39,7 @@ public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public final ItemStack getCraftingResult(IInventory inv) {
+    public final ItemStack getCraftingResult(Inventory inv) {
         return getResult();
     }
 
@@ -54,7 +54,7 @@ public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public final IRecipeSerializer<?> getSerializer() {
+    public final RecipeSerializer<?> getSerializer() {
         return null;
     }
 
@@ -74,7 +74,7 @@ public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
      * @param worldIn World instance
      * @return same inventory with decreased itemStacks
      */
-    abstract public IInventory applyCraft(IInventory inv, World worldIn);
+    abstract public Inventory applyCraft(Inventory inv, Level worldIn);
 
     /**
      * @return result of the recipe
@@ -84,5 +84,5 @@ public abstract class DeepworldMachineRecipe implements IRecipe<IInventory> {
     /**
      * @param inv Inputs inventory
      */
-    abstract public boolean isValidInput(IInventory inv, World worldIn);
+    abstract public boolean isValidInput(Inventory inv, Level worldIn);
 }

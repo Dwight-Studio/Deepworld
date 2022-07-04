@@ -2,7 +2,7 @@ package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.client.DeepworldClient;
 import fr.dwightstudio.deepworld.common.recipe.DeepworldRecipeRegister;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -21,7 +21,7 @@ public class Deepworld {
     public static final String LOG_PREFIX = MOD_NAME;
 
     public static IEventBus MOD_EVENT_BUS;
-    public static ItemGroup itemGroup = new ItemGroupDeepworld();
+    public static CreativeModeTab itemGroup = new ItemGroupDeepworld();
 
     public static Logger logger = LogManager.getLogger(LOG_PREFIX);
 

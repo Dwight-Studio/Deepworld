@@ -1,15 +1,15 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class ItemGroupDeepworld extends ItemGroup {
+public class ItemGroupDeepworld extends CreativeModeTab {
     public ItemGroupDeepworld() {
         super("tabDeepworld");
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(DeepworldBlocks.WOODEN_FRAME);
     }
 }

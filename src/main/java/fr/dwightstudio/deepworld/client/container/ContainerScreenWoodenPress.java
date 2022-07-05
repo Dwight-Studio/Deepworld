@@ -4,11 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 

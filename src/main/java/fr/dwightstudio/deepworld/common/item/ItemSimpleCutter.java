@@ -2,7 +2,7 @@ package fr.dwightstudio.deepworld.common.item;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class ItemSimpleCutter extends ItemWoodenFrameComponent {
 

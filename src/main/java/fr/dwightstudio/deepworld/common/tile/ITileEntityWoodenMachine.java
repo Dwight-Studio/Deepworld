@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.tile;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import org.antlr.v4.runtime.misc.NotNull;
 
 public interface ITileEntityWoodenMachine {

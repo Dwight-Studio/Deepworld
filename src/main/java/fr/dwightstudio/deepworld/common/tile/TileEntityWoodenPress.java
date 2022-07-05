@@ -31,9 +31,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityWoodenPress extends TileEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
+public class TileEntityWoodenPress extends BlockEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;

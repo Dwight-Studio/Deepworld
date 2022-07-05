@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 public enum ToolsMaterialsTier implements Tier {
 
-    STEEL(2, 850, 6.5F, 0.0F, 10, Ingredient.fromValues(Stream.of(DeepworldItems.STEEL_INGOT))),
+    STEEL(2, 850, 6.5F, 0.0F, 10, Ingredient.of(DeepworldItems.STEEL_INGOT)),
 
-    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, Ingredient.fromValues(Stream.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT)));
+    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, Ingredient.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT));
 
     private final int harvest_level;
     private final int durability;

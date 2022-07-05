@@ -5,7 +5,7 @@ import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 

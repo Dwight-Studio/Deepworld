@@ -2,7 +2,7 @@ package fr.dwightstudio.deepworld.common.recipe.wooden_lathe;
 
 import fr.dwightstudio.deepworld.common.recipe.DeepworldMachineRecipe;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tags.ItemTags;

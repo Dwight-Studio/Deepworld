@@ -2,27 +2,21 @@ package fr.dwightstudio.deepworld.common.armor;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.function.Supplier;
-
-public enum ArmorMaterialsTier implements IArmorMaterial {
+public enum ArmorMaterialsTier implements ArmorMaterial {
 
     STEEL(Deepworld.MOD_ID + ":steel", 18, new int[] {3, 7, 6, 3}, 10,
-            SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> {
-        return Ingredient.fromItems(DeepworldItems.STEEL_INGOT);
-    }),
+            SoundEvents.ARMOR_EQUIP_IRON, 0.0F, Ingredient.of(DeepworldItems.STEEL_INGOT)),
 
     OBSIDIAN_INFUSED_STEEL(Deepworld.MOD_ID + ":obsidian_infused_steel", 54, new int[] {4, 9, 7, 4}, 10,
-    SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, () -> {
-        return Ingredient.fromItems(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
-    });
+    SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0F, Ingredient.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT));
 
     private static final int[] MAX_DAMAGE = new int[] {11, 16, 15, 13};
     private final String name;
@@ -31,10 +25,10 @@ public enum ArmorMaterialsTier implements IArmorMaterial {
     private final int enchantability;
     private final SoundEvent sound_event;
     private final float toughness;
-    private final Supplier<Ingredient> repair_material;
+    private final Ingredient repair_material;
 
     ArmorMaterialsTier(String name, int max_damage_factor, int[] damage_reduction_amount, int enchantability,
-                       SoundEvent sound_event, float toughness, Supplier<Ingredient> repair_material) {
+                       SoundEvent sound_event, float toughness, Ingredient repair_material) {
         this.name = name;
         this.max_damage_factor = max_damage_factor;
         this.damage_reduction_amount = damage_reduction_amount;
@@ -45,28 +39,28 @@ public enum ArmorMaterialsTier implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slotIn) {
-        return MAX_DAMAGE[slotIn.getIndex()] * this.max_damage_factor;
+    public int getDurabilityForSlot(EquipmentSlot type) {
+        return MAX_DAMAGE[type.getIndex()] * this.max_damage_factor;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-        return this.damage_reduction_amount[slotIn.getIndex()];
+    public int getDefenseForSlot(EquipmentSlot type) {
+        return this.damage_reduction_amount[type.getIndex()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return this.sound_event;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
-        return this.repair_material.get();
+    public Ingredient getRepairIngredient() {
+        return this.repair_material;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -78,5 +72,10 @@ public enum ArmorMaterialsTier implements IArmorMaterial {
     @Override
     public float getToughness() {
         return this.toughness;
+    }
+
+    @Override
+    public float getKnockbackResistance() {
+        return 0;
     }
 }

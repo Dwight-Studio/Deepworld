@@ -1,9 +1,9 @@
 package fr.dwightstudio.deepworld.common.machine.wooden;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.IIntArray;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.ContainerData;
 
-public class WoodenMachineStateData implements IIntArray {
+public class WoodenMachineStateData implements ContainerData {
 
     // The number of ticks that the current item has been processing
     public int processTimeElapsed;
@@ -19,14 +19,14 @@ public class WoodenMachineStateData implements IIntArray {
 
     // Read/write to NBT for permanent storage (on disk, or packet transmission) - used by the TileEntity only
 
-    public void putIntoNBT(CompoundNBT nbtTagCompound) {
+    public void putIntoNBT(CompoundTag nbtTagCompound) {
         nbtTagCompound.putInt("ProcessTimeElapsed", processTimeElapsed);
         nbtTagCompound.putInt("ProcessTimeForCompletion", processTimeElapsed);
         nbtTagCompound.putInt("inertiaTimeRemaining", inertiaTimeRemaining);
         nbtTagCompound.putInt("inertiaTimeInitialValue", inertiaTimeInitialValue);
     }
 
-    public void readFromNBT(CompoundNBT nbtTagCompound) {
+    public void readFromNBT(CompoundTag nbtTagCompound) {
         // Trim the arrays (or pad with 0) to make sure they have the correct number of elements
         processTimeElapsed = nbtTagCompound.getInt("ProcessTimeElapsed");
         processTimeForCompletion = nbtTagCompound.getInt("ProcessTimeForCompletion");
@@ -77,7 +77,7 @@ public class WoodenMachineStateData implements IIntArray {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return END_OF_DATA_INDEX_PLUS_ONE;
     }
 }

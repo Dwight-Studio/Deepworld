@@ -3,17 +3,18 @@ package fr.dwightstudio.deepworld.common;
 import fr.dwightstudio.deepworld.common.armor.ArmorMaterialsTier;
 import fr.dwightstudio.deepworld.common.item.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 public class DeepworldItemRegister {
 
     // Items registration
     @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
+    public static void registerItems(final RegisterEvent event) {
 
         Item WOODEN_CASE_PANEL = new ItemWoodenCasePanel();
         Item SIMPLE_PRESSING_CHAMBER = new ItemSimplePressingChamber();
@@ -47,84 +48,86 @@ public class DeepworldItemRegister {
         Item PRESSURE_REGULATOR = new ItemPressureRegulator();
 
         //Tools
-        Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 5, -2.4F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_AXE = new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.STEEL, 3.5F, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_HOE = new HoeItem(ToolsMaterialsTier.STEEL, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_SWORD = new SwordItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 9, -2.2F, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_AXE = new AxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 12, -3.4F, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4.5F, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_HOE = new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, -2.8F, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_SWORD = new SwordItem(ToolsMaterialsTier.STEEL, 5, -2.4F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_AXE = new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.STEEL, 3.5F, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_HOE = new HoeItem(ToolsMaterialsTier.STEEL, 3, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_PICKAXE = new PickaxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_SWORD = new SwordItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 9, -2.2F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_AXE = new AxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 12, -3.4F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_SHOVEL = new ShovelItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4.5F, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_HOE = new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8F, new Item.Properties().tab(Deepworld.itemGroup));
 
         //Armors
-        Item STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.HEAD, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(Deepworld.itemGroup));
-        Item STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlotType.FEET, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.HEAD, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(Deepworld.itemGroup));
-        Item OBSIDIAN_INFUSED_STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlotType.FEET, new Item.Properties().group(Deepworld.itemGroup));
+        Item STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.HEAD, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.CHEST, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.LEGS, new Item.Properties().tab(Deepworld.itemGroup));
+        Item STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.FEET, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_HELMET = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new Item.Properties().tab(Deepworld.itemGroup));
+        Item OBSIDIAN_INFUSED_STEEL_BOOTS = new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new Item.Properties().tab(Deepworld.itemGroup));
 
-        event.getRegistry().register(prepare(WOODEN_CASE_PANEL, "wooden_case_panel"));
-        event.getRegistry().register(prepare(SIMPLE_PRESSING_CHAMBER, "simple_pressing_chamber"));
-        event.getRegistry().register(prepare(SIMPLE_CUTTER, "simple_cutter"));
-        event.getRegistry().register(prepare(SIMPLE_LEFT_PART_HOLDER, "simple_left_part_holder"));
-        event.getRegistry().register(prepare(SIMPLE_RIGHT_PART_HOLDER, "simple_right_part_holder"));
-        event.getRegistry().register(prepare(WOODEN_GEARBOX, "wooden_gearbox"));
-        event.getRegistry().register(prepare(WOODEN_CRANK, "wooden_crank"));
-        event.getRegistry().register(prepare(IRON_PLATE, "iron_plate"));
-        event.getRegistry().register(prepare(STEEL_PLATE, "steel_plate"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_PLATE, "obsidian_infused_steel_plate"));
-        event.getRegistry().register(prepare(IRON_ROD, "iron_rod"));
-        event.getRegistry().register(prepare(STEEL_ROD, "steel_rod"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_ROD, "obsidian_infused_steel_rod"));
-        event.getRegistry().register(prepare(IRON_NAIL, "iron_nail"));
-        event.getRegistry().register(prepare(STEEL_NAIL, "steel_nail"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_NAIL, "obsidian_infused_steel_nail"));
-        event.getRegistry().register(prepare(IRON_SCREW, "iron_screw"));
-        event.getRegistry().register(prepare(STEEL_SCREW, "steel_screw"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SCREW, "obsidian_infused_steel_screw"));
-        event.getRegistry().register(prepare(WOODEN_GEAR, "wooden_gear"));
-        event.getRegistry().register(prepare(IRON_GEAR, "iron_gear"));
-        event.getRegistry().register(prepare(STEEL_GEAR, "steel_gear"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_GEAR, "obsidian_infused_steel_gear"));
-        event.getRegistry().register(prepare(STEEL_INGOT, "steel_ingot"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_INGOT, "obsidian_infused_steel_ingot"));
-        event.getRegistry().register(prepare(IRON_PUMP, "iron_pump"));
-        event.getRegistry().register(prepare(IRON_SMALL_GEAR, "iron_small_gear"));
-        event.getRegistry().register(prepare(VALVE_ASSEMBLY, "valve_assembly"));
-        event.getRegistry().register(prepare(IRON_TURBINE, "iron_turbine"));
-        event.getRegistry().register(prepare(PRESSURE_REGULATOR, "pressure_regulator"));
+        event.register(ForgeRegistries.Keys.ITEMS, helper -> {
+            helper.register(prepare("wooden_case_panel"), WOODEN_CASE_PANEL);
+            helper.register(prepare("simple_pressing_chamber"), SIMPLE_PRESSING_CHAMBER);
+            helper.register(prepare("simple_cutter"), SIMPLE_CUTTER);
+            helper.register(prepare("simple_left_part_holder"), SIMPLE_LEFT_PART_HOLDER);
+            helper.register(prepare("simple_right_part_holder"), SIMPLE_RIGHT_PART_HOLDER);
+            helper.register(prepare("wooden_gearbox"), WOODEN_GEARBOX);
+            helper.register(prepare("wooden_crank"), WOODEN_CRANK);
+            helper.register(prepare("iron_plate"), IRON_PLATE);
+            helper.register(prepare("steel_plate"), STEEL_PLATE);
+            helper.register(prepare("obsidian_infused_steel_plate"), OBSIDIAN_INFUSED_STEEL_PLATE);
+            helper.register(prepare("iron_rod"), IRON_ROD);
+            helper.register(prepare("steel_rod"), STEEL_ROD);
+            helper.register(prepare("obsidian_infused_steel_rod"), OBSIDIAN_INFUSED_STEEL_ROD);
+            helper.register(prepare("iron_nail"), IRON_NAIL);
+            helper.register(prepare("steel_nail"), STEEL_NAIL);
+            helper.register(prepare("obsidian_infused_steel_nail"), OBSIDIAN_INFUSED_STEEL_NAIL);
+            helper.register(prepare("iron_screw"), IRON_SCREW);
+            helper.register(prepare("steel_screw"), STEEL_SCREW);
+            helper.register(prepare("obsidian_infused_steel_screw"), OBSIDIAN_INFUSED_STEEL_SCREW);
+            helper.register(prepare("wooden_gear"), WOODEN_GEAR);
+            helper.register(prepare("iron_gear"), IRON_GEAR);
+            helper.register(prepare("steel_gear"), STEEL_GEAR);
+            helper.register(prepare("obsidian_infused_steel_gear"), OBSIDIAN_INFUSED_STEEL_GEAR);
+            helper.register(prepare("steel_ingot"), STEEL_INGOT);
+            helper.register(prepare("obsidian_infused_steel_ingot"), OBSIDIAN_INFUSED_STEEL_INGOT);
+            helper.register(prepare("iron_pump"), IRON_PUMP);
+            helper.register(prepare("iron_small_gear"), IRON_SMALL_GEAR);
+            helper.register(prepare("valve_assembly"), VALVE_ASSEMBLY);
+            helper.register(prepare("iron_turbine"), IRON_TURBINE);
+            helper.register(prepare("pressure_regulator"), PRESSURE_REGULATOR);
 
-        //Tools
-        event.getRegistry().register(prepare(STEEL_PICKAXE, "steel_pickaxe"));
-        event.getRegistry().register(prepare(STEEL_SWORD, "steel_sword"));
-        event.getRegistry().register(prepare(STEEL_AXE, "steel_axe"));
-        event.getRegistry().register(prepare(STEEL_SHOVEL, "steel_shovel"));
-        event.getRegistry().register(prepare(STEEL_HOE, "steel_hoe"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_PICKAXE, "obsidian_infused_steel_pickaxe"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SWORD, "obsidian_infused_steel_sword"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_AXE, "obsidian_infused_steel_axe"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_SHOVEL, "obsidian_infused_steel_shovel"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_HOE, "obsidian_infused_steel_hoe"));
+            //Tools
+            helper.register(prepare("steel_pickaxe"), STEEL_PICKAXE);
+            helper.register(prepare("steel_sword"), STEEL_SWORD);
+            helper.register(prepare("steel_axe"), STEEL_AXE);
+            helper.register(prepare("steel_shovel"), STEEL_SHOVEL);
+            helper.register(prepare("steel_hoe"), STEEL_HOE);
+            helper.register(prepare("obsidian_infused_steel_pickaxe"), OBSIDIAN_INFUSED_STEEL_PICKAXE);
+            helper.register(prepare("obsidian_infused_steel_sword"), OBSIDIAN_INFUSED_STEEL_SWORD);
+            helper.register(prepare("obsidian_infused_steel_axe"), OBSIDIAN_INFUSED_STEEL_AXE);
+            helper.register(prepare("obsidian_infused_steel_shovel"), OBSIDIAN_INFUSED_STEEL_SHOVEL);
+            helper.register(prepare("obsidian_infused_steel_hoe"), OBSIDIAN_INFUSED_STEEL_HOE);
 
-        //Armors
-        event.getRegistry().register(prepare(STEEL_HELMET, "steel_helmet"));
-        event.getRegistry().register(prepare(STEEL_CHESTPLATE, "steel_chestplate"));
-        event.getRegistry().register(prepare(STEEL_LEGGINGS, "steel_leggings"));
-        event.getRegistry().register(prepare(STEEL_BOOTS, "steel_boots"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_HELMET, "obsidian_infused_steel_helmet"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_CHESTPLATE, "obsidian_infused_steel_chestplate"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_LEGGINGS, "obsidian_infused_steel_leggings"));
-        event.getRegistry().register(prepare(OBSIDIAN_INFUSED_STEEL_BOOTS, "obsidian_infused_steel_boots"));
+            //Armors
+            helper.register(prepare("steel_helmet"), STEEL_HELMET);
+            helper.register(prepare("steel_chestplate"), STEEL_CHESTPLATE);
+            helper.register(prepare("steel_leggings"), STEEL_LEGGINGS);
+            helper.register(prepare("steel_boots"), STEEL_BOOTS);
+            helper.register(prepare("obsidian_infused_steel_helmet"), OBSIDIAN_INFUSED_STEEL_HELMET);
+            helper.register(prepare("obsidian_infused_steel_chestplate"), OBSIDIAN_INFUSED_STEEL_CHESTPLATE);
+            helper.register(prepare("obsidian_infused_steel_leggings"), OBSIDIAN_INFUSED_STEEL_LEGGINGS);
+            helper.register(prepare("obsidian_infused_steel_boots"), OBSIDIAN_INFUSED_STEEL_BOOTS);
+        });
 
         // Simple itemProperties for BlockItem
         Item.Properties simpleItemProperties = new Item.Properties()
-                .group(Deepworld.itemGroup)
-                .maxStackSize(64);
+                .tab(Deepworld.itemGroup)
+                .stacksTo(64);
 
         BlockItem WOODEN_FRAME = new BlockItem(DeepworldBlocks.WOODEN_FRAME, simpleItemProperties);
         BlockItem WOODEN_PRESS = new BlockItem(DeepworldBlocks.WOODEN_PRESS, simpleItemProperties);
@@ -136,23 +139,21 @@ public class DeepworldItemRegister {
         BlockItem OBSIDIAN_INFUSED_STEEL_BLOCK = new BlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK, simpleItemProperties);
         BlockItem PIPE = new BlockItem(DeepworldBlocks.PIPE, simpleItemProperties);
 
-        event.getRegistry().register(prepareBlockItem(WOODEN_FRAME, "wooden_frame"));
-        event.getRegistry().register(prepareBlockItem(WOODEN_PRESS, "wooden_press"));
-        event.getRegistry().register(prepareBlockItem(WOODEN_GEAR_SHAPER, "wooden_gear_shaper"));
-        event.getRegistry().register(prepareBlockItem(WOODEN_LATHE, "wooden_lathe"));
-        event.getRegistry().register(prepareBlockItem(STEEL_FRAME, "steel_frame"));
-        event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_FRAME, "obsidian_infused_steel_frame"));
-        event.getRegistry().register(prepareBlockItem(STEEL_BLOCK, "steel_block"));
-        event.getRegistry().register(prepareBlockItem(OBSIDIAN_INFUSED_STEEL_BLOCK, "obsidian_infused_steel_block"));
-        event.getRegistry().register(prepareBlockItem(PIPE, "pipe"));
+        event.register(ForgeRegistries.Keys.ITEMS, helper -> {
+            helper.register(prepare("wooden_frame"), WOODEN_FRAME);
+            helper.register(prepare("wooden_press"), WOODEN_PRESS);
+            helper.register(prepare("wooden_gear_shaper"), WOODEN_GEAR_SHAPER);
+            helper.register(prepare("wooden_lathe"), WOODEN_LATHE);
+            helper.register(prepare("steel_frame"), STEEL_FRAME);
+            helper.register(prepare("obsidian_infused_steel_frame"), OBSIDIAN_INFUSED_STEEL_FRAME);
+            helper.register(prepare("steel_block"), STEEL_BLOCK);
+            helper.register(prepare("obsidian_infused_steel_block"), OBSIDIAN_INFUSED_STEEL_BLOCK);
+            helper.register(prepare("pipe"), PIPE);
+        });
     }
 
     // Prepare items
-    public static Item prepare(Item item, String name) {
-        return item.setRegistryName(new ResourceLocation(Deepworld.MOD_ID, name));
-    }
-
-    public static BlockItem prepareBlockItem(BlockItem item, String name) {
-        return (BlockItem) item.setRegistryName(item.getBlock().getRegistryName());
+    public static ResourceLocation prepare(String name) {
+        return new ResourceLocation(Deepworld.MOD_ID, name);
     }
 }

@@ -1,19 +1,17 @@
 package fr.dwightstudio.deepworld.common.machine.wooden;
 
 import fr.dwightstudio.deepworld.common.tile.ITileEntityWoodenMachine;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-
-public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends Container {
+public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends AbstractContainerMenu {
 
     // must assign a slot index to each of the slots used by the GUI.
     // Each time we add a Slot to the container using addSlotToContainer(), it automatically increases the slotIndex, which means
@@ -45,9 +43,9 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
 
     private T machine;
 
-    public ContainerWoodenMachine(ContainerType<?> containerType,
+    public ContainerWoodenMachine(MenuType<?> containerType,
                                   T machine,
-                                  int windowID, PlayerInventory invPlayer,
+                                  int windowID, Inventory invPlayer,
                                   WoodenMachineZoneContents inputZoneContents,
                                   WoodenMachineZoneContents outputZoneContents,
                                   WoodenMachineStateData stateData) {
@@ -58,9 +56,9 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
         this.inputZoneContents = inputZoneContents;
         this.outputZoneContents = outputZoneContents;
         this.stateData = stateData;
-        this.world = invPlayer.player.world;
+        this.level = invPlayer.player.level;
 
-        trackIntArray(stateData);    // tell vanilla to keep the woodenGearShaperStateData synchronised between client and server Containers
+        //trackIntArray(stateData);    // tell vanilla to keep the woodenGearShaperStateData synchronised between client and server Containers
 
         final int SLOT_X_SPACING = 18;
         final int SLOT_Y_SPACING = 18;
@@ -98,20 +96,23 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
         }
     }
 
+
     // Checks each tick to make sure the player is still able to access the inventory and if not closes the gui
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         return inputZoneContents.isUsableByPlayer(player)  && outputZoneContents.isUsableByPlayer(player);
     }
 
     // This is where you specify what happens when a player shift clicks a slot in the gui
     // Code copied & refactored from vanilla furnace AbstractFurnaceContainer
 
+
+
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int sourceSlotIndex) {
-        Slot sourceSlot = inventorySlots.get(sourceSlotIndex);
-        if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;
-        ItemStack sourceItemStack = sourceSlot.getStack();
+    public ItemStack quickMoveStack(Player player, int sourceSlotIndex) {
+        Slot sourceSlot = this.slots.get(sourceSlotIndex);
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
+        ItemStack sourceItemStack = sourceSlot.getItem();
         ItemStack sourceStackBeforeMerge = sourceItemStack.copy();
         boolean successfulTransfer = false;
 
@@ -124,7 +125,7 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
                     successfulTransfer = mergeInto(ContainerWoodenMachine.SlotZone.PLAYER_MAIN_INVENTORY, sourceItemStack, true);
                 }
                 if (successfulTransfer) {  // removing from output means we have just crafted an item -> need to inform
-                    sourceSlot.onSlotChange(sourceItemStack, sourceStackBeforeMerge);
+                    sourceSlot.onQuickCraft(sourceItemStack, sourceStackBeforeMerge);
                 }
                 break;
 
@@ -156,9 +157,9 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
 
         // If source stack is empty (the entire stack was moved) set slot contents to empty
         if (sourceItemStack.isEmpty()) {
-            sourceSlot.putStack(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         } else {
-            sourceSlot.onSlotChanged();
+            sourceSlot.setChanged();
         }
 
         // if source stack is still the same as before the merge, the transfer failed somehow?  not expected.
@@ -177,7 +178,7 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
      * @return true if a successful transfer occurred
      */
     private boolean mergeInto(ContainerWoodenMachine.SlotZone destinationZone, ItemStack sourceItemStack, boolean fillFromEnd) {
-        return mergeItemStack(sourceItemStack, destinationZone.firstIndex, destinationZone.lastIndexPlus1, fillFromEnd);
+        return mergeInto(destinationZone, sourceItemStack, fillFromEnd);
     }
 
     // -------- methods used by the ContainerScreen to render parts of the display
@@ -189,7 +190,7 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
     public double getInertiaFraction() {
         if (stateData.inertiaTimeInitialValue <= 0 ) return 0;
         double fraction = stateData.inertiaTimeRemaining / (double) stateData.inertiaTimeInitialValue;
-        return MathHelper.clamp(fraction, 0.0, 1.0);
+        return Mth.clamp(fraction, 0.0, 1.0);
     }
 
     /**
@@ -199,11 +200,11 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
     public double fractionOfProcessTimeComplete() {
         if (stateData.processTimeForCompletion == 0) return 0;
         double fraction = stateData.processTimeElapsed / (double) stateData.processTimeForCompletion;
-        return MathHelper.clamp(fraction, 0.0, 1.0);
+        return Mth.clamp(fraction, 0.0, 1.0);
     }
 
     @Override
-    public boolean enchantItem(PlayerEntity playerIn, int id) {
+    public boolean clickMenuButton(Player playerIn, int id) {
         stateData.inertiaTimeRemaining += 10;
         stateData.inertiaTimeRemaining = Math.min(stateData.inertiaTimeRemaining, stateData.inertiaTimeInitialValue);
         stateData.inertiaTimeInitialValue = 100;
@@ -214,26 +215,27 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
 
     // SlotProcessableInput is a slot for input item
     public class SlotProcessableInput extends Slot {
-        public SlotProcessableInput(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+        public SlotProcessableInput(Inventory inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);
         }
 
         // if this function returns false, the player won't be able to insert the given item into this slot
+
         @Override
-        public boolean isItemValid(ItemStack stack) {
+        public boolean mayPlace(@NotNull ItemStack stack) {
             return machine.isItemValidForInputSlot(stack);
         }
     }
 
     // SlotOutput is a slot that will not accept any item
     public class SlotOutput extends Slot {
-        public SlotOutput(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+        public SlotOutput(Inventory inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);
         }
 
         // if this function returns false, the player won't be able to insert the given item into this slot
         @Override
-        public boolean isItemValid(ItemStack stack) {
+        public boolean mayPlace(@NotNull ItemStack stack) {
             return machine.isItemValidForOutputSlot(stack);
         }
     }
@@ -242,7 +244,7 @@ public class ContainerWoodenMachine<T extends ITileEntityWoodenMachine> extends 
     private WoodenMachineZoneContents outputZoneContents;
     private WoodenMachineStateData stateData;
 
-    private World world; //needed for some helper methods
+    private Level level; //needed for some helper methods
 
     /**
      * Helper enum to make the code more readable

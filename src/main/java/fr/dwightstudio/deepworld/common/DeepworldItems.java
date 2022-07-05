@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder(Deepworld.MOD_ID)

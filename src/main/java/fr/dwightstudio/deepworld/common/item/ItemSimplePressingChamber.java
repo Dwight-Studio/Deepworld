@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 public class ItemSimplePressingChamber extends ItemWoodenFrameComponent {
 
     public ItemSimplePressingChamber() {
-        super(new Item.Properties().group(Deepworld.itemGroup));
+        super(new Item.Properties().tab(Deepworld.itemGroup));
     }
 
     @Override

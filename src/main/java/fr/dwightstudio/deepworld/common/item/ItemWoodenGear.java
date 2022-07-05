@@ -6,6 +6,6 @@ import net.minecraft.world.item.Item;
 public class ItemWoodenGear extends Item {
 
     public ItemWoodenGear() {
-        super(new Item.Properties().group(Deepworld.itemGroup));
+        super(new Item.Properties().tab(Deepworld.itemGroup));
     }
 }

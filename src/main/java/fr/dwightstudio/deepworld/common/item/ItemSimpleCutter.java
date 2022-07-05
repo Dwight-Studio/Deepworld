@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 public class ItemSimpleCutter extends ItemWoodenFrameComponent {
 
     public ItemSimpleCutter() {
-        super(new Item.Properties().group(Deepworld.itemGroup));
+        super(new Item.Properties().tab(Deepworld.itemGroup));
     }
 
     @Override

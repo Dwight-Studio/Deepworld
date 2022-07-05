@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemIronRod extends Item {
 
-    public ItemIronRod() { super(new Item.Properties().group(Deepworld.itemGroup));}
+    public ItemIronRod() { super(new Item.Properties().tab(Deepworld.itemGroup));}
 
 }

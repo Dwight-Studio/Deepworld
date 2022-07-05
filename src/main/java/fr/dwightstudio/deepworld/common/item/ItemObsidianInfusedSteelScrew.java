@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemObsidianInfusedSteelScrew extends Item {
 
-    public ItemObsidianInfusedSteelScrew() { super(new Item.Properties().group(Deepworld.itemGroup));}
+    public ItemObsidianInfusedSteelScrew() { super(new Item.Properties().tab(Deepworld.itemGroup));}
 
 }

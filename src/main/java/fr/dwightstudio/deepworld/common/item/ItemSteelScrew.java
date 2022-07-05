@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemSteelScrew extends Item {
 
-    public ItemSteelScrew() { super(new Item.Properties().group(Deepworld.itemGroup));}
+    public ItemSteelScrew() { super(new Item.Properties().tab(Deepworld.itemGroup));}
 
 }

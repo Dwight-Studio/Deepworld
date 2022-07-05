@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemIronNail extends Item {
 
-    public ItemIronNail() { super(new Item.Properties().group(Deepworld.itemGroup));}
+    public ItemIronNail() { super(new Item.Properties().tab(Deepworld.itemGroup));}
 
 }

@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemPressureRegulator extends Item {
 
-    public ItemPressureRegulator() { super(new Properties().group(Deepworld.itemGroup));}
+    public ItemPressureRegulator() { super(new Properties().tab(Deepworld.itemGroup));}
 
 }

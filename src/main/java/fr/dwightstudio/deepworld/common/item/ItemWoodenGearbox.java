@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 public class ItemWoodenGearbox extends ItemWoodenFrameComponent {
 
     public ItemWoodenGearbox() {
-        super(new Item.Properties().group(Deepworld.itemGroup));
+        super(new Item.Properties().tab(Deepworld.itemGroup));
     }
 
     @Override

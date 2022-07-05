@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemObsidianInfusedSteelNail extends Item {
 
-    public ItemObsidianInfusedSteelNail() { super(new Item.Properties().group(Deepworld.itemGroup));}
+    public ItemObsidianInfusedSteelNail() { super(new Item.Properties().tab(Deepworld.itemGroup));}
 
 }

@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemValveAssembly extends Item {
 
-    public ItemValveAssembly() { super(new Properties().group(Deepworld.itemGroup));}
+    public ItemValveAssembly() { super(new Properties().tab(Deepworld.itemGroup));}
 
 }

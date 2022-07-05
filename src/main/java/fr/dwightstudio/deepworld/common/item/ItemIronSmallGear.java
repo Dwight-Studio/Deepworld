@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemIronSmallGear extends Item {
 
-    public ItemIronSmallGear() { super(new Properties().group(Deepworld.itemGroup));}
+    public ItemIronSmallGear() { super(new Properties().tab(Deepworld.itemGroup));}
 
 }

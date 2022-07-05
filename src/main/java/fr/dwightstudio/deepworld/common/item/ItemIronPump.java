@@ -5,6 +5,6 @@ import net.minecraft.world.item.Item;
 
 public class ItemIronPump extends Item {
 
-    public ItemIronPump() { super(new Properties().group(Deepworld.itemGroup));}
+    public ItemIronPump() { super(new Properties().tab(Deepworld.itemGroup));}
 
 }

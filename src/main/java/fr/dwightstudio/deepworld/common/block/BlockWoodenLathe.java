@@ -2,35 +2,32 @@ package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenLathe;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlockWoodenLathe extends ContainerBlock implements ITileEntityProvider {
     // Block property initializing
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IProperty<Boolean> WORKING = BooleanProperty.create("working");
 
     // Block state creation (registering properties)
@@ -61,20 +58,20 @@ public class BlockWoodenLathe extends ContainerBlock implements ITileEntityProvi
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
         return createNewTileEntity(world);
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenLathe();
     }
 
     // Drop all contents
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, Level world, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tileentity = world.getTileEntity(blockPos);
+            BlockEntity tileentity = world.getBlockEntity(blockPos);
             if (tileentity instanceof TileEntityWoodenLathe) {
                 TileEntityWoodenLathe tileEntityFurnace = (TileEntityWoodenLathe)tileentity;
                 tileEntityFurnace.dropAllContents(world, blockPos);
@@ -96,16 +93,16 @@ public class BlockWoodenLathe extends ContainerBlock implements ITileEntityProvi
     }
     // Open gui
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        if (worldIn.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+    public InteractionResult onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if (worldIn.isClientSide()) return InteractionResult.SUCCESS; // on client side, don't do anything
 
         INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
         if (namedContainerProvider != null) {
 
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            ServerPlayer serverPlayerEntity = (ServerPlayer)player;
             NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer)->{});
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

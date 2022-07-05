@@ -4,17 +4,12 @@ import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.frame.ComponentClass;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.IProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +53,12 @@ public class BlockWoodenFrame extends BlockFrame implements ITileEntityProvider 
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
         return createNewTileEntity(world);
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenFrame();
     }
 

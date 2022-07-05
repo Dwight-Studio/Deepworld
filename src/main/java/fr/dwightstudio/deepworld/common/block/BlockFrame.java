@@ -1,8 +1,10 @@
 package fr.dwightstudio.deepworld.common.block;
 
-
-
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,6 +42,8 @@ public class BlockFrame extends Block {
         return state;
     }
 
+
+
     // Block state creation (registering properties)
     @Override
     final protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
@@ -55,7 +59,7 @@ public class BlockFrame extends Block {
 
     // Notify block update when activated
     @Override
-    final public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+    final public InteractionResult onBlockActivated(BlockState state, Level world, BlockPos pos, Player player, Hand hand, BlockRayTraceResult rayTraceResult) {
         world.notifyBlockUpdate(pos, world.getBlockState(pos), state, Constants.BlockFlags.DEFAULT);
         return ActionResultType.PASS;
     }

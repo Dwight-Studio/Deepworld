@@ -2,18 +2,29 @@ package fr.dwightstudio.deepworld.common.block;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenPress;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -53,20 +64,20 @@ public class BlockWoodenPress extends BaseContainerBlockEntity implements BlockE
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createTileEntity(BlockState state, IBlockReader world) {
         return createNewTileEntity(world);
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity createNewTileEntity(IBlockReader world) {
         return new TileEntityWoodenPress();
     }
 
     // Drop all contents
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, Level world, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tileentity = world.getTileEntity(blockPos);
+            BlockEntity tileentity = world.getBlockEntity(blockPos);
             if (tileentity instanceof TileEntityWoodenPress) {
                 TileEntityWoodenPress tileEntityFurnace = (TileEntityWoodenPress) tileentity;
                 tileEntityFurnace.dropAllContents(world, blockPos);
@@ -94,20 +105,20 @@ public class BlockWoodenPress extends BaseContainerBlockEntity implements BlockE
 
     // Open gui
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        if (worldIn.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+    public InteractionResult onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if (worldIn.isClientSide()) return InteractionResult.SUCCESS; // on client side, don't do anything
 
         INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
         if (namedContainerProvider != null) {
 
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            ServerPlayer serverPlayerEntity = (ServerPlayer)player;
             NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer)->{});
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderType getRenderType(BlockState state) {
+        return RenderType.MODEL;
     }
 }

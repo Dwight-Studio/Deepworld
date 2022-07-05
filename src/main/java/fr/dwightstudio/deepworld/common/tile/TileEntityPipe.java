@@ -1,15 +1,12 @@
 package fr.dwightstudio.deepworld.common.tile;
 
 import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
 
@@ -19,14 +16,14 @@ public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
 
     // Convert NBT to internal vars
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
 
         super.read(compound); // The super call is required to load the tiles location
     }
 
     // Convert internal vars to NBT
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
 
         super.write(compound); // The super call is required to save the tiles location
         return compound;
@@ -39,27 +36,27 @@ public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
      * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
      */
     @Override
-    public CompoundNBT  getUpdateTag() {
+    public CompoundTag  getUpdateTag() {
 
-        CompoundNBT  compound = new CompoundNBT();
+        CompoundTag  compound = new CompoundTag();
         write(compound);
 
         return compound;
     }
 
     @Override
-    public void handleUpdateTag(CompoundNBT compound) {
+    public void handleUpdateTag(CompoundTag compound) {
         this.read(compound);
 
-        if (world != null) world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
+        if (this.level != null) this.level.notifyBlockUpdate(this.worldPosition, this.level.getBlockState(this.worldPosition), this.level.getBlockState(this.worldPosition), Constants.BlockFlags.DEFAULT);
     }
 
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
+    public Packet<ClientGamePacketListener> getUpdatePacket()
     {
-        CompoundNBT nbtTagCompound = new CompoundNBT();
+        CompoundTag nbtTagCompound = new CompoundTag();
         write(nbtTagCompound);
-        return new SUpdateTileEntityPacket(this.pos, 0, nbtTagCompound);
+        return new SUpdateTileEntityPacket(this.worldPosition, 0, nbtTagCompound);
     }
 
     @Override
@@ -70,12 +67,11 @@ public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
     // Update BlockState
     private void updateBlockState() {
 
-        BlockState currentBlockState = world.getBlockState(this.pos);
+        BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
         BlockState newBlockState = currentBlockState;
 
         if (!newBlockState.equals(currentBlockState)) {
-            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
-            markDirty();
+            this.level.setBlocksDirty(this.worldPosition, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
         }
     }
 

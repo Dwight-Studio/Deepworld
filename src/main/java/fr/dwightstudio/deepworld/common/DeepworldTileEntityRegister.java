@@ -1,14 +1,10 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.block.BlockPipe;
 import fr.dwightstudio.deepworld.common.tile.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegisterEvent;
 
 public class DeepworldTileEntityRegister {

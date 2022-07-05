@@ -7,9 +7,11 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityPipe extends TileEntity implements ITickableTileEntity {
+public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
 
     public TileEntityPipe() {
         super(DeepworldTileEntities.PIPE);

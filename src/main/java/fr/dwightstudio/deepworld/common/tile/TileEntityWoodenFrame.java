@@ -4,16 +4,10 @@ import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntityWoodenFrame extends TileEntity {
+public class TileEntityWoodenFrame extends BlockEntity {
 
     // TileEntity vars
     private int covers = 0;
@@ -28,7 +22,7 @@ public class TileEntityWoodenFrame extends TileEntity {
 
     // Convert NBT to internal vars
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
 
         super.read(compound); // The super call is required to load the tiles location
 
@@ -40,7 +34,7 @@ public class TileEntityWoodenFrame extends TileEntity {
 
     // Convert internal vars to NBT
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
 
         super.write(compound); // The super call is required to save the tiles location
 
@@ -60,16 +54,16 @@ public class TileEntityWoodenFrame extends TileEntity {
      * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
      */
     @Override
-    public CompoundNBT  getUpdateTag() {
+    public CompoundTag  getUpdateTag() {
 
-        CompoundNBT  compound = new CompoundNBT();
+        CompoundTag  compound = new CompoundTag();
         write(compound);
 
         return compound;
     }
 
     @Override
-    public void handleUpdateTag(CompoundNBT compound) {
+    public void handleUpdateTag(CompoundTag compound) {
         this.read(compound);
 
         if (world != null) world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
@@ -78,7 +72,7 @@ public class TileEntityWoodenFrame extends TileEntity {
     @Override
     public SUpdateTileEntityPacket getUpdatePacket()
     {
-        CompoundNBT nbtTagCompound = new CompoundNBT();
+        CompoundTag nbtTagCompound = new CompoundTag();
         write(nbtTagCompound);
         return new SUpdateTileEntityPacket(this.pos, 0, nbtTagCompound);
     }

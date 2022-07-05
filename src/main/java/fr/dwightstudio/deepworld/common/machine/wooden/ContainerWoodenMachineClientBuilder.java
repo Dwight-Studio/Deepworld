@@ -1,45 +1,43 @@
 package fr.dwightstudio.deepworld.common.machine.wooden;
 
 import fr.dwightstudio.deepworld.common.tile.ITileEntityWoodenMachine;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Vector3d;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
 public class ContainerWoodenMachineClientBuilder<T extends ITileEntityWoodenMachine> {
 
     public interface ContainerTypeGetter {
-        public ContainerType<?> get();
+        public MenuType<?> get();
     }
 
     private final ContainerTypeGetter getter;
     private final Class<T> tileClass;
 
     @Nullable
-    private T getTileEntity(PlayerEntity player) {
-        World world = player.world;
-        if(Minecraft.getInstance().objectMouseOver.getType() != RayTraceResult.Type.BLOCK){return null;}
+    private T getTileEntity(Player player) {
+        Level world = player.level;
+        if(Minecraft.getInstance().hitResult.getType() != HitResult.Type.BLOCK){return null;}
 
-        Vec3d blockVector = Minecraft.getInstance().objectMouseOver.getHitVec();
+        Vec3 blockVector = Minecraft.getInstance().hitResult.getLocation();
 
-        double bX = blockVector.getX(); double bY = blockVector.getY(); double bZ = blockVector.getZ();
-        double pX = player.getPosX(); double pY = player.getPosY(); double pZ = player.getPosZ();
+        double bX = blockVector.x; double bY = blockVector.y; double bZ = blockVector.z;
+        double pX = player.getX(); double pY = player.getY(); double pZ = player.getZ();
 
         if(bX == Math.floor(bX) && bX <= pX){bX--;}
         if(bY == Math.floor(bY) && bY <= pY+1){bY--;} // +1 on Y to get y from player eyes instead of feet
         if(bZ == Math.floor(bZ) && bZ <= pZ){bZ--;}
 
-        TileEntity tileEntity = world.getTileEntity(new BlockPos(bX, bY, bZ));
+        BlockEntity tileEntity = world.getBlockEntity(new BlockPos(bX, bY, bZ));
         if (tileClass.isInstance(tileEntity)) {
             return (T) tileEntity;
         } else {
@@ -52,10 +50,10 @@ public class ContainerWoodenMachineClientBuilder<T extends ITileEntityWoodenMach
         this.tileClass = tileClass;
     }
 
-    public ContainerWoodenMachine<T> build(int windowID, PlayerInventory playerInventory, PacketBuffer extraData) {
-        PlayerEntity player = playerInventory.player;
+    public ContainerWoodenMachine<T> build(int windowID, Inventory playerInventory, FriendlyByteBuf extraData) {
+        Player player = playerInventory.player;
 
-        if (player.world.isRemote()) {
+        if (player.level.isClientSide()) {
             return new ContainerWoodenMachine<T>(getter.get(),
                     getTileEntity(player),
                     windowID,

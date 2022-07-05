@@ -10,8 +10,16 @@ import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineZoneContents
 import fr.dwightstudio.deepworld.common.recipe.wooden_gear_shaper.WoodenGearShaperRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.util.Mth;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,10 +27,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvWrapper, RecipeHolder, NamedContainerProvider, BlockEntityTicker, ITileEntityWoodenMachine {
+public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHandler, RecipeHolder, MenuProvider, BlockEntityTicker, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -117,9 +127,8 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
         BlockState newBlockState = currentBlockState.setValue(BlockWoodenGearShaper.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
-            this.level.setBlockAndUpdate(this.worldPosition, newBlockState);
+            this.level.setBlocksDirty(this.worldPosition, newBlockState);
 
-            markDirty();
         } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
             this.level.markAndNotifyBlock(this.worldPosition, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
@@ -131,19 +140,18 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
     private ItemStack processInputItem() {
-        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
+        WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.level, inputZoneContents.getStackInSlot(0));
 
-        if (recipe.isValidInput(inputZoneContents, this.world)) {
+        if (recipe.isValidInput(inputZoneContents, this.level)) {
             ItemStack result = recipe.getResult();
 
                     // is output slot suitable for process - either empty, or with identical item that has enough space
                     if (willItemStackFit(outputZoneContents, 0, result)) {
                         ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
 
-                       recipe.applyCraft(inputZoneContents, this.world);
+                       recipe.applyCraft(inputZoneContents, this.level);
                         outputZoneContents.increaseStackSize(0, result);
 
-                        markDirty();
                         return rtn;
                     }
         }
@@ -164,12 +172,12 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
             return true;
         }
 
-        if (!itemStackOrigin.isItemEqual(itemStackDestination)) {
+        if (!itemStackOrigin.equals(itemStackDestination)) {
             return false;
         }
 
         int sizeAfterMerge = itemStackDestination.getCount() + itemStackOrigin.getCount();
-        if (sizeAfterMerge <= woodenGearShaperZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
+        if (sizeAfterMerge <= woodenGearShaperZoneContents.getMaxStackSize() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
             return true;
         }
         return false;
@@ -177,11 +185,11 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
 
     // gets the recipe which matches the given input, or Missing if none.
     public static WoodenGearShaperRecipe getMatchingRecipeForInput(Level world, ItemStack itemStack) {
-        return world.getRecipeManager().getRecipe(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
+        return world.getRecipeManager().getRecipes(WoodenGearShaperRecipe.SHAPING, new Inventory(itemStack), world).orElse(null);
     }
 
     public boolean isThereRecipeForInput(ItemStack sourceItemStack) {
-        return getMatchingRecipeForInput(world, sourceItemStack) != null;
+        return getMatchingRecipeForInput(this.level, sourceItemStack) != null;
     }
 
     /**
@@ -215,7 +223,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
     // This is where you save any data that you don't want to lose when the tile entity unloads
     // In this case, it saves the state of the furnace (burn time etc) and the itemstacks stored in the fuel, input, and output slots
     @Override
-    public CompoundNBT write(CompoundNBT parentNBTTagCompound)
+    public CompoundTag write(CompoundTag parentNBTTagCompound)
     {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
@@ -227,13 +235,13 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
 
     // This is where you load the data that you saved in writeToNBT
     @Override
-    public void read(CompoundNBT nbtTagCompound)
+    public void read(CompoundTag nbtTagCompound)
     {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
         woodenMachineStateData.readFromNBT(nbtTagCompound);
 
-        CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
+        CompoundTag inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
 
         inventoryNBT = nbtTagCompound.getCompound(OUTPUT_SLOTS_NBT);
@@ -247,16 +255,16 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
     //	When the world loads from disk, the server needs to send the TileEntity information to the client
     //  it uses getUpdatePacket(), getUpdateTag(), onDataPacket(), and handleUpdateTag() to do this
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
+    public Packet<ClientGamePacketListener> getUpdatePacket()
     {
-        CompoundNBT updateTagDescribingTileEntityState = getUpdateTag();
+        CompoundTag updateTagDescribingTileEntityState = getUpdateTag();
         final int METADATA = 42; // arbitrary.
-        return new SUpdateTileEntityPacket(this.pos, METADATA, updateTagDescribingTileEntityState);
+        return new SUpdateTileEntityPacket(this.worldPosition, METADATA, updateTagDescribingTileEntityState);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        CompoundNBT updateTagDescribingTileEntityState = pkt.getNbtCompound();
+        CompoundTag updateTagDescribingTileEntityState = pkt.getNbtCompound();
         handleUpdateTag(updateTagDescribingTileEntityState);
     }
 
@@ -264,9 +272,9 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
        Warning - although our getUpdatePacket() uses this method, vanilla also calls it directly, so don't remove it.
      */
     @Override
-    public CompoundNBT getUpdateTag()
+    public CompoundTag getUpdateTag()
     {
-        CompoundNBT nbtTagCompound = new CompoundNBT();
+        CompoundTag nbtTagCompound = new CompoundTag();
         write(nbtTagCompound);
         return nbtTagCompound;
     }
@@ -275,16 +283,16 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
      *  The vanilla default is suitable for this example but I've included an explicit definition anyway.
      */
     @Override
-    public void handleUpdateTag(CompoundNBT tag) { read(tag); }
+    public void handleUpdateTag(CompoundTag tag) { read(tag); }
 
     /**
      * When this tile entity is destroyed, drop all of its contents into the world
      * @param world
      * @param blockPos
      */
-    public void dropAllContents(World world, BlockPos blockPos) {
-        InventoryHelper.dropInventoryItems(world, blockPos, inputZoneContents);
-        InventoryHelper.dropInventoryItems(world, blockPos, outputZoneContents);
+    public void dropAllContents(Level level, BlockPos blockPos) {
+        InventoryHelper.dropInventoryItems(level, blockPos, inputZoneContents);
+        InventoryHelper.dropInventoryItems(level, blockPos, outputZoneContents);
     }
 
     // -------------  The following two methods are used to make the TileEntity perform as a NamedContainerProvider, i.e.
@@ -296,7 +304,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
      *  Can be useful when the tileentity has a customised name (eg "David's footlocker")
      */
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslationTextComponent("container.deepworld.wooden_gear_shaper");
     }
 
@@ -308,7 +316,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
      * @return
      */
     @Override
-    public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    public AbstractContainerMenu createMenu(int windowID, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
         return new ContainerWoodenMachine<>(DeepworldContainers.WOODEN_GEAR_SHAPER_CONTAINER,
                 this,
                 windowID,
@@ -418,7 +426,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements SidedInvW
     public float getVolume() {
         if (woodenMachineStateData.inertiaTimeInitialValue <= 0 ) return 0;
         double fraction = woodenMachineStateData.inertiaTimeRemaining / (double)woodenMachineStateData.inertiaTimeInitialValue;
-        return (float)MathHelper.clamp(fraction, 0.0, 1.0);
+        return (float) Mth.clamp(fraction, 0.0, 1.0);
     }
 
     @Override

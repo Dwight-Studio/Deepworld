@@ -25,8 +25,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.IItemHandler;
 
-public class TileEntityWoodenPress extends BlockEntity implements ISidedInventory, RecipeHolder, MenuProvider, BlockEntityTicker, ITileEntityWoodenMachine {
+public class TileEntityWoodenPress extends BlockEntity implements IItemHandler, RecipeHolder, MenuProvider, BlockEntityTicker, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;

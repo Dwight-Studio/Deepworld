@@ -46,6 +46,21 @@ public class WoodenGearShaperRecipe extends DeepworldMachineRecipe {
     }
 
     @Override
+    public ItemStack assemble(Inventory p_44001_) {
+        return null;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getResultItem() {
+        return result.copy();
+    }
+
+    @Override
     public RecipeType<?> getType() {
         return type;
     }

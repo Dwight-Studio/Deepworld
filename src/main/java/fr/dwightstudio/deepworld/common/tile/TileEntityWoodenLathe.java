@@ -8,33 +8,29 @@ import fr.dwightstudio.deepworld.common.machine.wooden.ContainerWoodenMachine;
 import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineStateData;
 import fr.dwightstudio.deepworld.common.machine.wooden.WoodenMachineZoneContents;
 import fr.dwightstudio.deepworld.common.recipe.wooden_lathe.WoodenLatheRecipe;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IRecipeHolder;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.util.Mth;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 
-public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventory, IRecipeHolder, INamedContainerProvider, ITickableTileEntity, ITileEntityWoodenMachine {
+public class TileEntityWoodenLathe extends BlockEntity implements IItemHandler, RecipeHolder, MenuProvider, BlockEntityTicker, ITileEntityWoodenMachine {
 
     public static final int INPUT_SLOTS_COUNT = 1;
     public static final int OUTPUT_SLOTS_COUNT = 1;
@@ -54,21 +50,23 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
 
     @Override
     public void onLoad() {
-        if (world.isRemote()) {
-            Minecraft.getInstance().getSoundHandler().play(new TickableSoundWoodenMachine(pos));
+        if (this.level.isClientSide()) {
+            Minecraft.getInstance().getSoundManager().play(new TickableSoundWoodenMachine(this.worldPosition));
         }
     }
 
     // Return true if the given player is able to use this block. In this case it checks that
     // 1) the world tileentity hasn't been replaced in the meantime, and
     // 2) the player isn't too far away from the centre of the block
-    public boolean canPlayerAccessInventory(PlayerEntity player) {
-        if (this.world.getTileEntity(this.pos) != this) return false;
+    public boolean canPlayerAccessInventory(Player player) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) return false;
         final double X_CENTRE_OFFSET = 0.5;
         final double Y_CENTRE_OFFSET = 0.5;
         final double Z_CENTRE_OFFSET = 0.5;
-        final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
-        return player.getDistanceSq(pos.getX() + X_CENTRE_OFFSET, pos.getY() + Y_CENTRE_OFFSET, pos.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
+        final double MAXIMUM_DISTANCE = 8.0;
+        return player.getPosition(0).x() + X_CENTRE_OFFSET < MAXIMUM_DISTANCE &&
+                player.getPosition(0).y() + Y_CENTRE_OFFSET < MAXIMUM_DISTANCE &&
+                player.getPosition(0).z() + Z_CENTRE_OFFSET < MAXIMUM_DISTANCE;
     }
 
     // This method is called every tick to update the tile entity, i.e.
@@ -76,11 +74,11 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     // It runs both on the server and the client but we only need to do updates on the server side.
     @Override
     public void tick() {
-        if (world.isRemote) return; // do nothing on client.
+        if (this.level.isClientSide) return; // do nothing on client.
         ItemStack currentlyProcessingItem = inputZoneContents.getStackInSlot(0);
 
         // if user has changed the input slots, reset the smelting time
-        if (!ItemStack.areItemsEqual(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
+        if (!ItemStack.isSame(currentlyProcessingItem, currentlyProcessingItemLastTick)) {  // == and != don't work!
             woodenMachineStateData.processTimeElapsed = 0;
         }
 
@@ -90,10 +88,10 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
             --woodenMachineStateData.inertiaTimeRemaining;
         }
 
-        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.world, currentlyProcessingItem);
+        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.level, currentlyProcessingItem);
 
         if (recipe != null) {
-            if (recipe.isValidInput(inputZoneContents, this.world)) {
+            if (recipe.isValidInput(inputZoneContents, this.level)) {
 
                 // If inertia is greater than 0, process block
                 if (woodenMachineStateData.inertiaTimeRemaining > 0) {
@@ -102,7 +100,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
 
                 if (woodenMachineStateData.processTimeElapsed < 0) woodenMachineStateData.processTimeElapsed = 0;
 
-                int processTimeForCurrentItem = getProcessTime(this.world, currentlyProcessingItem);
+                int processTimeForCurrentItem = getProcessTime(this.level, currentlyProcessingItem);
                 woodenMachineStateData.processTimeForCompletion = processTimeForCurrentItem;
 
                 // If processTime has reached maxProcessTime process the item and reset processTime
@@ -119,15 +117,14 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
             // The block update (for renderer) is only required on client side, but the lighting is required on both, since
             //    the client needs it for rendering and the server needs it for crop growth etc
 
-            BlockState currentBlockState = world.getBlockState(this.pos);
-            BlockState newBlockState = currentBlockState.with(BlockWoodenLathe.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
+            BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
+            BlockState newBlockState = currentBlockState.setValue(BlockWoodenLathe.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
             if (!newBlockState.equals(currentBlockState)) {
-                world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+                this.level.setBlocksDirty(this.worldPosition, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
 
-                markDirty();
             } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
-            world.markAndNotifyBlock(this.pos, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
+            this.level.markAndNotifyBlock(this.worldPosition, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
         }
         }
     }
@@ -138,19 +135,18 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
     private ItemStack processInputItem() {
-        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.world, inputZoneContents.getStackInSlot(0));
+        WoodenLatheRecipe recipe = getMatchingRecipeForInput(this.level, inputZoneContents.getStackInSlot(0));
 
-        if (recipe.isValidInput(inputZoneContents, this.world)) {
+        if (recipe.isValidInput(inputZoneContents, this.level)) {
             ItemStack result = recipe.getResult();
 
             // is output slot suitable for process - either empty, or with identical item that has enough space
             if (willItemStackFit(outputZoneContents, 0, result)) {
                 ItemStack rtn = inputZoneContents.getStackInSlot(0).copy();
 
-                recipe.applyCraft(inputZoneContents, this.world);
+                recipe.applyCraft(inputZoneContents, this.level);
                 outputZoneContents.increaseStackSize(0, result);
 
-                markDirty();
                 return rtn;
             }
         }
@@ -171,34 +167,34 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
             return true;
         }
 
-        if (!itemStackOrigin.isItemEqual(itemStackDestination)) {
+        if (!itemStackOrigin.equals(itemStackDestination)) {
             return false;
         }
 
         int sizeAfterMerge = itemStackDestination.getCount() + itemStackOrigin.getCount();
-        if (sizeAfterMerge <= woodenMachineZoneContents.getInventoryStackLimit() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
+        if (sizeAfterMerge <= woodenMachineZoneContents.getMaxStackSize() && sizeAfterMerge <= itemStackDestination.getMaxStackSize()) {
             return true;
         }
         return false;
     }
 
     // gets the recipe which matches the given input, or Missing if none.
-    public static WoodenLatheRecipe getMatchingRecipeForInput(World world, ItemStack itemStack) {
-        return world.getRecipeManager().getRecipe(WoodenLatheRecipe.LATHING, new Inventory(itemStack), world).orElse(null);
+    public static WoodenLatheRecipe getMatchingRecipeForInput(Level level, ItemStack itemStack) {
+        return level.getRecipeManager().getRecipes(WoodenLatheRecipe.LATHING, new Inventory(itemStack), level).orElse(null);
     }
 
     public boolean isThereRecipeForInput(ItemStack sourceItemStack) {
-        return getMatchingRecipeForInput(world, sourceItemStack) != null;
+        return getMatchingRecipeForInput(level, sourceItemStack) != null;
     }
 
     /**
      * Gets the processing time for this recipe input
-     * @param world
+     * @param level
      * @param itemStack the input item to be smelted
      * @return processing time (ticks) or 0 if no matching recipe
      */
-    public static int getProcessTime(World world, ItemStack itemStack) {
-        WoodenLatheRecipe matchingRecipe = getMatchingRecipeForInput(world, itemStack);
+    public static int getProcessTime(Level level, ItemStack itemStack) {
+        WoodenLatheRecipe matchingRecipe = getMatchingRecipeForInput(level, itemStack);
         if (matchingRecipe == null) return 0;
         return matchingRecipe.getProcessingTime();
     }
@@ -222,7 +218,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     // This is where you save any data that you don't want to lose when the tile entity unloads
     // In this case, it saves the state of the furnace (burn time etc) and the itemstacks stored in the fuel, input, and output slots
     @Override
-    public CompoundNBT write(CompoundNBT parentNBTTagCompound)
+    public CompoundTag write(CompoundTag parentNBTTagCompound)
     {
         super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
@@ -234,13 +230,13 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
 
     // This is where you load the data that you saved in writeToNBT
     @Override
-    public void read(CompoundNBT nbtTagCompound)
+    public void read(CompoundTag nbtTagCompound)
     {
         super.read(nbtTagCompound); // The super call is required to save and load the tile's location
 
         woodenMachineStateData.readFromNBT(nbtTagCompound);
 
-        CompoundNBT inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
+        CompoundTag inventoryNBT = nbtTagCompound.getCompound(INPUT_SLOTS_NBT);
         inputZoneContents.deserializeNBT(inventoryNBT);
 
         inventoryNBT = nbtTagCompound.getCompound(OUTPUT_SLOTS_NBT);
@@ -254,16 +250,16 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     //	When the world loads from disk, the server needs to send the TileEntity information to the client
     //  it uses getUpdatePacket(), getUpdateTag(), onDataPacket(), and handleUpdateTag() to do this
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
+    public Packet<ClientGamePacketListener> getUpdatePacket()
     {
-        CompoundNBT updateTagDescribingTileEntityState = getUpdateTag();
+        CompoundTag updateTagDescribingTileEntityState = getUpdateTag();
         final int METADATA = 42; // arbitrary.
-        return new SUpdateTileEntityPacket(this.pos, METADATA, updateTagDescribingTileEntityState);
+        return new SUpdateTileEntityPacket(this.worldPosition, METADATA, updateTagDescribingTileEntityState);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        CompoundNBT updateTagDescribingTileEntityState = pkt.getNbtCompound();
+        CompoundTag updateTagDescribingTileEntityState = pkt.getNbtCompound();
         handleUpdateTag(updateTagDescribingTileEntityState);
     }
 
@@ -271,9 +267,9 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
        Warning - although our getUpdatePacket() uses this method, vanilla also calls it directly, so don't remove it.
      */
     @Override
-    public CompoundNBT getUpdateTag()
+    public CompoundTag getUpdateTag()
     {
-        CompoundNBT nbtTagCompound = new CompoundNBT();
+        CompoundTag nbtTagCompound = new CompoundTag();
         write(nbtTagCompound);
         return nbtTagCompound;
     }
@@ -282,16 +278,16 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
      *  The vanilla default is suitable for this example but I've included an explicit definition anyway.
      */
     @Override
-    public void handleUpdateTag(CompoundNBT tag) { read(tag); }
+    public void handleUpdateTag(CompoundTag tag) { read(tag); }
 
     /**
      * When this tile entity is destroyed, drop all of its contents into the world
-     * @param world
+     * @param level
      * @param blockPos
      */
-    public void dropAllContents(World world, BlockPos blockPos) {
-        InventoryHelper.dropInventoryItems(world, blockPos, inputZoneContents);
-        InventoryHelper.dropInventoryItems(world, blockPos, outputZoneContents);
+    public void dropAllContents(Level level, BlockPos blockPos) {
+        InventoryHelper.dropInventoryItems(level, blockPos, inputZoneContents);
+        InventoryHelper.dropInventoryItems(level, blockPos, outputZoneContents);
     }
 
     // -------------  The following two methods are used to make the TileEntity perform as a NamedContainerProvider, i.e.
@@ -303,7 +299,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
      *  Can be useful when the tileentity has a customised name (eg "David's footlocker")
      */
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslationTextComponent("container.deepworld.wooden_lathe");
     }
 
@@ -315,7 +311,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
      * @return
      */
     @Override
-    public Container createMenu(int windowID, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    public AbstractContainerMenu createMenu(int windowID, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
         return new ContainerWoodenMachine<>(DeepworldContainers.WOODEN_LATHE_CONTAINER,
                 this,
                 windowID,
@@ -401,7 +397,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean isUsableByPlayer(Player player) {
         return true;
     }
 
@@ -412,10 +408,10 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     }
 
     @Override
-    public void setRecipeUsed(IRecipe<?> recipe) {}
+    public void setRecipeUsed(Recipe<?> recipe) {}
 
     @Override
-    public IRecipe<?> getRecipeUsed() {
+    public Recipe<?> getRecipeUsed() {
         return null;
     }
 
@@ -423,6 +419,6 @@ public class TileEntityWoodenLathe extends BlockEntity implements ISidedInventor
     public float getVolume() {
         if (woodenMachineStateData.inertiaTimeInitialValue <= 0 ) return 0;
         double fraction = woodenMachineStateData.inertiaTimeRemaining / (double)woodenMachineStateData.inertiaTimeInitialValue;
-        return (float) MathHelper.clamp(fraction, 0.0, 1.0);
+        return (float) Mth.clamp(fraction, 0.0, 1.0);
     }
 }

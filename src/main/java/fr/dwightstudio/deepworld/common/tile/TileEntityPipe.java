@@ -48,7 +48,7 @@ public class TileEntityPipe extends BlockEntity implements BlockEntityTicker {
     public void handleUpdateTag(CompoundTag compound) {
         this.read(compound);
 
-        if (this.level != null) this.level.notifyBlockUpdate(this.worldPosition, this.level.getBlockState(this.worldPosition), this.level.getBlockState(this.worldPosition), Constants.BlockFlags.DEFAULT);
+        if (this.level != null) this.level.markAndNotifyBlock(this.worldPosition, this.level.getBlockState(this.worldPosition), this.level.getBlockState(this.worldPosition), Constants.BlockFlags.DEFAULT);
     }
 
     @Override

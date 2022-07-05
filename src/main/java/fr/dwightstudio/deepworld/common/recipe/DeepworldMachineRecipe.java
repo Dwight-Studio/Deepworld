@@ -33,25 +33,25 @@ public abstract class DeepworldMachineRecipe implements Recipe<Inventory> {
         return Deepworld.MOD_ID;
     }
 
-    @Override
+/*    @Override
     public boolean isDynamic() {
         return true;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public final ItemStack getCraftingResult(Inventory inv) {
         return getResult();
-    }
+    }*/
 
     @Override
     public final NonNullList<Ingredient> getIngredients() {
         return NonNullList.create();
     }
 
-    @Override
+/*    @Override
     public final boolean canFit(int width, int height) {
         return true;
-    }
+    }*/
 
     @Override
     public final RecipeSerializer<?> getSerializer() {
@@ -59,15 +59,15 @@ public abstract class DeepworldMachineRecipe implements Recipe<Inventory> {
     }
 
     // Get output (for display purposes only)
-    @Override
+/*    @Override
     public final ItemStack getRecipeOutput() {
         return getResult();
-    }
+    }*/
 
-    @Override
+/*    @Override
     public final ItemStack getIcon() {
         return getResult();
-    }
+    }*/
 
     /**
      * @param inv Inputs inventory

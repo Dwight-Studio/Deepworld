@@ -89,7 +89,7 @@ public class BlockWoodenGearShaper extends ContainerBlock implements ITileEntity
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
         if (worldIn.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
 
-        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        MenuProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
         if (namedContainerProvider != null) {
 
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;

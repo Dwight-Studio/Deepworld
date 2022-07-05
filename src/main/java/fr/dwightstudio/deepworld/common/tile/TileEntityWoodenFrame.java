@@ -5,7 +5,12 @@ import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TileEntityWoodenFrame extends BlockEntity {
 
@@ -66,15 +71,15 @@ public class TileEntityWoodenFrame extends BlockEntity {
     public void handleUpdateTag(CompoundTag compound) {
         this.read(compound);
 
-        if (world != null) world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), Constants.BlockFlags.DEFAULT);
+        if (this.level != null) this.level.notifyBlockUpdate(this.worldPosition, this.level.getBlockState(this.worldPosition), this.level.getBlockState(this.worldPosition), Constants.BlockFlags.DEFAULT);
     }
 
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
+    public Packet<ClientGamePacketListener> getUpdatePacket()
     {
         CompoundTag nbtTagCompound = new CompoundTag();
         write(nbtTagCompound);
-        return new SUpdateTileEntityPacket(this.pos, 0, nbtTagCompound);
+        return new SUpdateTileEntityPacket(this.worldPosition, 0, nbtTagCompound);
     }
 
     @Override
@@ -106,15 +111,14 @@ public class TileEntityWoodenFrame extends BlockEntity {
     // Update BlockState
     private void updateBlockState() {
 
-        BlockState currentBlockState = world.getBlockState(this.pos);
+        BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
         BlockState newBlockState = currentBlockState
                 .with(BlockFrame.COVER, covers)
                 .with(BlockWoodenFrame.PRIMARY_COMPONENT, primaryComponent)
                 .with(BlockWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
                 .with(BlockWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
         if (!newBlockState.equals(currentBlockState)) {
-            world.setBlockState(this.pos, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
-            markDirty();
+            this.level.setBlocksDirty(this.worldPosition, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
         }
     }
 
@@ -123,14 +127,13 @@ public class TileEntityWoodenFrame extends BlockEntity {
         Block result = WoodenFrameComponent.getResultFromTile(this);
         BlockState state = result.getDefaultState();
 
-        if (state.getProperties().contains(HorizontalBlock.HORIZONTAL_FACING)) {
-            state = state.with(HorizontalBlock.HORIZONTAL_FACING, world.getBlockState(pos).get(BlockFrame.FACING));
+        if (state.getProperties().contains(HorizontalDirectionalBlock.FACING)) {
+            state = state.setValue(HorizontalDirectionalBlock.FACING, this.level.getBlockState(this.worldPosition).getValue(BlockFrame.FACING));
         }
 
-        world.setBlockState(this.pos, state);
+        this.level.setBlockAndUpdate(this.worldPosition, state);
 
-        world.setBlockState(this.pos, state, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
-        markDirty();
+        this.level.setBlocksDirty(this.worldPosition, state, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
     }
 
 

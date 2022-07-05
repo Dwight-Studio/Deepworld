@@ -96,7 +96,7 @@ public class BlockWoodenLathe extends ContainerBlock implements ITileEntityProvi
     public InteractionResult onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, Hand hand, BlockRayTraceResult rayTraceResult) {
         if (worldIn.isClientSide()) return InteractionResult.SUCCESS; // on client side, don't do anything
 
-        INamedContainerProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
+        MenuProvider namedContainerProvider = this.getContainer(state, worldIn, pos);
         if (namedContainerProvider != null) {
 
             ServerPlayer serverPlayerEntity = (ServerPlayer)player;

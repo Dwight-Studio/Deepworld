@@ -12,9 +12,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,6 +26,7 @@ import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,8 +47,8 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
     private final WoodenMachineStateData woodenMachineStateData = new WoodenMachineStateData();
     private ItemStack currentlyProcessingItemLastTick = ItemStack.EMPTY;
 
-    public TileEntityWoodenGearShaper(){
-        super(DeepworldTileEntities.WOODEN_GEAR_SHAPER);
+    public TileEntityWoodenGearShaper(BlockPos blockPos, BlockState blockState){
+        super(DeepworldTileEntities.WOODEN_GEAR_SHAPER, blockPos, blockState);
         inputZoneContents = WoodenMachineZoneContents.createForTileEntity(INPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
         outputZoneContents = WoodenMachineZoneContents.createForTileEntity(OUTPUT_SLOTS_COUNT, this::canPlayerAccessInventory, this::markDirty);
     }
@@ -127,10 +130,10 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
         BlockState newBlockState = currentBlockState.setValue(BlockWoodenGearShaper.WORKING, woodenMachineStateData.inertiaTimeRemaining > 0);
 
         if (!newBlockState.equals(currentBlockState)) {
-            this.level.setBlocksDirty(this.worldPosition, newBlockState);
+            this.level.setBlocksDirty(this.worldPosition, this.level.getBlockState(this.worldPosition), newBlockState);
 
         } else if (woodenMachineStateData.inertiaTimeRemaining > 0) {
-            this.level.markAndNotifyBlock(this.worldPosition, null, currentBlockState, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/);
+            this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), currentBlockState, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
         }
     }
 
@@ -140,6 +143,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
      * @return a copy of the ItemStack of the input item processed or to-be-processed
      */
     private ItemStack processInputItem() {
+        assert this.level != null;
         WoodenGearShaperRecipe recipe = getMatchingRecipeForInput(this.level, inputZoneContents.getStackInSlot(0));
 
         if (recipe.isValidInput(inputZoneContents, this.level)) {
@@ -189,6 +193,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
     }
 
     public boolean isThereRecipeForInput(ItemStack sourceItemStack) {
+        assert this.level != null;
         return getMatchingRecipeForInput(this.level, sourceItemStack) != null;
     }
 
@@ -223,21 +228,20 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
     // This is where you save any data that you don't want to lose when the tile entity unloads
     // In this case, it saves the state of the furnace (burn time etc) and the itemstacks stored in the fuel, input, and output slots
     @Override
-    public CompoundTag write(CompoundTag parentNBTTagCompound)
+    public void saveAdditional(@NotNull CompoundTag parentNBTTagCompound)
     {
-        super.write(parentNBTTagCompound); // The super call is required to save and load the tile's location
+        super.saveAdditional(parentNBTTagCompound); // The super call is required to save and load the tile's location
 
         woodenMachineStateData.putIntoNBT(parentNBTTagCompound);
         parentNBTTagCompound.put(INPUT_SLOTS_NBT, inputZoneContents.serializeNBT());
         parentNBTTagCompound.put(OUTPUT_SLOTS_NBT, outputZoneContents.serializeNBT());
-        return parentNBTTagCompound;
     }
 
     // This is where you load the data that you saved in writeToNBT
     @Override
-    public void read(CompoundTag nbtTagCompound)
+    public void load(@NotNull CompoundTag nbtTagCompound)
     {
-        super.read(nbtTagCompound); // The super call is required to save and load the tile's location
+        super.load(nbtTagCompound); // The super call is required to save and load the tile's location
 
         woodenMachineStateData.readFromNBT(nbtTagCompound);
 
@@ -257,14 +261,12 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket()
     {
-        CompoundTag updateTagDescribingTileEntityState = getUpdateTag();
-        final int METADATA = 42; // arbitrary.
-        return new SUpdateTileEntityPacket(this.worldPosition, METADATA, updateTagDescribingTileEntityState);
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        CompoundTag updateTagDescribingTileEntityState = pkt.getNbtCompound();
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        CompoundTag updateTagDescribingTileEntityState = pkt.getTag();
         handleUpdateTag(updateTagDescribingTileEntityState);
     }
 
@@ -275,7 +277,7 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
     public CompoundTag getUpdateTag()
     {
         CompoundTag nbtTagCompound = new CompoundTag();
-        write(nbtTagCompound);
+        saveAdditional(nbtTagCompound);
         return nbtTagCompound;
     }
 
@@ -283,11 +285,11 @@ public class TileEntityWoodenGearShaper extends BlockEntity implements IItemHand
      *  The vanilla default is suitable for this example but I've included an explicit definition anyway.
      */
     @Override
-    public void handleUpdateTag(CompoundTag tag) { read(tag); }
+    public void handleUpdateTag(CompoundTag tag) { load(tag); }
 
     /**
      * When this tile entity is destroyed, drop all of its contents into the world
-     * @param world
+     * @param level
      * @param blockPos
      */
     public void dropAllContents(Level level, BlockPos blockPos) {

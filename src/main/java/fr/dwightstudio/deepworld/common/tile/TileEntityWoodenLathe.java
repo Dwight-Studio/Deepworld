@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -258,7 +259,7 @@ public class TileEntityWoodenLathe extends BlockEntity implements IItemHandler, 
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+    public void onDataPacket(Connection net, SUpdateTileEntityPacket pkt) {
         CompoundTag updateTagDescribingTileEntityState = pkt.getNbtCompound();
         handleUpdateTag(updateTagDescribingTileEntityState);
     }

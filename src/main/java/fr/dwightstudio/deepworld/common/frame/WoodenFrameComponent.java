@@ -1,13 +1,10 @@
 package fr.dwightstudio.deepworld.common.frame;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.DeepworldItems;
 import fr.dwightstudio.deepworld.common.tile.TileEntityWoodenFrame;
-import net.minecraft.block.Block;
 import net.minecraft.world.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.level.block.Block;
 
 public enum WoodenFrameComponent {
 

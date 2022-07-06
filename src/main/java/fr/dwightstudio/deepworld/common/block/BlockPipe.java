@@ -73,7 +73,7 @@ public class BlockPipe extends SixWayBlock implements ITileEntityProvider, IFlui
     }
 
     @Override
-    public BlockEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity createNewTileEntity(BlockReader world) {
         return new TileEntityPipe();
     }
 

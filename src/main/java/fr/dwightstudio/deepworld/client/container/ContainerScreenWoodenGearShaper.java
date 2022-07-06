@@ -75,7 +75,7 @@ public class ContainerScreenWoodenGearShaper extends AbstractContainerScreen<Con
     }*/
 
     @Override
-    protected void renderBg(PoseStack poseStack, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindForSetup(TEXTURE);

@@ -4,13 +4,19 @@ import fr.dwightstudio.deepworld.common.DeepworldTileEntities;
 import fr.dwightstudio.deepworld.common.block.BlockFrame;
 import fr.dwightstudio.deepworld.common.block.BlockWoodenFrame;
 import fr.dwightstudio.deepworld.common.frame.WoodenFrameComponent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class TileEntityWoodenFrame extends BlockEntity {
 
@@ -21,15 +27,15 @@ public class TileEntityWoodenFrame extends BlockEntity {
     private int secondaryComponent = 0;
     private int tertiaryComponent = 0;
 
-    public TileEntityWoodenFrame() {
-        super(DeepworldTileEntities.WOODEN_FRAME);
+    public TileEntityWoodenFrame(BlockPos blockPos, BlockState blockState) {
+        super(DeepworldTileEntities.WOODEN_FRAME, blockPos, blockState);
     }
 
     // Convert NBT to internal vars
     @Override
-    public void read(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
 
-        super.read(compound); // The super call is required to load the tiles location
+        super.load(compound); // The super call is required to load the tiles location
 
         covers = compound.getInt("Cover");
         primaryComponent = compound.getInt("PrimaryComponent");
@@ -39,17 +45,15 @@ public class TileEntityWoodenFrame extends BlockEntity {
 
     // Convert internal vars to NBT
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
 
-        super.write(compound); // The super call is required to save the tiles location
+        super.saveAdditional(compound); // The super call is required to save the tiles location
 
         compound.putInt("cover", covers);
 
         compound.putInt("PrimaryComponent", primaryComponent);
         compound.putInt("SecondaryComponent", secondaryComponent);
         compound.putInt("TertiaryComponent", tertiaryComponent);
-
-        return compound;
     }
 
     /*
@@ -62,29 +66,27 @@ public class TileEntityWoodenFrame extends BlockEntity {
     public CompoundTag  getUpdateTag() {
 
         CompoundTag  compound = new CompoundTag();
-        write(compound);
+        saveAdditional(compound);
 
         return compound;
     }
 
     @Override
     public void handleUpdateTag(CompoundTag compound) {
-        this.read(compound);
+        this.load(compound);
 
-        if (this.level != null) this.level.notifyBlockUpdate(this.worldPosition, this.level.getBlockState(this.worldPosition), this.level.getBlockState(this.worldPosition), Constants.BlockFlags.DEFAULT);
+        if (this.level != null) this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), this.level.getBlockState(this.worldPosition), this.getBlockState(), Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket()
     {
-        CompoundTag nbtTagCompound = new CompoundTag();
-        write(nbtTagCompound);
-        return new SUpdateTileEntityPacket(this.worldPosition, 0, nbtTagCompound);
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        read(pkt.getNbtCompound());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        saveAdditional(Objects.requireNonNull(pkt.getTag()));
     }
 
     // Get placed covers
@@ -111,29 +113,32 @@ public class TileEntityWoodenFrame extends BlockEntity {
     // Update BlockState
     private void updateBlockState() {
 
+        assert this.level != null;
         BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
         BlockState newBlockState = currentBlockState
-                .with(BlockFrame.COVER, covers)
-                .with(BlockWoodenFrame.PRIMARY_COMPONENT, primaryComponent)
-                .with(BlockWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
-                .with(BlockWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
+                .setValue(BlockFrame.COVER, covers)
+                .setValue(BlockWoodenFrame.PRIMARY_COMPONENT, primaryComponent)
+                .setValue(BlockWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
+                .setValue(BlockWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
         if (!newBlockState.equals(currentBlockState)) {
-            this.level.setBlocksDirty(this.worldPosition, newBlockState, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+            this.level.setBlocksDirty(this.worldPosition, this.level.getBlockState(this.worldPosition), newBlockState);
         }
     }
 
     // Apply craft
     private void ApplyCraft() {
         Block result = WoodenFrameComponent.getResultFromTile(this);
-        BlockState state = result.getDefaultState();
+        BlockState state = result.defaultBlockState();
 
         if (state.getProperties().contains(HorizontalDirectionalBlock.FACING)) {
+            assert this.level != null;
             state = state.setValue(HorizontalDirectionalBlock.FACING, this.level.getBlockState(this.worldPosition).getValue(BlockFrame.FACING));
         }
 
+        assert this.level != null;
         this.level.setBlockAndUpdate(this.worldPosition, state);
 
-        this.level.setBlocksDirty(this.worldPosition, state, Constants.BlockFlags.BLOCK_UPDATE | 2 /*SEND_TO_CLIENT*/ | Constants.BlockFlags.RERENDER_MAIN_THREAD);
+        this.level.setBlocksDirty(this.worldPosition, this.level.getBlockState(this.worldPosition), state);
     }
 
 

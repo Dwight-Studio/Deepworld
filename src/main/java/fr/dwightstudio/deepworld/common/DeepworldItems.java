@@ -1,121 +1,82 @@
 package fr.dwightstudio.deepworld.common;
 
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ObjectHolder;
+import fr.dwightstudio.deepworld.common.item.SimpleDeepworldBlockItem;
+import fr.dwightstudio.deepworld.common.item.SimpleDeepworldItem;
+import net.minecraftforge.registries.RegistryObject;
 
 public class DeepworldItems {
 
     // Items
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_case_panel")
-    public static final Item WOODEN_CASE_PANEL = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:simple_pressing_chamber")
-    public static final Item SIMPLE_PRESSING_CHAMBER = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:simple_cutter")
-    public static final Item SIMPLE_CUTTER = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:simple_left_part_holder")
-    public static final Item SIMPLE_LEFT_PART_HOLDER = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:simple_right_part_holder")
-    public static final Item SIMPLE_RIGHT_PART_HOLDER = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_gearbox")
-    public static final Item WOODEN_GEARBOX = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_crank")
-    public static final Item WOODEN_CRANK = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_plate")
-    public static final Item IRON_PLATE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_plate")
-    public static final Item STEEL_PLATE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_plate")
-    public static final Item OBSIDIAN_INFUSED_STEEL_PLATE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_rod")
-    public static final Item IRON_ROD = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_rod")
-    public static final Item STEEL_ROD = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_rod")
-    public static final Item OBSIDIAN_INFUSED_STEEL_ROD = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_nail")
-    public static final Item IRON_NAIL = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_nail")
-    public static final Item STEEL_NAIL = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_nail")
-    public static final Item OBSIDIAN_INFUSED_STEEL_NAIL = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_screw")
-    public static final Item IRON_SCREW = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_screw")
-    public static final Item STEEL_SCREW = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_screw")
-    public static final Item OBSIDIAN_INFUSED_STEEL_SCREW = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_gear")
-    public static final Item WOODEN_GEAR = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_gear")
-    public static final Item IRON_GEAR = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_gear")
-    public static final Item STEEL_GEAR = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_gear")
-    public static final Item OBSIDIAN_INFUSED_STEEL_GEAR = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_ingot")
-    public static final Item STEEL_INGOT = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_ingot")
-    public static final Item OBSIDIAN_INFUSED_STEEL_INGOT = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_pump")
-    public static final Item IRON_PUMP = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_small_gear")
-    public static final Item IRON_SMALL_GEAR = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:valve_assembly")
-    public static final Item VALVE_ASSEMBLY = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_turbine")
-    public static final Item IRON_TURBINE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:pressure_regulator")
-    public static final Item PRESSURE_REGULATOR = null;
+    public static RegistryObject<SimpleDeepworldItem> WOODEN_GEAR;
+    public static RegistryObject<SimpleDeepworldItem> IRON_GEAR;
+    public static RegistryObject<SimpleDeepworldItem> STEEL_GEAR;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_GEAR;
 
-    // Tools
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_pickaxe")
-    public static final Item STEEL_PICKAXE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_sword")
-    public static final Item STEEL_SWORD = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_pickaxe")
-    public static final Item STEEL_AXE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_shovel")
-    public static final Item STEEL_SHOVEL = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_hoe")
-    public static final Item STEEL_HOE = null;
+    public static RegistryObject<SimpleDeepworldItem> IRON_NAIL;
+    public static RegistryObject<SimpleDeepworldItem> STEEl_NAIL;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_NAIL;
 
-    // Armor
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_helmet")
-    public static final Item STEEL_HELMET = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_chestplate")
-    public static final Item STEEL_CHESTPLATE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_leggings")
-    public static final Item STEEL_LEGGINGS = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_boots")
-    public static final Item STEEL_BOOTS = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_helmet")
-    public static final Item OBSIDIAN_INFUSED_STEEL_HELMET = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_chestplate")
-    public static final Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_leggings")
-    public static final Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_boots")
-    public static final Item OBSIDIAN_INFUSED_STEEL_BOOTS = null;
+    public static RegistryObject<SimpleDeepworldItem> IRON_PLATE;
+    public static RegistryObject<SimpleDeepworldItem> STEEL_PLATE;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_PLATE;
+
+    public static RegistryObject<SimpleDeepworldItem> IRON_ROD;
+    public static RegistryObject<SimpleDeepworldItem> STEEL_ROD;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_ROD;
+
+    public static RegistryObject<SimpleDeepworldItem> IRON_SCREW;
+    public static RegistryObject<SimpleDeepworldItem> STEEL_SCREW;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_SCREW;
+
+    public static RegistryObject<SimpleDeepworldItem> IRON_SMALL_GEAR;
+
+    public static RegistryObject<SimpleDeepworldItem> STEEL_INGOT;
+    public static RegistryObject<SimpleDeepworldItem> OBSIDIAN_INFUSED_STEEL_INGOT;
+
+    public static RegistryObject<SimpleDeepworldItem> IRON_PUMP;
+    public static RegistryObject<SimpleDeepworldItem> IRON_TURBINE;
+    public static RegistryObject<SimpleDeepworldItem> PRESSURE_REGULATOR;
+    public static RegistryObject<SimpleDeepworldItem> VALVE_ASSEMBLY;
 
     // BlockItems
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_frame")
-    public static final Item WOODEN_FRAME = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_press")
-    public static final Item WOODEN_PRESS = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_gear_shaper")
-    public static final Item WOODEN_GEAR_SHAPER = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:wooden_lathe")
-    public static final Item WOODEN_LATHE = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:iron_frame")
-    public static final Item IRON_FRAME = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_frame")
-    public static final Item STEEL_FRAME = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_frame")
-    public static final Item OBSIDIAN_INFUSED_STEEL_FRAME = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:steel_block")
-    public static final Item STEEL_BLOCK = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:obsidian_infused_steel_block")
-    public static final Item OBSIDIAN_INFUSED_STEEL_BLOCK = null;
-    @ObjectHolder(registryName = "minecraft:item", value = "deepworld:pipe")
-    public static final Item PIPE = null;
+    public static RegistryObject<SimpleDeepworldBlockItem> STEEL_BLOCK;
+    public static RegistryObject<SimpleDeepworldBlockItem> OBSIDIAN_INFUSED_STEEL_BLOCK;
+
+    public DeepworldItems() {
+        // Items
+        WOODEN_GEAR                       = Deepworld.ITEMS.register("wooden_gear"                      , SimpleDeepworldItem::new);
+        IRON_GEAR                         = Deepworld.ITEMS.register("iron_gear"                        , SimpleDeepworldItem::new);
+        STEEL_GEAR                        = Deepworld.ITEMS.register("steel_gear"                       , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_GEAR       = Deepworld.ITEMS.register("obsidian_infused_steel_gear"      , SimpleDeepworldItem::new);
+
+        IRON_NAIL                         = Deepworld.ITEMS.register("iron_nail"                        , SimpleDeepworldItem::new);
+        STEEl_NAIL                        = Deepworld.ITEMS.register("steel_nail"                       , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_NAIL       = Deepworld.ITEMS.register("obsidian_infused_steel_nail"      , SimpleDeepworldItem::new);
+
+        IRON_PLATE                        = Deepworld.ITEMS.register("iron_plate"                       , SimpleDeepworldItem::new);
+        STEEL_PLATE                       = Deepworld.ITEMS.register("steel_plate"                      , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_PLATE      = Deepworld.ITEMS.register("obsidian_infused_steel_plate"     , SimpleDeepworldItem::new);
+
+        IRON_ROD                          = Deepworld.ITEMS.register("iron_rod"                         , SimpleDeepworldItem::new);
+        STEEL_ROD                         = Deepworld.ITEMS.register("steel_rod"                        , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_ROD        = Deepworld.ITEMS.register("obsidian_infused_steel_rod"       , SimpleDeepworldItem::new);
+
+        IRON_SCREW                        = Deepworld.ITEMS.register("iron_screw"                       , SimpleDeepworldItem::new);
+        STEEL_SCREW                       = Deepworld.ITEMS.register("steel_screw"                      , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_SCREW      = Deepworld.ITEMS.register("obsidian_infused_steel_screw"     , SimpleDeepworldItem::new);
+
+        IRON_SMALL_GEAR                   = Deepworld.ITEMS.register("iron_small_gear"                  , SimpleDeepworldItem::new);
+
+        STEEL_INGOT                       = Deepworld.ITEMS.register("steel_ingot"                      , SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_INGOT      = Deepworld.ITEMS.register("obsidian_infused_steel_ingot"     , SimpleDeepworldItem::new);
+
+        IRON_PUMP                         = Deepworld.ITEMS.register("iron_pump"                        , SimpleDeepworldItem::new);
+        IRON_TURBINE                      = Deepworld.ITEMS.register("iron_turbine"                     , SimpleDeepworldItem::new);
+        PRESSURE_REGULATOR                = Deepworld.ITEMS.register("pressure_regulator"               , SimpleDeepworldItem::new);
+        VALVE_ASSEMBLY                    = Deepworld.ITEMS.register("valve_assembly"                   , SimpleDeepworldItem::new);
+
+        // BlockItem
+        STEEL_BLOCK                  = Deepworld.ITEMS.register("steel_block"                 , () -> new SimpleDeepworldBlockItem(DeepworldBlocks.STEEL_BLOCK.get()));
+        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.ITEMS.register("obsidian_infused_steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get()));
+    }
 }

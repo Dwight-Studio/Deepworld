@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "deepworld:block/obsidian_infused_steel_frame"
-      }
-    }
-  ]
-}

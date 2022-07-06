@@ -3,6 +3,9 @@ modLoader="javafml"
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 # Forge for 1.19 is version 41
 loaderVersion="[41,)"
+# The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="All Rights Reserved"
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="https://github.com/Dwight-Studio/Deepworld/issues"
 # If the mods defined in this file should show as seperate resource packs
@@ -32,6 +35,6 @@ side="BOTH"
 [[dependencies.deepworld]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19,1.20]"
+versionRange="[1.19,1.20)"
 ordering="NONE"
 side="BOTH"

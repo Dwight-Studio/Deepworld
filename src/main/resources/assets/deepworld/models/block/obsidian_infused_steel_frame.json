@@ -1,7 +1,0 @@
-{
-    "parent": "deepworld:block/frame",
-    "textures": {
-      "frame": "deepworld:blocks/obsidian_infused_steel_frame",
-      "particle": "deepworld:blocks/obsidian_infused_steel_frame"
-    }
-}

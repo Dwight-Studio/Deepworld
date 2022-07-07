@@ -1,0 +1,10 @@
+{
+  "type": "deepworld:wooden_press_pressing",
+  "processingTime": 800,
+  "ingredientTag": "minecraft:planks",
+  "ingredientCount": 1,
+  "result": {
+    "item": "deepworld:wooden_case_panel",
+    "count": 2
+  }
+}

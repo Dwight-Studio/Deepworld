@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/obsidian_infused_steel"
+    }
+  },
+  "result": {
+    "item": "deepworld:obsidian_infused_steel_leggings",
+    "count": 1
+  }
+}

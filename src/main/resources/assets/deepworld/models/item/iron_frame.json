@@ -1,0 +1,7 @@
+{
+    "parent": "deepworld:block/frame",
+    "textures": {
+      "frame": "deepworld:blocks/iron_frame",
+      "particle": "deepworld:blocks/iron_frame"
+    }
+}

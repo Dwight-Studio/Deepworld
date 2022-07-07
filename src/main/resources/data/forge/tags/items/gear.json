@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:gear/wooden",
+    "#forge:gear/iron",
+    "#forge:gear/steel",
+    "#forge:gear/obsidian_infused_steel"
+  ]
+}

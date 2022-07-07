@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS ",
+    " T ",
+    " T "
+  ],
+  "pattern": [
+    " SS",
+    " T ",
+    " T "
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/steel"
+    },
+    "T": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "deepworld:steel_hoe",
+    "count": 1
+  }
+}

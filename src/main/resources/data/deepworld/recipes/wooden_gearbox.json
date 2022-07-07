@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "GSG",
+    "PPP"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "G": {
+      "tag": "forge:gear/wooden"
+    }
+  },
+  "result": {
+    "item": "deepworld:wooden_gearbox",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "deepworld:wooden_lathe_lathing",
+  "processingTime": 1600,
+  "ingredientTag": "forge:ingots/iron",
+  "ingredientCount": 1,
+  "result": {
+    "item": "deepworld:iron_rod",
+    "count": 1
+  }
+}

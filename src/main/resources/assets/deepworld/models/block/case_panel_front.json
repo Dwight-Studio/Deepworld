@@ -1,0 +1,13 @@
+{
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 2, 2, 15 ], 
+            "to": [ 14, 14, 16 ], 
+            "faces": {
+                "north": { "texture": "#frame", "uv": [ 2, 2, 14, 14 ] },
+                "south": { "texture": "#frame", "uv": [ 2, 2, 14, 14 ] }
+            }
+        }
+    ]
+}

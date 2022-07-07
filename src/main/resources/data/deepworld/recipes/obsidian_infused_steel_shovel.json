@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    " T ",
+    " T "
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/obsidian_infused_steel"
+    },
+    "T": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "deepworld:obsidian_infused_steel_shovel",
+    "count": 1
+  }
+}

@@ -1,9 +1,15 @@
 package fr.dwightstudio.deepworld.common;
 
+import fr.dwightstudio.deepworld.client.DeepworldClient;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,8 +32,12 @@ public class Deepworld {
     public static Logger logger = LogManager.getLogger(LOG_PREFIX);
 
     // Registering
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
-    public static final DeferredRegister<Item>  ITEMS  = DeferredRegister.create(ForgeRegistries.ITEMS,  MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS          = DeferredRegister.create(ForgeRegistries.BLOCKS      , MOD_ID);
+    public static final DeferredRegister<Item> ITEMS            = DeferredRegister.create(ForgeRegistries.ITEMS       , MOD_ID);
+    public static final DeferredRegister<RecipeType<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MOD_ID);
+    public static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(ForgeRegistries.CONTAINERS, MOD_ID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MOD_ID);
 
     public Deepworld() {
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
@@ -37,17 +47,19 @@ public class Deepworld {
 
         BLOCKS.register(MOD_EVENT_BUS);
         ITEMS.register(MOD_EVENT_BUS);
+        BLOCK_ENTITIES.register(MOD_EVENT_BUS);
+        MENU.register(MOD_EVENT_BUS);
+        RECIPE_TYPES.register(MOD_EVENT_BUS);
 
-        /*DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> Deepworld::registerClientEventsHandler);*/
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> DeepworldClient::new);
     }
 
     public static void registerAssets() {
         new DeepworldBlocks();
         new DeepworldItems();
+        new DeepworldBlockEntities();
+        new DeepworldMenus();
+        new DeepworldRecipeTypes();
+        new DeepworldRecipeBookTypes();
     }
-/*
-    // Register client events handlers
-    public static void registerClientEventsHandler() {
-
-    }*/
 }

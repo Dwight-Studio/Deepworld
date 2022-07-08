@@ -1,5 +1,5 @@
 {
-  "type": "deepworld:wooden_gear_shaper_shaping",
+  "type": "deepworld:gear_shaping",
   "processingTime": 1600,
   "ingredientTag": "forge:plates/iron",
   "ingredientCount": 2,

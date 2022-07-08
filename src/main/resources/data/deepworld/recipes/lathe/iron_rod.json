@@ -1,5 +1,5 @@
 {
-  "type": "deepworld:wooden_lathe_lathing",
+  "type": "deepworld:lathing",
   "processingTime": 1600,
   "ingredientTag": "forge:ingots/iron",
   "ingredientCount": 1,

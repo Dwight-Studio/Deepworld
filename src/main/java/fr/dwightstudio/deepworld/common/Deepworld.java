@@ -23,13 +23,13 @@ public class Deepworld {
 
     // Mod info
     public static final String MOD_ID = "deepworld";
-    public static final String MOD_NAME = "The Deep World";
+    public static final String MOD_NAME = "Deep World";
     public static final String LOG_PREFIX = MOD_NAME;
     public static final CreativeModeTab MOD_TAB = new DeepworldCreativeTab();
+    public static final Logger LOGGER = LogManager.getLogger(LOG_PREFIX);
 
     public static IEventBus MOD_EVENT_BUS;
 
-    public static Logger logger = LogManager.getLogger(LOG_PREFIX);
 
     // Registering
     public static final DeferredRegister<Block> BLOCKS          = DeferredRegister.create(ForgeRegistries.BLOCKS      , MOD_ID);

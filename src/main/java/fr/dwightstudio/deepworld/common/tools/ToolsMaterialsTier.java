@@ -1,37 +1,36 @@
 package fr.dwightstudio.deepworld.common.tools;
 
 import fr.dwightstudio.deepworld.common.DeepworldItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.Stream;
+import java.util.function.Supplier;
 
 public enum ToolsMaterialsTier implements Tier {
 
-    STEEL(2, 850, 6.5F, 0.0F, 10, Ingredient.of(DeepworldItems.STEEL_INGOT.get())),
+    STEEL(2, 850, 6.5F, 0.0F, 10, DeepworldItems.STEEL_INGOT),
 
-    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, Ingredient.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get()));
+    OBSIDIAN_INFUSED_STEEL(3, 1900, 9.0F, 0.0F, 14, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
 
-    private final int harvest_level;
+    private final int harvestLevel;
     private final int durability;
     private final float efficiency;
-    private final float attack_damage;
+    private final float attackDamage;
     private final int enchantability;
-    private final Ingredient repair_material;
+    private final Supplier<Item> itemSupplier;
 
-    ToolsMaterialsTier(int harvest_level, int durability, float efficiency, float attack_damage, int enchantability, Ingredient repair_material){
-        this.harvest_level   = harvest_level;
+    ToolsMaterialsTier(int harvestLevel, int durability, float efficiency, float attackDamage, int enchantability, Supplier<Item> itemSupplier){
+        this.harvestLevel = harvestLevel;
         this.durability      = durability;
         this.efficiency      = efficiency;
-        this.attack_damage   = attack_damage;
+        this.attackDamage = attackDamage;
         this.enchantability  = enchantability;
-        this.repair_material = repair_material;
+        this.itemSupplier = itemSupplier;
     }
 
     @Override
@@ -46,12 +45,12 @@ public enum ToolsMaterialsTier implements Tier {
 
     @Override
     public float getAttackDamageBonus() {
-        return attack_damage;
+        return attackDamage;
     }
 
     @Override
     public int getLevel() {
-        return harvest_level;
+        return harvestLevel;
     }
 
     @Override
@@ -61,7 +60,7 @@ public enum ToolsMaterialsTier implements Tier {
 
     @Override
     public @NotNull Ingredient getRepairIngredient() {
-        return repair_material;
+        return Ingredient.of(itemSupplier.get());
     }
 
     @Override

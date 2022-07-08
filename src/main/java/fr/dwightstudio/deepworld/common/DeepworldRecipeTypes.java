@@ -11,7 +11,7 @@ public class DeepworldRecipeTypes {
     public static RegistryObject<RecipeType<LatheRecipe>> TURNING;
 
     public DeepworldRecipeTypes() {
-        TURNING = Deepworld.RECIPE_TYPES.register("turning", () -> createRecipeType("turning"));
+        TURNING = Deepworld.RECIPE_TYPES.register("lathing", () -> createRecipeType("lathing"));
     }
 
     public static <T extends Recipe<? extends Container>> RecipeType<T> createRecipeType(String name) {

@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FrameBlock extends DirectionalBlock {
+public class FrameBlock extends HorizontalDirectionalBlock {
 
-    public static final DirectionProperty FACING =  DirectionalBlock.FACING;
+    public static final DirectionProperty FACING =  HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty COVER = IntegerProperty.create("cover", 0, 6);
 
     public FrameBlock(Properties properties) {

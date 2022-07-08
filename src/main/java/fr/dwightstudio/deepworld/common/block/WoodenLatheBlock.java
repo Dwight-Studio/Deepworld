@@ -28,9 +28,9 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WoodenLatheBlock extends DirectionalBlock implements EntityBlock {
+public class WoodenLatheBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
-    public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final Property<Boolean> WORKING = BooleanProperty.create("working");
 
     public WoodenLatheBlock() {

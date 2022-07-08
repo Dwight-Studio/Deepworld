@@ -1,5 +1,5 @@
 {
-  "type": "deepworld:wooden_press_pressing",
+  "type": "deepworld:pressing",
   "processingTime": 1600,
   "ingredientTag": "forge:ingots/iron",
   "ingredientCount": 1,

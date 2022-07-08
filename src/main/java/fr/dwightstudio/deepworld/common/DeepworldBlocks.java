@@ -1,6 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.block.*;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 

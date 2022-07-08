@@ -1,8 +1,9 @@
-package fr.dwightstudio.deepworld.client.menus;
+package fr.dwightstudio.deepworld.common.menus;
 
 import fr.dwightstudio.deepworld.common.DeepworldMenus;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
+import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,14 +14,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 public class WoodenLatheMenu extends RecipeBookMenu<Container> {
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
-    private static final int SLOT_COUNT = 2;
-    private static final int DATA_COUNT = 3;
+    public static final int INPUT_SLOT = 0;
+    public static final int OUTPUT_SLOT = 1;
+    public static final int[] SLOTS_FOR_UP = {0};
+    public static final int[] SLOTS_FOR_DOWN = {1};
+    public static final int[] SLOTS_FOR_SIDES = {};
+    public static final int SLOT_COUNT = 2;
+    public static final int INERTIA_DATA = 0;
+    public static final int PROCESS_PROGRESS_DATA = 1;
+    public static final int PROCESS_TIME_DATA = 2;
+    public  static final int DATA_COUNT = 3;
     private static final int INV_START_SLOT = SLOT_COUNT;
     private static final int INV_END_SLOT = SLOT_COUNT + 27;
     private static final int HOTBAR_START_SLOT = INV_END_SLOT ;
@@ -32,11 +40,15 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     private final RecipeBookType recipeBookType;
 
     public WoodenLatheMenu(int containerID, Inventory inventory) {
+        this(containerID, inventory, new SimpleContainerData(WoodenLatheMenu.DATA_COUNT));
+    }
+
+    public WoodenLatheMenu(int containerID, Inventory inventory, ContainerData containerData) {
         super(DeepworldMenus.WOODEN_LATHE_MENU.get(), containerID);
         this.recipeType = DeepworldRecipeTypes.TURNING.get();
         this.recipeBookType = DeepworldRecipeBookTypes.LATHE;
         this.container = new SimpleContainer(SLOT_COUNT);
-        this.containerData = new SimpleContainerData(DATA_COUNT);
+        this.containerData = containerData;
         this.level = inventory.player.getLevel();
         this.addSlot(new Slot(this.container, INPUT_SLOT, 56, 17));
         this.addSlot(new Slot(this.container, OUTPUT_SLOT, 116, 35));
@@ -147,7 +159,21 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return this.container.stillValid(player);
+    }
+
+    public double getProgress() {
+        return (double) this.containerData.get(PROCESS_PROGRESS_DATA) / (double)this.containerData.get(PROCESS_TIME_DATA);
+    }
+
+    public double getInertiaProgress() {
+        return (double) this.containerData.get(INERTIA_DATA) / (double) WoodenLatheBlockEntity.MAX_INERTIA;
+    }
+
+    @Override
+    public boolean clickMenuButton(@NotNull Player player, int buttonID) {
+        this.containerData.set(INERTIA_DATA, Math.min(WoodenLatheBlockEntity.INERTIA_PER_CLICK + this.containerData.get(INERTIA_DATA), WoodenLatheBlockEntity.MAX_INERTIA));
+        return true;
     }
 }

@@ -4,10 +4,12 @@ import fr.dwightstudio.deepworld.common.block.component.ComponentClass;
 import fr.dwightstudio.deepworld.common.block.component.WoodenFrameComponent;
 import fr.dwightstudio.deepworld.common.blockentity.WoodenFrameBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
@@ -22,7 +24,9 @@ public class WoodenFrameBlock extends FrameBlock implements EntityBlock {
     public WoodenFrameBlock() {
         super(Properties.of(Material.WOOD)
                 .sound(SoundType.WOOD)
-                .strength(3, 2));
+                .strength(3, 2)
+                .noOcclusion()
+                .isSuffocating((blockState, blockGetter, blockPos) -> false));
     }
 
     // Adding default custom properties value
@@ -38,5 +42,11 @@ public class WoodenFrameBlock extends FrameBlock implements EntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new WoodenFrameBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(PRIMARY_COMPONENT, SECONDARY_COMPONENT, TERTIARY_COMPONENT);
     }
 }

@@ -51,7 +51,7 @@ public class Deepworld {
         MENU.register(MOD_EVENT_BUS);
         RECIPE_TYPES.register(MOD_EVENT_BUS);
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> DeepworldClient::new);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> Deepworld::registerClientAssets);
     }
 
     public static void registerAssets() {
@@ -61,5 +61,9 @@ public class Deepworld {
         new DeepworldMenus();
         new DeepworldRecipeTypes();
         new DeepworldRecipeBookTypes();
+    }
+
+    public static void registerClientAssets() {
+        MOD_EVENT_BUS.register(DeepworldClient.class);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class FrameBlock extends DirectionalBlock {
 
+    public static final DirectionProperty FACING =  DirectionalBlock.FACING;
     public static final IntegerProperty COVER = IntegerProperty.create("cover", 0, 6);
 
     public FrameBlock(Properties properties) {
@@ -43,14 +45,7 @@ public class FrameBlock extends DirectionalBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        List<Property<?>> list = new ArrayList<>();
-
-        list.add(FACING);
-        list.add(COVER);
-
-        Collections.addAll(list, getComponentProperties());
-
-        builder.add(list.toArray(new Property[0]));
+        builder.add(FACING, COVER);
     }
 
     @Override

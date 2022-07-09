@@ -1,7 +1,6 @@
 package fr.dwightstudio.deepworld.common.blocks.machines.wood;
 
-import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenLatheBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;

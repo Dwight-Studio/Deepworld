@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.blockentity.machines.wood;
+package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
 
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -255,8 +256,8 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
                         }
 
                         // Empty or decrement the input itemstack
-                        if (inputItem.getCount() > recipe.getIngredient().getItems()[0].getCount()) {
-                            inputItem.shrink(recipe.getIngredient().getItems()[0].getCount());
+                        if (inputItem.getCount() > recipe.getIngredientCount()) {
+                            inputItem.shrink(recipe.getIngredientCount());
                         } else {
                             woodenMachineBlockEntity.items.set(INPUT_SLOT, ItemStack.EMPTY);
                         }
@@ -272,7 +273,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
 
     private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
         if (recipe == null) return false;
-        if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredient().getItems()[0].getCount()) return false;
+        if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredientCount()) return false;
         if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
         if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() >= recipe.assemble(blockEntity).getMaxStackSize()) return false;
 

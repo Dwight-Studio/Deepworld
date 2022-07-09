@@ -29,9 +29,14 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         int processTime = GsonHelper.getAsInt(jsonObject, "processTime");
         String machineTierString = GsonHelper.getAsString(jsonObject, "machineTier");
 
+        int ingredientCount = 1;
+        if (GsonHelper.isNumberValue(jsonObject, "ingredientsCount")) {
+            ingredientCount = GsonHelper.getAsInt(jsonObject, "ingredientsCount");
+        }
+
         MachineTier machineTier = MachineTier.valueOf(machineTierString.toUpperCase());
 
-        return new MachineRecipe(recipeTypes, resourceLocation, inputIngredient, result, processTime, machineTier);
+        return new MachineRecipe(recipeTypes, resourceLocation, inputIngredient, ingredientCount, result, processTime, machineTier);
     }
 
     @Override
@@ -39,10 +44,11 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         String type = buf.readUtf();
         int processTime = buf.readInt();
         Ingredient ingredient = Ingredient.fromNetwork(buf);
+        int ingredientCount = buf.readInt();
         MachineTier machineTier = MachineTier.valueOf(buf.readUtf().toUpperCase());
         ItemStack result = buf.readItem();
 
-        return new MachineRecipe(recipeTypes, resourceLocation, ingredient, result, processTime, machineTier);
+        return new MachineRecipe(recipeTypes, resourceLocation, ingredient, ingredientCount, result, processTime, machineTier);
     }
 
     @Override
@@ -50,6 +56,7 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         buf.writeUtf(machineRecipe.getGroup());
         buf.writeInt(machineRecipe.getProcessTime());
         machineRecipe.getIngredient().toNetwork(buf);
+        buf.writeInt(machineRecipe.getIngredientCount());
         buf.writeUtf(machineRecipe.getMachineTier().name());
         buf.writeItem(machineRecipe.getResultItem());
     }

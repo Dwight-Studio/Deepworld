@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.blockentity.machines.wood;
+package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
 
 import fr.dwightstudio.deepworld.common.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.DeepworldMenus;
@@ -9,14 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class WoodenPressBlockEntity extends WoodenMachineBlockEntity{
+public class WoodenLatheBlockEntity extends WoodenMachineBlockEntity{
 
-    public WoodenPressBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get());
+    public WoodenLatheBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(DeepworldBlockEntities.WOODEN_LATHE.get(), DeepworldMenus.WOODEN_LATHE.get(), DeepworldRecipeBookTypes.LATHE, blockPos, blockState, DeepworldRecipeTypes.LATHING.get());
     }
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("container.deepworld.wooden_press");
+        return Component.translatable("container.deepworld.wooden_lathe");
     }
 }

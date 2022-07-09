@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.blocks.machines.wood;
 
-import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenGearShaperBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenGearShaperBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

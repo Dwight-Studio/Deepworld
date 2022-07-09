@@ -16,14 +16,16 @@ public class MachineRecipe implements Recipe<Container> {
     private final RecipeType<?> recipeType;
     private final ResourceLocation resourceLocation;
     private final Ingredient ingredient;
+    private final int ingredientCount;
     private final ItemStack resultItem;
     private final int processTime;
     private final MachineTier machineTier;
 
-    public MachineRecipe(RecipeType<?> recipeType, ResourceLocation resourceLocation, Ingredient ingredient, ItemStack resultItem, int processTime, MachineTier machineTier) {
+    public MachineRecipe(RecipeType<?> recipeType, ResourceLocation resourceLocation, Ingredient ingredient, int ingredientCount, ItemStack resultItem, int processTime, MachineTier machineTier) {
         this.recipeType = recipeType;
         this.resourceLocation = resourceLocation;
         this.ingredient = ingredient;
+        this.ingredientCount = ingredientCount;
         this.resultItem = resultItem;
         this.processTime = processTime;
         this.machineTier = machineTier;
@@ -74,5 +76,9 @@ public class MachineRecipe implements Recipe<Container> {
 
     public Ingredient getIngredient() {
         return this.ingredient;
+    }
+
+    public int getIngredientCount() {
+        return this.ingredientCount;
     }
 }

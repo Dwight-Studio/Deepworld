@@ -6,17 +6,11 @@ import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class WoodenFrameBlockEntity extends BlockEntity {
 
@@ -63,7 +57,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
      * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
      */
     @Override
-    public CompoundTag  getUpdateTag() {
+    public @NotNull CompoundTag  getUpdateTag() {
 
         CompoundTag  compound = new CompoundTag();
         saveAdditional(compound);
@@ -76,17 +70,6 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         this.load(compound);
 
         if (this.level != null) this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), this.level.getBlockState(this.worldPosition), this.getBlockState(), Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket()
-    {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        saveAdditional(Objects.requireNonNull(pkt.getTag()));
     }
 
     // Get placed covers
@@ -103,7 +86,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         }
 
         if (covers == 6) {
-            ApplyCraft();
+            applyCraft();
         } else {
             updateBlockState();
         }
@@ -112,7 +95,6 @@ public class WoodenFrameBlockEntity extends BlockEntity {
 
     // Update BlockState
     private void updateBlockState() {
-
         assert this.level != null;
         BlockState currentBlockState = this.level.getBlockState(this.worldPosition);
         BlockState newBlockState = currentBlockState
@@ -121,12 +103,12 @@ public class WoodenFrameBlockEntity extends BlockEntity {
                 .setValue(WoodenFrameBlock.SECONDARY_COMPONENT, secondaryComponent)
                 .setValue(WoodenFrameBlock.TERTIARY_COMPONENT, tertiaryComponent);
         if (!newBlockState.equals(currentBlockState)) {
-            this.level.setBlocksDirty(this.worldPosition, this.level.getBlockState(this.worldPosition), newBlockState);
+            this.level.setBlock(this.worldPosition, newBlockState, 3);
         }
     }
 
     // Apply craft
-    private void ApplyCraft() {
+    private void applyCraft() {
         Block result = WoodenFrameComponent.getResultFromTile(this);
         BlockState state = result.defaultBlockState();
 

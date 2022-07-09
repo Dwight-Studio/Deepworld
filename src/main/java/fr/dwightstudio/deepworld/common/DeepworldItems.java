@@ -158,6 +158,6 @@ public class DeepworldItems {
         SIMPLE_CUTTER = Deepworld.ITEMS.register("simple_cutter", SimpleCutter::new);
         SIMPLE_LEFT_PART_HOLDER = Deepworld.ITEMS.register("simple_left_part_holder", SimpleLeftPartHolder::new);
         SIMPLE_RIGHT_PART_HOLDER = Deepworld.ITEMS.register("simple_right_part_holder", SimpleRightPartHolder::new);
-        WOODEN_CASE_PANEL = Deepworld.ITEMS.register("wooden_case_panel", SimpleDeepworldItem::new);
+        WOODEN_CASE_PANEL = Deepworld.ITEMS.register("wooden_case_panel", WoodenCasePanelItem::new);
     }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "deepworld:block/wooden_gear_shaper",
+  "parent": "deepworld:block/wooden_machine",
   "textures": {
     "particle": "deepworld:blocks/wooden_frame",
     "wooden_frame": "deepworld:blocks/wooden_frame",

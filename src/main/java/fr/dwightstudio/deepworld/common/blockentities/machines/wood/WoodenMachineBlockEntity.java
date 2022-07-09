@@ -1,5 +1,7 @@
-package fr.dwightstudio.deepworld.common.blockentity.machines.wood;
+package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import net.minecraft.core.BlockPos;
@@ -229,6 +231,12 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
         ItemStack inputItem = woodenMachineBlockEntity.items.get(INPUT_SLOT);
         ItemStack outputItem = woodenMachineBlockEntity.items.get(OUTPUT_SLOT);
 
+        BlockState newBlockstate = blockState.setValue(WoodenMachineBlock.WORKING, woodenMachineBlockEntity.inertia > 0);
+        if (!newBlockstate.equals(blockState)) {
+            woodenMachineBlockEntity.setChanged();
+            level.setBlockAndUpdate(blockPos, newBlockstate);
+        }
+
         // The inertia must be greater than 0 for the process to start
         if (woodenMachineBlockEntity.inertia > 0) {
             woodenMachineBlockEntity.inertia--;
@@ -241,7 +249,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
                 // else make sure the process progress is set to 0
                 if (canProcess(recipe, woodenMachineBlockEntity)) {
                     woodenMachineBlockEntity.processTimeTotal = recipe.getProcessTime();
-                    woodenMachineBlockEntity.processProgress++;
+                    woodenMachineBlockEntity.processProgress += (int) (((float) woodenMachineBlockEntity.inertia/(float) WoodenMachineBlockEntity.MAX_INERTIA) * (float) 3);
 
                     // The process is finished
                     if (woodenMachineBlockEntity.processProgress >= woodenMachineBlockEntity.processTimeTotal) {
@@ -274,7 +282,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
         if (recipe == null) return false;
         if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredient().getItems()[0].getCount()) return false;
         if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
-        if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() >= recipe.assemble(blockEntity).getMaxStackSize()) return false;
+        if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() > recipe.assemble(blockEntity).getMaxStackSize()) return false;
 
         return true;
     }

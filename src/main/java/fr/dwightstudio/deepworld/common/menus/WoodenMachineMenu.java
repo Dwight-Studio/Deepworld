@@ -48,7 +48,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
         this.containerData = containerData;
         this.level = inventory.player.getLevel();
         this.addSlot(new Slot(this.container, INPUT_SLOT, 56, 17));
-        this.addSlot(new Slot(this.container, OUTPUT_SLOT, 116, 35));
+        this.addSlot(new MachineOutputSlot(this.container, OUTPUT_SLOT, 116, 35));
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
@@ -174,5 +174,17 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     public boolean clickMenuButton(@NotNull Player player, int buttonID) {
         this.containerData.set(INERTIA_DATA, Math.min(WoodenMachineBlockEntity.INERTIA_PER_CLICK + this.containerData.get(INERTIA_DATA), WoodenMachineBlockEntity.MAX_INERTIA));
         return true;
+    }
+
+    public class MachineOutputSlot extends Slot {
+
+        public MachineOutputSlot(Container p_40223_, int p_40224_, int p_40225_, int p_40226_) {
+            super(p_40223_, p_40224_, p_40225_, p_40226_);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack p_40231_) {
+            return false;
+        }
     }
 }

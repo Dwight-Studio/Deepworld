@@ -12,13 +12,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum ArmorMaterialsTier implements ArmorMaterial {
 
-    STEEL(Deepworld.MOD_ID + ":steel", 18, new int[] {3, 7, 6, 3}, 10,
+    STEEL(Deepworld.MOD_ID + ":steel", 18, new int[]{3, 7, 6, 3}, 10,
             SoundEvents.ARMOR_EQUIP_IRON, 0.0F, Ingredient.of(DeepworldItems.STEEL_INGOT.get())),
 
-    OBSIDIAN_INFUSED_STEEL(Deepworld.MOD_ID + ":obsidian_infused_steel", 54, new int[] {4, 9, 7, 4}, 10,
-    SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0F, Ingredient.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get()));
+    OBSIDIAN_INFUSED_STEEL(Deepworld.MOD_ID + ":obsidian_infused_steel", 54, new int[]{4, 9, 7, 4}, 10,
+            SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0F, Ingredient.of(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get()));
 
-    private static final int[] MAX_DAMAGE = new int[] {11, 16, 15, 13};
+    private static final int[] MAX_DAMAGE = new int[]{11, 16, 15, 13};
     private final String name;
     private final int max_damage_factor;
     private final int[] damage_reduction_amount;

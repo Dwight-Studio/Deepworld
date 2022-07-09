@@ -121,7 +121,7 @@
     },
     {
       "when": {
-        "primary_component":  "1"
+        "primary_component": "1"
       },
       "apply": {
         "model": "deepworld:item/simple_pressing_chamber"
@@ -129,7 +129,7 @@
     },
     {
       "when": {
-        "primary_component":  "2"
+        "primary_component": "2"
       },
       "apply": {
         "model": "deepworld:item/simple_cutter"
@@ -137,7 +137,7 @@
     },
     {
       "when": {
-        "secondary_component":  "1"
+        "secondary_component": "1"
       },
       "apply": {
         "model": "deepworld:item/wooden_gearbox"
@@ -145,7 +145,7 @@
     },
     {
       "when": {
-        "secondary_component":  "2"
+        "secondary_component": "2"
       },
       "apply": {
         "model": "deepworld:item/simple_left_part_holder"
@@ -153,7 +153,7 @@
     },
     {
       "when": {
-        "tertiary_component":  "1"
+        "tertiary_component": "1"
       },
       "apply": {
         "model": "deepworld:item/wooden_crank"
@@ -161,7 +161,7 @@
     },
     {
       "when": {
-        "tertiary_component":  "2"
+        "tertiary_component": "2"
       },
       "apply": {
         "model": "deepworld:item/simple_right_part_holder"

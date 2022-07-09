@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class WoodenGearShaperBlockEntity extends WoodenMachineBlockEntity{
+public class WoodenGearShaperBlockEntity extends WoodenMachineBlockEntity {
 
     public WoodenGearShaperBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(DeepworldBlockEntities.WOODEN_GEAR_SHAPER.get(), DeepworldMenus.WOODEN_GEAR_SHAPER.get(), DeepworldRecipeBookTypes.GEAR_SHAPER, blockPos, blockState, DeepworldRecipeTypes.GEAR_SHAPING.get());

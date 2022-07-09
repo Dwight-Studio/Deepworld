@@ -1,6 +1,6 @@
 {
-    "parent": "item/handheld",
-    "textures": {
-      "layer0": "deepworld:items/steel_axe"
-    }
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "deepworld:items/steel_axe"
+  }
 }

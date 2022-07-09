@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-      "layer0": "deepworld:items/iron_screw"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "deepworld:items/iron_screw"
+  }
 }

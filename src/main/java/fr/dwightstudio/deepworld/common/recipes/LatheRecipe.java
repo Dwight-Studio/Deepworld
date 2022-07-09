@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class LatheRecipe extends MachineRecipe {
 
-    public LatheRecipe(RecipeType<?> recipeType, ResourceLocation resourceLocation, Ingredient ingredient, ItemStack resultItem, int processTime, MachineTier machineTier) {
-        super(recipeType, resourceLocation, ingredient, resultItem, processTime, machineTier);
+    public LatheRecipe(RecipeType<?> recipeType, ResourceLocation resourceLocation, Ingredient ingredient, int ingredientCount, ItemStack resultItem, int processTime, MachineTier machineTier) {
+        super(recipeType, resourceLocation, ingredient, ingredientCount, resultItem, processTime, machineTier);
     }
 
     @Override

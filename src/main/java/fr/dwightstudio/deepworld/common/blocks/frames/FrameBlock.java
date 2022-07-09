@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FrameBlock extends HorizontalDirectionalBlock {
 
-    public static final DirectionProperty FACING =  HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty COVER = IntegerProperty.create("cover", 0, 6);
 
     public FrameBlock(Properties properties) {
@@ -32,7 +32,7 @@ public class FrameBlock extends HorizontalDirectionalBlock {
     }
 
     protected Property<?>[] getComponentProperties() {
-        return new Property[] {};
+        return new Property[]{};
     }
 
     protected BlockState setComponentPropertiesDefaultValues(BlockState state) {

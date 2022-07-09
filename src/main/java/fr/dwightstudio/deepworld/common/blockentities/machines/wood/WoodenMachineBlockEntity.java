@@ -33,7 +33,7 @@ import static fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu.*;
 
 public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
 
-    public  static final int MAX_INERTIA = 200;
+    public static final int MAX_INERTIA = 200;
     public static final int INERTIA_PER_CLICK = 10;
 
     int inertia;
@@ -63,7 +63,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
             return WoodenMachineMenu.DATA_COUNT;
         }
     };
-    
+
     RecipeManager.CachedCheck<Container, MachineRecipe> quickCheck;
     protected NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
     private final MenuType<WoodenMachineMenu> menuType;
@@ -170,7 +170,6 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
     }
 
 
-
     @Override
     public void setItem(int slotID, ItemStack newItemStack) {
         ItemStack currentItemStack = this.items.get(slotID);
@@ -198,7 +197,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
+            return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -263,8 +262,8 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
                         }
 
                         // Empty or decrement the input itemstack
-                        if (inputItem.getCount() > recipe.getIngredient().getItems()[0].getCount()) {
-                            inputItem.shrink(recipe.getIngredient().getItems()[0].getCount());
+                        if (inputItem.getCount() > recipe.getIngredientCount()) {
+                            inputItem.shrink(recipe.getIngredientCount());
                         } else {
                             woodenMachineBlockEntity.items.set(INPUT_SLOT, ItemStack.EMPTY);
                         }
@@ -275,12 +274,14 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
             }
         }
         // The inertia mustn't be < to 0, if so set it to 0
-        if (woodenMachineBlockEntity.inertia < 0) { woodenMachineBlockEntity.inertia = 0; }
+        if (woodenMachineBlockEntity.inertia < 0) {
+            woodenMachineBlockEntity.inertia = 0;
+        }
     }
 
     private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
         if (recipe == null) return false;
-        if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredient().getItems()[0].getCount()) return false;
+        if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredientCount()) return false;
         if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
         if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() > recipe.assemble(blockEntity).getMaxStackSize()) return false;
 

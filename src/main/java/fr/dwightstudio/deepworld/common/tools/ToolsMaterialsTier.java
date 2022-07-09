@@ -24,12 +24,12 @@ public enum ToolsMaterialsTier implements Tier {
     private final int enchantability;
     private final Supplier<Item> itemSupplier;
 
-    ToolsMaterialsTier(int harvestLevel, int durability, float efficiency, float attackDamage, int enchantability, Supplier<Item> itemSupplier){
+    ToolsMaterialsTier(int harvestLevel, int durability, float efficiency, float attackDamage, int enchantability, Supplier<Item> itemSupplier) {
         this.harvestLevel = harvestLevel;
-        this.durability      = durability;
-        this.efficiency      = efficiency;
+        this.durability = durability;
+        this.efficiency = efficiency;
         this.attackDamage = attackDamage;
-        this.enchantability  = enchantability;
+        this.enchantability = enchantability;
         this.itemSupplier = itemSupplier;
     }
 

@@ -1,39 +1,39 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-modLoader="javafml"
+modLoader = "javafml"
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 # Forge for 1.19 is version 41
-loaderVersion="[41,)"
+loaderVersion = "[41,)"
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://github.com/Dwight-Studio/Deepworld/issues"
+issueTrackerURL = "https://github.com/Dwight-Studio/Deepworld/issues"
 # If the mods defined in this file should show as seperate resource packs
-showAsResourcePack=false
-license="License"
+showAsResourcePack = false
+license = "License"
 
 [[mods]]
-modId="deepworld"
-version="0.1"
-displayName="Deep World"
-updateJSONURL=""
-displayURL="dwightstudio.fr/mc/deepworld (WIP)"
-logoFile="logo.png"
-credits="All the sound effects originate from the amazing Epidemic Sound library."
-authors="Deleranax, WhiteRed & GamerMine"
-description='''
+modId = "deepworld"
+version = "0.1"
+displayName = "Deep World"
+updateJSONURL = ""
+displayURL = "dwightstudio.fr/mc/deepworld (WIP)"
+logoFile = "logo.png"
+credits = "All the sound effects originate from the amazing Epidemic Sound library."
+authors = "Deleranax, WhiteRed & GamerMine"
+description = '''
       To make the nether go truly deep.
 
       §bDeep World§r is a mod that introduces a new intermediate dimension between the overworld and the nether to complexify the access to the latter.
       '''
 
 [[dependencies.deepworld]]
-modId="forge"
-mandatory=true
-versionRange="[41,)"
-ordering="NONE"
-side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[41,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.deepworld]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.19,1.20]"
-ordering="NONE"
-side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19,1.20]"
+ordering = "NONE"
+side = "BOTH"

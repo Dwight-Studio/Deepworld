@@ -5,6 +5,7 @@ import fr.dwightstudio.deepworld.common.DeepworldMenus;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
 import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.WoodenPressBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -53,7 +54,7 @@ public class WoodenPressBlock extends HorizontalDirectionalBlock implements Enti
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        return new WoodenMachineBlockEntity(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS_MENU.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get(), Component.translatable("container.deepworld.wooden_press"));
+        return new WoodenPressBlockEntity(blockPos, blockState);
     }
 
     @Override

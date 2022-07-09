@@ -4,6 +4,7 @@ import fr.dwightstudio.deepworld.common.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.DeepworldMenus;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
+import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,12 +53,12 @@ public class WoodenLatheBlock extends HorizontalDirectionalBlock implements Enti
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new WoodenMachineBlockEntity(DeepworldBlockEntities.WOODEN_LATHE.get(), DeepworldMenus.WOODEN_LATHE_MENU.get(), DeepworldRecipeBookTypes.LATHE, blockPos, blockState, DeepworldRecipeTypes.LATHING.get(), Component.translatable("container.deepworld.wooden_lathe"));
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return new WoodenLatheBlockEntity(blockPos, blockState);
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileentity = level.getBlockEntity(blockPos);
             if (tileentity instanceof WoodenMachineBlockEntity woodenMachineBlockEntity) {

@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.recipe;
+package fr.dwightstudio.deepworld.common.recipes;
 
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.resources.ResourceLocation;

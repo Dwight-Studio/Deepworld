@@ -2,6 +2,7 @@ package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.blocks.*;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenGearShaperBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenLatheBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenPressBlock;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +36,7 @@ public class DeepworldBlocks {
 
         // Machines
         WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", WoodenPressBlock::new);
-        //WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);
+        WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);
         WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", WoodenLatheBlock::new);
     }
 }

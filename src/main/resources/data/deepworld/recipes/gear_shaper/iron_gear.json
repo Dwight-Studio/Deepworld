@@ -1,8 +1,11 @@
 {
   "type": "deepworld:gear_shaping",
-  "processingTime": 1600,
-  "ingredientTag": "forge:plates/iron",
-  "ingredientCount": 2,
+  "processTime": 500,
+  "ingredients": {
+    "tag": "forge:ingots/iron",
+    "count": 2
+  },
+  "machineTier": "wood",
   "result": {
     "item": "deepworld:iron_gear",
     "count": 1

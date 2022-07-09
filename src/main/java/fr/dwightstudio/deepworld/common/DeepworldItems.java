@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.armor.ArmorMaterialsTier;
+import fr.dwightstudio.deepworld.common.armors.ArmorMaterialsTier;
 import fr.dwightstudio.deepworld.common.items.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -49,6 +49,7 @@ public class DeepworldItems {
 
     public static RegistryObject<BlockItem> WOODEN_LATHE;
     public static RegistryObject<BlockItem> WOODEN_PRESS;
+    public static RegistryObject<BlockItem> WOODEN_GEAR_SHAPER;
 
     // Tools
     public static RegistryObject<PickaxeItem> STEEL_PICKAXE;
@@ -124,6 +125,7 @@ public class DeepworldItems {
 
         WOODEN_LATHE = Deepworld.ITEMS.register("wooden_lathe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_LATHE.get()));
         WOODEN_PRESS = Deepworld.ITEMS.register("wooden_press", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_PRESS.get()));
+        WOODEN_GEAR_SHAPER = Deepworld.ITEMS.register("wooden_gear_shaper", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER.get()));
 
         // Tools
         STEEL_PICKAXE                  = Deepworld.ITEMS.register("steel_pickaxe"                 , () -> new PickaxeItem(ToolsMaterialsTier.STEEL                 , 3   , -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));

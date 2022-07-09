@@ -15,8 +15,9 @@ public class DeepworldClient {
 
     @SubscribeEvent
     public static void onClientSetupEvent(FMLClientSetupEvent event) {
-        MenuScreens.register(DeepworldMenus.WOODEN_LATHE_MENU.get(), WoodenMachineScreen::new);
-        MenuScreens.register(DeepworldMenus.WOODEN_PRESS_MENU.get(), WoodenMachineScreen::new);
+        MenuScreens.register(DeepworldMenus.WOODEN_LATHE.get(), WoodenMachineScreen::new);
+        MenuScreens.register(DeepworldMenus.WOODEN_PRESS.get(), WoodenMachineScreen::new);
+        MenuScreens.register(DeepworldMenus.WOODEN_GEAR_SHAPER.get(), WoodenMachineScreen::new);
     }
 
 }

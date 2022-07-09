@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class WoodenPressBlockEntity extends WoodenMachineBlockEntity{
 
     public WoodenPressBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS_MENU.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get());
+        super(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get());
     }
 
     @Override

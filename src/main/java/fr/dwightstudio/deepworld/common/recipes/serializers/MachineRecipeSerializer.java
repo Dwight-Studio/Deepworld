@@ -1,7 +1,7 @@
-package fr.dwightstudio.deepworld.common.recipe.serializers;
+package fr.dwightstudio.deepworld.common.recipes.serializers;
 
 import com.google.gson.JsonObject;
-import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
+import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

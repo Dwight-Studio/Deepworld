@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.armor;
+package fr.dwightstudio.deepworld.common.armors;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.DeepworldItems;

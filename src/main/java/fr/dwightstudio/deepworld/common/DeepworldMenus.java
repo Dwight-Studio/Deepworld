@@ -6,11 +6,13 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class DeepworldMenus {
 
-    public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_LATHE_MENU;
-    public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_PRESS_MENU;
+    public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_LATHE;
+    public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_PRESS;
+    public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_GEAR_SHAPER;
 
     public DeepworldMenus() {
-        WOODEN_LATHE_MENU = Deepworld.MENU.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new));
-        WOODEN_PRESS_MENU = Deepworld.MENU.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_LATHE = Deepworld.MENU.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_PRESS = Deepworld.MENU.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_GEAR_SHAPER = Deepworld.MENU.register("wooden_gear_shaper", () -> new MenuType<>(WoodenMachineMenu::new));
     }
 }

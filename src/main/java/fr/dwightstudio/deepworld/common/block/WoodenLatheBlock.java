@@ -67,20 +67,12 @@ public class WoodenLatheBlock extends HorizontalDirectionalBlock implements Enti
         super.onRemove(state, level, blockPos, newState, isMoving);
     }
 
-    protected void openContainer(Level level, BlockPos blockPos, Player player) {
-        BlockEntity blockentity = level.getBlockEntity(blockPos);
-        if (blockentity instanceof WoodenLatheBlockEntity) {
-            player.openMenu((MenuProvider)blockentity);
-        }
-
-    }
-
     @Override
-    public InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS; // on client side, don't do anything
         } else {
-            this.openContainer(level, blockPos, player);
+            NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) level.getBlockEntity(blockPos));
             return InteractionResult.CONSUME;
         }
     }

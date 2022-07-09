@@ -4,5 +4,5 @@ public enum MachineTier {
     WOOD,
     IRON,
     STEEL,
-    OBSIDIAN_INFUSED_STEEL
+    OBSIDIAN_INFUSED_STEEL;
 }

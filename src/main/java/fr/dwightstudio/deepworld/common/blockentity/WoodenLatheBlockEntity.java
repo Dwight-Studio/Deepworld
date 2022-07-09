@@ -24,14 +24,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static fr.dwightstudio.deepworld.common.menus.WoodenLatheMenu.*;
 
-public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
+public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
 
     public  static final int MAX_INERTIA = 200;
     public static final int INERTIA_PER_CLICK = 10;
@@ -79,25 +81,26 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
 
     public WoodenLatheBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(DeepworldBlockEntities.WOODEN_LATHE.get(), blockPos, blockState);
-        this.quickCheck = RecipeManager.createCheck(DeepworldRecipeTypes.TURNING.get());
+        this.quickCheck = RecipeManager.createCheck(DeepworldRecipeTypes.LATHING.get());
     }
-
-
 
     @Override
     public void load(@NotNull CompoundTag compoundTag) {
         super.load(compoundTag);
         this.items = NonNullList.withSize(2, ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(compoundTag, this.items);
         inertia = compoundTag.getInt("Inertia");
-        processProgress = compoundTag.getInt("ProcessTime");
+        processProgress = compoundTag.getInt("ProcessProgress");
         processTimeTotal = compoundTag.getInt("ProcessTimeTotal");
     }
+
+
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
         compoundTag.putInt("Inertia", inertia);
-        compoundTag.putInt("ProcessTime", processProgress);
+        compoundTag.putInt("ProcessProgress", processProgress);
         compoundTag.putInt("ProcessTimeTotal", processTimeTotal);
         ContainerHelper.saveAllItems(compoundTag, this.items);
     }
@@ -107,10 +110,20 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
         return Component.translatable("container.deepworld.wooden_press");
     }
 
+    @Override
+    protected Component getDefaultName() {
+        return Component.translatable("container.deepworld.wooden_lathe");
+    }
+
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int containerID, Inventory inventory, Player player) {
-        return new WoodenLatheMenu(containerID, inventory, this.dataAccess);
+    public AbstractContainerMenu createMenu(int containerID, @NotNull Inventory inventory, @NotNull Player player) {
+        return new WoodenLatheMenu(containerID, inventory, this, this.dataAccess);
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerID, Inventory inventory) {
+        return new WoodenLatheMenu(containerID, inventory, this, this.dataAccess);
     }
 
     @Override
@@ -123,6 +136,8 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
             return SLOTS_FOR_SIDES;
         }
     }
+
+
 
     @Override
     public boolean canPlaceItem(int slotID, @NotNull ItemStack itemStack) {
@@ -156,7 +171,7 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @NotNull ItemStack getItem(int slotID) {
-        return this.items.get(0);
+        return this.items.get(slotID);
     }
 
     @Override
@@ -168,6 +183,8 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
     public @NotNull ItemStack removeItemNoUpdate(int slotID) {
         return ContainerHelper.takeItem(this.items, slotID);
     }
+
+
 
     @Override
     public void setItem(int slotID, ItemStack newItemStack) {
@@ -185,7 +202,10 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    private int getTotalProcessTime(Level level, BlockEntity blockEntity) {return 0;}
+    private int getTotalProcessTime(Level level, BlockEntity blockEntity) {
+        WoodenLatheBlockEntity woodenLatheBlockEntity = (WoodenLatheBlockEntity) blockEntity;
+        return woodenLatheBlockEntity.quickCheck.getRecipeFor(woodenLatheBlockEntity, level).map(LatheRecipe::getProcessTime).orElse(1);
+    }
 
     @Override
     public boolean stillValid(@NotNull Player player) {
@@ -214,7 +234,7 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void fillStackedContents(StackedContents stackedContents) {
+    public void fillStackedContents(@NotNull StackedContents stackedContents) {
         for (ItemStack itemStack : this.items) {
             stackedContents.accountStack(itemStack);
         }
@@ -226,19 +246,36 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
         ItemStack inputItem = woodenLatheBlockEntity.items.get(INPUT_SLOT);
         ItemStack outputItem = woodenLatheBlockEntity.items.get(OUTPUT_SLOT);
 
+        // The inertia must be greater than 0 for the process to start
         if (woodenLatheBlockEntity.inertia > 0) {
             woodenLatheBlockEntity.inertia--;
+
+            // The input item slot must contain something
             if (!inputItem.isEmpty()) {
                 recipe = woodenLatheBlockEntity.quickCheck.getRecipeFor(woodenLatheBlockEntity, level).orElse(null);
+
+                // The input item must be a recipe ingredient and the output slot content must contain the result item or be empty
+                // else make sure the process progress is set to 0
                 if (canProcess(recipe, woodenLatheBlockEntity)) {
                     woodenLatheBlockEntity.processTimeTotal = recipe.getProcessTime();
                     woodenLatheBlockEntity.processProgress++;
+
+                    // The process is finished
                     if (woodenLatheBlockEntity.processProgress >= woodenLatheBlockEntity.processTimeTotal) {
                         woodenLatheBlockEntity.processProgress = 0;
+
+                        // If the output is empty, set the result item else add 1 item to output slot
                         if (outputItem.isEmpty()) {
-                            woodenLatheBlockEntity.items.set(1, recipe.assemble(woodenLatheBlockEntity));
+                            woodenLatheBlockEntity.items.set(OUTPUT_SLOT, recipe.assemble(woodenLatheBlockEntity));
                         } else {
                             outputItem.grow(recipe.assemble(woodenLatheBlockEntity).getCount());
+                        }
+
+                        // Empty or decrement the input itemstack
+                        if (inputItem.getCount() > 1) {
+                            inputItem.shrink(1);
+                        } else {
+                            woodenLatheBlockEntity.items.set(INPUT_SLOT, ItemStack.EMPTY);
                         }
                     }
                 } else {
@@ -246,6 +283,7 @@ public class WoodenLatheBlockEntity extends BlockEntity implements MenuProvider,
                 }
             }
         }
+        // The inertia mustn't be < to 0, if so set it to 0
         if (woodenLatheBlockEntity.inertia < 0) { woodenLatheBlockEntity.inertia = 0; }
     }
 

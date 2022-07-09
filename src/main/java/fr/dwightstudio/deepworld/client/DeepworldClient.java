@@ -23,13 +23,4 @@ public class DeepworldClient {
         MenuScreens.register(DeepworldMenus.WOODEN_LATHE_MENU.get(), WoodenLatheScreen::new);
     }
 
-    /*public DeepworldClient() {
-
-        registerScreens();
-
-    }
-
-    public static void registerScreens() {
-        MenuScreens.register(DeepworldMenus.WOODEN_LATHE_MENU.get(), WoodenLatheScreen::new);
-    }*/
 }

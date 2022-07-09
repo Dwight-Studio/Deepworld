@@ -73,8 +73,6 @@ public class WoodenLatheScreen extends AbstractContainerScreen<WoodenLatheMenu> 
         }));
     }
 
-
-
     @Override
     protected void renderBg(@NotNull PoseStack poseStack, float p_97788_, int p_97789_, int p_97790_) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -96,6 +94,8 @@ public class WoodenLatheScreen extends AbstractContainerScreen<WoodenLatheMenu> 
         int yOffset = (int)((1.0 - progress) * GEAR_HEIGHT);
         blit(poseStack, this.getGuiLeft() + GEAR_XPOS, this.getGuiTop() + GEAR_YPOS + yOffset,
                 GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
+
+        this.font.draw(poseStack, this.woodenLatheMenu.getItems().get(0).getDisplayName().getString(), this.leftPos + 118, this.topPos + 75, 0x404040);
     }
 
     @Override

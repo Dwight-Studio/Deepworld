@@ -8,10 +8,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class DeepworldRecipeTypes {
 
-    public static RegistryObject<RecipeType<LatheRecipe>> TURNING;
+    public static RegistryObject<RecipeType<LatheRecipe>> LATHING;
 
     public DeepworldRecipeTypes() {
-        TURNING = Deepworld.RECIPE_TYPES.register("lathing", () -> createRecipeType("lathing"));
+        LATHING = Deepworld.RECIPE_TYPES.register("lathing", () -> createRecipeType("lathing"));
     }
 
     public static <T extends Recipe<? extends Container>> RecipeType<T> createRecipeType(String name) {

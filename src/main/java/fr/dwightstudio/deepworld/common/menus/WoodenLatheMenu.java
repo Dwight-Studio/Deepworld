@@ -4,6 +4,7 @@ import fr.dwightstudio.deepworld.common.DeepworldMenus;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
 import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
+import fr.dwightstudio.deepworld.common.recipe.LatheRecipe;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 public class WoodenLatheMenu extends RecipeBookMenu<Container> {
@@ -33,21 +33,21 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     private static final int INV_END_SLOT = SLOT_COUNT + 27;
     private static final int HOTBAR_START_SLOT = INV_END_SLOT ;
     private static final int HOTBAR_END_SLOT = HOTBAR_START_SLOT + 9;
-    private Container container;
-    private ContainerData containerData;
+    private final Container container;
+    private final ContainerData containerData;
     protected final Level level;
     private final RecipeType<?> recipeType;
     private final RecipeBookType recipeBookType;
 
     public WoodenLatheMenu(int containerID, Inventory inventory) {
-        this(containerID, inventory, new SimpleContainerData(WoodenLatheMenu.DATA_COUNT));
+        this(containerID, inventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(WoodenLatheMenu.DATA_COUNT));
     }
 
-    public WoodenLatheMenu(int containerID, Inventory inventory, ContainerData containerData) {
+    public WoodenLatheMenu(int containerID, Inventory inventory, Container container, ContainerData containerData) {
         super(DeepworldMenus.WOODEN_LATHE_MENU.get(), containerID);
-        this.recipeType = DeepworldRecipeTypes.TURNING.get();
+        this.recipeType = DeepworldRecipeTypes.LATHING.get();
         this.recipeBookType = DeepworldRecipeBookTypes.LATHE;
-        this.container = new SimpleContainer(SLOT_COUNT);
+        this.container = container;
         this.containerData = containerData;
         this.level = inventory.player.getLevel();
         this.addSlot(new Slot(this.container, INPUT_SLOT, 56, 17));
@@ -66,6 +66,8 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
         this.addDataSlots(this.containerData);
     }
 
+
+
     @Override
     public void fillCraftSlotsStackedContents(@NotNull StackedContents stackedContents) {
         if (this.container instanceof StackedContentsCompatible) {
@@ -80,8 +82,8 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public boolean recipeMatches(@NotNull Recipe<? super Container> p_40118_) {
-        return false;
+    public boolean recipeMatches(@NotNull Recipe<? super Container> recipe) {
+        return recipe.matches(this.container, this.level);
     }
 
     @Override
@@ -150,12 +152,13 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
             slot.onTake(player, itemstack1);
         }
 
+
         return itemstack;
     }
 
     public boolean isTurnable(ItemStack itemStack) {
-        // TODO: TODO
-        return true;
+        return this.level.getRecipeManager().getRecipeFor((RecipeType<LatheRecipe>)this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
+
     }
 
     @Override

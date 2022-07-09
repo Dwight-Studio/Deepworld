@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.recipe;
 
+import fr.dwightstudio.deepworld.common.DeepworldRecipeSerializers;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -56,7 +57,7 @@ public class LatheRecipe implements Recipe<Container> {
 
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
-        return null;
+        return DeepworldRecipeSerializers.LATHING.get();
     }
 
     @Override
@@ -70,5 +71,9 @@ public class LatheRecipe implements Recipe<Container> {
 
     public MachineTier getMachineTier() {
         return this.machineTier;
+    }
+
+    public Ingredient getIngredient() {
+        return this.ingredient;
     }
 }

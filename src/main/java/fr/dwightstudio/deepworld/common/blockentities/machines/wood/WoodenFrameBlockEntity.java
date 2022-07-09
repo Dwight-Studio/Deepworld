@@ -57,9 +57,9 @@ public class WoodenFrameBlockEntity extends BlockEntity {
      * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
      */
     @Override
-    public @NotNull CompoundTag  getUpdateTag() {
+    public @NotNull CompoundTag getUpdateTag() {
 
-        CompoundTag  compound = new CompoundTag();
+        CompoundTag compound = new CompoundTag();
         saveAdditional(compound);
 
         return compound;
@@ -69,7 +69,8 @@ public class WoodenFrameBlockEntity extends BlockEntity {
     public void handleUpdateTag(CompoundTag compound) {
         this.load(compound);
 
-        if (this.level != null) this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), this.level.getBlockState(this.worldPosition), this.getBlockState(), Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        if (this.level != null)
+            this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), this.level.getBlockState(this.worldPosition), this.getBlockState(), Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     // Get placed covers

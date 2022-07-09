@@ -86,11 +86,11 @@ public class WoodenMachineScreen extends AbstractContainerScreen<WoodenMachineMe
         // Draw process progress bar
         double progressFraction = woodenMachineMenu.getProgress();
         blit(poseStack, this.getGuiLeft() + PROCESS_BAR_XPOS, this.getGuiTop() + PROCESS_BAR_YPOS, PROCESS_BAR_ICON_U, PROCESS_BAR_ICON_V,
-                (int)(progressFraction * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
+                (int) (progressFraction * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
 
         // Draw inertia progress gear
         double progress = woodenMachineMenu.getInertiaProgress();
-        int yOffset = (int)((1.0 - progress) * GEAR_HEIGHT);
+        int yOffset = (int) ((1.0 - progress) * GEAR_HEIGHT);
         blit(poseStack, this.getGuiLeft() + GEAR_XPOS, this.getGuiTop() + GEAR_YPOS + yOffset,
                 GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
 

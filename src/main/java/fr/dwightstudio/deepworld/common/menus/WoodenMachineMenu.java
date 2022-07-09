@@ -25,10 +25,10 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     public static final int INERTIA_DATA = 0;
     public static final int PROCESS_PROGRESS_DATA = 1;
     public static final int PROCESS_TIME_DATA = 2;
-    public  static final int DATA_COUNT = 3;
+    public static final int DATA_COUNT = 3;
     private static final int INV_START_SLOT = SLOT_COUNT;
     private static final int INV_END_SLOT = SLOT_COUNT + 27;
-    private static final int HOTBAR_START_SLOT = INV_END_SLOT ;
+    private static final int HOTBAR_START_SLOT = INV_END_SLOT;
     private static final int HOTBAR_END_SLOT = HOTBAR_START_SLOT + 9;
     private final Container container;
     private final ContainerData containerData;
@@ -50,13 +50,13 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
         this.addSlot(new Slot(this.container, INPUT_SLOT, 56, 17));
         this.addSlot(new Slot(this.container, OUTPUT_SLOT, 116, 35));
 
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
-        for(int k = 0; k < 9; ++k) {
+        for (int k = 0; k < 9; ++k) {
             this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
         }
 
@@ -64,11 +64,10 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     }
 
 
-
     @Override
     public void fillCraftSlotsStackedContents(@NotNull StackedContents stackedContents) {
         if (this.container instanceof StackedContentsCompatible) {
-            ((StackedContentsCompatible)this.container).fillStackedContents(stackedContents);
+            ((StackedContentsCompatible) this.container).fillStackedContents(stackedContents);
         }
     }
 
@@ -154,7 +153,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     }
 
     public boolean isTurnable(ItemStack itemStack) {
-        return this.level.getRecipeManager().getRecipeFor((RecipeType<MachineRecipe>)this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
+        return this.level.getRecipeManager().getRecipeFor((RecipeType<MachineRecipe>) this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
 
     }
 
@@ -164,7 +163,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     }
 
     public double getProgress() {
-        return (double) this.containerData.get(PROCESS_PROGRESS_DATA) / (double)this.containerData.get(PROCESS_TIME_DATA);
+        return (double) this.containerData.get(PROCESS_PROGRESS_DATA) / (double) this.containerData.get(PROCESS_TIME_DATA);
     }
 
     public double getInertiaProgress() {

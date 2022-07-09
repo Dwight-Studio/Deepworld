@@ -11,32 +11,32 @@ public enum WoodenFrameComponent {
     SIMPLE_PRESSING_CHAMBER(
             DeepworldItems.SIMPLE_PRESSING_CHAMBER::get,
             ComponentClass.PRIMARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS.get()}
-            ),
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get()}
+    ),
     WOODEN_GEARBOX(
             DeepworldItems.WOODEN_GEARBOX::get,
             ComponentClass.SECONDARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
     ),
     WOODEN_CRANK(
             DeepworldItems.WOODEN_CRANK::get,
             ComponentClass.TERTIARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
-            ),
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+    ),
     SIMPLE_CUTTER(
             DeepworldItems.SIMPLE_CUTTER::get,
             ComponentClass.PRIMARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
     ),
     SIMPLE_LEFT_PART_HOLDER(
             DeepworldItems.SIMPLE_LEFT_PART_HOLDER::get,
             ComponentClass.SECONDARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_LATHE.get()}
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_LATHE.get()}
     ),
     SIMPLE_RIGHT_PART_HOLDER(
             DeepworldItems.SIMPLE_RIGHT_PART_HOLDER::get,
             ComponentClass.TERTIARY,
-            new ComponentMachine[] {() -> DeepworldBlocks.WOODEN_LATHE.get()}
+            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_LATHE.get()}
     );
 
     // Var
@@ -109,7 +109,8 @@ public enum WoodenFrameComponent {
         for (Block PrimaryMachineBlock : c1.getMachineBlocks()) {
             for (Block SecondaryMachineBlock : c2.getMachineBlocks()) {
                 for (Block TertiaryMachineBlock : c3.getMachineBlocks()) {
-                    if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock) return PrimaryMachineBlock;
+                    if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock)
+                        return PrimaryMachineBlock;
                 }
             }
         }

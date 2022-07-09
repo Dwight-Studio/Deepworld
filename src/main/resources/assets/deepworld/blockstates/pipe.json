@@ -37,7 +37,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_end",
-        "y" : 90
+        "y": 90
       }
     },
     {
@@ -51,7 +51,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_end",
-        "y" : 180
+        "y": 180
       }
     },
     {
@@ -65,7 +65,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_end",
-        "y" : 270
+        "y": 270
       }
     },
     {
@@ -79,7 +79,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_end",
-        "x" : 270
+        "x": 270
       }
     },
     {
@@ -93,11 +93,9 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_end",
-        "x" : 90
+        "x": 90
       }
     },
-
-
     {
       "when": {
         "north": "true",
@@ -139,8 +137,6 @@
         "model": "deepworld:block/pipe_junction_alternative"
       }
     },
-
-
     {
       "when": {
         "north": "false",
@@ -152,7 +148,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_straight",
-        "y" : 90
+        "y": 90
       }
     },
     {
@@ -167,7 +163,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_junction",
-        "y" : 90
+        "y": 90
       }
     },
     {
@@ -182,11 +178,9 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_junction_alternative",
-        "y" : 90
+        "y": 90
       }
     },
-
-
     {
       "when": {
         "north": "false",
@@ -198,7 +192,7 @@
       },
       "apply": {
         "model": "deepworld:block/pipe_straight",
-        "x" : 90
+        "x": 90
       }
     },
     {

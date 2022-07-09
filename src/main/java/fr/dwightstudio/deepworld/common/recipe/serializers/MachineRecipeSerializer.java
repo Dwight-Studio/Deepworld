@@ -1,8 +1,7 @@
 package fr.dwightstudio.deepworld.common.recipe.serializers;
 
 import com.google.gson.JsonObject;
-import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
-import fr.dwightstudio.deepworld.common.recipe.LatheRecipe;
+import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -10,14 +9,21 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class LatheRecipeSerializer implements RecipeSerializer<LatheRecipe> {
+public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> {
+
+    private final RecipeType<? extends MachineRecipe> recipeTypes;
+
+    public MachineRecipeSerializer(RecipeType<MachineRecipe> recipeTypes) {
+        this.recipeTypes = recipeTypes;
+    }
 
     @Override
-    public @NotNull LatheRecipe fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
+    public @NotNull MachineRecipe fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
         Ingredient inputIngredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "ingredients"));
         ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
         int processTime = GsonHelper.getAsInt(jsonObject, "processTime");
@@ -25,26 +31,26 @@ public class LatheRecipeSerializer implements RecipeSerializer<LatheRecipe> {
 
         MachineTier machineTier = MachineTier.valueOf(machineTierString.toUpperCase());
 
-        return new LatheRecipe(DeepworldRecipeTypes.LATHING.get(), resourceLocation, inputIngredient, result, processTime, machineTier);
+        return new MachineRecipe(recipeTypes, resourceLocation, inputIngredient, result, processTime, machineTier);
     }
 
     @Override
-    public @Nullable LatheRecipe fromNetwork(@NotNull ResourceLocation resourceLocation, @NotNull FriendlyByteBuf buf) {
+    public @Nullable MachineRecipe fromNetwork(@NotNull ResourceLocation resourceLocation, @NotNull FriendlyByteBuf buf) {
         String type = buf.readUtf();
         int processTime = buf.readInt();
         Ingredient ingredient = Ingredient.fromNetwork(buf);
         MachineTier machineTier = MachineTier.valueOf(buf.readUtf().toUpperCase());
         ItemStack result = buf.readItem();
 
-        return new LatheRecipe(DeepworldRecipeTypes.LATHING.get(), resourceLocation, ingredient, result, processTime, machineTier);
+        return new MachineRecipe(recipeTypes, resourceLocation, ingredient, result, processTime, machineTier);
     }
 
     @Override
-    public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull LatheRecipe latheRecipe) {
-        buf.writeUtf(latheRecipe.getGroup());
-        buf.writeInt(latheRecipe.getProcessTime());
-        latheRecipe.getIngredient().toNetwork(buf);
-        buf.writeUtf(latheRecipe.getMachineTier().name());
-        buf.writeItem(latheRecipe.getResultItem());
+    public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull MachineRecipe machineRecipe) {
+        buf.writeUtf(machineRecipe.getGroup());
+        buf.writeInt(machineRecipe.getProcessTime());
+        machineRecipe.getIngredient().toNetwork(buf);
+        buf.writeUtf(machineRecipe.getMachineTier().name());
+        buf.writeItem(machineRecipe.getResultItem());
     }
 }

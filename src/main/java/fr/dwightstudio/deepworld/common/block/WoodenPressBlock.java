@@ -30,12 +30,12 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WoodenLatheBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class WoodenPressBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final Property<Boolean> WORKING = BooleanProperty.create("working");
 
-    public WoodenLatheBlock() {
+    public WoodenPressBlock() {
         super(Properties.of(Material.WOOD)
                 .sound(SoundType.WOOD)
                 .strength(3, 2)
@@ -52,12 +52,12 @@ public class WoodenLatheBlock extends HorizontalDirectionalBlock implements Enti
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new WoodenMachineBlockEntity(DeepworldBlockEntities.WOODEN_LATHE.get(), DeepworldMenus.WOODEN_LATHE_MENU.get(), DeepworldRecipeBookTypes.LATHE, blockPos, blockState, DeepworldRecipeTypes.LATHING.get(), Component.translatable("container.deepworld.wooden_lathe"));
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return new WoodenMachineBlockEntity(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS_MENU.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get(), Component.translatable("container.deepworld.wooden_press"));
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileentity = level.getBlockEntity(blockPos);
             if (tileentity instanceof WoodenMachineBlockEntity woodenMachineBlockEntity) {

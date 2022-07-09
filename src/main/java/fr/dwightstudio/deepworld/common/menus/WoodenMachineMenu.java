@@ -3,8 +3,8 @@ package fr.dwightstudio.deepworld.common.menus;
 import fr.dwightstudio.deepworld.common.DeepworldMenus;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
-import fr.dwightstudio.deepworld.common.recipe.LatheRecipe;
+import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class WoodenLatheMenu extends RecipeBookMenu<Container> {
+public class WoodenMachineMenu extends RecipeBookMenu<Container> {
 
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
@@ -36,17 +36,17 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     private final Container container;
     private final ContainerData containerData;
     protected final Level level;
-    private final RecipeType<?> recipeType;
+    private final RecipeType<MachineRecipe> recipeType;
     private final RecipeBookType recipeBookType;
 
-    public WoodenLatheMenu(int containerID, Inventory inventory) {
-        this(containerID, inventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(WoodenLatheMenu.DATA_COUNT));
+    public WoodenMachineMenu(int containerID, Inventory inventory) {
+        this(null, null, null, containerID, inventory, new SimpleContainer(SLOT_COUNT), new SimpleContainerData(WoodenMachineMenu.DATA_COUNT));
     }
 
-    public WoodenLatheMenu(int containerID, Inventory inventory, Container container, ContainerData containerData) {
-        super(DeepworldMenus.WOODEN_LATHE_MENU.get(), containerID);
-        this.recipeType = DeepworldRecipeTypes.LATHING.get();
-        this.recipeBookType = DeepworldRecipeBookTypes.LATHE;
+    public WoodenMachineMenu(MenuType<WoodenMachineMenu> menuType, RecipeBookType recipeBookType, RecipeType<MachineRecipe> recipeType, int containerID, Inventory inventory, Container container, ContainerData containerData) {
+        super(menuType, containerID);
+        this.recipeType = recipeType;
+        this.recipeBookType = recipeBookType;
         this.container = container;
         this.containerData = containerData;
         this.level = inventory.player.getLevel();
@@ -157,7 +157,7 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     }
 
     public boolean isTurnable(ItemStack itemStack) {
-        return this.level.getRecipeManager().getRecipeFor((RecipeType<LatheRecipe>)this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
+        return this.level.getRecipeManager().getRecipeFor((RecipeType<MachineRecipe>)this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
 
     }
 
@@ -171,12 +171,12 @@ public class WoodenLatheMenu extends RecipeBookMenu<Container> {
     }
 
     public double getInertiaProgress() {
-        return (double) this.containerData.get(INERTIA_DATA) / (double) WoodenLatheBlockEntity.MAX_INERTIA;
+        return (double) this.containerData.get(INERTIA_DATA) / (double) WoodenMachineBlockEntity.MAX_INERTIA;
     }
 
     @Override
     public boolean clickMenuButton(@NotNull Player player, int buttonID) {
-        this.containerData.set(INERTIA_DATA, Math.min(WoodenLatheBlockEntity.INERTIA_PER_CLICK + this.containerData.get(INERTIA_DATA), WoodenLatheBlockEntity.MAX_INERTIA));
+        this.containerData.set(INERTIA_DATA, Math.min(WoodenMachineBlockEntity.INERTIA_PER_CLICK + this.containerData.get(INERTIA_DATA), WoodenMachineBlockEntity.MAX_INERTIA));
         return true;
     }
 }

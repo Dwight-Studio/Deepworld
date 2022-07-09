@@ -3,8 +3,7 @@ package fr.dwightstudio.deepworld.client.screens;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.menus.WoodenLatheMenu;
-import net.minecraft.client.gui.components.Button;
+import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
@@ -18,9 +17,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class WoodenLatheScreen extends AbstractContainerScreen<WoodenLatheMenu> implements RecipeUpdateListener {
+public class WoodenMachineScreen extends AbstractContainerScreen<WoodenMachineMenu> implements RecipeUpdateListener {
 
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Deepworld.MOD_ID, "textures/gui/wooden_lathe.png");
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Deepworld.MOD_ID, "textures/gui/wooden_machine_default.png");
 
     // Coordinates of graphical elements [x,y]
     static final int PROCESS_BAR_XPOS = 79;
@@ -52,14 +51,14 @@ public class WoodenLatheScreen extends AbstractContainerScreen<WoodenLatheMenu> 
     static final int BUTTON_WIDTH = 22;
     static final int BUTTON_HEIGHT = 22;
 
-    private final WoodenLatheMenu woodenLatheMenu;
+    private final WoodenMachineMenu woodenMachineMenu;
 
-    public WoodenLatheScreen(WoodenLatheMenu woodenLatheMenu, Inventory inventory, Component component) {
-        super(woodenLatheMenu, inventory, component);
+    public WoodenMachineScreen(WoodenMachineMenu woodenMachineMenu, Inventory inventory, Component component) {
+        super(woodenMachineMenu, inventory, component);
 
         this.imageWidth = 176;
         this.imageHeight = 166;
-        this.woodenLatheMenu = woodenLatheMenu;
+        this.woodenMachineMenu = woodenMachineMenu;
     }
 
     @Override
@@ -85,17 +84,17 @@ public class WoodenLatheScreen extends AbstractContainerScreen<WoodenLatheMenu> 
         this.blit(poseStack, edgeSpacingX, edgeSpacingY, 0, 0, this.imageWidth, this.imageHeight);
 
         // Draw process progress bar
-        double progressFraction = woodenLatheMenu.getProgress();
+        double progressFraction = woodenMachineMenu.getProgress();
         blit(poseStack, this.getGuiLeft() + PROCESS_BAR_XPOS, this.getGuiTop() + PROCESS_BAR_YPOS, PROCESS_BAR_ICON_U, PROCESS_BAR_ICON_V,
                 (int)(progressFraction * PROCESS_BAR_WIDTH), PROCESS_BAR_HEIGHT);
 
         // Draw inertia progress gear
-        double progress = woodenLatheMenu.getInertiaProgress();
+        double progress = woodenMachineMenu.getInertiaProgress();
         int yOffset = (int)((1.0 - progress) * GEAR_HEIGHT);
         blit(poseStack, this.getGuiLeft() + GEAR_XPOS, this.getGuiTop() + GEAR_YPOS + yOffset,
                 GEAR_ICON_U, GEAR_ICON_V + yOffset, GEAR_WIDTH, GEAR_HEIGHT - yOffset);
 
-        this.font.draw(poseStack, this.woodenLatheMenu.getItems().get(0).getDisplayName().getString(), this.leftPos + 118, this.topPos + 75, 0x404040);
+        this.font.draw(poseStack, this.woodenMachineMenu.getItems().get(0).getDisplayName().getString(), this.leftPos + 118, this.topPos + 75, 0x404040);
     }
 
     @Override

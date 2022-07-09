@@ -45,6 +45,11 @@ public class DeepworldItems {
     public static RegistryObject<BlockItem> STEEL_BLOCK;
     public static RegistryObject<BlockItem> OBSIDIAN_INFUSED_STEEL_BLOCK;
 
+    public static RegistryObject<BlockItem> WOODEN_FRAME;
+
+    public static RegistryObject<BlockItem> WOODEN_LATHE;
+    public static RegistryObject<BlockItem> WOODEN_PRESS;
+
     // Tools
     public static RegistryObject<PickaxeItem> STEEL_PICKAXE;
     public static RegistryObject<SwordItem> STEEL_SWORD;
@@ -76,6 +81,7 @@ public class DeepworldItems {
     public static RegistryObject<Item> SIMPLE_CUTTER;
     public static RegistryObject<Item> SIMPLE_LEFT_PART_HOLDER;
     public static RegistryObject<Item> SIMPLE_RIGHT_PART_HOLDER;
+    public static RegistryObject<Item> WOODEN_CASE_PANEL;
 
     public DeepworldItems() {
         // Items
@@ -114,6 +120,11 @@ public class DeepworldItems {
         STEEL_BLOCK                  = Deepworld.ITEMS.register("steel_block"                 , () -> new SimpleDeepworldBlockItem(DeepworldBlocks.STEEL_BLOCK.get()));
         OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.ITEMS.register("obsidian_infused_steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get()));
 
+        WOODEN_FRAME = Deepworld.ITEMS.register("wooden_frame", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_FRAME.get()));
+
+        WOODEN_LATHE = Deepworld.ITEMS.register("wooden_lathe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_LATHE.get()));
+        WOODEN_PRESS = Deepworld.ITEMS.register("wooden_press", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_PRESS.get()));
+
         // Tools
         STEEL_PICKAXE                  = Deepworld.ITEMS.register("steel_pickaxe"                 , () -> new PickaxeItem(ToolsMaterialsTier.STEEL                 , 3   , -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
         STEEL_SWORD                    = Deepworld.ITEMS.register("steel_sword"                   , () -> new SwordItem(ToolsMaterialsTier.STEEL                   , 5   , -2.4f, new Item.Properties().tab(Deepworld.MOD_TAB)));
@@ -145,5 +156,6 @@ public class DeepworldItems {
         SIMPLE_CUTTER = Deepworld.ITEMS.register("simple_cutter", SimpleCutter::new);
         SIMPLE_LEFT_PART_HOLDER = Deepworld.ITEMS.register("simple_left_part_holder", SimpleLeftPartHolder::new);
         SIMPLE_RIGHT_PART_HOLDER = Deepworld.ITEMS.register("simple_right_part_holder", SimpleRightPartHolder::new);
+        WOODEN_CASE_PANEL = Deepworld.ITEMS.register("wooden_case_panel", SimpleDeepworldItem::new);
     }
 }

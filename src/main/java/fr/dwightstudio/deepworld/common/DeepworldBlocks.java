@@ -33,8 +33,8 @@ public class DeepworldBlocks {
         //OBSIDIAN_INFUSED_STEEL_FRAME = Deepworld.BLOCKS.register("obsidian_infused_steel_frame", ObsidianInfusedSteelFrame::new);
 
         // Machines
-        /*WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", WoodenPressBlock::new);
-        WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);*/
+        WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", WoodenPressBlock::new);
+        //WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);
         WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", WoodenLatheBlock::new);
     }
 }

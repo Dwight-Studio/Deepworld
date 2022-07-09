@@ -1,9 +1,8 @@
 package fr.dwightstudio.deepworld.common.blockentity;
 
-import fr.dwightstudio.deepworld.common.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
-import fr.dwightstudio.deepworld.common.menus.WoodenLatheMenu;
-import fr.dwightstudio.deepworld.common.recipe.LatheRecipe;
+import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
+import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -16,24 +15,22 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.RecipeHolder;
-import net.minecraft.world.inventory.StackedContentsCompatible;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static fr.dwightstudio.deepworld.common.menus.WoodenLatheMenu.*;
+import static fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu.*;
 
-public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
+public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
 
     public  static final int MAX_INERTIA = 200;
     public static final int INERTIA_PER_CLICK = 10;
@@ -46,11 +43,11 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
         public int get(int dataID) {
             switch (dataID) {
                 case INERTIA_DATA:
-                    return WoodenLatheBlockEntity.this.inertia;
+                    return WoodenMachineBlockEntity.this.inertia;
                 case PROCESS_PROGRESS_DATA:
-                    return WoodenLatheBlockEntity.this.processProgress;
+                    return WoodenMachineBlockEntity.this.processProgress;
                 case PROCESS_TIME_DATA:
-                    return WoodenLatheBlockEntity.this.processTimeTotal;
+                    return WoodenMachineBlockEntity.this.processTimeTotal;
                 default:
                     return 0;
             }
@@ -59,29 +56,41 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
         public void set(int dataID, int value) {
             switch (dataID) {
                 case INERTIA_DATA:
-                    WoodenLatheBlockEntity.this.inertia = value;
+                    WoodenMachineBlockEntity.this.inertia = value;
                     break;
                 case PROCESS_PROGRESS_DATA:
-                    WoodenLatheBlockEntity.this.processProgress = value;
+                    WoodenMachineBlockEntity.this.processProgress = value;
                     break;
                 case PROCESS_TIME_DATA:
-                    WoodenLatheBlockEntity.this.processTimeTotal = value;
+                    WoodenMachineBlockEntity.this.processTimeTotal = value;
                     break;
             }
 
         }
 
         public int getCount() {
-            return WoodenLatheMenu.DATA_COUNT;
+            return WoodenMachineMenu.DATA_COUNT;
         }
     };
     
-    RecipeManager.CachedCheck<Container, LatheRecipe> quickCheck;
+    RecipeManager.CachedCheck<Container, MachineRecipe> quickCheck;
     protected NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
+    private Component translation;
+    private MenuType<WoodenMachineMenu> menuType;
+    private RecipeBookType recipeBookType;
+    private RecipeType<MachineRecipe> recipeType;
 
-    public WoodenLatheBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(DeepworldBlockEntities.WOODEN_LATHE.get(), blockPos, blockState);
-        this.quickCheck = RecipeManager.createCheck(DeepworldRecipeTypes.LATHING.get());
+    public WoodenMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
+        this(null, null, null, blockPos, blockState, null, null);
+    }
+
+    public WoodenMachineBlockEntity(BlockEntityType<?> blockEntityType, MenuType<WoodenMachineMenu> menuType, RecipeBookType recipeBookType, BlockPos blockPos, BlockState blockState, RecipeType<MachineRecipe> recipeType, Component translation) {
+        super(blockEntityType, blockPos, blockState);
+        this.quickCheck = RecipeManager.createCheck(recipeType);
+        this.translation = translation;
+        this.menuType = menuType;
+        this.recipeBookType = recipeBookType;
+        this.recipeType = recipeType;
     }
 
     @Override
@@ -94,8 +103,6 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
         processTimeTotal = compoundTag.getInt("ProcessTimeTotal");
     }
 
-
-
     @Override
     protected void saveAdditional(@NotNull CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
@@ -107,23 +114,23 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("container.deepworld.wooden_press");
+        return this.translation;
     }
 
     @Override
-    protected Component getDefaultName() {
-        return Component.translatable("container.deepworld.wooden_lathe");
+    protected @NotNull Component getDefaultName() {
+        return this.translation;
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int containerID, @NotNull Inventory inventory, @NotNull Player player) {
-        return new WoodenLatheMenu(containerID, inventory, this, this.dataAccess);
+        return new WoodenMachineMenu(this.menuType, this.recipeBookType, this.recipeType, containerID, inventory, this, this.dataAccess);
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int containerID, Inventory inventory) {
-        return new WoodenLatheMenu(containerID, inventory, this, this.dataAccess);
+        return new WoodenMachineMenu(this.menuType, this.recipeBookType, this.recipeType, containerID, inventory, this, this.dataAccess);
     }
 
     @Override
@@ -203,8 +210,8 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     private int getTotalProcessTime(Level level, BlockEntity blockEntity) {
-        WoodenLatheBlockEntity woodenLatheBlockEntity = (WoodenLatheBlockEntity) blockEntity;
-        return woodenLatheBlockEntity.quickCheck.getRecipeFor(woodenLatheBlockEntity, level).map(LatheRecipe::getProcessTime).orElse(1);
+        WoodenMachineBlockEntity woodenMachineBlockEntity = (WoodenMachineBlockEntity) blockEntity;
+        return woodenMachineBlockEntity.quickCheck.getRecipeFor(woodenMachineBlockEntity, level).map(MachineRecipe::getProcessTime).orElse(1);
     }
 
     @Override
@@ -241,57 +248,60 @@ public class WoodenLatheBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     public static void serverTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity) {
-        WoodenLatheBlockEntity woodenLatheBlockEntity = (WoodenLatheBlockEntity) blockEntity;
-        LatheRecipe recipe;
-        ItemStack inputItem = woodenLatheBlockEntity.items.get(INPUT_SLOT);
-        ItemStack outputItem = woodenLatheBlockEntity.items.get(OUTPUT_SLOT);
+        WoodenMachineBlockEntity woodenMachineBlockEntity = (WoodenMachineBlockEntity) blockEntity;
+        MachineRecipe recipe;
+        ItemStack inputItem = woodenMachineBlockEntity.items.get(INPUT_SLOT);
+        ItemStack outputItem = woodenMachineBlockEntity.items.get(OUTPUT_SLOT);
 
         // The inertia must be greater than 0 for the process to start
-        if (woodenLatheBlockEntity.inertia > 0) {
-            woodenLatheBlockEntity.inertia--;
+        if (woodenMachineBlockEntity.inertia > 0) {
+            woodenMachineBlockEntity.inertia--;
 
             // The input item slot must contain something
             if (!inputItem.isEmpty()) {
-                recipe = woodenLatheBlockEntity.quickCheck.getRecipeFor(woodenLatheBlockEntity, level).orElse(null);
+                recipe = woodenMachineBlockEntity.quickCheck.getRecipeFor(woodenMachineBlockEntity, level).orElse(null);
 
                 // The input item must be a recipe ingredient and the output slot content must contain the result item or be empty
                 // else make sure the process progress is set to 0
-                if (canProcess(recipe, woodenLatheBlockEntity)) {
-                    woodenLatheBlockEntity.processTimeTotal = recipe.getProcessTime();
-                    woodenLatheBlockEntity.processProgress++;
+                if (canProcess(recipe, woodenMachineBlockEntity)) {
+                    woodenMachineBlockEntity.processTimeTotal = recipe.getProcessTime();
+                    woodenMachineBlockEntity.processProgress++;
 
                     // The process is finished
-                    if (woodenLatheBlockEntity.processProgress >= woodenLatheBlockEntity.processTimeTotal) {
-                        woodenLatheBlockEntity.processProgress = 0;
+                    if (woodenMachineBlockEntity.processProgress >= woodenMachineBlockEntity.processTimeTotal) {
+                        woodenMachineBlockEntity.processProgress = 0;
 
                         // If the output is empty, set the result item else add 1 item to output slot
                         if (outputItem.isEmpty()) {
-                            woodenLatheBlockEntity.items.set(OUTPUT_SLOT, recipe.assemble(woodenLatheBlockEntity));
+                            woodenMachineBlockEntity.items.set(OUTPUT_SLOT, recipe.assemble(woodenMachineBlockEntity));
                         } else {
-                            outputItem.grow(recipe.assemble(woodenLatheBlockEntity).getCount());
+                            outputItem.grow(recipe.assemble(woodenMachineBlockEntity).getCount());
                         }
 
                         // Empty or decrement the input itemstack
-                        if (inputItem.getCount() > 1) {
-                            inputItem.shrink(1);
+                        if (inputItem.getCount() > recipe.getIngredient().getItems()[0].getCount()) {
+                            inputItem.shrink(recipe.getIngredient().getItems()[0].getCount());
                         } else {
-                            woodenLatheBlockEntity.items.set(INPUT_SLOT, ItemStack.EMPTY);
+                            woodenMachineBlockEntity.items.set(INPUT_SLOT, ItemStack.EMPTY);
                         }
                     }
                 } else {
-                    woodenLatheBlockEntity.processProgress = 0;
+                    woodenMachineBlockEntity.processProgress = 0;
                 }
             }
         }
         // The inertia mustn't be < to 0, if so set it to 0
-        if (woodenLatheBlockEntity.inertia < 0) { woodenLatheBlockEntity.inertia = 0; }
+        if (woodenMachineBlockEntity.inertia < 0) { woodenMachineBlockEntity.inertia = 0; }
     }
 
-    private static boolean canProcess(LatheRecipe recipe, WoodenLatheBlockEntity blockEntity) {
+    private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
         if (recipe == null) return false;
+        if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredient().getItems()[0].getCount()) return false;
         if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
         if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() >= recipe.assemble(blockEntity).getMaxStackSize()) return false;
 
         return true;
     }
+
+
 }

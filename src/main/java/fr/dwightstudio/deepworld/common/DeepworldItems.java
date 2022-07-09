@@ -1,7 +1,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.common.armor.ArmorMaterialsTier;
-import fr.dwightstudio.deepworld.common.item.*;
+import fr.dwightstudio.deepworld.common.items.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;

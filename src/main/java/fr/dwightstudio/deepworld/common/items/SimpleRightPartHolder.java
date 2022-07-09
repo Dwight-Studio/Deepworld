@@ -1,8 +1,8 @@
-package fr.dwightstudio.deepworld.common.item;
+package fr.dwightstudio.deepworld.common.items;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.block.component.WoodenFrameComponent;
-import fr.dwightstudio.deepworld.common.item.component.WoodenFrameComponentItem;
+import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.items.component.WoodenFrameComponentItem;
 
 public class SimpleRightPartHolder extends WoodenFrameComponentItem {
     public SimpleRightPartHolder() {

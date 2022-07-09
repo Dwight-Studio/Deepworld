@@ -1,7 +1,7 @@
-package fr.dwightstudio.deepworld.common.item.component;
+package fr.dwightstudio.deepworld.common.items.component;
 
-import fr.dwightstudio.deepworld.common.block.component.WoodenFrameComponent;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenFrameBlockEntity;
+import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenFrameBlockEntity;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

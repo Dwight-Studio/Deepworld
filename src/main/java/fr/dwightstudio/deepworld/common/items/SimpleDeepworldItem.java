@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.item;
+package fr.dwightstudio.deepworld.common.items;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import net.minecraft.world.item.Item;

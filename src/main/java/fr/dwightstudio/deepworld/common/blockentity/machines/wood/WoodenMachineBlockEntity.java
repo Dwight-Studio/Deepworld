@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.blockentity;
+package fr.dwightstudio.deepworld.common.blockentity.machines.wood;
 
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
@@ -40,19 +40,29 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
 
     protected final ContainerData dataAccess = new ContainerData() {
         public int get(int dataID) {
-            return switch (dataID) {
-                case INERTIA_DATA -> WoodenMachineBlockEntity.this.inertia;
-                case PROCESS_PROGRESS_DATA -> WoodenMachineBlockEntity.this.processProgress;
-                case PROCESS_TIME_DATA -> WoodenMachineBlockEntity.this.processTimeTotal;
-                default -> 0;
-            };
+            switch (dataID) {
+                case INERTIA_DATA:
+                    return WoodenMachineBlockEntity.this.inertia;
+                case PROCESS_PROGRESS_DATA:
+                    return WoodenMachineBlockEntity.this.processProgress;
+                case PROCESS_TIME_DATA:
+                    return WoodenMachineBlockEntity.this.processTimeTotal;
+                default:
+                    return 0;
+            }
         }
 
         public void set(int dataID, int value) {
             switch (dataID) {
-                case INERTIA_DATA -> WoodenMachineBlockEntity.this.inertia = value;
-                case PROCESS_PROGRESS_DATA -> WoodenMachineBlockEntity.this.processProgress = value;
-                case PROCESS_TIME_DATA -> WoodenMachineBlockEntity.this.processTimeTotal = value;
+                case INERTIA_DATA:
+                    WoodenMachineBlockEntity.this.inertia = value;
+                    break;
+                case PROCESS_PROGRESS_DATA:
+                    WoodenMachineBlockEntity.this.processProgress = value;
+                    break;
+                case PROCESS_TIME_DATA:
+                    WoodenMachineBlockEntity.this.processTimeTotal = value;
+                    break;
             }
 
         }
@@ -64,13 +74,19 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
     
     RecipeManager.CachedCheck<Container, MachineRecipe> quickCheck;
     protected NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
+    private final Component translation;
     private final MenuType<WoodenMachineMenu> menuType;
     private final RecipeBookType recipeBookType;
     private final RecipeType<MachineRecipe> recipeType;
 
-    public WoodenMachineBlockEntity(BlockEntityType<?> blockEntityType, MenuType<WoodenMachineMenu> menuType, RecipeBookType recipeBookType, BlockPos blockPos, BlockState blockState, RecipeType<MachineRecipe> recipeType) {
+    public WoodenMachineBlockEntity(@NotNull BlockEntityType<? extends WoodenMachineBlockEntity> woodenLatheBlockEntityBlockEntityType, @NotNull MenuType<WoodenMachineMenu> woodenMachineMenuMenuType, RecipeBookType LATHE, BlockPos blockPos, BlockState blockState, @NotNull RecipeType<MachineRecipe> machineRecipeRecipeType) {
+        this(null, null, null, blockPos, blockState, null, null);
+    }
+
+    public WoodenMachineBlockEntity(BlockEntityType<?> blockEntityType, MenuType<WoodenMachineMenu> menuType, RecipeBookType recipeBookType, BlockPos blockPos, BlockState blockState, RecipeType<MachineRecipe> recipeType, Component translation) {
         super(blockEntityType, blockPos, blockState);
         this.quickCheck = RecipeManager.createCheck(recipeType);
+        this.translation = translation;
         this.menuType = menuType;
         this.recipeBookType = recipeBookType;
         this.recipeType = recipeType;
@@ -96,8 +112,13 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
     }
 
     @Override
+    public @NotNull Component getDisplayName() {
+        return this.translation;
+    }
+
+    @Override
     protected @NotNull Component getDefaultName() {
-        return Component.literal("Missing default name");
+        return this.translation;
     }
 
     @Nullable
@@ -107,7 +128,7 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
     }
 
     @Override
-    protected @NotNull AbstractContainerMenu createMenu(int containerID, @NotNull Inventory inventory) {
+    protected AbstractContainerMenu createMenu(int containerID, Inventory inventory) {
         return new WoodenMachineMenu(this.menuType, this.recipeBookType, this.recipeType, containerID, inventory, this, this.dataAccess);
     }
 
@@ -121,6 +142,8 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
             return SLOTS_FOR_SIDES;
         }
     }
+
+
 
     @Override
     public boolean canPlaceItem(int slotID, @NotNull ItemStack itemStack) {

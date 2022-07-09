@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.block.component;
+package fr.dwightstudio.deepworld.common.components;
 
 public enum ComponentClass {
     // Classes

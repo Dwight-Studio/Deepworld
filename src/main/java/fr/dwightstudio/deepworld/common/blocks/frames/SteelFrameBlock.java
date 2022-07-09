@@ -1,6 +1,5 @@
-package fr.dwightstudio.deepworld.common.block;
+package fr.dwightstudio.deepworld.common.blocks.frames;
 
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 

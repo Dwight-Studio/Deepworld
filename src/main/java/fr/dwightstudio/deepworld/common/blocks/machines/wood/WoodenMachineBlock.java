@@ -1,14 +1,9 @@
-package fr.dwightstudio.deepworld.common.block;
+package fr.dwightstudio.deepworld.common.blocks.machines.wood;
 
-import fr.dwightstudio.deepworld.common.DeepworldBlockEntities;
-import fr.dwightstudio.deepworld.common.DeepworldMenus;
-import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
-import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenLatheBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenMachineBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,12 +26,12 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WoodenLatheBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final Property<Boolean> WORKING = BooleanProperty.create("working");
 
-    public WoodenLatheBlock() {
+    public WoodenMachineBlock() {
         super(Properties.of(Material.WOOD)
                 .sound(SoundType.WOOD)
                 .strength(3, 2)
@@ -53,9 +48,7 @@ public class WoodenLatheBlock extends HorizontalDirectionalBlock implements Enti
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        return new WoodenLatheBlockEntity(blockPos, blockState);
-    }
+    public abstract BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState);
 
     @Override
     public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
@@ -105,4 +98,5 @@ public class WoodenLatheBlock extends HorizontalDirectionalBlock implements Enti
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         return this.defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection());
     }
+
 }

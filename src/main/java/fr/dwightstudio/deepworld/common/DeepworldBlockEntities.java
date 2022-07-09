@@ -1,9 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.blockentity.WoodenFrameBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenLatheBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenPressBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenFrameBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenLatheBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenPressBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
 

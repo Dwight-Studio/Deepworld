@@ -1,9 +1,9 @@
-package fr.dwightstudio.deepworld.common.blockentity;
+package fr.dwightstudio.deepworld.common.blockentity.machines.wood;
 
 import fr.dwightstudio.deepworld.common.DeepworldBlockEntities;
-import fr.dwightstudio.deepworld.common.block.FrameBlock;
-import fr.dwightstudio.deepworld.common.block.WoodenFrameBlock;
-import fr.dwightstudio.deepworld.common.block.component.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
+import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;

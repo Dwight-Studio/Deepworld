@@ -1,9 +1,6 @@
 package fr.dwightstudio.deepworld.common.menus;
 
-import fr.dwightstudio.deepworld.common.DeepworldMenus;
-import fr.dwightstudio.deepworld.common.DeepworldRecipeBookTypes;
-import fr.dwightstudio.deepworld.common.DeepworldRecipeTypes;
-import fr.dwightstudio.deepworld.common.blockentity.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentity.machines.wood.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.recipe.MachineRecipe;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -113,7 +110,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
 
     @Override
     public boolean shouldMoveToInventory(int slotID) {
-        return true;
+        return slotID == INPUT_SLOT;
     }
 
     @Override

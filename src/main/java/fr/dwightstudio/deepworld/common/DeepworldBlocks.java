@@ -1,8 +1,9 @@
 package fr.dwightstudio.deepworld.common;
 
-import fr.dwightstudio.deepworld.common.block.*;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import fr.dwightstudio.deepworld.common.blocks.*;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenLatheBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenPressBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 

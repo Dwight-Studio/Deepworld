@@ -32,7 +32,7 @@ public class DeepworldClient {
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_LATHE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_PRESS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_GEAR_SHAPER.get(), RenderType.cutout());
-
+        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.IRON_TANK.get(), RenderType.cutout());
     }
 
 }

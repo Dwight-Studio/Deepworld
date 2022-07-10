@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "deepworld:block/iron_tank"
+      }
+    }
+  ]
+}

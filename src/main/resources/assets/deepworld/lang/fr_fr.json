@@ -25,6 +25,7 @@
   "block.deepworld.steel_block": "Bloc d'Acier",
   "block.deepworld.obsidian_infused_steel_block": "Bloc d'Acier imprégné d'Obsidienne",
   "block.deepworld.pipe": "Tuyau",
+  "block.deepworld.iron_tank": "Reservoir en Fer",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Plaque de chassîs en Bois (Composant)",

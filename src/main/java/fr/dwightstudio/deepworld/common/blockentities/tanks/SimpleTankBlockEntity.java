@@ -1,28 +1,40 @@
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tesselator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.opengl.GL11;
 
 public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IFluidHandler {
 
+    private int CAPACITY;
+    private final int MAX_FILL_LEVEL;
+
     private FluidStack fluid;
-    private int capacity;
     private int fluidAmount;
 
     public SimpleTankBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int capacity) {
         super(blockEntityType, blockPos, blockState);
 
+        this.CAPACITY = capacity;
+        this.MAX_FILL_LEVEL = capacity / 1000;
+
         this.fluid = FluidStack.EMPTY;
-        this.capacity = capacity;
         this.fluidAmount = 0;
     }
 
@@ -38,7 +50,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int getCapacity() {
-        return this.capacity;
+        return this.CAPACITY;
     }
 
     @Override
@@ -59,7 +71,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int getTankCapacity(int tank) {
-        return this.capacity;
+        return this.CAPACITY;
     }
 
     @Override
@@ -70,50 +82,102 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int fill(FluidStack resource, IFluidHandler.FluidAction action) {
-        LogManager.getLogger().log(Level.DEBUG, "fluid : " + resource.getFluid() + " amount : " + resource.getAmount());
+
+        int returnValue = canFill(resource);
 
         if (action == FluidAction.EXECUTE) {
             if (this.fluid.isEmpty()) {
                 this.fluid = resource;
-                this.fluidAmount = resource.getAmount();
+                if (resource.getAmount() <= this.CAPACITY) {
+                    this.fluidAmount = resource.getAmount();
+                } else {
+                    this.fluidAmount = this.CAPACITY;
+                }
             } else {
-                this.fluidAmount += resource.getAmount();
+                if (this.fluid.isFluidEqual(resource)) {
+                    if (resource.getAmount() <= (this.CAPACITY - this.fluidAmount)) {
+                        this.fluidAmount += resource.getAmount();
+                    } else {
+                        this.fluidAmount += this.CAPACITY - this.fluidAmount;
+                    }
+                }
             }
+            this.fluid.getFluid().defaultFluidState().createLegacyBlock().getBlock();
+            LogManager.getLogger().log(Level.DEBUG, "fluid : " + this.fluid.getFluid().getFluidType() + " amount : " + this.fluidAmount);
         }
 
-        return Math.min(resource.getAmount(), (this.capacity - this.fluidAmount));
+        return returnValue;
+    }
+
+    public int canFill(FluidStack resource) {
+        if (!this.fluid.isFluidEqual(resource) && !this.isEmpty()) {
+            return 0;
+        } else {
+            if (this.isEmpty()) {
+                if (resource.getAmount() <= this.CAPACITY) {
+                    return resource.getAmount();
+                } else {
+                    return this.CAPACITY;
+                }
+            } else {
+                if (resource.getAmount() <= (this.CAPACITY - this.fluidAmount)) {
+                    return resource.getAmount();
+                } else {
+                    return this.CAPACITY - this.fluidAmount;
+                }
+            }
+        }
     }
 
     @Override
     public @NotNull FluidStack drain(int maxDrain, IFluidHandler.FluidAction action) {
+        FluidStack returnValue = canDrain(maxDrain);
 
         if (action == FluidAction.EXECUTE) {
-            if (!this.fluid.isEmpty()) {
-                if (maxDrain <= this.fluidAmount) {
+            if (!this.isEmpty()) {
+                if (this.fluidAmount >= maxDrain) {
                     this.fluidAmount -= maxDrain;
+                } else {
+                    this.fluid = FluidStack.EMPTY;
+                    this.fluidAmount = 0;
                 }
             }
+            LogManager.getLogger().log(Level.DEBUG, "fluid : " + this.fluid.getFluid().getFluidType() + " amount : " + this.fluidAmount);
         }
 
-        if (maxDrain - this.fluidAmount >= 0) return new FluidStack(this.fluid, maxDrain);
-
-        return new FluidStack(this.fluid, (maxDrain - this.fluidAmount));
+        return returnValue;
     }
 
     @Override
     public @NotNull FluidStack drain(FluidStack resource, IFluidHandler.FluidAction action) {
 
+        FluidStack returnValue = canDrain(resource.getAmount());
+
         if (action == FluidAction.EXECUTE) {
-            if (!this.fluid.isEmpty()) {
-                if (resource.getAmount() <= this.fluidAmount) {
+            if (!this.isEmpty()) {
+                if (this.fluidAmount >= resource.getAmount()) {
                     this.fluidAmount -= resource.getAmount();
+                } else {
+                    this.fluid = FluidStack.EMPTY;
+                    this.fluidAmount = 0;
                 }
             }
+            LogManager.getLogger().log(Level.DEBUG, "fluid : " + this.fluid.getFluid().getFluidType() + " amount : " + this.fluidAmount);
         }
 
-        if (resource.getAmount() - this.fluidAmount >= 0) return new FluidStack(this.fluid, resource.getAmount());
+        return returnValue;
+    }
 
-        return new FluidStack(this.fluid, (resource.getAmount() - this.fluidAmount));
+    public FluidStack canDrain(int drainQuantity) {
+        if (!this.isEmpty()) {
+            if (this.fluidAmount >= drainQuantity) {
+                return new FluidStack(this.fluid, drainQuantity);
+            } else {
+                return new FluidStack(this.fluid, this.fluidAmount);
+            }
+        } else {
+            return new FluidStack(FluidStack.EMPTY, 0);
+        }
     }
 
     @Override
@@ -121,7 +185,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         super.load(compoundTag);
 
         this.fluid = FluidStack.loadFluidStackFromNBT(compoundTag.getCompound("Fluid"));
-        this.capacity = compoundTag.getInt("Capacity");
+        this.CAPACITY = compoundTag.getInt("Capacity");
         this.fluidAmount = compoundTag.getInt("FluidAmount");
     }
 
@@ -132,7 +196,13 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         CompoundTag fluidStackTag = new CompoundTag();
         this.fluid.writeToNBT(fluidStackTag);
         compoundTag.put("Fluid", fluidStackTag);
-        compoundTag.putInt("Capacity", this.capacity);
+        compoundTag.putInt("Capacity", this.CAPACITY);
         compoundTag.putInt("FluidAmount", this.fluidAmount);
+    }
+
+    public boolean isEmpty() {
+        if (this.fluidAmount <= 0) this.fluid = FluidStack.EMPTY;
+
+        return this.fluid.isEmpty() || this.fluidAmount <= 0;
     }
 }

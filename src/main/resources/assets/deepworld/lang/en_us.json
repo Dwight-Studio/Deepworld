@@ -25,6 +25,7 @@
   "block.deepworld.steel_block": "Steel Block",
   "block.deepworld.obsidian_infused_steel_block": "Obsidian-Infused Steel Block",
   "block.deepworld.pipe": "Pipe",
+  "block.deepworld.iron_tank": "Iron Tank",
 
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Wooden Case Panel (Component)",

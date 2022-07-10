@@ -1,0 +1,6 @@
+{
+  "parent": "deepworld:block/iron_tank",
+  "textures": {
+    "frame": "deepworld:blocks/iron_tank"
+  }
+}

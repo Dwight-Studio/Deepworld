@@ -153,7 +153,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
     }
 
     public boolean isTurnable(ItemStack itemStack) {
-        return this.level.getRecipeManager().getRecipeFor((RecipeType<MachineRecipe>) this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
+        return this.level.getRecipeManager().getRecipeFor(this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
 
     }
 
@@ -183,7 +183,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
         }
 
         @Override
-        public boolean mayPlace(ItemStack itemStack) {
+        public boolean mayPlace(@NotNull ItemStack itemStack) {
             return false;
         }
     }

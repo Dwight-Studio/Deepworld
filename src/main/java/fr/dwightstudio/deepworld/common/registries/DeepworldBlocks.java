@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.blocks.IronTankBlock;
 import fr.dwightstudio.deepworld.common.blocks.ObsidianInfusedSteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.SteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
@@ -26,6 +27,8 @@ public class DeepworldBlocks {
     public static RegistryObject<Block> WOODEN_GEAR_SHAPER;
     public static RegistryObject<Block> WOODEN_LATHE;
 
+    public static RegistryObject<Block> IRON_TANK;
+
 
     public DeepworldBlocks() {
         STEEL_BLOCK = Deepworld.BLOCKS.register("steel_block", SteelBlockBlock::new);
@@ -40,5 +43,7 @@ public class DeepworldBlocks {
         WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", WoodenPressBlock::new);
         WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);
         WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", WoodenLatheBlock::new);
+
+        IRON_TANK = Deepworld.BLOCKS.register("iron_tank", IronTankBlock::new);
     }
 }

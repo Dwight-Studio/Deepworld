@@ -1,5 +1,6 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.RegistryObject;

@@ -1,5 +1,6 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blocks.ObsidianInfusedSteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.SteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;

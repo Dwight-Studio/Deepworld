@@ -1,5 +1,6 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.armors.ArmorMaterialsTier;
 import fr.dwightstudio.deepworld.common.items.*;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;

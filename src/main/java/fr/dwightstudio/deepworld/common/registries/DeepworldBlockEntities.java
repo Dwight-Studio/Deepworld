@@ -1,5 +1,6 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenGearShaperBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenLatheBlockEntity;

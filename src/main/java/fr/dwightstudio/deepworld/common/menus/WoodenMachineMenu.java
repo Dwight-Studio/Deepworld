@@ -66,7 +66,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
 
     @Override
     public void fillCraftSlotsStackedContents(@NotNull StackedContents stackedContents) {
-        if (this.container instanceof StackedContentsCompatible) {
+        if (this.container != null) {
             ((StackedContentsCompatible) this.container).fillStackedContents(stackedContents);
         }
     }
@@ -176,14 +176,14 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
         return true;
     }
 
-    public class MachineOutputSlot extends Slot {
+    public static class MachineOutputSlot extends Slot {
 
         public MachineOutputSlot(Container p_40223_, int p_40224_, int p_40225_, int p_40226_) {
             super(p_40223_, p_40224_, p_40225_, p_40226_);
         }
 
         @Override
-        public boolean mayPlace(ItemStack p_40231_) {
+        public boolean mayPlace(ItemStack itemStack) {
             return false;
         }
     }

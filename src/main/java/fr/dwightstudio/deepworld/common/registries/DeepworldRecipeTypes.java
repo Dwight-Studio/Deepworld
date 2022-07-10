@@ -1,5 +1,6 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;

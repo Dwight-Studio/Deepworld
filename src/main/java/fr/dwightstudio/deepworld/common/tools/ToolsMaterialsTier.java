@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.tools;
 
-import fr.dwightstudio.deepworld.common.DeepworldItems;
+import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

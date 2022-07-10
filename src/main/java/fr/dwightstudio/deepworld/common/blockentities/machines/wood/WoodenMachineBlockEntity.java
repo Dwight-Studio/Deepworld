@@ -1,14 +1,18 @@
 package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstance;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -31,14 +35,15 @@ import org.jetbrains.annotations.Nullable;
 
 import static fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu.*;
 
-public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
+public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
 
     public static final int MAX_INERTIA = 200;
     public static final int INERTIA_PER_CLICK = 10;
 
-    int inertia;
-    int processProgress;
-    int processTimeTotal;
+    public int lastInertia;
+    public int inertia;
+    public int processProgress;
+    public int processTimeTotal;
 
     protected final ContainerData dataAccess = new ContainerData() {
         public int get(int dataID) {
@@ -236,6 +241,8 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
             level.setBlockAndUpdate(blockPos, newBlockstate);
         }
 
+        if (woodenMachineBlockEntity.lastInertia < woodenMachineBlockEntity.inertia) woodenMachineBlockEntity.sendUpdate();
+
         // The inertia must be greater than 0 for the process to start
         if (woodenMachineBlockEntity.inertia > 0) {
             woodenMachineBlockEntity.inertia--;
@@ -277,6 +284,16 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
         if (woodenMachineBlockEntity.inertia < 0) {
             woodenMachineBlockEntity.inertia = 0;
         }
+
+        woodenMachineBlockEntity.lastInertia = woodenMachineBlockEntity.inertia;
+    }
+
+    public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity) {
+        WoodenMachineBlockEntity woodenMachineBlockEntity = (WoodenMachineBlockEntity) blockEntity;
+
+        if (woodenMachineBlockEntity.inertia > 0) {
+            woodenMachineBlockEntity.inertia--;
+        }
     }
 
     private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
@@ -287,6 +304,33 @@ public class WoodenMachineBlockEntity extends BaseContainerBlockEntity implement
 
         return true;
     }
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag);
+        return tag;
+    }
 
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        load(tag);
+    }
 
+    @Override
+    public void onLoad() {
+        if (level != null && level.isClientSide()) {
+            Minecraft.getInstance().getSoundManager().queueTickingSound(new WoodenMachineSoundInstance(this));
+            //TODO: Create sound when needed
+        }
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+    }
+
+    private void sendUpdate() {
+        getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 512);
+    }
 }

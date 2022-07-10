@@ -1,6 +1,8 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.client.DeepworldClient;
+import fr.dwightstudio.deepworld.common.registries.*;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -40,6 +42,8 @@ public class Deepworld {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MOD_ID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MOD_ID);
 
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
+
     public Deepworld() {
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -52,6 +56,8 @@ public class Deepworld {
         MENU.register(MOD_EVENT_BUS);
         RECIPE_TYPES.register(MOD_EVENT_BUS);
         RECIPE_SERIALIZERS.register(MOD_EVENT_BUS);
+        SOUND_EVENTS.register(MOD_EVENT_BUS);
+
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> Deepworld::registerClientAssets);
     }
@@ -64,6 +70,7 @@ public class Deepworld {
         new DeepworldRecipeTypes();
         new DeepworldRecipeBookTypes();
         new DeepworldRecipeSerializers();
+        new DeepworldSoundEvents();
     }
 
     public static void registerClientAssets() {

@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common;
+package fr.dwightstudio.deepworld.common.registries;
 
 import net.minecraft.world.inventory.RecipeBookType;
 

@@ -1,7 +1,7 @@
 package fr.dwightstudio.deepworld.common.armors;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.DeepworldItems;
+import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;

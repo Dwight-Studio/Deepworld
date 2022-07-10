@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.recipes;
 
-import fr.dwightstudio.deepworld.common.DeepworldRecipeSerializers;
+import fr.dwightstudio.deepworld.common.registries.DeepworldRecipeSerializers;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

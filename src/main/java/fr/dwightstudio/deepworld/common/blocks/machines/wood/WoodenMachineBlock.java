@@ -79,7 +79,7 @@ public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock impl
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntity) {
-        return level.isClientSide() ? null : WoodenMachineBlockEntity::serverTick;
+        return level.isClientSide() ? WoodenMachineBlockEntity::clientTick : WoodenMachineBlockEntity::serverTick;
     }
 
     @Override

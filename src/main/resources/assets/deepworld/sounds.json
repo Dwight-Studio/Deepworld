@@ -1,9 +1,8 @@
 {
-  "wooden_machine": {
-    "category": "block",
+  "block.wooden_machine.working": {
     "subtitle": "deepworld.subtitle.wooden_machine",
     "sounds": [
-      "deepworld:tile/wooden_machine"
+      "deepworld:block/machines/wooden_machine"
     ]
   }
 }

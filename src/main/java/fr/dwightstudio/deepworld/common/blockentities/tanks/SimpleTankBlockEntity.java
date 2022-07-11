@@ -1,24 +1,16 @@
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.Tesselator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.opengl.GL11;
 
 public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IFluidHandler {
 
@@ -40,7 +32,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public @NotNull FluidStack getFluid() {
-        return this.fluid;
+        return this.fluid.copy();
     }
 
     @Override
@@ -66,7 +58,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public @NotNull FluidStack getFluidInTank(int tank) {
-        return this.fluid;
+        return this.fluid.copy();
     }
 
     @Override
@@ -87,7 +79,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
         if (action == FluidAction.EXECUTE) {
             if (this.fluid.isEmpty()) {
-                this.fluid = resource;
+                this.fluid = resource.copy();
                 if (resource.getAmount() <= this.CAPACITY) {
                     this.fluidAmount = resource.getAmount();
                 } else {
@@ -102,7 +94,6 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
                     }
                 }
             }
-            this.fluid.getFluid().defaultFluidState().createLegacyBlock().getBlock();
             LogManager.getLogger().log(Level.DEBUG, "fluid : " + this.fluid.getFluid().getFluidType() + " amount : " + this.fluidAmount);
         }
 
@@ -110,6 +101,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     }
 
     public int canFill(FluidStack resource) {
+        LogManager.getLogger().log(Level.DEBUG, this);
         if (!this.fluid.isFluidEqual(resource) && !this.isEmpty()) {
             return 0;
         } else {
@@ -184,7 +176,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     public void load(@NotNull CompoundTag compoundTag) {
         super.load(compoundTag);
 
-        this.fluid = FluidStack.loadFluidStackFromNBT(compoundTag.getCompound("Fluid"));
+        this.fluid = FluidStack.loadFluidStackFromNBT(compoundTag.getCompound("Fluid")).copy();
         this.CAPACITY = compoundTag.getInt("Capacity");
         this.fluidAmount = compoundTag.getInt("FluidAmount");
     }
@@ -194,7 +186,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         super.saveAdditional(compoundTag);
 
         CompoundTag fluidStackTag = new CompoundTag();
-        this.fluid.writeToNBT(fluidStackTag);
+        this.fluid.copy().writeToNBT(fluidStackTag);
         compoundTag.put("Fluid", fluidStackTag);
         compoundTag.putInt("Capacity", this.CAPACITY);
         compoundTag.putInt("FluidAmount", this.fluidAmount);
@@ -205,4 +197,6 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
         return this.fluid.isEmpty() || this.fluidAmount <= 0;
     }
+
+
 }

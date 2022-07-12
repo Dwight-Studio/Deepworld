@@ -287,11 +287,11 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         setChanged();
         BlockState newBlockState = getBlockState();
         if (this.getFluid().getFluid().defaultFluidState().createLegacyBlock().getBlock().getLightEmission(this.getFluid().getFluid().defaultFluidState().createLegacyBlock(), level, getBlockPos()) > 0) {
-             newBlockState = newBlockState.setValue(BlockStateProperties.LIT, false);
+             newBlockState = newBlockState.setValue(BlockStateProperties.LIT, true);
         } else {
-            newBlockState = newBlockState.setValue(BlockStateProperties.LIT, true);
+            newBlockState = newBlockState.setValue(BlockStateProperties.LIT, false);
         }
-        getLevel().setBlock(getBlockPos(), newBlockState.cycle(BlockStateProperties.LIT), 2);
+        getLevel().setBlock(getBlockPos(), newBlockState, 2);
         getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 512);
     }
 

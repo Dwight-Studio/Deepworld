@@ -116,7 +116,12 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
-        //if (level.getBlockEntity(new BlockPos()))
+        if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
+            this.defaultBlockState().setValue(UP, true);
+        }
+        if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
+            this.defaultBlockState().setValue(DOWN, true);
+        }
     }
 
     @Override

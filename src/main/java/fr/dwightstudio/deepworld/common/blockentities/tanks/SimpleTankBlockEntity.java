@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
+import fr.dwightstudio.deepworld.common.blocks.IronTankBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -75,6 +76,18 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     @Override
     public int fill(FluidStack resource, IFluidHandler.FluidAction action) {
 
+        if (this.isEmpty()) {
+            if (this.getBlockState().getValue(IronTankBlock.DOWN)) {
+                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() - 1, this.getBlockPos().getZ()));
+                return blockEntity.fill(resource, action);
+            } else {
+
+            }
+        } else if (this.getBlockState().getValue(IronTankBlock.UP)) {
+            SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().above());
+            return blockEntity.canFill(resource);
+        }
+
         int returnValue = canFill(resource);
 
         if (action == FluidAction.EXECUTE) {
@@ -101,6 +114,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     }
 
     public int canFill(FluidStack resource) {
+
         if (!this.fluid.isFluidEqual(resource) && !this.isEmpty()) {
             return 0;
         } else {
@@ -118,6 +132,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
                 }
             }
         }
+
     }
 
     @Override

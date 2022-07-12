@@ -104,36 +104,58 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
-        if (!(level.getBlockEntity(neighbor) instanceof IronTankBlockEntity)) { return; }
+        BlockState newBlockState = state;
 
-        if (pos.getY() + 1 == neighbor.getY()) {
-            this.defaultBlockState().setValue(UP, true);
+        if (level.getBlockEntity(pos.above()) instanceof IronTankBlockEntity) {
+            newBlockState = newBlockState.setValue(UP, true);
         } else {
-            this.defaultBlockState().setValue(UP, false);
+            newBlockState = newBlockState.setValue(UP, false);
         }
-        if (pos.getY() - 1 == neighbor.getY()) {
-            this.defaultBlockState().setValue(DOWN, true);
+        if (level.getBlockEntity(pos.below()) instanceof IronTankBlockEntity) {
+            newBlockState = newBlockState.setValue(DOWN, true);
         } else {
-            this.defaultBlockState().setValue(DOWN, false);
+            newBlockState = newBlockState.setValue(DOWN, false);
         }
 
-        blockEntity.getLevel().setBlock(pos, state, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        blockEntity.getLevel().setBlock(pos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
+        super.neighborChanged(state, level, pos, p_60512_, p_60513_, p_60514_);
+
+        BlockState newBlockState = state;
+
+        if (level.getBlockEntity(pos.above()) instanceof IronTankBlockEntity) {
+            newBlockState = newBlockState.setValue(UP, true);
+        } else {
+            newBlockState = newBlockState.setValue(UP, false);
+        }
+        if (level.getBlockEntity(pos.below()) instanceof IronTankBlockEntity) {
+            newBlockState = newBlockState.setValue(DOWN, true);
+        } else {
+            newBlockState = newBlockState.setValue(DOWN, false);
+        }
+
+        blockEntity.getLevel().setBlock(pos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     @Override
     public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
+        BlockState newBlockState = blockState;
+
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
-            this.defaultBlockState().setValue(UP, true);
+            newBlockState = newBlockState.setValue(UP, true);
         } else {
-            this.defaultBlockState().setValue(UP, false);
+            newBlockState = newBlockState.setValue(UP, false);
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
-            this.defaultBlockState().setValue(DOWN, true);
+            newBlockState = newBlockState.setValue(DOWN, true);
         } else {
-            this.defaultBlockState().setValue(DOWN, false);
+            newBlockState = newBlockState.setValue(DOWN, false);
         }
 
-        level.setBlock(blockPos, blockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        level.setBlock(blockPos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     @Override

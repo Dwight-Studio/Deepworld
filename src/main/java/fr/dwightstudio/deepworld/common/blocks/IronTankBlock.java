@@ -108,20 +108,32 @@ public class IronTankBlock extends Block implements EntityBlock {
 
         if (pos.getY() + 1 == neighbor.getY()) {
             this.defaultBlockState().setValue(UP, true);
+        } else {
+            this.defaultBlockState().setValue(UP, false);
         }
         if (pos.getY() - 1 == neighbor.getY()) {
             this.defaultBlockState().setValue(DOWN, true);
+        } else {
+            this.defaultBlockState().setValue(DOWN, false);
         }
+
+        blockEntity.getLevel().setBlock(pos, state, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     @Override
     public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
             this.defaultBlockState().setValue(UP, true);
+        } else {
+            this.defaultBlockState().setValue(UP, false);
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
             this.defaultBlockState().setValue(DOWN, true);
+        } else {
+            this.defaultBlockState().setValue(DOWN, false);
         }
+
+        level.setBlock(blockPos, blockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
     }
 
     @Override

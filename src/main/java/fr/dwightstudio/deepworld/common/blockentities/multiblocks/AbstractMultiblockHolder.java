@@ -106,6 +106,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return a {@link CompoundTag} containing the Multiblock data
      */
     public final void saveMultiblockData(CompoundTag tag) {
+        CompoundTag multiblockTag = tag.getCompound("Multiblock");
         if (isChild()) {
             AbstractMultiblockHolder parent = getParent();
             CompoundTag parentTag = new CompoundTag();
@@ -114,7 +115,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
                 parentTag.putInt("y", parent.getBlockPos().getY());
                 parentTag.putInt("z", parent.getBlockPos().getZ());
 
-                tag.put("Parent", parentTag);
+                multiblockTag.put("Parent", parentTag);
             } else {
                 Deepworld.LOGGER.warn("Cannot save parent for MultiblockHolder at " + this.getBlockPos());
             }
@@ -131,12 +132,12 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
                     blockList.add(blockTag);
                 }
             }
-            tag.put("Blocks", blockList);
+            multiblockTag.put("Blocks", blockList);
         }
 
-        saveMultiblockAdditionnalData(tag);
+        saveMultiblockAdditionnalData(multiblockTag);
 
-        tag.put("Multiblock", tag);
+        tag.put("Multiblock", multiblockTag);
     }
 
     /**

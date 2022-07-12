@@ -304,6 +304,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
 
         return true;
     }
+
     @Override
     public @NotNull CompoundTag getUpdateTag() {
         CompoundTag tag = new CompoundTag();

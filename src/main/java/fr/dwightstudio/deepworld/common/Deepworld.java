@@ -57,9 +57,8 @@ public class Deepworld {
         RECIPE_TYPES.register(MOD_EVENT_BUS);
         RECIPE_SERIALIZERS.register(MOD_EVENT_BUS);
         SOUND_EVENTS.register(MOD_EVENT_BUS);
-        MOD_EVENT_BUS.register(new DeepworldBlockEntityRenderers());
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> Deepworld::registerClientAssets);
+        MOD_EVENT_BUS.register(DeepworldClient.class);
     }
 
     public static void registerAssets() {
@@ -71,9 +70,5 @@ public class Deepworld {
         new DeepworldRecipeBookTypes();
         new DeepworldRecipeSerializers();
         new DeepworldSoundEvents();
-    }
-
-    public static void registerClientAssets() {
-        MOD_EVENT_BUS.register(DeepworldClient.class);
     }
 }

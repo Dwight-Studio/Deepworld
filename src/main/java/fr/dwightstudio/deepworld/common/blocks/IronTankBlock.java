@@ -87,32 +87,7 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     public VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.25, 0.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.75, 0.25, 0.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0, 0.1875, 0.8125, 0.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0, 0.75, 0.8125, 0.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0.0625, 0.75, 0.8125, 1, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 1, 0.75, 0.8125, 1.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 1, 0.1875, 0.8125, 1.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0.0625, 0.1875, 0.8125, 1, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 1, 0.75, 0.25, 1.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 0.0625, 0.75, 0.25, 1, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 1, 0.1875, 0.25, 1.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 0.0625, 0.1875, 0.25, 1, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.25, 0.25, 0.0625, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0, 0.25, 0.8125, 0.0625, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.75, 0.75, 0.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.1875, 0.75, 0.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 1, 0.1875, 0.75, 1.0625, 0.25), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 1, 0.25, 0.8125, 1.0625, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 1, 0.75, 0.75, 1.0625, 0.8125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.1875, 1, 0.25, 0.25, 1.0625, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0.0625, 0.25, 0.3125, 1, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.6875, 0.0625, 0.25, 0.75, 1, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.3125, 0.0625, 0.25, 0.6875, 1, 0.3125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.3125, 0.0625, 0.6875, 0.6875, 1, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 1, 0.25, 0.75, 1.0625, 0.75), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.25, 0.75, 0.0625, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125), BooleanOp.OR);
 
         return shape;
     }

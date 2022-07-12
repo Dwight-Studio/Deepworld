@@ -109,32 +109,42 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
-        this.onPlace(state, level, pos, defaultBlockState(), p_60514_);
+        level.scheduleTick(pos, this, 1);
     }
 
     @Override
     public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
+        updateTank(blockState, level, blockPos);
+    }
+
+    private void updateTank(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         BlockState newBlockState = blockState;
 
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
             IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.above());
-            newBlockState = newBlockState.setValue(UP, blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid()));
-            if (!blockEntity.isEmpty()) {
-                int accepted = getBlockEntity(level, blockPos).fill(blockEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
-                if (accepted != 0) {
-                    getBlockEntity(level, blockPos).fill(blockEntity.drain(accepted, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+            if (blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid())) {
+                newBlockState = newBlockState.setValue(UP, true);
+                if (!blockEntity.isEmpty()) {
+                    int accepted = getBlockEntity(level, blockPos).fill(blockEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+                    if (accepted != 0) {
+                        getBlockEntity(level, blockPos).fill(blockEntity.drain(accepted, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    }
                 }
+            } else {
+                newBlockState = newBlockState.setValue(UP, false);
             }
         } else {
             newBlockState = newBlockState.setValue(UP, false);
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
             IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.below());
-            newBlockState = newBlockState.setValue(DOWN, blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid()));
-            if (!getBlockEntity(level, blockPos).isEmpty()) {
-                int accepted = blockEntity.fill(getBlockEntity(level, blockPos).getFluid(), IFluidHandler.FluidAction.SIMULATE);
-                if (accepted != 0) {
-                    blockEntity.fill((getBlockEntity(level, blockPos).drain(accepted, IFluidHandler.FluidAction.EXECUTE)), IFluidHandler.FluidAction.EXECUTE);
+            if (blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid())) {
+                newBlockState = newBlockState.setValue(DOWN, true);
+                if (!getBlockEntity(level, blockPos).isEmpty()) {
+                    int accepted = blockEntity.fill(getBlockEntity(level, blockPos).getFluid(), IFluidHandler.FluidAction.SIMULATE);
+                    if (accepted != 0) {
+                        blockEntity.fill((getBlockEntity(level, blockPos).drain(accepted, IFluidHandler.FluidAction.EXECUTE)), IFluidHandler.FluidAction.EXECUTE);
+                    }
                 }
             }
         } else {
@@ -142,6 +152,11 @@ public class IronTankBlock extends Block implements EntityBlock {
         }
 
         level.setBlock(blockPos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+    }
+
+    @Override
+    public void tick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource p_222948_) {
+        updateTank(blockState, level, blockPos);
     }
 
     @Override

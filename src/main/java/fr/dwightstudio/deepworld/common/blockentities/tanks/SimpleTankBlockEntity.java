@@ -79,9 +79,10 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     }
 
     public boolean canConnect(FluidStack resource) {
+        if (resource.isEmpty()) return true;
         if (this.isEmpty()) {
-            if (this.getBlockState().getValue(IronTankBlock.DOWN)) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().below());
+            if (getLevel().getBlockEntity(getBlockPos().below()) instanceof SimpleTankBlockEntity) {
+                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.getLevel().getBlockEntity(getBlockPos().below());
                 if (blockEntity == null) return false;
                 if (blockEntity.isEmpty()) {
                     return blockEntity.canConnect(resource);
@@ -98,10 +99,10 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int fill(FluidStack resource, IFluidHandler.FluidAction action) {
-        if (this.isEmpty()) {
+        if (this.isEmpty()) { // TODO: Rework filling process
             if (this.getBlockState().getValue(IronTankBlock.DOWN)) {
                 SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().below());
-                if (blockEntity.isFull() || (!blockEntity.getFluid().isFluidEqual(resource) && !blockEntity.isEmpty())) {
+                if (blockEntity.isFull()) {
                     return applyFill(resource, action);
                 } else {
                     return blockEntity.fill(resource, action);
@@ -112,9 +113,9 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         } else if (this.willOverflow(resource)) {
             if (this.getBlockState().getValue(IronTankBlock.UP)) {
                 SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().above());
-                if (blockEntity == null || !blockEntity.getFluid().isFluidEqual(resource) && !blockEntity.isEmpty()) return 0;
                 int amount = applyFill(resource, action);
                 resource.shrink(amount);
+                if (blockEntity == null) return amount;
                 return blockEntity.fill(resource, action) + amount;
             } else {
                 return applyFill(resource, action);

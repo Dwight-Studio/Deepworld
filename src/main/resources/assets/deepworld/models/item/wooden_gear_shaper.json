@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "deepworld:blocks/wooden_frame",
-        "wooden_frame": "deepworld:blocks/wooden_frame",
-        "wooden_press_front": "deepworld:blocks/wooden_front",
-        "wooden_press": "deepworld:blocks/wooden_gear_shaper"
+        "particle": "deepworld:blocks/frames/wooden_frame",
+        "wooden_frame": "deepworld:blocks/frames/wooden_frame",
+        "wooden_press_front": "deepworld:blocks/machines/wood/wooden_front",
+        "wooden_press": "deepworld:blocks/machines/wood/wooden_gear_shaper"
     },
     "display": {
         "gui": {

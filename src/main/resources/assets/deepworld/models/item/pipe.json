@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "pipe_junction": "deepworld:blocks/pipe_junction",
-        "pipe": "deepworld:blocks/pipe"
+        "pipe_junction": "deepworld:blocks/pipe/pipe_junction",
+        "pipe": "deepworld:blocks/pipe/pipe"
     },
     "display": {
         "gui": {

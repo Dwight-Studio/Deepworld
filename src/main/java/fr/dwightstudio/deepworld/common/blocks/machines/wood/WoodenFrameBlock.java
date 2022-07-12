@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.blocks.machines.wood;
 
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenFrameBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
 import fr.dwightstudio.deepworld.common.components.ComponentClass;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;

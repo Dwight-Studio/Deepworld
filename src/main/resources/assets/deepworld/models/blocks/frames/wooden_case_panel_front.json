@@ -1,0 +1,7 @@
+{
+  "parent": "deepworld:blocks/frames/case_panel_front",
+  "textures": {
+    "frame": "deepworld:blocks/frames/wooden_frame",
+    "particle": "deepworld:blocks/frames/wooden_frame"
+  }
+}

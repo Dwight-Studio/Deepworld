@@ -1,5 +1,5 @@
 {
-  "parent": "deepworld:block/frame",
+  "parent": "deepworld:blocks/frames/frame",
   "textures": {
     "frame": "deepworld:blocks/obsidian_infused_steel_frame"
   }

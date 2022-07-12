@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "deepworld:block/wooden_frame"
+        "model": "deepworld:blocks/frames/wooden_frame"
       }
     },
     {
@@ -15,7 +15,7 @@
         {"cover":  "6"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_bottom"
+        "model": "deepworld:blocks/frames/wooden_case_panel_bottom"
       }
     },
     {
@@ -24,7 +24,7 @@
         {"cover":  "6"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_top"
+        "model": "deepworld:blocks/frames/wooden_case_panel_top"
       }
     },
     {
@@ -47,7 +47,7 @@
         {"cover":  "6", "facing": "west"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_front"
+        "model": "deepworld:blocks/frames/wooden_case_panel_front"
       }
     },
     {
@@ -70,7 +70,7 @@
         {"cover":  "6", "facing": "east"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_back"
+        "model": "deepworld:blocks/frames/wooden_case_panel_back"
       }
     },
     {
@@ -93,7 +93,7 @@
         {"cover":  "6", "facing": "north"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_left"
+        "model": "deepworld:blocks/frames/wooden_case_panel_left"
       }
     },
     {
@@ -116,7 +116,7 @@
         {"cover":  "6", "facing": "south"}
       ]},
       "apply": {
-        "model": "deepworld:block/wooden_case_panel_right"
+        "model": "deepworld:blocks/frames/wooden_case_panel_right"
       }
     },
     {

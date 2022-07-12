@@ -1,9 +1,20 @@
 {
-  "multipart": [
-    {
-      "apply": {
-        "model": "deepworld:block/iron_tank"
-      }
+  "forge_marker": 1,
+  "defaults": {
+    "model": "deepworld:blocks/tanks/iron_tank"
+  },
+  "variants": {
+    "up=false,down=false": {
+      "model": "deepworld:blocks/tanks/iron_tank"
+    },
+    "up=true,down=false": {
+      "model": "deepworld:blocks/tanks/iron_tank_bottom"
+    },
+    "up=false,down=true": {
+      "model": "deepworld:blocks/tanks/iron_tank_top"
+    },
+    "up=true,down=true": {
+      "model": "deepworld:blocks/tanks/iron_tank_middle"
     }
-  ]
+  }
 }

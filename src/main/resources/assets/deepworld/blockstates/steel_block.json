@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "deepworld:block/steel_block"
+      "model": "deepworld:blocks/steel_block"
     }
   }
 }

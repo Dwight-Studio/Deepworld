@@ -42,7 +42,7 @@ public class IronTankBlock extends Block implements EntityBlock {
     private final VoxelShape shape = makeShape();
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
-    public static final BooleanProperty DOWN = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN = BooleanProperty.create("down");
 
     public IronTankBlock() {
         super(Properties.of(Material.STONE)

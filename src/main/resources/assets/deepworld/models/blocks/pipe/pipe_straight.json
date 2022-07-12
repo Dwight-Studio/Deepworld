@@ -1,0 +1,19 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "pipe": "deepworld:blocks/pipe/pipe"
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 5, 5, 0 ], 
+            "to": [ 11, 11, 16 ], 
+            "faces": {
+                "east": { "texture": "#pipe", "uv": [ 0, 0, 6, 16 ], "rotation": 90 },
+                "west": { "texture": "#pipe", "uv": [ 6, 16, 12, 0 ], "rotation": 90 },
+                "up": { "texture": "#pipe", "uv": [ 6, 0, 12, 16 ] },
+                "down": { "texture": "#pipe", "uv": [ 6, 0, 12, 16 ] }
+            }
+        }
+    ]
+}

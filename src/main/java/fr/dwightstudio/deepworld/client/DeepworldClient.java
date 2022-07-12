@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.openjdk.nashorn.internal.ir.annotations.Ignore;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(Dist.CLIENT)
@@ -37,9 +38,12 @@ public class DeepworldClient {
     }
 
     private static void setRenderLayers() {
+        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_FRAME.get(), RenderType.cutout());
+
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_LATHE.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_PRESS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_GEAR_SHAPER.get(), RenderType.cutout());
+
         ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.IRON_TANK.get(), RenderType.cutout());
     }
 

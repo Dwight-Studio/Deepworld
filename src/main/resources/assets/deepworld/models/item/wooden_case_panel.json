@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "deepworld:blocks/wooden_frame"
+    "layer0": "deepworld:blocks/frames/wooden_frame"
   }
 }

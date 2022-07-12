@@ -1,0 +1,9 @@
+{
+  "parent": "deepworld:blocks/machines/wood/wooden_machine",
+  "textures": {
+    "particle": "deepworld:blocks/frames/wooden_frame",
+    "wooden_frame": "deepworld:blocks/frames/wooden_frame",
+    "wooden_front": "deepworld:blocks/machines/wood/wooden_front",
+    "wooden_machine": "deepworld:blocks/machines/wood/wooden_press_anim"
+  }
+}

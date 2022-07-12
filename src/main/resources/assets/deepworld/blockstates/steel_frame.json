@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "deepworld:block/steel_frame"
+        "model": "deepworld:blocks/steel_frame"
       }
     }
   ]

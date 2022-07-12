@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "deepworld:block/obsidian_infused_steel_frame"
+        "model": "deepworld:blocks/obsidian_infused_steel_frame"
       }
     }
   ]

@@ -300,9 +300,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
         if (recipe == null) return false;
         if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredientCount()) return false;
         if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
-        if (blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() > recipe.assemble(blockEntity).getMaxStackSize()) return false;
-
-        return true;
+        return blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() <= recipe.assemble(blockEntity).getMaxStackSize();
     }
 
     @Override
@@ -332,6 +330,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
     }
 
     private void sendUpdate() {
+        setChanged();
         getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 512);
     }
 }

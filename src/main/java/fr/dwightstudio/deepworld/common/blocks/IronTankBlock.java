@@ -9,12 +9,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -38,10 +41,17 @@ public class IronTankBlock extends Block implements EntityBlock {
     private IronTankBlockEntity blockEntity;
     private final VoxelShape shape = makeShape();
 
+    public static final BooleanProperty UP = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN = BooleanProperty.create("up");
+
     public IronTankBlock() {
         super(Properties.of(Material.STONE)
                 .sound(SoundType.GLASS)
                 .noOcclusion());
+
+        this.defaultBlockState()
+                .setValue(UP, false)
+                .setValue(DOWN, false);
     }
 
     @Nullable
@@ -90,5 +100,27 @@ public class IronTankBlock extends Block implements EntityBlock {
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125), BooleanOp.OR);
 
         return shape;
+    }
+
+    @Override
+    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+        if (!(level.getBlockEntity(neighbor) instanceof IronTankBlockEntity)) { return; }
+
+        if (pos.getY() + 1 == neighbor.getY()) {
+            this.defaultBlockState().setValue(UP, true);
+        }
+        if (pos.getY() - 1 == neighbor.getY()) {
+            this.defaultBlockState().setValue(DOWN, true);
+        }
+    }
+
+    @Override
+    public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
+        //if (level.getBlockEntity(new BlockPos()))
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(UP, DOWN);
     }
 }

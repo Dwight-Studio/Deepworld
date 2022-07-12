@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.blockentities.multiblocks;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,9 +11,14 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -33,7 +39,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return true if the MultiblockHolder is actually in a Multiblock structure
      */
     public final boolean isInMultiblock() {
-        return blocks.length != 0;
+        return blocks.length != 0 || isChild();
     }
 
     /**
@@ -42,18 +48,39 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
     public abstract void updateState();
 
     /**
-     * Updates Multiblock structure for each block in the structure
+     * Updates MultiblockHolder membership
      * @implNote If you want to get connected holder, {@see getConnectedHolders()}
      * @return the (new) parent of the MultiblockHolder, may be self
-     * */
-    public abstract AbstractMultiblockHolder computeMultiblock();
+     */
+    protected abstract AbstractMultiblockHolder computeMultiblockPart();
+
+    /**
+     * Updates Multiblock internal structure
+     * @implSpec Must be called when a block of the structure is updated (neighborChanged)
+     * @return the
+     */
+    public final void updateMultiblock() {
+        HashMap<AbstractMultiblockHolder, ArrayList<BlockPos>> map = new HashMap<>();
+        Arrays.stream(this.getConnectedHolders(arg -> true)).forEach(holder -> {
+            AbstractMultiblockHolder parent = holder.computeMultiblockPart();
+            ArrayList<BlockPos> list = map.getOrDefault(parent, new ArrayList<>());
+            list.add(holder.getBlockPos());
+            map.put(parent, list);
+        });
+
+        for (AbstractMultiblockHolder parentHolder : map.keySet()) {
+            parentHolder.setBlocks(map.getOrDefault(parent, new ArrayList<>()).toArray(BlockPos[]::new));
+        }
+
+        this.multiblockTick();
+    }
 
     /**
      * Gets all the blocks of the Multiblock
      * @return an Array of BlockEntity objects
      */
     public AbstractMultiblockHolder[] getMultiblockHolders() {
-        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> (AbstractMultiblockHolder) this.getLevel().getBlockEntity(blockPos)).toArray(AbstractMultiblockHolder[]::new) : new AbstractMultiblockHolder[0];
+        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> getHolderAt(level, blockPos)).toArray(AbstractMultiblockHolder[]::new) : new AbstractMultiblockHolder[0];
     }
 
     /**
@@ -69,7 +96,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return the parent MultiblockHolder
      */
     public final AbstractMultiblockHolder getParent() {
-        return (AbstractMultiblockHolder) this.getLevel().getBlockEntity(this.parent);
+        return getHolderAt(level, this.parent);
     }
 
     /**
@@ -84,7 +111,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return true if this is a child, false otherwise
      */
     public final boolean isChild() {
-        return parent != this.getBlockPos();
+        return !parent.equals(this.getBlockPos());
     }
 
     /**
@@ -98,12 +125,11 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * Updates the entire Multiblock logic {@see computeMultiblock to update structure}
      * @implNote Can split logic between child and parent
      */
-    public abstract void multiblockUpdate();
+    public abstract void multiblockTick();
 
     /**
      * Saves the Multiblock data in a {@link CompoundTag}
      * @param tag a {@link CompoundTag} object
-     * @return a {@link CompoundTag} containing the Multiblock data
      */
     public final void saveMultiblockData(CompoundTag tag) {
         CompoundTag multiblockTag = tag.getCompound("Multiblock");
@@ -119,7 +145,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
             } else {
                 Deepworld.LOGGER.warn("Cannot save parent for MultiblockHolder at " + this.getBlockPos());
             }
-        } else {
+        } else if (isInMultiblock()) {
             ListTag blockList = new ListTag();
 
             for (AbstractMultiblockHolder holder : getMultiblockHolders()) {
@@ -175,9 +201,8 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
                 } else {
                     Deepworld.LOGGER.warn("Corrupted data for MultiblockHolder at " + this.getBlockPos());
                 }
-            } else {
-                Deepworld.LOGGER.warn("Corrupted data for MultiblockHolder at " + this.getBlockPos());
             }
+
         } catch (Error error) {
             Deepworld.LOGGER.warn("Corrupted data for MultiblockHolder at " + this.getBlockPos());
             Deepworld.LOGGER.trace(error.getStackTrace());
@@ -215,8 +240,6 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
     public void load(CompoundTag tag) {
         super.load(tag);
         loadMultiblockData(tag);
-        updateState();
-        multiblockUpdate();
     }
 
     @Override
@@ -235,14 +258,19 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
 
     private void recursiveGetConnectedHolders(ArrayList<AbstractMultiblockHolder> list, Predicate<?> predicate) {
         for (Direction dir : Direction.values()) {
-            BlockEntity blockEntity = this.getLevel().getBlockEntity(this.getBlockPos().relative(dir));
-            if (blockEntity instanceof AbstractMultiblockHolder) {
-                AbstractMultiblockHolder holder = (AbstractMultiblockHolder) blockEntity;
+            AbstractMultiblockHolder holder = getHolderAt(level, this.getBlockPos().relative(dir));
+            if (holder != null) {
                 if (!list.contains(holder)) {
                     list.add(holder);
                     holder.recursiveGetConnectedHolders(list, predicate);
                 }
             }
         }
+    }
+
+    @Nullable
+    public static AbstractMultiblockHolder getHolderAt(BlockGetter level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        return blockEntity instanceof AbstractMultiblockHolder ? (AbstractMultiblockHolder) blockEntity : null;
     }
 }

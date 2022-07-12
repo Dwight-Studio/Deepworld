@@ -108,6 +108,7 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
+        getBlockEntity(level, pos).updateMultiblock();
         level.scheduleTick(pos, this, 1);
     }
 

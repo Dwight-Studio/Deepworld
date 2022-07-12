@@ -215,7 +215,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
     public void updateState() {}
 
     @Override
-    public AbstractMultiblockHolder computeMultiblock() {
+    public AbstractMultiblockHolder computeMultiblockPart() {
         AbstractMultiblockHolder[] entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getX() == this.getBlockPos().getX()
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getZ() == this.getBlockPos().getZ());
@@ -228,7 +228,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
     }
 
     @Override
-    public void multiblockUpdate() {
+    public void multiblockTick() {
         if (!this.isChild()) {
             int amount = Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
             FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);

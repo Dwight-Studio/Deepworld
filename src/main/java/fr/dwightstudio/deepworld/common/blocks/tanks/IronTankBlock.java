@@ -2,6 +2,8 @@ package fr.dwightstudio.deepworld.common.blocks.tanks;
 
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -119,14 +121,8 @@ public class IronTankBlock extends Block implements EntityBlock {
 
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
             IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.above());
-            if (blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid())) {
+            if (blockEntity.canJoin(blockEntity)) {
                 newBlockState = newBlockState.setValue(UP, true);
-                if (!blockEntity.isEmpty()) {
-                    int accepted = getBlockEntity(level, blockPos).fill(blockEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
-                    if (accepted != 0) {
-                        getBlockEntity(level, blockPos).fill(blockEntity.drain(accepted, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                    }
-                }
             } else {
                 newBlockState = newBlockState.setValue(UP, false);
             }
@@ -135,14 +131,8 @@ public class IronTankBlock extends Block implements EntityBlock {
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
             IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.below());
-            if (blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid())) {
+            if (blockEntity.canJoin(blockEntity)) {
                 newBlockState = newBlockState.setValue(DOWN, true);
-                if (!getBlockEntity(level, blockPos).isEmpty()) {
-                    int accepted = blockEntity.fill(getBlockEntity(level, blockPos).getFluid(), IFluidHandler.FluidAction.SIMULATE);
-                    if (accepted != 0) {
-                        blockEntity.fill((getBlockEntity(level, blockPos).drain(accepted, IFluidHandler.FluidAction.EXECUTE)), IFluidHandler.FluidAction.EXECUTE);
-                    }
-                }
             }
         } else {
             newBlockState = newBlockState.setValue(DOWN, false);

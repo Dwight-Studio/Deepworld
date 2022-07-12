@@ -1,13 +1,13 @@
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
 import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
+import fr.dwightstudio.deepworld.common.blockentities.multiblocks.AbstractMultiblockHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,12 +21,19 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IFluidHandler {
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements IFluidTank, IFluidHandler {
 
     private int capacity;
     private final int MAX_FILL_LEVEL;
 
     private FluidStack fluid;
+
 
     public SimpleTankBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int capacity) {
         super(blockEntityType, blockPos, blockState);
@@ -80,51 +87,21 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         return true;
     }
 
-    public boolean canConnect(FluidStack resource) {
-        if (resource.isEmpty()) return true;
-        if (this.isEmpty()) {
-            if (getLevel().getBlockEntity(getBlockPos().below()) instanceof SimpleTankBlockEntity) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.getLevel().getBlockEntity(getBlockPos().below());
-                if (blockEntity == null) return false;
-                if (blockEntity.isEmpty()) {
-                    return blockEntity.canConnect(resource);
-                } else {
-                    return blockEntity.getFluid().isFluidEqual(resource);
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return this.getFluid().isFluidEqual(resource);
-        }
-    }
-
     @Override
     public int fill(FluidStack resource, IFluidHandler.FluidAction action) {
-        if (this.isEmpty()) { // TODO: Rework filling process
-            if (this.getBlockState().getValue(IronTankBlock.DOWN)) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().below());
-                if (blockEntity.isFull()) {
-                    return applyFill(resource, action);
-                } else {
-                    return blockEntity.fill(resource, action);
-                }
-            } else {
-                return applyFill(resource, action);
-            }
-        } else if (this.willOverflow(resource)) {
-            if (this.getBlockState().getValue(IronTankBlock.UP)) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().above());
-                int amount = applyFill(resource, action);
-                resource.shrink(amount);
-                if (blockEntity == null) return amount;
-                return blockEntity.fill(resource, action) + amount;
-            } else {
-                return applyFill(resource, action);
-            }
+        FluidStack rtn = resource.copy();
+        int amount = resource.getAmount();
+
+        if (this.isChild()) {
+            return ((SimpleTankBlockEntity) this.getParent()).fill(resource, action);
         } else {
-            return applyFill(resource, action);
+            Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
+                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) holder;
+                rtn.shrink(blockEntity.applyFill(rtn, action));
+            });
         }
+
+        return amount - resource.getAmount();
     }
 
 
@@ -177,33 +154,19 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public @NotNull FluidStack drain(int maxDrain, IFluidHandler.FluidAction action) {
-        FluidStack returnValue = canDrain(maxDrain);
+        int amount = maxDrain;
+        FluidStack rtn = new FluidStack(this.getFluid(), maxDrain);
 
-        if (willDry(maxDrain)) {
-            if (this.getBlockState().getValue(IronTankBlock.DOWN)) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().below());
-                int amount = applyDrain(maxDrain, action).getAmount();
-                maxDrain -= amount;
-                FluidStack fluidStack = blockEntity.drain(maxDrain, action);
-                fluidStack.grow(amount);
-                return fluidStack;
-            } else {
-                return applyDrain(maxDrain, action);
-            }
-        } else if (this.isFull()) {
-            if (this.getBlockState().getValue(IronTankBlock.UP)) {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) this.level.getBlockEntity(getBlockPos().above());
-                if (blockEntity.isEmpty()) {
-                    return applyDrain(maxDrain, action);
-                } else {
-                    return blockEntity.drain(maxDrain, action);
-                }
-            } else {
-                return applyDrain(maxDrain, action);
-            }
+        if (this.isChild()) {
+            return ((SimpleTankBlockEntity) this.getParent()).drain(maxDrain, action);
         } else {
-            return applyDrain(maxDrain, action);
+            Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
+                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) holder;
+                rtn.shrink(blockEntity.applyDrain(rtn.getAmount(), action).getAmount());
+            });
         }
+
+        return new FluidStack(rtn.getFluid(), amount - rtn.getAmount());
     }
 
     @Override
@@ -245,6 +208,30 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
             }
         } else {
             return new FluidStack(FluidStack.EMPTY, 0);
+        }
+    }
+
+    @Override
+    public void updateState() {}
+
+    @Override
+    public AbstractMultiblockHolder computeMultiblock() {
+        AbstractMultiblockHolder[] entities = this.getConnectedHolders(SimpleTankBlockEntity.class::isInstance);
+        return Arrays.stream(entities).min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
+    }
+
+    @Override
+    public boolean canJoin(AbstractMultiblockHolder blockEntity) {
+        return ((SimpleTankBlockEntity) blockEntity.getParent()).getFluid().isFluidEqual(((SimpleTankBlockEntity) this.getParent()).getFluid());
+    }
+
+    @Override
+    public void multiblockUpdate() {
+        if (!this.isChild()) {
+            int amount = Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
+            FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);
+            Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
+            this.fill(nFluid, FluidAction.EXECUTE);
         }
     }
 
@@ -306,12 +293,8 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         return this.getCapacity() == this.getFluidAmount();
     }
 
-    public boolean willOverflow(FluidStack resource) {
-        return resource.getAmount() + this.getFluid().getAmount() > this.getCapacity();
-    }
-
-    public boolean willDry(int resource) {
-        return this.getFluid().getAmount() - resource < 0;
+    public void clear() {
+        this.fluid = FluidStack.EMPTY;
     }
 
     public float getFluidLevel() {

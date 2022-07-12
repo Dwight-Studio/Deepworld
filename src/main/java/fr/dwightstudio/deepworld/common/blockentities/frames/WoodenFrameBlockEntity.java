@@ -1,16 +1,22 @@
 package fr.dwightstudio.deepworld.common.blockentities.frames;
 
+import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstance;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class WoodenFrameBlockEntity extends BlockEntity {
 
@@ -50,29 +56,6 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         compound.putInt("TertiaryComponent", tertiaryComponent);
     }
 
-    /*
-     * Network handling
-     *
-     * getUpdatePacket() and onDataPacket() are used for one-at-a-time TileEntity updates
-     * getUpdateTag() and handleUpdateTag() are used by vanilla to collate together into a single chunk update packet
-     */
-    @Override
-    public @NotNull CompoundTag getUpdateTag() {
-
-        CompoundTag compound = new CompoundTag();
-        saveAdditional(compound);
-
-        return compound;
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundTag compound) {
-        this.load(compound);
-
-        if (this.level != null)
-            this.level.markAndNotifyBlock(this.worldPosition, this.level.getChunkAt(this.worldPosition), this.level.getBlockState(this.worldPosition), this.getBlockState(), Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
-    }
-
     // Get placed covers
     public int getCovers() {
         return covers;
@@ -104,7 +87,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
                 .setValue(WoodenFrameBlock.SECONDARY_COMPONENT, secondaryComponent)
                 .setValue(WoodenFrameBlock.TERTIARY_COMPONENT, tertiaryComponent);
         if (!newBlockState.equals(currentBlockState)) {
-            this.level.setBlock(this.worldPosition, newBlockState, 3);
+            this.level.setBlock(this.worldPosition, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
         }
     }
 
@@ -118,10 +101,9 @@ public class WoodenFrameBlockEntity extends BlockEntity {
             state = state.setValue(HorizontalDirectionalBlock.FACING, this.level.getBlockState(this.worldPosition).getValue(FrameBlock.FACING));
         }
 
-        assert this.level != null;
-        this.level.setBlockAndUpdate(this.worldPosition, state);
 
-        this.level.setBlocksDirty(this.worldPosition, this.level.getBlockState(this.worldPosition), state);
+        this.level.setBlock(this.worldPosition, state, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        sendUpdate();
     }
 
 
@@ -152,4 +134,28 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         this.tertiaryComponent = tertiaryComponent;
         updateBlockState();
     }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        load(tag);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+    }
+
+    private void sendUpdate() {
+        setChanged();
+        getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 512);
+    }
+
 }

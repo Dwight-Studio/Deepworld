@@ -46,7 +46,7 @@ public class FrameBlock extends HorizontalDirectionalBlock {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
-        level.markAndNotifyBlock(blockPos, level.getChunkAt(blockPos), level.getBlockState(blockPos), blockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        level.setBlock(blockPos, blockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
         return InteractionResult.PASS;
     }
 

@@ -7,11 +7,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -211,9 +213,9 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
         } else {
             return FluidStack.EMPTY;
         }
-        
+
     }
-    
+
     private FluidStack applyDrain(int maxDrain, IFluidHandler.FluidAction action) {
         FluidStack returnValue = canDrain(maxDrain);
 
@@ -284,6 +286,13 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     private void sendUpdate() {
         setChanged();
+        BlockState newBlockState = getBlockState();
+        if (this.getFluid().getFluid().defaultFluidState().createLegacyBlock().getBlock().getLightEmission(this.getFluid().getFluid().defaultFluidState().createLegacyBlock(), level, getBlockPos()) > 0) {
+             newBlockState = newBlockState.setValue(BlockStateProperties.LIT, true);
+        } else {
+            newBlockState = newBlockState.setValue(BlockStateProperties.LIT, false);
+        }
+        getLevel().setBlock(getBlockPos(), newBlockState, 2);
         getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 512);
     }
 

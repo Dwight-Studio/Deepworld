@@ -1,19 +1,13 @@
 package fr.dwightstudio.deepworld.common.blocks.tanks;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
-import net.minecraft.client.model.ModelUtils;
-import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -21,6 +15,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
@@ -28,19 +23,16 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.ToIntFunction;
 
 public class IronTankBlock extends Block implements EntityBlock {
 
@@ -52,7 +44,12 @@ public class IronTankBlock extends Block implements EntityBlock {
     public IronTankBlock() {
         super(Properties.of(Material.STONE)
                 .sound(SoundType.GLASS)
-                .noOcclusion());
+                .noOcclusion()
+                .lightLevel(litBlockEmission(15)));
+    }
+
+    private static ToIntFunction<BlockState> litBlockEmission(int lightLevel) {
+        return (p_50763_) -> p_50763_.getValue(BlockStateProperties.LIT) ? lightLevel : 0;
     }
 
     @Nullable
@@ -161,14 +158,15 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(UP, DOWN);
+        builder.add(UP, DOWN, BlockStateProperties.LIT);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext p_49820_) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(UP, false)
-                .setValue(DOWN, false);
+                .setValue(DOWN, false)
+                .setValue(BlockStateProperties.LIT, false);
     }
 }

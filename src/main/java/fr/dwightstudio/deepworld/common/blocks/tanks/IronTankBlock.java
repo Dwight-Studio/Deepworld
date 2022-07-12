@@ -1,12 +1,16 @@
-package fr.dwightstudio.deepworld.common.blocks;
+package fr.dwightstudio.deepworld.common.blocks.tanks;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
 import net.minecraft.client.model.ModelUtils;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -29,8 +33,10 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +44,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class IronTankBlock extends Block implements EntityBlock {
 
-    private IronTankBlockEntity blockEntity;
     private final VoxelShape shape = makeShape();
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
@@ -48,18 +53,18 @@ public class IronTankBlock extends Block implements EntityBlock {
         super(Properties.of(Material.STONE)
                 .sound(SoundType.GLASS)
                 .noOcclusion());
-
-        this.defaultBlockState()
-                .setValue(UP, false)
-                .setValue(DOWN, false);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        this.blockEntity = new IronTankBlockEntity(blockPos, blockState);
-        return this.blockEntity;
+        return new IronTankBlockEntity(blockPos, blockState);
     }
+
+    public IronTankBlockEntity getBlockEntity(Level level, BlockPos blockPos) {
+        return (IronTankBlockEntity) level.getBlockEntity(blockPos);
+    }
+
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
@@ -70,11 +75,11 @@ public class IronTankBlock extends Block implements EntityBlock {
 
             LazyOptional<IFluidHandlerItem> inputContainer = FluidUtil.getFluidHandler(player.getItemInHand(interactionHand));
 
-            if (inputContainer.map((fluidContainer) -> fluidContainer.getFluidInTank(0).isEmpty()).get()) {
+            if (inputContainer.isPresent() && inputContainer.map((fluidContainer) -> fluidContainer.getFluidInTank(0).isEmpty()).get()) {
                 level.levelEvent(1047, blockPos, 0);
-                if (FluidUtil.tryFillContainer(player.getItemInHand(interactionHand), this.blockEntity, this.blockEntity.getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
+                if (FluidUtil.tryFillContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
             } else {
-                if (FluidUtil.tryEmptyContainer(player.getItemInHand(interactionHand), this.blockEntity, this.blockEntity.getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
+                if (FluidUtil.tryEmptyContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
             }
             return InteractionResult.CONSUME;
         }
@@ -103,41 +108,8 @@ public class IronTankBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
-        BlockState newBlockState = state;
-
-        if (level.getBlockEntity(pos.above()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(UP, true);
-        } else {
-            newBlockState = newBlockState.setValue(UP, false);
-        }
-        if (level.getBlockEntity(pos.below()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(DOWN, true);
-        } else {
-            newBlockState = newBlockState.setValue(DOWN, false);
-        }
-
-        blockEntity.getLevel().setBlock(pos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
-    }
-
-    @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
-        super.neighborChanged(state, level, pos, p_60512_, p_60513_, p_60514_);
-
-        BlockState newBlockState = state;
-
-        if (level.getBlockEntity(pos.above()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(UP, true);
-        } else {
-            newBlockState = newBlockState.setValue(UP, false);
-        }
-        if (level.getBlockEntity(pos.below()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(DOWN, true);
-        } else {
-            newBlockState = newBlockState.setValue(DOWN, false);
-        }
-
-        blockEntity.getLevel().setBlock(pos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
+        this.onPlace(state, level, pos, defaultBlockState(), p_60514_);
     }
 
     @Override
@@ -145,12 +117,26 @@ public class IronTankBlock extends Block implements EntityBlock {
         BlockState newBlockState = blockState;
 
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(UP, true);
+            IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.above());
+            newBlockState = newBlockState.setValue(UP, blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid()));
+            if (!blockEntity.isEmpty()) {
+                int accepted = getBlockEntity(level, blockPos).fill(blockEntity.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+                if (accepted != 0) {
+                    getBlockEntity(level, blockPos).fill(blockEntity.drain(accepted, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                }
+            }
         } else {
             newBlockState = newBlockState.setValue(UP, false);
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
-            newBlockState = newBlockState.setValue(DOWN, true);
+            IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.below());
+            newBlockState = newBlockState.setValue(DOWN, blockEntity.canConnect(getBlockEntity(level, blockPos).getFluid()));
+            if (!getBlockEntity(level, blockPos).isEmpty()) {
+                int accepted = blockEntity.fill(getBlockEntity(level, blockPos).getFluid(), IFluidHandler.FluidAction.SIMULATE);
+                if (accepted != 0) {
+                    blockEntity.fill((getBlockEntity(level, blockPos).drain(accepted, IFluidHandler.FluidAction.EXECUTE)), IFluidHandler.FluidAction.EXECUTE);
+                }
+            }
         } else {
             newBlockState = newBlockState.setValue(DOWN, false);
         }
@@ -161,5 +147,13 @@ public class IronTankBlock extends Block implements EntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(UP, DOWN);
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext p_49820_) {
+        return this.defaultBlockState()
+                .setValue(UP, false)
+                .setValue(DOWN, false);
     }
 }

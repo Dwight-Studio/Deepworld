@@ -1,4 +1,4 @@
-package fr.dwightstudio.deepworld.common.blocks.machines.wood;
+package fr.dwightstudio.deepworld.common.blocks.frames;
 
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;

@@ -1,11 +1,9 @@
 package fr.dwightstudio.deepworld.common.blockentities.frames;
 
-import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstance;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
-import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenFrameBlock;
+import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

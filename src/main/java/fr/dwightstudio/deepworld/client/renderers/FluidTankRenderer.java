@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.tanks.SimpleTankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,9 +14,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
-import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEntity> {
@@ -31,12 +30,12 @@ public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEnt
     @Override
     public void render(@NotNull SimpleTankBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
         if (!blockEntity.isEmpty()) {
-            renderFluidInTank(poseStack, blockEntity.getFluid(), bufferSource, blockEntity.getFluidLevel());
+            renderFluidInTank(poseStack, blockEntity.getFluid(), bufferSource, blockEntity.getFluidLevel(), blockEntity);
 
         }
     }
 
-    private void renderFluidInTank(PoseStack poseStack, FluidStack fluidStack, MultiBufferSource bufferSource, float fluidLevel) {
+    private void renderFluidInTank(PoseStack poseStack, FluidStack fluidStack, MultiBufferSource bufferSource, float fluidLevel, SimpleTankBlockEntity blockEntity) {
         poseStack.pushPose();
         poseStack.translate(0.5d, 0.5d, 0.5d);
 
@@ -54,7 +53,9 @@ public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEnt
             poseStack.mulPose(Vector3f.YP.rotationDegrees(90));
         }
 
-        if (fluidLevel < 1.0f) {
+        BlockEntity above = blockEntity.getLevel().getBlockEntity(blockEntity.getBlockPos().above());
+
+        if (fluidLevel < 1.0f || (above instanceof SimpleTankBlockEntity && ((SimpleTankBlockEntity) above).isEmpty())) {
             this.renderTopFace(sprite, matrix4f, matrix3f, builder, color, fluidLevel);
         }
 

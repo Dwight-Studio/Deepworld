@@ -26,6 +26,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -238,7 +239,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
         BlockState newBlockstate = blockState.setValue(WoodenMachineBlock.WORKING, woodenMachineBlockEntity.inertia > 0);
         if (!newBlockstate.equals(blockState)) {
             woodenMachineBlockEntity.setChanged();
-            level.setBlockAndUpdate(blockPos, newBlockstate);
+            level.setBlock(blockPos, newBlockstate, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
         }
 
         if (woodenMachineBlockEntity.lastInertia < woodenMachineBlockEntity.inertia) woodenMachineBlockEntity.sendUpdate();

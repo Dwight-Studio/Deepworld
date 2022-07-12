@@ -216,7 +216,9 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
 
     @Override
     public AbstractMultiblockHolder computeMultiblock() {
-        AbstractMultiblockHolder[] entities = this.getConnectedHolders(SimpleTankBlockEntity.class::isInstance);
+        AbstractMultiblockHolder[] entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
+                && ((SimpleTankBlockEntity) holder).getBlockPos().getX() == this.getBlockPos().getX()
+                && ((SimpleTankBlockEntity) holder).getBlockPos().getZ() == this.getBlockPos().getZ());
         return Arrays.stream(entities).min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
     }
 

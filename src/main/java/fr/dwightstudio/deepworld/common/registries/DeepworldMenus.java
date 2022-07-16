@@ -12,8 +12,8 @@ public class DeepworldMenus {
     public static RegistryObject<MenuType<WoodenMachineMenu>> WOODEN_GEAR_SHAPER;
 
     public DeepworldMenus() {
-        WOODEN_LATHE = Deepworld.MENU.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new));
-        WOODEN_PRESS = Deepworld.MENU.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new));
-        WOODEN_GEAR_SHAPER = Deepworld.MENU.register("wooden_gear_shaper", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_LATHE = Deepworld.MENU_TYPES.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_PRESS = Deepworld.MENU_TYPES.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_GEAR_SHAPER = Deepworld.MENU_TYPES.register("wooden_gear_shaper", () -> new MenuType<>(WoodenMachineMenu::new));
     }
 }

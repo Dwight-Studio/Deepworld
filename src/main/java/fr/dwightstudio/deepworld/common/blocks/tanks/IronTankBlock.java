@@ -1,7 +1,9 @@
 package fr.dwightstudio.deepworld.common.blocks.tanks;
 
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +36,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.util.function.ToIntFunction;
 
 public class IronTankBlock extends Block implements EntityBlock {

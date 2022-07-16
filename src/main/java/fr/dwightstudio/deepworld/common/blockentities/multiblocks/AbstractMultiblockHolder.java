@@ -11,6 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,12 +28,13 @@ import java.util.function.Predicate;
 public abstract class AbstractMultiblockHolder extends BlockEntity {
 
     private BlockPos parent;
-    private BlockPos[] blocks = new BlockPos[0];
+    private BlockPos[] blocks;
 
     public AbstractMultiblockHolder(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
 
         parent = blockPos;
+        blocks = new BlockPos[]{parent};
     }
 
     /**
@@ -69,7 +71,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
         });
 
         for (AbstractMultiblockHolder parentHolder : map.keySet()) {
-            parentHolder.setBlocks(map.getOrDefault(parent, new ArrayList<>()).toArray(BlockPos[]::new));
+            parentHolder.setBlocks(map.getOrDefault((AbstractMultiblockHolder) level.getBlockEntity(parent), new ArrayList<>()).toArray(BlockPos[]::new));
         }
 
         this.multiblockTick();
@@ -111,6 +113,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return true if this is a child, false otherwise
      */
     public final boolean isChild() {
+
         return !parent.equals(this.getBlockPos());
     }
 

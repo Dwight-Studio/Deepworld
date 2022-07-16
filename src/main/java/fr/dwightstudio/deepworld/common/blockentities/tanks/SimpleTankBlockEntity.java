@@ -1,6 +1,6 @@
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
-import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.multiblocks.AbstractMultiblockHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,13 +18,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements IFluidTank, IFluidHandler {
@@ -101,7 +100,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
             });
         }
 
-        return amount - resource.getAmount();
+        return amount - rtn.getAmount();
     }
 
 

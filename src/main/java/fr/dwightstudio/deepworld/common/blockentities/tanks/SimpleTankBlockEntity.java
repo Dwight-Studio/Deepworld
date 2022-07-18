@@ -1,3 +1,17 @@
+/*
+ *     ____           _       __    __     _____ __            ___
+ *    / __ \_      __(_)___ _/ /_  / /_   / ___// /___  ______/ (_)___
+ *   / / / / | /| / / / __ `/ __ \/ __/   \__ \/ __/ / / / __  / / __ \
+ *  / /_/ /| |/ |/ / / /_/ / / / / /_    ___/ / /_/ /_/ / /_/ / / /_/ /
+ * /_____/ |__/|__/_/\__, /_/ /_/\__/   /____/\__/\__,_/\__,_/_/\____/
+ *                  /____/
+ * Copyright (c) 2022-2022 Dwight Studio's Team <support@dwight-studio.fr>
+ *
+ * This Source Code From is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/ .
+ */
+
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
@@ -92,6 +106,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         int amount = resource.getAmount();
 
         if (this.isChild()) {
+            Deepworld.LOGGER.log(Level.DEBUG, "coucou");
             return ((SimpleTankBlockEntity) this.getParent()).fill(resource, action);
         } else {
             Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
@@ -218,6 +233,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         AbstractMultiblockHolder[] entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getX() == this.getBlockPos().getX()
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getZ() == this.getBlockPos().getZ());
+
         return Arrays.stream(entities).min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
     }
 

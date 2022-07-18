@@ -1,3 +1,17 @@
+/*
+ *     ____           _       __    __     _____ __            ___
+ *    / __ \_      __(_)___ _/ /_  / /_   / ___// /___  ______/ (_)___
+ *   / / / / | /| / / / __ `/ __ \/ __/   \__ \/ __/ / / / __  / / __ \
+ *  / /_/ /| |/ |/ / / /_/ / / / / /_    ___/ / /_/ /_/ / /_/ / / /_/ /
+ * /_____/ |__/|__/_/\__, /_/ /_/\__/   /____/\__/\__,_/\__,_/_/\____/
+ *                  /____/
+ * Copyright (c) 2022-2022 Dwight Studio's Team <support@dwight-studio.fr>
+ *
+ * This Source Code From is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/ .
+ */
+
 package fr.dwightstudio.deepworld.common.blocks.tanks;
 
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
@@ -110,7 +124,7 @@ public class IronTankBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos blockPos, boolean p_60514_) {
         getBlockEntity(level, pos).updateMultiblock();
         level.scheduleTick(pos, this, 1);
     }
@@ -123,8 +137,7 @@ public class IronTankBlock extends Block implements EntityBlock {
     private void updateTank(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         BlockState newBlockState = blockState;
 
-        if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity) {
-            IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.above());
+        if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity blockEntity) {
             if (blockEntity.canJoin(blockEntity)) {
                 newBlockState = newBlockState.setValue(UP, true);
             } else {
@@ -133,8 +146,7 @@ public class IronTankBlock extends Block implements EntityBlock {
         } else {
             newBlockState = newBlockState.setValue(UP, false);
         }
-        if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity) {
-            IronTankBlockEntity blockEntity = (IronTankBlockEntity) level.getBlockEntity(blockPos.below());
+        if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity blockEntity) {
             if (blockEntity.canJoin(blockEntity)) {
                 newBlockState = newBlockState.setValue(DOWN, true);
             }
@@ -146,7 +158,7 @@ public class IronTankBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void tick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource p_222948_) {
+    public void tick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource p_222948_) {
         updateTank(blockState, level, blockPos);
     }
 
@@ -157,7 +169,7 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(UP, false)
                 .setValue(DOWN, false)

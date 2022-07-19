@@ -105,8 +105,8 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         FluidStack rtn = resource.copy();
         int amount = resource.getAmount();
 
+
         if (this.isChild()) {
-            Deepworld.LOGGER.log(Level.DEBUG, "coucou");
             return ((SimpleTankBlockEntity) this.getParent()).fill(resource, action);
         } else {
             Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
@@ -121,6 +121,10 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
 
     private int applyFill(FluidStack resource, IFluidHandler.FluidAction action) {
         int returnValue = canFill(resource);
+
+        if (resource.isEmpty()) {
+            return 0;
+        }
 
         if (action == FluidAction.EXECUTE) {
             if (this.fluid.isEmpty()) {
@@ -247,7 +251,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         if (!this.isChild()) {
             int amount = Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
             FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);
-            Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
+            //Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
             this.fill(nFluid, FluidAction.EXECUTE);
         }
     }

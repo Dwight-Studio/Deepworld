@@ -80,6 +80,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
         Arrays.stream(this.getConnectedHolders(arg -> true)).forEach(holder -> {
             AbstractMultiblockHolder parent = holder.computeMultiblockPart();
             ArrayList<BlockPos> list = map.getOrDefault(parent, new ArrayList<>());
+            holder.setParent(parent.getBlockPos());
             list.add(holder.getBlockPos());
             map.put(parent, list);
         });

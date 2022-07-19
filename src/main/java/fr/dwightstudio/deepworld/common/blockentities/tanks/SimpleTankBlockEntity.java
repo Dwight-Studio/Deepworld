@@ -105,6 +105,9 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         FluidStack rtn = resource.copy();
         int amount = resource.getAmount();
 
+        if (resource.isEmpty()) {
+            return 0;
+        }
 
         if (this.isChild()) {
             return ((SimpleTankBlockEntity) this.getParent()).fill(resource, action);
@@ -252,7 +255,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
             int amount = Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
             FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);
             //Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
-            this.fill(nFluid, FluidAction.EXECUTE);
+            //this.fill(nFluid, FluidAction.EXECUTE);
         }
     }
 

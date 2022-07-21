@@ -14,32 +14,46 @@
 
 package fr.dwightstudio.deepworld.client.sounds.machines;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.registries.DeepworldSoundEvents;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @OnlyIn(Dist.CLIENT)
 public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {
 
+    private static Map<BlockPos, WoodenMachineSoundInstance> INSTANCES = new HashMap<>();
+
     private final WoodenMachineBlockEntity blockEntity;
 
-    public WoodenMachineSoundInstance(WoodenMachineBlockEntity blockEntity) {
-        super(DeepworldSoundEvents.WOODEN_MACHINE.get(), SoundSource.BLOCKS, SoundInstance.createUnseededRandom());
+    public static void play(WoodenMachineBlockEntity blockEntity) {
+        if (!(INSTANCES.containsKey(blockEntity.getBlockPos()) && Minecraft.getInstance().getSoundManager().isActive(INSTANCES.get(blockEntity.getBlockPos())))) {
+            WoodenMachineSoundInstance sd = new WoodenMachineSoundInstance(blockEntity);
+            INSTANCES.put(blockEntity.getBlockPos(), sd);
+        }
+    }
+    private WoodenMachineSoundInstance(WoodenMachineBlockEntity blockEntity) {
+        super(DeepworldSoundEvents.WOODEN_MACHINE.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.blockEntity = blockEntity;
         this.looping = true;
         this.delay = 0;
         this.volume = 0.0F;
-        this.attenuation = Attenuation.LINEAR; //TODO: Implement attenuation
         updateBlockPos();
     }
 
     @Override
     public void tick() {
         if (!this.isStopped() && !blockEntity.isRemoved()) {
+            updateBlockPos();
             this.volume = (float) blockEntity.inertia / (float) WoodenMachineBlockEntity.MAX_INERTIA;
         } else {
             this.stop();
@@ -47,9 +61,9 @@ public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {
     }
 
     private void updateBlockPos() {
-        this.x = blockEntity.getBlockPos().getX();
-        this.y = blockEntity.getBlockPos().getY();
-        this.z = blockEntity.getBlockPos().getZ();
+        this.x = (float) blockEntity.getBlockPos().getX();
+        this.y = (float) blockEntity.getBlockPos().getY();
+        this.z = (float) blockEntity.getBlockPos().getZ();
     }
 
     @Override

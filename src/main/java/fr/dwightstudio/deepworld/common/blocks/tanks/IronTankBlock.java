@@ -15,9 +15,7 @@
 package fr.dwightstudio.deepworld.common.blocks.tanks;
 
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -45,12 +43,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.util.function.ToIntFunction;
 
 public class IronTankBlock extends Block implements EntityBlock {
@@ -131,14 +127,14 @@ public class IronTankBlock extends Block implements EntityBlock {
 
     @Override
     public void onPlace(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState oldBlockState, boolean p_60570_) {
-        updateTank(blockState, level, blockPos);
+        level.scheduleTick(blockPos, this, 1);
     }
 
     private void updateTank(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         BlockState newBlockState = blockState;
 
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity blockEntity) {
-            if (blockEntity.canJoin(blockEntity)) {
+            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
                 newBlockState = newBlockState.setValue(UP, true);
             } else {
                 newBlockState = newBlockState.setValue(UP, false);
@@ -147,7 +143,7 @@ public class IronTankBlock extends Block implements EntityBlock {
             newBlockState = newBlockState.setValue(UP, false);
         }
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity blockEntity) {
-            if (blockEntity.canJoin(blockEntity)) {
+            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
                 newBlockState = newBlockState.setValue(DOWN, true);
             }
         } else {

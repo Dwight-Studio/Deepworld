@@ -15,7 +15,6 @@
 package fr.dwightstudio.deepworld.common.blockentities.multiblocks;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -25,21 +24,18 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.apache.logging.log4j.Level;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Optional;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
  * Extends this class to use Multiblock mechanics
  */
-public abstract class AbstractMultiblockHolder extends BlockEntity {
+public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolder<H>> extends BlockEntity {
 
     private BlockPos parent;
     private BlockPos[] blocks;
@@ -55,7 +51,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @return true if the MultiblockHolder is actually in a Multiblock structure
      */
     public final boolean isInMultiblock() {
-        return blocks.length != 0 || isChild();
+        return blocks.length != 1 || isChild();
     }
 
     /**
@@ -68,25 +64,24 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * @implNote If you want to get connected holder, {@see getConnectedHolders()}
      * @return the (new) parent of the MultiblockHolder, may be self
      */
-    protected abstract AbstractMultiblockHolder computeMultiblockPart();
+    protected abstract H computeMultiblockPart();
 
     /**
      * Updates Multiblock internal structure
      * @implSpec Must be called when a block of the structure is updated (neighborChanged)
-     * @return the
      */
     public final void updateMultiblock() {
-        HashMap<AbstractMultiblockHolder, ArrayList<BlockPos>> map = new HashMap<>();
-        Arrays.stream(this.getConnectedHolders(arg -> true)).forEach(holder -> {
-            AbstractMultiblockHolder parent = holder.computeMultiblockPart();
+        HashMap<H, ArrayList<BlockPos>> map = new HashMap<>();
+        this.getConnectedHolders(arg -> true).stream().forEach(holder -> {
+            H parent = holder.computeMultiblockPart();
             ArrayList<BlockPos> list = map.getOrDefault(parent, new ArrayList<>());
             holder.setParent(parent.getBlockPos());
             list.add(holder.getBlockPos());
             map.put(parent, list);
         });
 
-        for (AbstractMultiblockHolder parentHolder : map.keySet()) {
-            parentHolder.setBlocks(map.getOrDefault((AbstractMultiblockHolder) level.getBlockEntity(parent), new ArrayList<>()).toArray(BlockPos[]::new));
+        for (H parentHolder : map.keySet()) {
+            parentHolder.setBlocks(map.getOrDefault(getHolderAt(level, parent), new ArrayList<>()).toArray(BlockPos[]::new));
         }
 
         this.multiblockTick();
@@ -94,17 +89,17 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
 
     /**
      * Gets all the blocks of the Multiblock
-     * @return an Array of BlockEntity objects
+     * @return a list of BlockEntity objects
      */
-    public AbstractMultiblockHolder[] getMultiblockHolders() {
-        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> getHolderAt(level, blockPos)).toArray(AbstractMultiblockHolder[]::new) : new AbstractMultiblockHolder[0];
+    public List<H> getMultiblockHolders() {
+        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> this.getHolderAt(level, blockPos)).toList() : new ArrayList<H>();
     }
 
     /**
      * Sets the blocks in the parent MultiblockHolder
      * @param blocks an Array of {@link BlockPos}
      */
-    private void setBlocks(BlockPos[] blocks) {
+    void setBlocks(BlockPos[] blocks) {
         this.blocks = blocks;
     }
 
@@ -112,7 +107,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * Gets the parent of the Multiblock from the supplied implementation of {@link BlockGetter}
      * @return the parent MultiblockHolder
      */
-    public final AbstractMultiblockHolder getParent() {
+    public final H getParent() {
         return getHolderAt(level, this.parent);
     }
 
@@ -120,7 +115,7 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
      * Sets the parent of MultiblockHolder
      * @param parent a {@link BlockPos}
      */
-    private void setParent(BlockPos parent) {
+    void setParent(BlockPos parent) {
         this.parent = parent;
     }
 
@@ -133,11 +128,11 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
     }
 
     /**
-     * Tests if a {@link BlockEntity} can join this Multiblock
+     * Tests if a {@link BlockEntity} can connect to (join) this Multiblock, should return the same result if called on the other holder (x.canConnect(y) equals to y.canConnect(x))
      * @param blockEntity the {@link BlockEntity} to test
-     * @return true if the block can be joined, false otherwise
+     * @return true if the block can connect, false otherwise
      */
-    public abstract boolean canJoin(AbstractMultiblockHolder blockEntity);
+    public abstract boolean canConnect(H blockEntity);
 
     /**
      * Updates the entire Multiblock logic {@see computeMultiblock to update structure}
@@ -266,17 +261,17 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
         saveMultiblockData(tag);
     }
 
-    public final <T> AbstractMultiblockHolder[] getConnectedHolders(Predicate<?> predicate) {
-        ArrayList<AbstractMultiblockHolder> list = new ArrayList<>();
-        list.add(this);
+    public final List<H> getConnectedHolders(Predicate<?> predicate) {
+        ArrayList<H> list = new ArrayList<>();
+        list.add((H) this);
         recursiveGetConnectedHolders(list, predicate);
 
-        return list.toArray(AbstractMultiblockHolder[]::new);
+        return list;
     }
 
-    private void recursiveGetConnectedHolders(ArrayList<AbstractMultiblockHolder> list, Predicate<?> predicate) {
+    void recursiveGetConnectedHolders(ArrayList<H> list, Predicate<?> predicate) {
         for (Direction dir : Direction.values()) {
-            AbstractMultiblockHolder holder = getHolderAt(level, this.getBlockPos().relative(dir));
+            H holder = this.getHolderAt(level, this.getBlockPos().relative(dir));
             if (holder != null) {
                 if (!list.contains(holder)) {
                     list.add(holder);
@@ -287,8 +282,12 @@ public abstract class AbstractMultiblockHolder extends BlockEntity {
     }
 
     @Nullable
-    public static AbstractMultiblockHolder getHolderAt(BlockGetter level, BlockPos pos) {
+    public H getHolderAt(BlockGetter level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        return blockEntity instanceof AbstractMultiblockHolder ? (AbstractMultiblockHolder) blockEntity : null;
+        try {
+            return (H) blockEntity;
+        } catch (ClassCastException exception) {
+            return null;
+        }
     }
 }

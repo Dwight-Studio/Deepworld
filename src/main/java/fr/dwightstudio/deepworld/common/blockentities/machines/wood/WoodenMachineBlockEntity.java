@@ -333,8 +333,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
     @Override
     public void onLoad() {
         if (level != null && level.isClientSide()) {
-            Minecraft.getInstance().getSoundManager().queueTickingSound(new WoodenMachineSoundInstance(this));
-            //TODO: Create sound when needed
+            WoodenMachineSoundInstance.play(this);
         }
     }
 

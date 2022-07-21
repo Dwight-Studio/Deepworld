@@ -14,7 +14,6 @@
 
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.multiblocks.AbstractMultiblockHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,15 +31,15 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Stream;
 
-public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements IFluidTank, IFluidHandler {
+public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBlockEntity> implements IFluidTank, IFluidHandler {
 
     private int capacity;
     private final int MAX_FILL_LEVEL;
@@ -110,12 +109,9 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         }
 
         if (this.isChild()) {
-            return ((SimpleTankBlockEntity) this.getParent()).fill(resource, action);
+            return this.getParent().fill(resource, action);
         } else {
-            Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) holder;
-                rtn.shrink(blockEntity.applyFill(rtn, action));
-            });
+            this.getMultiblockHolders().stream().sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> rtn.shrink(holder.applyFill(rtn, action)));
         }
 
         return amount - rtn.getAmount();
@@ -179,10 +175,10 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
         FluidStack rtn = new FluidStack(this.getFluid(), maxDrain);
 
         if (this.isChild()) {
-            return ((SimpleTankBlockEntity) this.getParent()).drain(maxDrain, action);
+            return this.getParent().drain(maxDrain, action);
         } else {
-            Arrays.stream(this.getMultiblockHolders()).sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
-                SimpleTankBlockEntity blockEntity = (SimpleTankBlockEntity) holder;
+            this.getMultiblockHolders().stream().sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> {
+                SimpleTankBlockEntity blockEntity = holder;
                 rtn.shrink(blockEntity.applyDrain(rtn.getAmount(), action).getAmount());
             });
         }
@@ -236,23 +232,23 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder implements I
     public void updateState() {}
 
     @Override
-    public AbstractMultiblockHolder computeMultiblockPart() {
-        AbstractMultiblockHolder[] entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
+    public SimpleTankBlockEntity computeMultiblockPart() {
+        List<SimpleTankBlockEntity> entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getX() == this.getBlockPos().getX()
                 && ((SimpleTankBlockEntity) holder).getBlockPos().getZ() == this.getBlockPos().getZ());
 
-        return Arrays.stream(entities).min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
+        return entities.stream().min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
     }
 
     @Override
-    public boolean canJoin(AbstractMultiblockHolder blockEntity) {
-        return ((SimpleTankBlockEntity) blockEntity.getParent()).getFluid().isFluidEqual(((SimpleTankBlockEntity) this.getParent()).getFluid());
+    public boolean canConnect(SimpleTankBlockEntity simpleTank) {
+        return simpleTank.isEmpty() || simpleTank.getFluid().isFluidEqual(this.getParent().getFluid());
     }
 
     @Override
     public void multiblockTick() {
         if (!this.isChild()) {
-            int amount = Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
+            int amount = this.getMultiblockHolders().stream().mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
             FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);
             //Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
             //this.fill(nFluid, FluidAction.EXECUTE);

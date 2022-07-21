@@ -14,6 +14,7 @@
 
 package fr.dwightstudio.deepworld.common.blockentities.tanks;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.multiblocks.AbstractMultiblockHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,19 +26,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBlockEntity> implements IFluidTank, IFluidHandler {
 
@@ -104,6 +107,8 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
         FluidStack rtn = resource.copy();
         int amount = resource.getAmount();
 
+        Deepworld.LOGGER.log(Level.DEBUG, resource.isEmpty());
+
         if (resource.isEmpty()) {
             return 0;
         }
@@ -111,7 +116,8 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
         if (this.isChild()) {
             return this.getParent().fill(resource, action);
         } else {
-            this.getMultiblockHolders().stream().sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder -> rtn.shrink(holder.applyFill(rtn, action)));
+            this.getMultiblockHolders().stream().sorted(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).forEachOrdered(holder ->
+                    rtn.shrink(holder.applyFill(rtn, action)));
         }
 
         return amount - rtn.getAmount();
@@ -242,16 +248,24 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
 
     @Override
     public boolean canConnect(SimpleTankBlockEntity simpleTank) {
-        return simpleTank.isEmpty() || simpleTank.getFluid().isFluidEqual(this.getParent().getFluid());
+        return simpleTank.getParent().isEmpty() || this.getParent().isEmpty() || simpleTank.getParent().getFluid().isFluidEqual(this.getParent().getFluid());
     }
 
     @Override
     public void multiblockTick() {
         if (!this.isChild()) {
-            int amount = this.getMultiblockHolders().stream().mapToInt(SimpleTankBlockEntity::getFluidAmount).sum();
-            FluidStack nFluid = new FluidStack(this.getFluid().getFluid(), amount);
-            //Stream.of(this.getMultiblockHolders()).map(holder -> (SimpleTankBlockEntity) holder).forEach(SimpleTankBlockEntity::clear);
-            //this.fill(nFluid, FluidAction.EXECUTE);
+            AtomicReference<Fluid> fluid = new AtomicReference<>(FluidStack.EMPTY.getFluid());
+            int amount = this.getMultiblockHolders().stream().mapToInt((holder) -> {
+                if (!holder.getFluid().isEmpty()) fluid.set(holder.getFluid().getFluid());
+
+                return holder.getFluidAmount();
+            }).sum();
+
+            FluidStack nFluid = new FluidStack(fluid.get(), amount);
+            Deepworld.LOGGER.log(Level.DEBUG, nFluid.getFluid());
+            this.getMultiblockHolders().stream().forEach(SimpleTankBlockEntity::clear);
+            Deepworld.LOGGER.log(Level.DEBUG, nFluid.getFluid());
+            this.fill(nFluid, FluidAction.EXECUTE);
         }
     }
 
@@ -315,6 +329,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
 
     public void clear() {
         this.fluid = FluidStack.EMPTY;
+        sendUpdate();
     }
 
     public float getFluidLevel() {

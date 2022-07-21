@@ -16,6 +16,7 @@ package fr.dwightstudio.deepworld.common.blocks.tanks;
 
 import fr.dwightstudio.deepworld.common.blockentities.tanks.IronTankBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -133,6 +134,14 @@ public class IronTankBlock extends Block implements EntityBlock {
     private void updateTank(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         BlockState newBlockState = blockState;
 
+        if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity blockEntity) {
+            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
+                getBlockEntity(level, blockPos).setParent(blockEntity.getParent().getBlockPos());
+                newBlockState = newBlockState.setValue(DOWN, true);
+            }
+        } else {
+            newBlockState = newBlockState.setValue(DOWN, false);
+        }
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity blockEntity) {
             if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
                 newBlockState = newBlockState.setValue(UP, true);
@@ -141,13 +150,6 @@ public class IronTankBlock extends Block implements EntityBlock {
             }
         } else {
             newBlockState = newBlockState.setValue(UP, false);
-        }
-        if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity blockEntity) {
-            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
-                newBlockState = newBlockState.setValue(DOWN, true);
-            }
-        } else {
-            newBlockState = newBlockState.setValue(DOWN, false);
         }
 
         level.setBlock(blockPos, newBlockState, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);

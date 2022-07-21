@@ -24,6 +24,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @return true if the MultiblockHolder is actually in a Multiblock structure
      */
     public final boolean isInMultiblock() {
-        return blocks.length != 1 || isChild();
+        return blocks.length != 0 || isChild();
     }
 
     /**
@@ -92,7 +93,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @return a list of BlockEntity objects
      */
     public List<H> getMultiblockHolders() {
-        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> this.getHolderAt(level, blockPos)).toList() : new ArrayList<H>();
+        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> this.getHolderAt(level, blockPos)).toList() : new ArrayList<>();
     }
 
     /**
@@ -115,7 +116,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * Sets the parent of MultiblockHolder
      * @param parent a {@link BlockPos}
      */
-    void setParent(BlockPos parent) {
+    public void setParent(BlockPos parent) {
         this.parent = parent;
     }
 
@@ -239,10 +240,10 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @throws IllegalAccessError when called on a non parent MultiblockHolder
      * @param newParent the new parent
      */
-    public void transferParent(AbstractMultiblockHolder newParent) {
+    public void transferParent(H newParent) {
         if (this.isChild()) throw new IllegalAccessError("Cannot transfer parent properties from non parent MultiblockHolder");
         
-        for (AbstractMultiblockHolder block : getMultiblockHolders()) {
+        for (H block : getMultiblockHolders()) {
             block.setParent(newParent.getBlockPos());
         }
 

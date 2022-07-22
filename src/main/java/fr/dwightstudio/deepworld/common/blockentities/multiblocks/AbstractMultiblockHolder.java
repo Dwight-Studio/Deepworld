@@ -24,6 +24,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @return true if the MultiblockHolder is actually in a Multiblock structure
      */
     public final boolean isInMultiblock() {
-        return blocks.length != 1 || isChild();
+        return blocks.length != 0 || isChild();
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @return a list of BlockEntity objects
      */
     public List<H> getMultiblockHolders() {
-        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> this.getHolderAt(level, blockPos)).toList() : new ArrayList<H>();
+        return isInMultiblock() ? Arrays.stream(this.blocks).map(blockPos -> this.getHolderAt(level, blockPos)).toList() : new ArrayList<>();
     }
 
     /**
@@ -121,7 +122,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      *
      * @param parent a {@link BlockPos}
      */
-    void setParent(BlockPos parent) {
+    public void setParent(BlockPos parent) {
         this.parent = parent;
     }
 
@@ -237,16 +238,14 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      *
      * @param tag a {@link CompoundTag} object
      */
-    public void saveMultiblockAdditionnalData(CompoundTag tag) {
-    }
+    public void saveMultiblockAdditionnalData(CompoundTag tag) {}
 
     /**
      * Handle the customData of the Multiblock from a {@link CompoundTag}
      *
      * @param tag a {@link CompoundTag} object
      */
-    public void loadMultiblockAdditionnalData(CompoundTag tag) {
-    }
+    public void loadMultiblockAdditionnalData(CompoundTag tag) {}
 
     /**
      * Transfers parent properties to another MultiblockHolder
@@ -254,11 +253,11 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      * @param newParent the new parent
      * @throws IllegalAccessError when called on a non parent MultiblockHolder
      */
-    public void transferParent(AbstractMultiblockHolder newParent) {
+    public void transferParent(H newParent) {
         if (this.isChild())
             throw new IllegalAccessError("Cannot transfer parent properties from non parent MultiblockHolder");
 
-        for (AbstractMultiblockHolder block : getMultiblockHolders()) {
+        for (H block : getMultiblockHolders()) {
             block.setParent(newParent.getBlockPos());
         }
 

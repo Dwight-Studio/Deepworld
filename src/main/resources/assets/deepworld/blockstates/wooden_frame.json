@@ -6,115 +6,287 @@
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "1"},
-        {"cover":  "2"},
-        {"cover":  "3"},
-        {"cover":  "4"},
-        {"cover":  "5"},
-        {"cover":  "6"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "1"
+          },
+          {
+            "cover": "2"
+          },
+          {
+            "cover": "3"
+          },
+          {
+            "cover": "4"
+          },
+          {
+            "cover": "5"
+          },
+          {
+            "cover": "6"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_bottom"
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "5"},
-        {"cover":  "6"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "5"
+          },
+          {
+            "cover": "6"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_top"
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "6", "facing": "north"},
-
-        {"cover":  "4", "facing": "east"},
-        {"cover":  "5", "facing": "east"},
-        {"cover":  "6", "facing": "east"},
-
-        {"cover":  "3", "facing": "south"},
-        {"cover":  "4", "facing": "south"},
-        {"cover":  "5", "facing": "south"},
-        {"cover":  "6", "facing": "south"},
-
-        {"cover":  "2", "facing": "west"},
-        {"cover":  "3", "facing": "west"},
-        {"cover":  "4", "facing": "west"},
-        {"cover":  "5", "facing": "west"},
-        {"cover":  "6", "facing": "west"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "6",
+            "facing": "north"
+          },
+          {
+            "cover": "4",
+            "facing": "east"
+          },
+          {
+            "cover": "5",
+            "facing": "east"
+          },
+          {
+            "cover": "6",
+            "facing": "east"
+          },
+          {
+            "cover": "3",
+            "facing": "south"
+          },
+          {
+            "cover": "4",
+            "facing": "south"
+          },
+          {
+            "cover": "5",
+            "facing": "south"
+          },
+          {
+            "cover": "6",
+            "facing": "south"
+          },
+          {
+            "cover": "2",
+            "facing": "west"
+          },
+          {
+            "cover": "3",
+            "facing": "west"
+          },
+          {
+            "cover": "4",
+            "facing": "west"
+          },
+          {
+            "cover": "5",
+            "facing": "west"
+          },
+          {
+            "cover": "6",
+            "facing": "west"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_front"
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "6", "facing": "south"},
-
-        {"cover":  "4", "facing": "east"},
-        {"cover":  "5", "facing": "east"},
-        {"cover":  "6", "facing": "east"},
-
-        {"cover":  "3", "facing": "north"},
-        {"cover":  "4", "facing": "north"},
-        {"cover":  "5", "facing": "north"},
-        {"cover":  "6", "facing": "north"},
-
-        {"cover":  "2", "facing": "east"},
-        {"cover":  "3", "facing": "east"},
-        {"cover":  "4", "facing": "east"},
-        {"cover":  "5", "facing": "east"},
-        {"cover":  "6", "facing": "east"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "6",
+            "facing": "south"
+          },
+          {
+            "cover": "4",
+            "facing": "east"
+          },
+          {
+            "cover": "5",
+            "facing": "east"
+          },
+          {
+            "cover": "6",
+            "facing": "east"
+          },
+          {
+            "cover": "3",
+            "facing": "north"
+          },
+          {
+            "cover": "4",
+            "facing": "north"
+          },
+          {
+            "cover": "5",
+            "facing": "north"
+          },
+          {
+            "cover": "6",
+            "facing": "north"
+          },
+          {
+            "cover": "2",
+            "facing": "east"
+          },
+          {
+            "cover": "3",
+            "facing": "east"
+          },
+          {
+            "cover": "4",
+            "facing": "east"
+          },
+          {
+            "cover": "5",
+            "facing": "east"
+          },
+          {
+            "cover": "6",
+            "facing": "east"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_back"
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "6", "facing": "west"},
-
-        {"cover":  "4", "facing": "south"},
-        {"cover":  "5", "facing": "south"},
-        {"cover":  "6", "facing": "south"},
-
-        {"cover":  "3", "facing": "east"},
-        {"cover":  "4", "facing": "east"},
-        {"cover":  "5", "facing": "east"},
-        {"cover":  "6", "facing": "east"},
-
-        {"cover":  "2", "facing": "north"},
-        {"cover":  "3", "facing": "north"},
-        {"cover":  "4", "facing": "north"},
-        {"cover":  "5", "facing": "north"},
-        {"cover":  "6", "facing": "north"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "6",
+            "facing": "west"
+          },
+          {
+            "cover": "4",
+            "facing": "south"
+          },
+          {
+            "cover": "5",
+            "facing": "south"
+          },
+          {
+            "cover": "6",
+            "facing": "south"
+          },
+          {
+            "cover": "3",
+            "facing": "east"
+          },
+          {
+            "cover": "4",
+            "facing": "east"
+          },
+          {
+            "cover": "5",
+            "facing": "east"
+          },
+          {
+            "cover": "6",
+            "facing": "east"
+          },
+          {
+            "cover": "2",
+            "facing": "north"
+          },
+          {
+            "cover": "3",
+            "facing": "north"
+          },
+          {
+            "cover": "4",
+            "facing": "north"
+          },
+          {
+            "cover": "5",
+            "facing": "north"
+          },
+          {
+            "cover": "6",
+            "facing": "north"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_left"
       }
     },
     {
-      "when": { "OR" : [
-        {"cover":  "6", "facing": "east"},
-
-        {"cover":  "4", "facing": "north"},
-        {"cover":  "5", "facing": "north"},
-        {"cover":  "6", "facing": "north"},
-
-        {"cover":  "3", "facing": "west"},
-        {"cover":  "4", "facing": "west"},
-        {"cover":  "5", "facing": "west"},
-        {"cover":  "6", "facing": "west"},
-
-        {"cover":  "2", "facing": "south"},
-        {"cover":  "3", "facing": "south"},
-        {"cover":  "4", "facing": "south"},
-        {"cover":  "5", "facing": "south"},
-        {"cover":  "6", "facing": "south"}
-      ]},
+      "when": {
+        "OR": [
+          {
+            "cover": "6",
+            "facing": "east"
+          },
+          {
+            "cover": "4",
+            "facing": "north"
+          },
+          {
+            "cover": "5",
+            "facing": "north"
+          },
+          {
+            "cover": "6",
+            "facing": "north"
+          },
+          {
+            "cover": "3",
+            "facing": "west"
+          },
+          {
+            "cover": "4",
+            "facing": "west"
+          },
+          {
+            "cover": "5",
+            "facing": "west"
+          },
+          {
+            "cover": "6",
+            "facing": "west"
+          },
+          {
+            "cover": "2",
+            "facing": "south"
+          },
+          {
+            "cover": "3",
+            "facing": "south"
+          },
+          {
+            "cover": "4",
+            "facing": "south"
+          },
+          {
+            "cover": "5",
+            "facing": "south"
+          },
+          {
+            "cover": "6",
+            "facing": "south"
+          }
+        ]
+      },
       "apply": {
         "model": "deepworld:blocks/frames/wooden_case_panel_right"
       }

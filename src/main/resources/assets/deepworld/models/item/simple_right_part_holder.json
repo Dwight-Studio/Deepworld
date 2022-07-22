@@ -1,157 +1,733 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-    "textures": {
-        "wooden_frame": "deepworld:blocks/frames/wooden_frame"
+  "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+  "textures": {
+    "wooden_frame": "deepworld:blocks/frames/wooden_frame"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
     },
-    "display": {
-        "gui": {
-            "rotation": [ 30, 45, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.625, 0.625, 0.625 ]
-        },
-        "ground": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 3, 0 ],
-            "scale": [ 0.25, 0.25, 0.25 ]
-        },
-        "fixed": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "head": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "firstperson_righthand": {
-            "rotation": [ 0, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.4, 0.4, 0.4 ]
-        },
-        "thirdperson_righthand": {
-            "rotation": [ 75, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.375, 0.375, 0.375 ]
-        }
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
     },
-    "elements": [
-        {
-            "name": "Cube",
-            "from": [ 11, 3, 13 ], 
-            "to": [ 12, 4, 14 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] }
-            }
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        3,
+        13
+      ],
+      "to": [
+        12,
+        4,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 10, 4, 13 ], 
-            "to": [ 11, 5, 14 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] }
-            }
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 9, 5, 13 ], 
-            "to": [ 10, 6, 14 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] }
-            }
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         },
-        {
-            "name": "0Partie basse",
-            "from": [ 8, 2, 2 ], 
-            "to": [ 14, 3, 14 ],
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 7, 1 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 7, 1 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 12, 1 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 10, 0, 16, 16 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 10, 0, 16, 16 ] }
-            }
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         },
-        {
-            "name": "0Support 1",
-            "from": [ 8, 3, 2 ], 
-            "to": [ 9, 8, 3 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] }
-            }
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         },
-        {
-            "name": "0Support 2",
-            "from": [ 8, 3, 13 ], 
-            "to": [ 9, 8, 14 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 5 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 0, 0, 1, 1 ] }
-            }
-        },
-        {
-            "name": "0Cube",
-            "from": [ 11, 3, 2 ], 
-            "to": [ 12, 4, 3 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 1, 1, 2, 2 ] }
-            }
-        },
-        {
-            "name": "0Cube",
-            "from": [ 10, 4, 2 ], 
-            "to": [ 11, 5, 3 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 3, 3, 4, 4 ] }
-            }
-        },
-        {
-            "name": "0Cube",
-            "from": [ 9, 5, 2 ], 
-            "to": [ 10, 6, 3 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 6, 6, 7, 7 ] }
-            }
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
         }
-    ]
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        10,
+        4,
+        13
+      ],
+      "to": [
+        11,
+        5,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        9,
+        5,
+        13
+      ],
+      "to": [
+        10,
+        6,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Partie basse",
+      "from": [
+        8,
+        2,
+        2
+      ],
+      "to": [
+        14,
+        3,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            7,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            7,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            12,
+            1
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            10,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            10,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Support 1",
+      "from": [
+        8,
+        3,
+        2
+      ],
+      "to": [
+        9,
+        8,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Support 2",
+      "from": [
+        8,
+        3,
+        13
+      ],
+      "to": [
+        9,
+        8,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Cube",
+      "from": [
+        11,
+        3,
+        2
+      ],
+      "to": [
+        12,
+        4,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            2,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Cube",
+      "from": [
+        10,
+        4,
+        2
+      ],
+      "to": [
+        11,
+        5,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            3,
+            3,
+            4,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "0Cube",
+      "from": [
+        9,
+        5,
+        2
+      ],
+      "to": [
+        10,
+        6,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            6,
+            6,
+            7,
+            7
+          ]
+        }
+      }
+    }
+  ]
 }

@@ -14,7 +14,6 @@
 
 package fr.dwightstudio.deepworld.client.sounds.machines;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.registries.DeepworldSoundEvents;
 import net.minecraft.client.Minecraft;
@@ -31,16 +30,18 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {
 
-    private static Map<BlockPos, WoodenMachineSoundInstance> INSTANCES = new HashMap<>();
+    private static final Map<BlockPos, WoodenMachineSoundInstance> INSTANCES = new HashMap<>();
 
     private final WoodenMachineBlockEntity blockEntity;
 
     public static void play(WoodenMachineBlockEntity blockEntity) {
-        if (!(INSTANCES.containsKey(blockEntity.getBlockPos()) && Minecraft.getInstance().getSoundManager().isActive(INSTANCES.get(blockEntity.getBlockPos())))) {
+        if (!INSTANCES.containsKey(blockEntity.getBlockPos()) || !Minecraft.getInstance().getSoundManager().isActive(INSTANCES.get(blockEntity.getBlockPos()))) {
             WoodenMachineSoundInstance sd = new WoodenMachineSoundInstance(blockEntity);
             INSTANCES.put(blockEntity.getBlockPos(), sd);
+            Minecraft.getInstance().getSoundManager().play(sd);
         }
     }
+
     private WoodenMachineSoundInstance(WoodenMachineBlockEntity blockEntity) {
         super(DeepworldSoundEvents.WOODEN_MACHINE.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.blockEntity = blockEntity;

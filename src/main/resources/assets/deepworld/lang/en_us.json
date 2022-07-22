@@ -2,18 +2,14 @@
   "_comment": "#################",
   "_comment": "The Deep World #",
   "_comment": "#################",
-
   "_comment": "Subtitles",
   "deepworld.subtitle.wooden_machine": "Wooden mechanism moves",
-
   "_comment": "Creative tab",
   "itemGroup.tabDeepworld": "The Deep World",
-
   "_comment": "Containers",
   "container.deepworld.wooden_press": "Wooden Press",
   "container.deepworld.wooden_gear_shaper": "Wooden Gear Shaper",
   "container.deepworld.wooden_lathe": "Wooden Lathe",
-
   "_comment": "Itemblocks",
   "block.deepworld.wooden_frame": "Wooden Frame",
   "block.deepworld.wooden_press": "Wooden Press",
@@ -26,7 +22,6 @@
   "block.deepworld.obsidian_infused_steel_block": "Obsidian-Infused Steel Block",
   "block.deepworld.pipe": "Pipe",
   "block.deepworld.iron_tank": "Iron Tank",
-
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Wooden Case Panel (Component)",
   "item.deepworld.wooden_gearbox": "Wooden Gearbox (Component)",

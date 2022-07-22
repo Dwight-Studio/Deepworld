@@ -89,9 +89,11 @@ public class IronTankBlock extends Block implements EntityBlock {
 
             if (inputContainer.isPresent() && inputContainer.map((fluidContainer) -> fluidContainer.getFluidInTank(0).isEmpty()).get()) {
                 level.levelEvent(1047, blockPos, 0);
-                if (FluidUtil.tryFillContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
+                if (FluidUtil.tryFillContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE)
+                    return InteractionResult.FAIL;
             } else {
-                if (FluidUtil.tryEmptyContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE) return InteractionResult.FAIL;
+                if (FluidUtil.tryEmptyContainer(player.getItemInHand(interactionHand), this.getBlockEntity(level, blockPos), this.getBlockEntity(level, blockPos).getCapacity(), player, true) == FluidActionResult.FAILURE)
+                    return InteractionResult.FAIL;
             }
             return InteractionResult.CONSUME;
         }
@@ -112,7 +114,7 @@ public class IronTankBlock extends Block implements EntityBlock {
         return shape;
     }
 
-    public VoxelShape makeShape(){
+    public VoxelShape makeShape() {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125), BooleanOp.OR);
 

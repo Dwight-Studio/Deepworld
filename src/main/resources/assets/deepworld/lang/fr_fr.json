@@ -2,18 +2,14 @@
   "_comment": "#################",
   "_comment": "The Deep World #",
   "_comment": "#################",
-
   "_comment": "Subtitles",
   "deepworld.subtitle.wooden_machine": "Mécanisme en bois bouge",
-
   "_comment": "Creative tab",
   "itemGroup.tabDeepworld": "The Deep World",
-
   "_comment": "Containers",
   "container.deepworld.wooden_press": "Presse en Bois",
   "container.deepworld.wooden_gear_shaper": "Façonneur d'engrenages en Bois",
   "container.deepworld.wooden_lathe": "Tour à Bois",
-
   "_comment": "Itemblocks",
   "block.deepworld.wooden_frame": "Cadre en Bois",
   "block.deepworld.wooden_press": "Presse en Bois",
@@ -26,7 +22,6 @@
   "block.deepworld.obsidian_infused_steel_block": "Bloc d'Acier imprégné d'Obsidienne",
   "block.deepworld.pipe": "Tuyau",
   "block.deepworld.iron_tank": "Reservoir en Fer",
-
   "_comment": "Items",
   "item.deepworld.wooden_case_panel": "Plaque de chassîs en Bois (Composant)",
   "item.deepworld.wooden_gearbox": "Boîte à engrenages en Bois (Composant)",

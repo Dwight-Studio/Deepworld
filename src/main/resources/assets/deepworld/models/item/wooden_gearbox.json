@@ -1,131 +1,539 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-    "textures": {
-        "wooden_frame": "deepworld:blocks/frames/wooden_frame",
-        "gears": "deepworld:items/gears"
+  "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+  "textures": {
+    "wooden_frame": "deepworld:blocks/frames/wooden_frame",
+    "gears": "deepworld:items/gears"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
     },
-    "display": {
-        "gui": {
-            "rotation": [ 30, 45, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.625, 0.625, 0.625 ]
-        },
-        "ground": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 3, 0 ],
-            "scale": [ 0.25, 0.25, 0.25 ]
-        },
-        "fixed": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "head": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "firstperson_righthand": {
-            "rotation": [ 0, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.4, 0.4, 0.4 ]
-        },
-        "thirdperson_righthand": {
-            "rotation": [ 75, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.375, 0.375, 0.375 ]
-        }
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
     },
-    "elements": [
-        {
-            "name": "Cube",
-            "from": [ 2, 4, 4 ], 
-            "to": [ 3, 8, 5 ], 
-            "faces": {
-                "north": { "texture": "#gears", "uv": [ 15, 0, 16, 4 ] },
-                "east": { "texture": "#gears", "uv": [ 15, 0, 16, 4 ] },
-                "south": { "texture": "#gears", "uv": [ 16, 0, 16, 4 ] },
-                "west": { "texture": "#gears", "uv": [ 16, 0, 16, 4 ] },
-                "up": { "texture": "#gears", "uv": [ 16, 0, 16, 1 ] },
-                "down": { "texture": "#gears", "uv": [ 16, 0, 16, 1 ] }
-            }
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [
+        2,
+        4,
+        4
+      ],
+      "to": [
+        3,
+        8,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#gears",
+          "uv": [
+            15,
+            0,
+            16,
+            4
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 3, 3, 4 ], 
-            "to": [ 13, 4, 5 ], 
-            "faces": {
-                "north": { "texture": "#gears", "uv": [ 6, 15, 16, 16 ] },
-                "east": { "texture": "#gears", "uv": [ 0, 15, 1, 16 ] },
-                "south": { "texture": "#gears", "uv": [ 0, 15, 10, 16 ] },
-                "west": { "texture": "#gears", "uv": [ 0, 16, 1, 16 ] },
-                "up": { "texture": "#gears", "uv": [ 0, 16, 10, 16 ] },
-                "down": { "texture": "#gears", "uv": [ 0, 16, 10, 16 ] }
-            }
+        "east": {
+          "texture": "#gears",
+          "uv": [
+            15,
+            0,
+            16,
+            4
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 13, 3, 5 ], 
-            "to": [ 14, 4, 8 ], 
-            "faces": {
-                "north": { "texture": "#gears", "uv": [ 16, 0, 16, 1 ] },
-                "east": { "texture": "#gears", "uv": [ 0, 15, 3, 16 ] },
-                "south": { "texture": "#gears", "uv": [ 0, 15, 1, 16 ] },
-                "west": { "texture": "#gears", "uv": [ 0, 15, 3, 16 ] },
-                "up": { "texture": "#gears", "uv": [ 0, 15, 1, 16 ] },
-                "down": { "texture": "#gears", "uv": [ 0, 15, 1, 16 ] }
-            }
+        "south": {
+          "texture": "#gears",
+          "uv": [
+            16,
+            0,
+            16,
+            4
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 6, 2, 3 ], 
-            "to": [ 10, 5, 6 ], 
-            "faces": {
-                "north": { "texture": "#wooden_frame", "uv": [ 1, 1, 5, 4 ] },
-                "east": { "texture": "#wooden_frame", "uv": [ 1, 4, 4, 7 ] },
-                "south": { "texture": "#wooden_frame", "uv": [ 8, 2, 12, 5 ] },
-                "west": { "texture": "#wooden_frame", "uv": [ 10, 5, 13, 8 ] },
-                "up": { "texture": "#wooden_frame", "uv": [ 4, 11, 8, 14 ] },
-                "down": { "texture": "#wooden_frame", "uv": [ 2, 8, 6, 11 ] }
-            }
+        "west": {
+          "texture": "#gears",
+          "uv": [
+            16,
+            0,
+            16,
+            4
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 0, 5, 2 ], 
-            "to": [ 5, 5, 7 ], 
-            "faces": {
-                "up": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] },
-                "down": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] }
-            }
+        "up": {
+          "texture": "#gears",
+          "uv": [
+            16,
+            0,
+            16,
+            1
+          ]
         },
-        {
-            "name": "Cube",
-            "from": [ 4, 1, 2 ], 
-            "to": [ 4, 6, 7 ], 
-            "rotation": { "origin": [ 4, 4, 4 ], "axis": "x", "angle": 45.0 },
-            "faces": {
-                "east": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] },
-                "west": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 12, 1, 2 ], 
-            "to": [ 12, 6, 7 ], 
-            "rotation": { "origin": [ 12, 4, 4 ], "axis": "x", "angle": 45.0 },
-            "faces": {
-                "east": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] },
-                "west": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 11, 1, 6 ], 
-            "to": [ 16, 6, 6 ], 
-            "faces": {
-                "north": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] },
-                "south": { "texture": "#gears", "uv": [ 0, 0, 10, 10 ] }
-            }
+        "down": {
+          "texture": "#gears",
+          "uv": [
+            16,
+            0,
+            16,
+            1
+          ]
         }
-    ]
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        3,
+        3,
+        4
+      ],
+      "to": [
+        13,
+        4,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#gears",
+          "uv": [
+            6,
+            15,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            1,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            10,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            16,
+            1,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            16,
+            10,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            16,
+            10,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        13,
+        3,
+        5
+      ],
+      "to": [
+        14,
+        4,
+        8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#gears",
+          "uv": [
+            16,
+            0,
+            16,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            3,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            1,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            3,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            1,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            15,
+            1,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        6,
+        2,
+        3
+      ],
+      "to": [
+        10,
+        5,
+        6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            1,
+            5,
+            4
+          ]
+        },
+        "east": {
+          "texture": "#wooden_frame",
+          "uv": [
+            1,
+            4,
+            4,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#wooden_frame",
+          "uv": [
+            8,
+            2,
+            12,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#wooden_frame",
+          "uv": [
+            10,
+            5,
+            13,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#wooden_frame",
+          "uv": [
+            4,
+            11,
+            8,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#wooden_frame",
+          "uv": [
+            2,
+            8,
+            6,
+            11
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        0,
+        5,
+        2
+      ],
+      "to": [
+        5,
+        5,
+        7
+      ],
+      "faces": {
+        "up": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "down": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        4,
+        1,
+        2
+      ],
+      "to": [
+        4,
+        6,
+        7
+      ],
+      "rotation": {
+        "origin": [
+          4,
+          4,
+          4
+        ],
+        "axis": "x",
+        "angle": 45.0
+      },
+      "faces": {
+        "east": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        12,
+        1,
+        2
+      ],
+      "to": [
+        12,
+        6,
+        7
+      ],
+      "rotation": {
+        "origin": [
+          12,
+          4,
+          4
+        ],
+        "axis": "x",
+        "angle": 45.0
+      },
+      "faces": {
+        "east": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cube",
+      "from": [
+        11,
+        1,
+        6
+      ],
+      "to": [
+        16,
+        6,
+        6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        },
+        "south": {
+          "texture": "#gears",
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ]
+        }
+      }
+    }
+  ]
 }

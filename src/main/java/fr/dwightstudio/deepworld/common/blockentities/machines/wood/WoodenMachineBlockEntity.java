@@ -18,7 +18,6 @@ import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstan
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -256,7 +255,8 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
             level.setBlock(blockPos, newBlockstate, Block.UPDATE_ALL, Block.UPDATE_CLIENTS);
         }
 
-        if (woodenMachineBlockEntity.lastInertia < woodenMachineBlockEntity.inertia) woodenMachineBlockEntity.sendUpdate();
+        if (woodenMachineBlockEntity.lastInertia < woodenMachineBlockEntity.inertia)
+            woodenMachineBlockEntity.sendUpdate();
 
         // The inertia must be greater than 0 for the process to start
         if (woodenMachineBlockEntity.inertia > 0) {
@@ -270,7 +270,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
                 // else make sure the process progress is set to 0
                 if (canProcess(recipe, woodenMachineBlockEntity)) {
                     woodenMachineBlockEntity.processTimeTotal = recipe.getProcessTime();
-                    woodenMachineBlockEntity.processProgress += (int) (((float) woodenMachineBlockEntity.inertia/(float) WoodenMachineBlockEntity.MAX_INERTIA) * (float) 3);
+                    woodenMachineBlockEntity.processProgress += (int) (((float) woodenMachineBlockEntity.inertia / (float) WoodenMachineBlockEntity.MAX_INERTIA) * (float) 3);
 
                     // The process is finished
                     if (woodenMachineBlockEntity.processProgress >= woodenMachineBlockEntity.processTimeTotal) {
@@ -314,7 +314,8 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
     private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
         if (recipe == null) return false;
         if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredientCount()) return false;
-        if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty()) return false;
+        if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty())
+            return false;
         return blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() <= recipe.assemble(blockEntity).getMaxStackSize();
     }
 

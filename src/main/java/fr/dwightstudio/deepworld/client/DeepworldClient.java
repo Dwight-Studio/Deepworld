@@ -14,8 +14,8 @@
 
 package fr.dwightstudio.deepworld.client;
 
-import fr.dwightstudio.deepworld.client.screens.WoodenMachineScreen;
 import fr.dwightstudio.deepworld.client.renderers.FluidTankRenderer;
+import fr.dwightstudio.deepworld.client.screens.WoodenMachineScreen;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.registries.DeepworldMenus;
@@ -28,7 +28,6 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.openjdk.nashorn.internal.ir.annotations.Ignore;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(Dist.CLIENT)

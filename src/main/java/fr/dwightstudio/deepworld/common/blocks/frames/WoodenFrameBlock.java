@@ -15,7 +15,6 @@
 package fr.dwightstudio.deepworld.common.blocks.frames;
 
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
-import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
 import fr.dwightstudio.deepworld.common.components.ComponentClass;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
 import net.minecraft.core.BlockPos;

@@ -61,13 +61,15 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Updates MultiblockHolder membership
-     * @implNote If you want to get connected holder, {@see getConnectedHolders()}
+     *
      * @return the (new) parent of the MultiblockHolder, may be self
+     * @implNote If you want to get connected holder, {@see getConnectedHolders()}
      */
     protected abstract H computeMultiblockPart();
 
     /**
      * Updates Multiblock internal structure
+     *
      * @implSpec Must be called when a block of the structure is updated (neighborChanged)
      */
     public final void updateMultiblock() {
@@ -89,6 +91,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Gets all the blocks of the Multiblock
+     *
      * @return a list of BlockEntity objects
      */
     public List<H> getMultiblockHolders() {
@@ -97,6 +100,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Sets the blocks in the parent MultiblockHolder
+     *
      * @param blocks an Array of {@link BlockPos}
      */
     void setBlocks(BlockPos[] blocks) {
@@ -105,6 +109,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Gets the parent of the Multiblock from the supplied implementation of {@link BlockGetter}
+     *
      * @return the parent MultiblockHolder
      */
     public final H getParent() {
@@ -113,6 +118,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Sets the parent of MultiblockHolder
+     *
      * @param parent a {@link BlockPos}
      */
     void setParent(BlockPos parent) {
@@ -129,6 +135,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Tests if a {@link BlockEntity} can connect to (join) this Multiblock, should return the same result if called on the other holder (x.canConnect(y) equals to y.canConnect(x))
+     *
      * @param blockEntity the {@link BlockEntity} to test
      * @return true if the block can connect, false otherwise
      */
@@ -136,12 +143,14 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Updates the entire Multiblock logic {@see computeMultiblock to update structure}
+     *
      * @implNote Can split logic between child and parent
      */
     public abstract void multiblockTick();
 
     /**
      * Saves the Multiblock data in a {@link CompoundTag}
+     *
      * @param tag a {@link CompoundTag} object
      */
     public final void saveMultiblockData(CompoundTag tag) {
@@ -181,6 +190,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Loads the Multiblock data from a {@link CompoundTag}
+     *
      * @param tag a {@link CompoundTag} object
      */
     public final void loadMultiblockData(CompoundTag tag) {
@@ -224,24 +234,30 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
 
     /**
      * Saves the Multiblock custom data in a {@link CompoundTag}
+     *
      * @param tag a {@link CompoundTag} object
      */
-    public void saveMultiblockAdditionnalData(CompoundTag tag) {}
+    public void saveMultiblockAdditionnalData(CompoundTag tag) {
+    }
 
     /**
      * Handle the customData of the Multiblock from a {@link CompoundTag}
+     *
      * @param tag a {@link CompoundTag} object
      */
-    public void loadMultiblockAdditionnalData(CompoundTag tag) {}
+    public void loadMultiblockAdditionnalData(CompoundTag tag) {
+    }
 
     /**
      * Transfers parent properties to another MultiblockHolder
-     * @throws IllegalAccessError when called on a non parent MultiblockHolder
+     *
      * @param newParent the new parent
+     * @throws IllegalAccessError when called on a non parent MultiblockHolder
      */
     public void transferParent(AbstractMultiblockHolder newParent) {
-        if (this.isChild()) throw new IllegalAccessError("Cannot transfer parent properties from non parent MultiblockHolder");
-        
+        if (this.isChild())
+            throw new IllegalAccessError("Cannot transfer parent properties from non parent MultiblockHolder");
+
         for (AbstractMultiblockHolder block : getMultiblockHolders()) {
             block.setParent(newParent.getBlockPos());
         }

@@ -112,5 +112,4 @@ public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock impl
     }
 
 
-
 }

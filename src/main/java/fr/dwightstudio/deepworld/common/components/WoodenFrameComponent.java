@@ -14,9 +14,9 @@
 
 package fr.dwightstudio.deepworld.common.components;
 
+import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
-import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 

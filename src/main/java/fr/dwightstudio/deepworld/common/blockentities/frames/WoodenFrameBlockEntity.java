@@ -14,10 +14,10 @@
 
 package fr.dwightstudio.deepworld.common.blockentities.frames;
 
-import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

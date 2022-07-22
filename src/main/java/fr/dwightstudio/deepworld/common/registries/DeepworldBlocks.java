@@ -15,13 +15,13 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
 import fr.dwightstudio.deepworld.common.blocks.ObsidianInfusedSteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.SteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenGearShaperBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenLatheBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenPressBlock;
+import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 

@@ -34,10 +34,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBlockEntity> implements IFluidTank, IFluidHandler {
 
@@ -76,7 +74,6 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
         if (this.fluid.isEmpty()) return true;
         return this.fluid.isFluidEqual(stack);
     }
-
 
 
     @Override
@@ -229,7 +226,8 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
     }
 
     @Override
-    public void updateState() {}
+    public void updateState() {
+    }
 
     @Override
     public SimpleTankBlockEntity computeMultiblockPart() {
@@ -295,7 +293,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
         setChanged();
         BlockState newBlockState = getBlockState();
         if (this.getFluid().getFluid().defaultFluidState().createLegacyBlock().getBlock().getLightEmission(this.getFluid().getFluid().defaultFluidState().createLegacyBlock(), level, getBlockPos()) > 0) {
-             newBlockState = newBlockState.setValue(BlockStateProperties.LIT, true);
+            newBlockState = newBlockState.setValue(BlockStateProperties.LIT, true);
         } else {
             newBlockState = newBlockState.setValue(BlockStateProperties.LIT, false);
         }
@@ -318,11 +316,12 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
     }
 
     public float getFluidLevel() {
-        return (float)(this.fluid.getAmount() / 1000) / MAX_FILL_LEVEL;
+        return (float) (this.fluid.getAmount() / 1000) / MAX_FILL_LEVEL;
     }
 
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && (side == Direction.DOWN || side == Direction.UP)) return LazyOptional.of(() -> this).cast();
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && (side == Direction.DOWN || side == Direction.UP))
+            return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap, side);
     }
 }

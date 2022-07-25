@@ -15,6 +15,7 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.blockentities.PipeBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenGearShaperBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenLatheBlockEntity;
@@ -32,6 +33,7 @@ public class DeepworldBlockEntities {
     public static RegistryObject<BlockEntityType<WoodenGearShaperBlockEntity>> WOODEN_GEAR_SHAPER;
 
     public static RegistryObject<BlockEntityType<IronTankBlockEntity>> IRON_TANK;
+    public static RegistryObject<BlockEntityType<PipeBlockEntity>> PIPE;
 
     public DeepworldBlockEntities() {
         WOODEN_FRAME = Deepworld.BLOCK_ENTITY_TYPES.register("wooden_frame", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new WoodenFrameBlockEntity(blockPos, blockState), DeepworldBlocks.WOODEN_FRAME.get()).build(null));
@@ -41,5 +43,6 @@ public class DeepworldBlockEntities {
         WOODEN_GEAR_SHAPER = Deepworld.BLOCK_ENTITY_TYPES.register("wooden_gear_shaper", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new WoodenGearShaperBlockEntity(blockPos, blockState), DeepworldBlocks.WOODEN_GEAR_SHAPER.get()).build(null));
 
         IRON_TANK = Deepworld.BLOCK_ENTITY_TYPES.register("iron_tank", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new IronTankBlockEntity(blockPos, blockState), DeepworldBlocks.IRON_TANK.get()).build(null));
+        PIPE = Deepworld.BLOCK_ENTITY_TYPES.register("pipe", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new PipeBlockEntity(blockPos, blockState), DeepworldBlocks.PIPE.get()).build(null));
     }
 }

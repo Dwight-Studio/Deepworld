@@ -1,226 +1,67 @@
 {
+  "forge_marker": 1,
   "multipart": [
     {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "false",
-        "down": "false"
-      },
       "apply": {
         "model": "deepworld:blocks/pipe/pipe_alone"
       }
     },
     {
-      "when": {
-        "north": "true",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "false",
-        "down": "false"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end"
+        "model": "deepworld:blocks/pipe/pipe_side"
+      },
+      "when": {
+        "north": "true"
       }
     },
     {
-      "when": {
-        "north": "false",
-        "east": "true",
-        "south": "false",
-        "west": "false",
-        "up": "false",
-        "down": "false"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end",
+        "model": "deepworld:blocks/pipe/pipe_side",
+        "uvlock": true,
         "y": 90
+      },
+      "when": {
+        "east": "true"
       }
     },
     {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "true",
-        "west": "false",
-        "up": "false",
-        "down": "false"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end",
+        "model": "deepworld:blocks/pipe/pipe_side",
+        "uvlock": true,
         "y": 180
+      },
+      "when": {
+        "south": "true"
       }
     },
     {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "true",
-        "up": "false",
-        "down": "false"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end",
+        "model": "deepworld:blocks/pipe/pipe_side",
+        "uvlock": true,
         "y": 270
+      },
+      "when": {
+        "west": "true"
       }
     },
     {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "true",
-        "down": "false"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end",
+        "model": "deepworld:blocks/pipe/pipe_side",
+        "uvlock": true,
         "x": 270
+      },
+      "when": {
+        "up": "true"
       }
     },
     {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "false",
-        "down": "true"
-      },
       "apply": {
-        "model": "deepworld:blocks/pipe/pipe_end",
+        "model": "deepworld:blocks/pipe/pipe_side",
+        "uvlock": true,
         "x": 90
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "east": "false",
-        "south": "true",
-        "west": "false",
-        "up": "false",
-        "down": "false"
       },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_straight"
-      }
-    },
-    {
       "when": {
-        "north": "true",
-        "east": "false",
-        "south": "true",
-        "west": "false",
-        "up": "false",
-        "down": "false",
-        "junction0": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction"
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "east": "false",
-        "south": "true",
-        "west": "false",
-        "up": "false",
-        "down": "false",
-        "junction1": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction_alternative"
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "true",
-        "south": "false",
-        "west": "true",
-        "up": "false",
-        "down": "false"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_straight",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "true",
-        "south": "false",
-        "west": "true",
-        "up": "false",
-        "down": "false",
-        "junction0": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "true",
-        "south": "false",
-        "west": "true",
-        "up": "false",
-        "down": "false",
-        "junction1": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction_alternative",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "true",
         "down": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_straight",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "true",
-        "down": "true",
-        "junction0": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction"
-      }
-    },
-    {
-      "when": {
-        "north": "false",
-        "east": "false",
-        "south": "false",
-        "west": "false",
-        "up": "true",
-        "down": "true",
-        "junction1": "true"
-      },
-      "apply": {
-        "model": "deepworld:blocks/pipe/pipe_junction_alternative"
       }
     }
   ]

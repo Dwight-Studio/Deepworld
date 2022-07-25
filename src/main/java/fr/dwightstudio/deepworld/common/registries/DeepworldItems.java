@@ -67,6 +67,7 @@ public class DeepworldItems {
     public static RegistryObject<BlockItem> WOODEN_GEAR_SHAPER;
 
     public static RegistryObject<BlockItem> IRON_TANK;
+    public static RegistryObject<BlockItem> PIPE;
 
     // Tools
     public static RegistryObject<PickaxeItem> STEEL_PICKAXE;
@@ -145,6 +146,7 @@ public class DeepworldItems {
         WOODEN_GEAR_SHAPER = Deepworld.ITEMS.register("wooden_gear_shaper", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER.get()));
 
         IRON_TANK = Deepworld.ITEMS.register("iron_tank", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.IRON_TANK.get()));
+        PIPE = Deepworld.ITEMS.register("pipe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.PIPE.get()));
 
         // Tools
         STEEL_PICKAXE = Deepworld.ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));

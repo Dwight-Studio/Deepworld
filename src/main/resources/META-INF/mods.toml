@@ -7,7 +7,7 @@ loaderVersion = "[41,)"
 issueTrackerURL = "https://github.com/Dwight-Studio/Deepworld/issues"
 # If the mods defined in this file should show as seperate resource packs
 showAsResourcePack = false
-license = "License"
+license = "MPL 2.0"
 
 [[mods]]
 modId = "deepworld"
@@ -16,7 +16,7 @@ displayName = "Deep World"
 updateJSONURL = ""
 displayURL = "dwightstudio.fr/mc/deepworld (WIP)"
 logoFile = "logo.png"
-credits = "All the sound effects originate from the amazing Epidemic Sound library."
+credits = "Sounds effect from freesound.org"
 authors = "Deleranax, WhiteRed & GamerMine"
 description = '''
       To make the nether go truly deep.

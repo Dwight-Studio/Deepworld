@@ -4,7 +4,7 @@
   "ingredients": {
     "tag": "forge:ingots/iron"
   },
-  "ingredientsCount": 2,
+  "ingredientsCount": 4,
   "machineTier": "wood",
   "result": {
     "item": "deepworld:iron_gear",

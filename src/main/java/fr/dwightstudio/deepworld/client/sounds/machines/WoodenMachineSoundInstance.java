@@ -30,20 +30,10 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {
 
-    private static final Map<BlockPos, WoodenMachineSoundInstance> INSTANCES = new HashMap<>();
-
     private final WoodenMachineBlockEntity blockEntity;
 
-    public static void play(WoodenMachineBlockEntity blockEntity) {
-        if (!INSTANCES.containsKey(blockEntity.getBlockPos()) || !Minecraft.getInstance().getSoundManager().isActive(INSTANCES.get(blockEntity.getBlockPos()))) {
-            WoodenMachineSoundInstance sd = new WoodenMachineSoundInstance(blockEntity);
-            INSTANCES.put(blockEntity.getBlockPos(), sd);
-            Minecraft.getInstance().getSoundManager().play(sd);
-        }
-    }
-
-    private WoodenMachineSoundInstance(WoodenMachineBlockEntity blockEntity) {
-        super(DeepworldSoundEvents.WOODEN_MACHINE.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
+    public WoodenMachineSoundInstance(WoodenMachineBlockEntity blockEntity) {
+        super(DeepworldSoundEvents.WOODEN_MACHINE.get(), SoundSource.BLOCKS, SoundInstance.createUnseededRandom());
         this.blockEntity = blockEntity;
         this.looping = true;
         this.delay = 0;
@@ -62,9 +52,9 @@ public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {
     }
 
     private void updateBlockPos() {
-        this.x = (float) blockEntity.getBlockPos().getX();
-        this.y = (float) blockEntity.getBlockPos().getY();
-        this.z = (float) blockEntity.getBlockPos().getZ();
+        this.x = ((float) blockEntity.getBlockPos().getX()) + 0.5;
+        this.y = ((float) blockEntity.getBlockPos().getY()) + 0.5;
+        this.z = ((float) blockEntity.getBlockPos().getZ()) + 0.5;
     }
 
     @Override

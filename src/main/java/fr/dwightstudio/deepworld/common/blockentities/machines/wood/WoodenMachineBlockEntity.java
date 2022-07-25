@@ -18,6 +18,7 @@ import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstan
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -51,8 +52,8 @@ import static fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu.*;
 
 public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder, StackedContentsCompatible, Container {
 
-    public static final int MAX_INERTIA = 200;
-    public static final int INERTIA_PER_CLICK = 10;
+    public static final int MAX_INERTIA = 400;
+    public static final int INERTIA_PER_CLICK = 20;
 
     public int lastInertia;
     public int inertia;
@@ -334,7 +335,7 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
     @Override
     public void onLoad() {
         if (level != null && level.isClientSide()) {
-            WoodenMachineSoundInstance.play(this);
+            Minecraft.getInstance().getSoundManager().queueTickingSound(new WoodenMachineSoundInstance(this));
         }
     }
 

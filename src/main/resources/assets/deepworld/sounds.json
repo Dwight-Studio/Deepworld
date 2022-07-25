@@ -1,8 +1,12 @@
 {
   "block.wooden_machine.working": {
-    "subtitle": "deepworld.subtitle.wooden_machine",
     "sounds": [
-      "deepworld:block/machines/wooden_machine"
-    ]
+      {
+        "attenuation_distance": 7,
+        "name": "deepworld:block/machines/wooden_machine",
+        "volume": 1
+      }
+    ],
+    "subtitle": "deepworld.subtitle.wooden_machine"
   }
 }

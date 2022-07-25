@@ -4,7 +4,7 @@
   "ingredients": {
     "tag": "minecraft:planks"
   },
-  "ingredientsCount": 2,
+  "ingredientsCount": 4,
   "machineTier": "wood",
   "result": {
     "item": "deepworld:wooden_gear",

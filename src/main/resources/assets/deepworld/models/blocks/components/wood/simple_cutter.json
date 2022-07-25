@@ -4,6 +4,7 @@
     "wooden_frame": "deepworld:blocks/frames/wooden_frame",
     "wooden_gear": "deepworld:items/wooden_gear"
   },
+  "render_type": "cutout",
   "display": {
     "gui": {
       "rotation": [

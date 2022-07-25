@@ -296,7 +296,7 @@
         "primary_component": "1"
       },
       "apply": {
-        "model": "deepworld:item/simple_pressing_chamber"
+        "model": "deepworld:blocks/components/wood/simple_pressing_chamber"
       }
     },
     {
@@ -304,7 +304,7 @@
         "primary_component": "2"
       },
       "apply": {
-        "model": "deepworld:item/simple_cutter"
+        "model": "deepworld:blocks/components/wood/simple_cutter"
       }
     },
     {
@@ -312,7 +312,7 @@
         "secondary_component": "1"
       },
       "apply": {
-        "model": "deepworld:item/wooden_gearbox"
+        "model": "deepworld:blocks/components/wood/wooden_gearbox"
       }
     },
     {
@@ -320,7 +320,7 @@
         "secondary_component": "2"
       },
       "apply": {
-        "model": "deepworld:item/simple_left_part_holder"
+        "model": "deepworld:blocks/components/wood/simple_left_part_holder"
       }
     },
     {
@@ -328,7 +328,7 @@
         "tertiary_component": "1"
       },
       "apply": {
-        "model": "deepworld:item/wooden_crank"
+        "model": "deepworld:blocks/components/wood/wooden_crank"
       }
     },
     {
@@ -336,7 +336,7 @@
         "tertiary_component": "2"
       },
       "apply": {
-        "model": "deepworld:item/simple_right_part_holder"
+        "model": "deepworld:blocks/components/wood/simple_right_part_holder"
       }
     }
   ]

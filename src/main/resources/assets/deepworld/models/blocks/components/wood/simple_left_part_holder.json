@@ -2,6 +2,7 @@
   "textures": {
     "wooden_frame": "deepworld:blocks/frames/wooden_frame"
   },
+  "render_type": "cutout",
   "display": {
     "gui": {
       "rotation": [

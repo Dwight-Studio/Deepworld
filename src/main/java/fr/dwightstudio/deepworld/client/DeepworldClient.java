@@ -36,7 +36,6 @@ public class DeepworldClient {
     @SubscribeEvent
     public static void onClientSetupEvent(FMLClientSetupEvent event) {
         registerMenuTypes();
-        setRenderLayers();
     }
 
     @SubscribeEvent
@@ -48,16 +47,6 @@ public class DeepworldClient {
         MenuScreens.register(DeepworldMenus.WOODEN_LATHE.get(), WoodenMachineScreen::new);
         MenuScreens.register(DeepworldMenus.WOODEN_PRESS.get(), WoodenMachineScreen::new);
         MenuScreens.register(DeepworldMenus.WOODEN_GEAR_SHAPER.get(), WoodenMachineScreen::new);
-    }
-
-    private static void setRenderLayers() {
-        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_FRAME.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_LATHE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_PRESS.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.WOODEN_GEAR_SHAPER.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(DeepworldBlocks.IRON_TANK.get(), RenderType.cutout());
     }
 
 }

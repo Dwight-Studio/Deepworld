@@ -276,7 +276,7 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
         saveMultiblockData(tag);
     }
 
-    public final List<H> getConnectedHolders(Predicate<?> predicate) {
+    public final List<H> getConnectedHolders(Predicate<H> predicate) {
         ArrayList<H> list = new ArrayList<>();
         list.add((H) this);
         recursiveGetConnectedHolders(list, predicate);
@@ -284,10 +284,10 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
         return list;
     }
 
-    void recursiveGetConnectedHolders(ArrayList<H> list, Predicate<?> predicate) {
+    void recursiveGetConnectedHolders(ArrayList<H> list, Predicate<H> predicate) {
         for (Direction dir : Direction.values()) {
             H holder = this.getHolderAt(level, this.getBlockPos().relative(dir));
-            if (holder != null) {
+            if (holder != null && predicate.test(holder)) {
                 if (!list.contains(holder)) {
                     list.add(holder);
                     holder.recursiveGetConnectedHolders(list, predicate);

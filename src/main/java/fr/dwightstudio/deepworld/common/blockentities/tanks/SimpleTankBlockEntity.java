@@ -239,9 +239,7 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
 
     @Override
     public SimpleTankBlockEntity computeMultiblockPart() {
-        List<SimpleTankBlockEntity> entities = this.getConnectedHolders(holder -> holder instanceof SimpleTankBlockEntity
-                && ((SimpleTankBlockEntity) holder).getBlockPos().getX() == this.getBlockPos().getX()
-                && ((SimpleTankBlockEntity) holder).getBlockPos().getZ() == this.getBlockPos().getZ());
+        List<SimpleTankBlockEntity> entities = this.getConnectedHolders(holder -> holder.getBlockPos().getX() == this.getBlockPos().getX() && holder.getBlockPos().getZ() == this.getBlockPos().getZ());
 
         return entities.stream().min(Comparator.comparingInt(holder -> holder.getBlockPos().getY())).get();
     }

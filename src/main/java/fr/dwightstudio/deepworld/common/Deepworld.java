@@ -15,6 +15,7 @@
 package fr.dwightstudio.deepworld.common;
 
 import fr.dwightstudio.deepworld.client.DeepworldClient;
+import fr.dwightstudio.deepworld.common.multiblocks.MultiblocksManager;
 import fr.dwightstudio.deepworld.common.registries.*;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
@@ -71,6 +72,7 @@ public class Deepworld {
         SOUND_EVENTS.register(MOD_EVENT_BUS);
 
         MOD_EVENT_BUS.register(DeepworldClient.class);
+        MOD_EVENT_BUS.register(MultiblocksManager.class);
     }
 
     public static void registerAssets() {

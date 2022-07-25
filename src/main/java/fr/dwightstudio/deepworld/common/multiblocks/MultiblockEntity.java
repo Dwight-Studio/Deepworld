@@ -14,34 +14,35 @@
 
 package fr.dwightstudio.deepworld.common.multiblocks;
 
+import fr.dwightstudio.deepworld.common.registries.DeepworldMultiblocks;
 import fr.dwightstudio.deepworld.common.utils.WorldUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.LevelAccessor;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class MultiblockEntity {
 
     private boolean dirty = false;
     private final UUID uuid;
     private final LevelAccessor level;
-    private final List<BlockPos> blockEntities;
+    private final Set<BlockPos> blockEntities;
+    private final DeepworldMultiblocks type;
 
 
-    MultiblockEntity(UUID uuid, LevelAccessor level) {
+     private MultiblockEntity(UUID uuid, LevelAccessor level, DeepworldMultiblocks type) {
         this.uuid = uuid;
         this.level = level;
-        blockEntities = new ArrayList<>();
+         this.type = type;
+         blockEntities = new HashSet<>();
     }
 
-    public MultiblockEntity(LevelAccessor level) {
-        this(UUID.randomUUID(), level);
+    public MultiblockEntity(LevelAccessor level, DeepworldMultiblocks type) {
+        this(UUID.randomUUID(), level, type);
     }
 
     public boolean isDirty() {
@@ -100,6 +101,7 @@ public abstract class MultiblockEntity {
 
     public final @NotNull CompoundTag save(@NotNull CompoundTag tag) {
         tag.putUUID("uuid", this.uuid);
+        tag.putString("type", this.type.getLocation().toLanguageKey());
         ListTag listTag = new ListTag();
         for (BlockPos pos : blockEntities) {
             listTag.add(WorldUtils.savePos(new CompoundTag(), pos));
@@ -110,6 +112,10 @@ public abstract class MultiblockEntity {
     }
 
     public final void load(@NotNull CompoundTag tag) {
+        if (tag.contains("blocks")) {
+            ListTag listTag = tag.getList("blocks", Tag.TAG_COMPOUND);
+            listTag.forEach(blockTag -> blockEntities.add(WorldUtils.posFromTag(tag)));
+        }
         loadAdditionnal(tag);
     }
 

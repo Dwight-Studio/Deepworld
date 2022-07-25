@@ -20,20 +20,33 @@ import fr.dwightstudio.deepworld.common.multiblocks.TestMultiblockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
 
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.Arrays;
+import java.util.Optional;
 
 public enum DeepworldMultiblocks {
     TEST("test", TestMultiblockEntity::new);
     private final ResourceLocation location;
-    private final MultiblockEntitySupplier<? extends MultiblockEntity> supplier;
+    private final MultiblockEntitySupplier supplier;
 
-    DeepworldMultiblocks(String location, MultiblockEntitySupplier<? extends MultiblockEntity> supplier) {
+    DeepworldMultiblocks(String location, MultiblockEntitySupplier supplier) {
         this.location = new ResourceLocation(Deepworld.MOD_ID, location);
         this.supplier = supplier;
     }
 
-    public interface MultiblockEntitySupplier<E extends MultiblockEntity> {
-        E get(LevelAccessor level);
+    public ResourceLocation getLocation() {
+        return location;
+    }
+
+    public MultiblockEntity get(LevelAccessor level) {
+        return supplier.get(level);
+    }
+
+    public interface MultiblockEntitySupplier {
+        MultiblockEntity get(LevelAccessor level);
+    }
+
+    public static DeepworldMultiblocks fromResourceLocation(ResourceLocation resourceLocation) {
+        Optional<DeepworldMultiblocks> opt = Arrays.stream(values()).filter(deepworldMultiblocks -> deepworldMultiblocks.getLocation().compareNamespaced(resourceLocation) == 0).findFirst();
+        return opt.orElseThrow();
     }
 }

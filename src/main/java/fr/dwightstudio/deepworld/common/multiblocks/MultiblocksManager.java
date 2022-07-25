@@ -15,9 +15,11 @@
 package fr.dwightstudio.deepworld.common.multiblocks;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.registries.DeepworldMultiblocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -30,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber()
 public class MultiblocksManager extends SavedData {
@@ -37,15 +40,16 @@ public class MultiblocksManager extends SavedData {
     private static final Map<LevelAccessor, MultiblocksManager> CLIENT_INSTANCES = new HashMap<>();
     private static final String SAVE_FILE_NAME = Deepworld.MOD_ID + "_multiblocks";
 
+    private LevelAccessor level;
     private Map<UUID, MultiblockEntity> entities;
 
-    private MultiblocksManager() {
-
+    private MultiblocksManager(LevelAccessor level) {
+        this.level = level;
     }
 
-    private MultiblocksManager(CompoundTag tag) {
-        this();
-        this.load(tag);
+    private MultiblocksManager(LevelAccessor level, CompoundTag tag) {
+        this(level);
+        load(tag);
     }
 
     @Override
@@ -67,8 +71,13 @@ public class MultiblocksManager extends SavedData {
             if (!listTag.isEmpty()) {
                 for(Tag sEntityTag : listTag) {
                     if (sEntityTag instanceof CompoundTag entityTag && !entityTag.isEmpty()) {
-                        //TODO: Add entities creation
-                        //entities.computeIfAbsent(entityTag.getUUID("uuid"), )
+                        if (entities.containsKey(entityTag.getUUID("uuid"))) {
+                            entities.get(entityTag.getUUID("uuid")).load(entityTag);
+                        } else {
+                            MultiblockEntity multiblock = DeepworldMultiblocks.fromResourceLocation(new ResourceLocation(entityTag.getString("type"))).get(level);
+                            multiblock.load(entityTag);
+                            entities.put(multiblock.getUUID(), multiblock);
+                        }
                     }
                 }
             }
@@ -80,17 +89,21 @@ public class MultiblocksManager extends SavedData {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onWorldLoad(LevelEvent.Load event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
-            serverLevel.getDataStorage().computeIfAbsent(MultiblocksManager::new, MultiblocksManager::new, SAVE_FILE_NAME);
+            MultiblocksManager manager = serverLevel.getDataStorage().get(tag -> new MultiblocksManager(event.getLevel(), tag), SAVE_FILE_NAME);
+            if (manager == null) {
+                manager = new MultiblocksManager(event.getLevel());
+                serverLevel.getDataStorage().set(SAVE_FILE_NAME, manager);
+            }
         } else {
-            CLIENT_INSTANCES.put(event.getLevel(), new MultiblocksManager());
+            CLIENT_INSTANCES.put(event.getLevel(), new MultiblocksManager(event.getLevel()));
         }
     }
 
     public static MultiblocksManager getManager(LevelAccessor level) {
         if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.getDataStorage().get(MultiblocksManager::new, SAVE_FILE_NAME);
+            return serverLevel.getDataStorage().get(tag -> new MultiblocksManager(level, tag), SAVE_FILE_NAME);
         } else {
-            return CLIENT_INSTANCES.getOrDefault(level, new MultiblocksManager());
+            return CLIENT_INSTANCES.getOrDefault(level, new MultiblocksManager(level));
         }
     }
 

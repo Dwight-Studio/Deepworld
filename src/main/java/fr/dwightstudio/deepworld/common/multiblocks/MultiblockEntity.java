@@ -14,19 +14,34 @@
 
 package fr.dwightstudio.deepworld.common.multiblocks;
 
+import fr.dwightstudio.deepworld.common.utils.WorldUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.world.level.LevelAccessor;
+import org.checkerframework.checker.units.qual.C;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class MultiblockEntity {
+public abstract class MultiblockEntity {
 
     private boolean dirty = false;
-    private UUID uuid;
+    private final UUID uuid;
+    private final LevelAccessor level;
+    private final List<BlockPos> blockEntities;
 
-    MultiblockEntity(UUID uuid) {
+
+    MultiblockEntity(UUID uuid, LevelAccessor level) {
         this.uuid = uuid;
+        this.level = level;
+        blockEntities = new ArrayList<>();
     }
 
-    public MultiblockEntity() {
-        this(UUID.randomUUID());
+    public MultiblockEntity(LevelAccessor level) {
+        this(UUID.randomUUID(), level);
     }
 
     public boolean isDirty() {
@@ -40,4 +55,65 @@ public class MultiblockEntity {
     public void setDirty() {
         this.setDirty(true);
     }
+
+    public UUID getUUID() {
+        return uuid;
+    }
+
+    /**
+     * @return true if all blocks are loaded, false otherwise
+     */
+    public boolean isLoaded() {
+        final boolean[] flag = {true};
+        blockEntities.forEach(blockPos -> flag[0] = flag[0] && level.hasChunkAt(blockPos));
+        return flag[0];
+    }
+
+    /**
+     * @return the list of the pos of the associated blocks
+     */
+    public List<BlockPos> getBlockEntitiesPos() {
+        return new ArrayList<>(blockEntities);
+    }
+
+    private void internalUpdate() {
+        if (isDirty()) {
+            update();
+
+            WorldUtils.getBlockEntities(level, getBlockEntitiesPos()).forEach(blockEntity -> {
+                if (blockEntity.isRemoved()) {
+                    getBlockEntitiesPos().remove(blockEntity.getBlockPos());
+                }
+                if (blockEntity instanceof MultiblockHolder holder) {
+                    holder.onMultiblockUpdate(this);
+                }
+            });
+
+            MultiblocksManager.getManager(level).setDirty();
+        }
+    }
+
+    /**
+     * Updates the multiblock internal mechanics, called when marked dirty
+     */
+    public abstract void update();
+
+    public final @NotNull CompoundTag save(@NotNull CompoundTag tag) {
+        tag.putUUID("uuid", this.uuid);
+        ListTag listTag = new ListTag();
+        for (BlockPos pos : blockEntities) {
+            listTag.add(WorldUtils.savePos(new CompoundTag(), pos));
+        }
+        tag.put("blocks", listTag);
+        saveAdditionnal(tag);
+        return tag;
+    }
+
+    public final void load(@NotNull CompoundTag tag) {
+        loadAdditionnal(tag);
+    }
+
+    public abstract @NotNull CompoundTag saveAdditionnal(@NotNull CompoundTag tag);
+
+    public abstract void loadAdditionnal(@NotNull CompoundTag tag);
 }

@@ -16,11 +16,14 @@ package fr.dwightstudio.deepworld.common.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class WorldUtils {
@@ -41,5 +44,26 @@ public class WorldUtils {
                 }
             }
         }
+    }
+
+    public static <E extends BlockEntity> List<E> getBlockEntities(LevelAccessor level, List<BlockPos> pos) {
+        return pos.stream().map(level::getBlockEntity).map(blockEntity -> {
+            try {
+                return (E) blockEntity;
+            } catch (ClassCastException ignored) {
+                return null;
+            }
+        }).filter(Objects::nonNull).toList();
+    }
+
+    public static CompoundTag savePos(CompoundTag tag, BlockPos pos) {
+        tag.putInt("x", pos.getX());
+        tag.putInt("y", pos.getY());
+        tag.putInt("z", pos.getZ());
+        return tag;
+    }
+
+    public static BlockPos posFromTag(CompoundTag tag) {
+        return new BlockPos(tag.getInt("x"), tag.getInt("y"), tag.getInt("z"));
     }
 }

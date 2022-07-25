@@ -16,6 +16,8 @@ package fr.dwightstudio.deepworld.common.multiblocks;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -48,11 +50,31 @@ public class MultiblocksManager extends SavedData {
 
     @Override
     public @NotNull CompoundTag save(@NotNull CompoundTag tag) {
+        ListTag listTag = new ListTag();
+
+        for(MultiblockEntity entity : entities.values()) {
+            CompoundTag entityTag = new CompoundTag();
+            entity.save(entityTag);
+            listTag.add(entityTag);
+        }
+        tag.put("multiblocks", listTag);
         return tag;
     }
 
     public void load(CompoundTag tag) {
-
+        if (tag.contains("multiblocks")) {
+            ListTag listTag = tag.getList("multiblocks", Tag.TAG_COMPOUND);
+            if (!listTag.isEmpty()) {
+                for(Tag sEntityTag : listTag) {
+                    if (sEntityTag instanceof CompoundTag entityTag && !entityTag.isEmpty()) {
+                        //TODO: Add entities creation
+                        //entities.computeIfAbsent(entityTag.getUUID("uuid"), )
+                    }
+                }
+            }
+        } else {
+            Deepworld.LOGGER.error("Cannot load multiblocks data.");
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

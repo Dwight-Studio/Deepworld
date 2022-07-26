@@ -334,9 +334,10 @@ public class SimpleTankBlockEntity extends AbstractMultiblockHolder<SimpleTankBl
         return (float) (this.fluid.getAmount() / 1000) / MAX_FILL_LEVEL;
     }
 
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && (side == Direction.DOWN || side == Direction.UP))
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return LazyOptional.of(() -> this).cast();
-        return super.getCapability(cap, side);
+        return super.getCapability(cap);
     }
 }

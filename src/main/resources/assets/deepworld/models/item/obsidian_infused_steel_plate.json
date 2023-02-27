@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "deepworld:items/obsidian_infused_steel_plate"
-  }
-}

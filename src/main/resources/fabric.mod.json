@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Deepworld",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "To make the nether go truly deep. The Deep World is a mod that introduces a new intermediate dimension between the overworld and the nether to complexify the access to the latter.",
   "authors": [
     "Deleranax, GamerMine, Yinx"
   ],
@@ -20,6 +20,11 @@
   "entrypoints": {
     "main": [
       "fr.dwightstudio.deepworld.Deepworld"
+    ],"client": [
+      "fr.dwightstudio.deepworld.DeepworldClient"
+    ],
+    "fabric-datagen": [
+      "fr.dwightstudio.deepworld.DeepworldDataGenerator"
     ]
   },
   "mixins": [

@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "fr.dwightstudio.deepworld.ExampleModDeepworld"
+      "fr.dwightstudio.deepworld.Deepworld"
     ]
   },
   "mixins": [

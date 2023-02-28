@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld;
 
+import fr.dwightstudio.deepworld.block.DeepworldBlocks;
 import fr.dwightstudio.deepworld.item.DeepworldItems;
 import fr.dwightstudio.deepworld.item.DeepworldItemGroup;
 import org.slf4j.Logger;
@@ -17,5 +18,6 @@ public class Deepworld implements ModInitializer {
 
         DeepworldItemGroup.registerItemGroups();
         DeepworldItems.registerModItems();
+        DeepworldBlocks.registerModBlocks();
     }
 }

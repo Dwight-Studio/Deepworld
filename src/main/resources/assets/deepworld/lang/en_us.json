@@ -6,6 +6,7 @@
   "itemgroup.deepworld": "The Deep World",
   "_comment": "Itemblocks",
   "block.deepworld.steel_block": "Steel Block",
+  "block.deepworld.obsidian_infused_steel_block" : "Obsidian-Infused Block",
   "_comment": "Items",
   "item.deepworld.iron_gear": "Iron Gear",
   "item.deepworld.iron_nail": "Iron Nail",

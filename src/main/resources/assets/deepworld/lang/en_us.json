@@ -1,3 +1,5 @@
 {
-  "item.deepworld.iron_plate" : "Iron Plate"
+  "item.deepworld.iron_plate" : "Iron Plate",
+  "item.deepworld.steel_plate" : "Steel Plate",
+  "item.deepworld.obsidian_infused_steel_plate" : "Obsidian-Infused Steel Plate"
 }

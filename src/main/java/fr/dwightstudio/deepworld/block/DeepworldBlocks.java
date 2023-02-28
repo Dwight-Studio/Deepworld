@@ -19,7 +19,7 @@ public class DeepworldBlocks {
 
     // Blocks
     public static final Block STEEL_BLOCK = registerBlock("steel_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool()), DeepworldItemGroup.DEEPWORLD);
-    public static final Block OBSIDIAN_INFUSED_STEEL_BLOCK = registerBlock("obsidian_infused_steel_block", new Block(FabricBlockSettings.of(Material.STONE).sounds(BlockSoundGroup.METAL)), DeepworldItemGroup.DEEPWORLD);
+    public static final Block OBSIDIAN_INFUSED_STEEL_BLOCK = registerBlock("obsidian_infused_steel_block", new Block(FabricBlockSettings.of(Material.STONE).strength(8.0f, 10.0f).sounds(BlockSoundGroup.METAL).requiresTool()), DeepworldItemGroup.DEEPWORLD);
 
     private static Block registerBlock(String name, Block block, ItemGroup group){
         registerBlockItem(name, block, group);

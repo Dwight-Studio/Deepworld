@@ -1,5 +1,6 @@
 {
   "item.deepworld.iron_plate" : "Plaque en Fer",
   "item.deepworld.steel_plate" : "Plaque en Acier",
-  "item.deepworld.obsidian_infused_steel_plate" : "Plaque en Acier imprégné d'Obsidienne"
+  "item.deepworld.obsidian_infused_steel_plate" : "Plaque en Acier imprégné d'Obsidienne",
+  "itemgroup.deepworld" : "The Deep World"
 }

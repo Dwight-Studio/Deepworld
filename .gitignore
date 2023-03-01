@@ -41,3 +41,4 @@ replay_*.log
 
 # other
 .github/
+/src/main/generated/.cache/

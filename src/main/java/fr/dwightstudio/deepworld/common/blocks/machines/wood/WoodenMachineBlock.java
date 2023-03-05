@@ -80,7 +80,7 @@ public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock impl
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS; // on client side, don't do anything
         } else {
-            NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) level.getBlockEntity(blockPos));
+            NetworkHooks.openScreen((ServerPlayer) player, (MenuProvider) level.getBlockEntity(blockPos));
             return InteractionResult.CONSUME;
         }
     }

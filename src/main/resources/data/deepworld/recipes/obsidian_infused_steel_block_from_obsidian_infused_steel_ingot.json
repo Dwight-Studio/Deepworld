@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "deepworld:obsidian_infused_steel_ingot"
+      "tag": "c:obsidian_infused_steel_ingots"
     }
   },
   "pattern": [

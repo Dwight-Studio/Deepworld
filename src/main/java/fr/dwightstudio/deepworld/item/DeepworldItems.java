@@ -3,8 +3,7 @@ package fr.dwightstudio.deepworld.item;
 import fr.dwightstudio.deepworld.Deepworld;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -43,6 +42,19 @@ public class DeepworldItems {
     public static final Item PRESSURE_REGULATOR = registerItem("pressure_regulator", new Item(new FabricItemSettings()));
     public static final Item VALVE_ASSEMBLY = registerItem("valve_assembly", new Item(new FabricItemSettings()));
 
+    // Tools
+    public static final Item STEEL_PICKAXE = registerItem("steel_pickaxe", new PickaxeItem(DeepworldToolMaterial.STEEL, 3, -2.8f, new FabricItemSettings().maxCount(1)));
+    public static final Item STEEL_SWORD = registerItem("steel_sword", new SwordItem(DeepworldToolMaterial.STEEL, 5, -2.4f, new FabricItemSettings().maxCount(1)));
+    public static final Item STEEL_AXE = registerItem("steel_axe", new AxeItem(DeepworldToolMaterial.STEEL, 8, -3.2f, new FabricItemSettings().maxCount(1)));
+    public static final Item STEEL_SHOVEL = registerItem("steel_shovel", new ShovelItem(DeepworldToolMaterial.STEEL, 3.5f, -2.8f, new FabricItemSettings().maxCount(1)));
+    public static final Item STEEL_HOE = registerItem("steel_hoe", new HoeItem(DeepworldToolMaterial.STEEL, 3, -2.8f, new FabricItemSettings().maxCount(1)));
+
+    public static final Item OBSIDIAN_INFUSED_STEEL_PICKAXE = registerItem("obsidian_infused_steel_pickaxe", new PickaxeItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new FabricItemSettings().maxCount(1)));
+    public static final Item OBSIDIAN_INFUSED_STEEL_SWORD = registerItem("obsidian_infused_steel_sword", new SwordItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 9, -2.2f, new FabricItemSettings().maxCount(1)));
+    public static final Item OBSIDIAN_INFUSED_STEEL_AXE = registerItem("obsidian_infused_steel_axe", new AxeItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 12, -3.4f, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_SHOVEL = registerItem("obsidian_infused_steel_shovel", new ShovelItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4.5f, -2.8f, new FabricItemSettings().maxCount(1)));
+    public static final Item OBSIDIAN_INFUSED_STEEL_HOE = registerItem("obsidian_infused_steel_hoe", new HoeItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new FabricItemSettings().maxCount(1)));
+
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, new Identifier(Deepworld.MOD_ID, name), item);
     }
@@ -78,6 +90,18 @@ public class DeepworldItems {
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, IRON_TURBINE);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, PRESSURE_REGULATOR);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, VALVE_ASSEMBLY);
+
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_PICKAXE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_SWORD);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_AXE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_SHOVEL);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_HOE);
+
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_PICKAXE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_SWORD);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_AXE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_SHOVEL);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_HOE);
     }
 
     private static void addToItemGroup(ItemGroup group, Item item){

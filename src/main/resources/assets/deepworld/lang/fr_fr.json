@@ -30,5 +30,15 @@
   "item.deepworld.steel_rod": "Tige en Acier",
   "item.deepworld.steel_screw": "Vis en Acier",
   "item.deepworld.valve_assembly": "Assemblage de vanne",
-  "item.deepworld.wooden_gear": "Engrenage en Bois"
+  "item.deepworld.wooden_gear": "Engrenage en Bois",
+  "item.deepworld.steel_pickaxe": "Pioche en Acier",
+  "item.deepworld.steel_sword": "Épée en Acier",
+  "item.deepworld.steel_axe": "Hache en Acier",
+  "item.deepworld.steel_shovel": "Pelle en Acier",
+  "item.deepworld.steel_hoe": "Houe en Acier",
+  "item.deepworld.obsidian_infused_steel_pickaxe": "Pioche en acier imprégné d'obsidienne",
+  "item.deepworld.obsidian_infused_steel_sword": "Épée en acier imprégné d'obsidienne",
+  "item.deepworld.obsidian_infused_steel_axe": "Hache en acier imprégné d'obsidienne",
+  "item.deepworld.obsidian_infused_steel_shovel": "Pelle en acier imprégné d'obsidienne",
+  "item.deepworld.obsidian_infused_steel_hoe": "Houe en acier imprégné d'obsidienne"
 }

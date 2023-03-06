@@ -30,5 +30,15 @@
   "item.deepworld.steel_rod": "Steel Rod",
   "item.deepworld.steel_screw": "Steel Screw",
   "item.deepworld.valve_assembly": "Valve Assembly",
-  "item.deepworld.wooden_gear": "Wooden Gear"
+  "item.deepworld.wooden_gear": "Wooden Gear",
+  "item.deepworld.steel_pickaxe": "Steel Pickaxe",
+  "item.deepworld.steel_sword": "Steel Sword",
+  "item.deepworld.steel_axe": "Steel Axe",
+  "item.deepworld.steel_shovel": "Steel Shovel",
+  "item.deepworld.steel_hoe": "Steel Hoe",
+  "item.deepworld.obsidian_infused_steel_pickaxe": "Obsidian-Infused Steel Pickaxe",
+  "item.deepworld.obsidian_infused_steel_sword": "Obsidian-Infused Steel Sword",
+  "item.deepworld.obsidian_infused_steel_axe": "Obsidian-Infused Steel Axe",
+  "item.deepworld.obsidian_infused_steel_shovel": "Obsidian-Infused Steel Shovel",
+  "item.deepworld.obsidian_infused_steel_hoe": "Obsidian-Infused Steel Hoe"
 }

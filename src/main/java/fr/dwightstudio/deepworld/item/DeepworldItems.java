@@ -3,6 +3,7 @@ package fr.dwightstudio.deepworld.item;
 import fr.dwightstudio.deepworld.Deepworld;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.Registries;
@@ -55,6 +56,17 @@ public class DeepworldItems {
     public static final Item OBSIDIAN_INFUSED_STEEL_SHOVEL = registerItem("obsidian_infused_steel_shovel", new ShovelItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4.5f, -2.8f, new FabricItemSettings().maxCount(1)));
     public static final Item OBSIDIAN_INFUSED_STEEL_HOE = registerItem("obsidian_infused_steel_hoe", new HoeItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new FabricItemSettings().maxCount(1)));
 
+    // Armors
+    public static final Item STEEL_HELMET = registerItem("steel_helmet", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.HEAD, new FabricItemSettings()));
+    public static final Item STEEL_CHESTPLATE = registerItem("steel_chestplate", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.CHEST, new FabricItemSettings()));
+    public static final Item STEEL_LEGGINGS = registerItem("steel_leggings", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.LEGS, new FabricItemSettings()));
+    public static final Item STEEL_BOOTS = registerItem("steel_boots", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.FEET, new FabricItemSettings()));
+
+    public static final Item OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, new Identifier(Deepworld.MOD_ID, name), item);
     }
@@ -102,6 +114,16 @@ public class DeepworldItems {
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_AXE);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_SHOVEL);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_HOE);
+
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_HELMET);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_CHESTPLATE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_LEGGINGS);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, STEEL_BOOTS);
+
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_HELMET);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_CHESTPLATE);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_LEGGINGS);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_BOOTS);
     }
 
     private static void addToItemGroup(ItemGroup group, Item item){

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "mmm",
+    "m m",
+    "   "
+  ],
+  "key": {
+    "m": {
+      "tag": "c:obsidian_infused_steel_ingots"
+    }
+  },
+  "result": {
+    "item": "deepworld:obsidian_infused_steel_helmet",
+    "count": 1
+  }
+}

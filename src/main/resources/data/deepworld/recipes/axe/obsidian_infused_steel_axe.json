@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "mm ",
+    "m/ ",
+    " / "
+  ],
+  "key": {
+    "m": {
+      "tag": "c:obsidian_infused_steel_ingots"
+    },
+    "/": [
+      {
+        "tag": "c:wooden_rods"
+      },
+      {
+        "tag": "c:wood_sticks"
+      }
+    ]
+  },
+  "result": {
+    "item": "deepworld:obsidian_infused_steel_axe",
+    "count": 1
+  }
+}

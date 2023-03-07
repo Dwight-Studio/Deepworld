@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " m ",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "m": {
+      "tag": "c:steel_ingots"
+    },
+    "/": [
+      {
+        "tag": "c:wooden_rods"
+      },
+      {
+        "tag": "c:wood_sticks"
+      }
+    ]
+  },
+  "result": {
+    "item": "deepworld:steel_shovel",
+    "count": 1
+  }
+}

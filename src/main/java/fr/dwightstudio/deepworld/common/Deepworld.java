@@ -1,15 +1,16 @@
 /*
- *     ____           _       __    __     _____ __            ___
- *    / __ \_      __(_)___ _/ /_  / /_   / ___// /___  ______/ (_)___
- *   / / / / | /| / / / __ `/ __ \/ __/   \__ \/ __/ / / / __  / / __ \
- *  / /_/ /| |/ |/ / / /_/ / / / / /_    ___/ / /_/ /_/ / /_/ / / /_/ /
- * /_____/ |__/|__/_/\__, /_/ /_/\__/   /____/\__/\__,_/\__,_/_/\____/
- *                  /____/
- * Copyright (c) 2022-2022 Dwight Studio's Team <support@dwight-studio.fr>
+ *       ____           _       __    __     _____ __            ___
+ *      / __ \_      __(_)___ _/ /_  / /_   / ___// /___  ______/ (_)___
+ *     / / / / | /| / / / __ `/ __ \/ __/   \__ \/ __/ / / / __  / / __ \
+ *    / /_/ /| |/ |/ / / /_/ / / / / /_    ___/ / /_/ /_/ / /_/ / / /_/ /
+ *   /_____/ |__/|__/_/\__, /_/ /_/\__/   /____/\__/\__,_/\__,_/_/\____/
+ *                    /____/
+ *   Copyright (c) 2022-2023 Dwight Studio's Team <support@dwight-studio.fr>
  *
- * This Source Code From is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/ .
+ *   This Source Code From is subject to the terms of the Mozilla Public
+ *   License, v. 2.0. If a copy of the MPL was not distributed with this
+ *   file, You can obtain one at https://mozilla.org/MPL/2.0/ .
+ *
  */
 
 package fr.dwightstudio.deepworld.common;
@@ -35,7 +36,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(Deepworld.MOD_ID)
-@Mod.EventBusSubscriber()
 public class Deepworld {
 
     // Mod info
@@ -71,10 +71,6 @@ public class Deepworld {
         RECIPE_TYPES.register(MOD_EVENT_BUS);
         RECIPE_SERIALIZERS.register(MOD_EVENT_BUS);
         SOUND_EVENTS.register(MOD_EVENT_BUS);
-
-        MOD_EVENT_BUS.register(DeepworldClient.class);
-        MOD_EVENT_BUS.register(MultiblocksManager.class);
-        MOD_EVENT_BUS.register(DeepworldDataGenerator.class);
     }
 
     public static void registerAssets() {

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 
 public class DeepworldLootTableGenerator extends FabricBlockLootTableProvider {
+
     public DeepworldLootTableGenerator(FabricDataOutput dataOutput) {
         super(dataOutput);
     }

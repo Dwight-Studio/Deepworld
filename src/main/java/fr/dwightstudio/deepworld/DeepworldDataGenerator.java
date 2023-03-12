@@ -1,5 +1,6 @@
 package fr.dwightstudio.deepworld;
 
+import fr.dwightstudio.deepworld.data.DeepworldLangGenerator;
 import fr.dwightstudio.deepworld.data.DeepworldLootTableGenerator;
 import fr.dwightstudio.deepworld.data.DeepworldModelProvider;
 import fr.dwightstudio.deepworld.data.DeepworldRecipeGenerator;
@@ -14,6 +15,7 @@ public class DeepworldDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DeepworldLootTableGenerator::new);
         pack.addProvider(DeepworldRecipeGenerator::new);
         pack.addProvider(DeepworldModelProvider::new);
+        pack.addProvider(DeepworldLangGenerator::new);
     }
 
 }

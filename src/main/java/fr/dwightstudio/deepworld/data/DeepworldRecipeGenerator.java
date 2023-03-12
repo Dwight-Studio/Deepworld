@@ -10,6 +10,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import java.util.function.Consumer;
 
 public class DeepworldRecipeGenerator extends FabricRecipeProvider {
+
     public DeepworldRecipeGenerator(FabricDataOutput output) {
         super(output);
     }

@@ -9,6 +9,7 @@ import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 
 public class DeepworldModelProvider extends FabricModelProvider {
+
     public DeepworldModelProvider(FabricDataOutput output) {
         super(output);
     }

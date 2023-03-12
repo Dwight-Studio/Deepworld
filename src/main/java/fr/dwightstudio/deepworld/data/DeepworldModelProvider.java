@@ -14,6 +14,11 @@ public class DeepworldModelProvider extends FabricModelProvider {
         super(output);
     }
 
+    /**
+     * Generate both blockstates and models block's files
+     *
+     * @param blockStateModelGenerator
+     */
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerCubeAllModelTexturePool(DeepworldBlocks.STEEL_BLOCK);

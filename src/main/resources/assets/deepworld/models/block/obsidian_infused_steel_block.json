@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "deepworld:block/obsidian_infused_steel_block"
-  }
-}

@@ -1,9 +1,6 @@
 package fr.dwightstudio.deepworld;
 
-import fr.dwightstudio.deepworld.data.DeepworldLangGenerator;
-import fr.dwightstudio.deepworld.data.DeepworldLootTableGenerator;
-import fr.dwightstudio.deepworld.data.DeepworldModelProvider;
-import fr.dwightstudio.deepworld.data.DeepworldRecipeGenerator;
+import fr.dwightstudio.deepworld.data.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -14,9 +11,10 @@ public class DeepworldDataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(DeepworldLootTableGenerator::new);
         pack.addProvider(DeepworldRecipeGenerator::new);
-        pack.addProvider(DeepworldModelProvider::new);
+        pack.addProvider(DeepworldModelGenerator::new);
         pack.addProvider(DeepworldLangGenerator.DeepworldLangGeneratorEN::new);
         pack.addProvider(DeepworldLangGenerator.DeepworldLangGeneratorFR::new);
+        pack.addProvider(DeepworldItemTagGenerator::new);
     }
 
 }

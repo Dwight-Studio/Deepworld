@@ -8,9 +8,9 @@ import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 
-public class DeepworldModelProvider extends FabricModelProvider {
+public class DeepworldModelGenerator extends FabricModelProvider {
 
-    public DeepworldModelProvider(FabricDataOutput output) {
+    public DeepworldModelGenerator(FabricDataOutput output) {
         super(output);
     }
 

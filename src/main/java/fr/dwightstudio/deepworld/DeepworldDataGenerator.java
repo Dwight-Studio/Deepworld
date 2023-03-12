@@ -14,7 +14,8 @@ public class DeepworldDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DeepworldModelGenerator::new);
         pack.addProvider(DeepworldLangGenerator.DeepworldLangGeneratorEN::new);
         pack.addProvider(DeepworldLangGenerator.DeepworldLangGeneratorFR::new);
-        pack.addProvider(DeepworldItemTagGenerator::new);
+        pack.addProvider(DeepworldTagGenerator.DeepworldItemTagGenerator::new);
+        pack.addProvider(DeepworldTagGenerator.DeepworldBlockTagGenerator::new);
     }
 
 }

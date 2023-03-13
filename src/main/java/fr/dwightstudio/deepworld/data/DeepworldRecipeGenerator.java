@@ -24,6 +24,7 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         createBlockAndIngots(DeepworldBlocks.STEEL_BLOCK, DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
+        createBlockAndIngots(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_OBSIDIAN_INFUSED_STEEL_INGOTS, exporter);
     }
 
     public void createBlockAndIngots(Block block, Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){

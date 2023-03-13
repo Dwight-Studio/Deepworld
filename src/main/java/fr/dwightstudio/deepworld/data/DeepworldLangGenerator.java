@@ -72,7 +72,7 @@ public class DeepworldLangGenerator {
         @Override
         public void generateTranslations(TranslationBuilder translationBuilder) {
             translationBuilder.add(DeepworldItemGroup.DEEPWORLD, "The Deep World");
-            translationBuilder.add(DeepworldBlocks.STEEL_BLOCK, "Bloc d'acier");
+            translationBuilder.add(DeepworldBlocks.STEEL_BLOCK, "Bloc d'acie");
             translationBuilder.add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK, "Bloc d'acier imprégné d'obsidienne");
             translationBuilder.add(DeepworldItems.IRON_GEAR, "Engrenage en fer");
             translationBuilder.add(DeepworldItems.IRON_NAIL, "Clou en fer");

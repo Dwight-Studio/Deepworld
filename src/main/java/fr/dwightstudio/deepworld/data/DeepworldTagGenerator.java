@@ -20,10 +20,13 @@ public class DeepworldTagGenerator{
 
         private static final TagKey<Item> DEEPWORLD_OBSIDIAN_INFUSED_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID, "obsidian_infused_steel_ingots"));
         private static final TagKey<Item> DEEPWORLD_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID,"steel_ingots"));
-        private static final TagKey<Item> DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.Item, new Identifier(Deepworld.MOD_ID, "obsidian_infused_steel_blocks"));
+        private static final TagKey<Item> DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID, "obsidian_infused_steel_blocks"));
+        private static final TagKey<Item> DEEPWORLD_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID, "steel_blocks"));
 
         private static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_ingots"));
         private static final TagKey<Item> C_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c","steel_ingots"));
+        private static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_blocks"));
+        private static final TagKey<Item> C_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "steel_blocks"));
         private static final TagKey<Item> C_WOOD_STICKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wood_sticks"));
         private static final TagKey<Item> C_WOODEN_RODS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wooden_rods"));
 
@@ -35,11 +38,14 @@ public class DeepworldTagGenerator{
         protected void configure(RegistryWrapper.WrapperLookup arg) {
             getOrCreateTagBuilder(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_INGOTS).add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT);
             getOrCreateTagBuilder(DEEPWORLD_STEEL_INGOTS).add(DeepworldItems.STEEL_INGOT);
-            //getTagBuilder(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS).add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK);
-            getOrCreateTagBuilder(C_WOOD_STICKS).add(Items.STICK);
-            getOrCreateTagBuilder(C_WOODEN_RODS).add(Items.STICK);
+            getOrCreateTagBuilder(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS).add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.asItem());
+            getOrCreateTagBuilder(DEEPWORLD_STEEL_BLOCKS).add(DeepworldBlocks.STEEL_BLOCK.asItem());
             getOrCreateTagBuilder(C_OBSIDIAN_INFUSED_STEEL_INGOTS).addTag(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_INGOTS);
             getOrCreateTagBuilder(C_STEEL_INGOTS).addTag(DEEPWORLD_STEEL_INGOTS);
+            getOrCreateTagBuilder(C_OBSIDIAN_INFUSED_STEEL_BLOCKS).addTag(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS);
+            getOrCreateTagBuilder(C_STEEL_BLOCKS).addTag(DEEPWORLD_STEEL_BLOCKS);
+            getOrCreateTagBuilder(C_WOOD_STICKS).add(Items.STICK);
+            getOrCreateTagBuilder(C_WOODEN_RODS).add(Items.STICK);
         }
     }
 

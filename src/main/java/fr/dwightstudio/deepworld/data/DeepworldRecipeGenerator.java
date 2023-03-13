@@ -25,6 +25,9 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         createBlockAndIngots(DeepworldBlocks.STEEL_BLOCK, DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
         createBlockAndIngots(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_OBSIDIAN_INFUSED_STEEL_INGOTS, exporter);
+
+        createArmor(DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
+        createArmor(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_OBSIDIAN_INFUSED_STEEL_INGOTS, exporter);
     }
 
     public void createBlockAndIngots(Block block, Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
@@ -40,4 +43,17 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
                 .criterion(FabricRecipeProvider.hasItem(block), FabricRecipeProvider.conditionsFromItem(block))
                 .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(item), "ingots/" + item.getTranslationKey().split("\\.")[2] + "_from_block"));
     }
+
+    public void createArmor(Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
+        for(Armor part:Armor.values()){
+            Item armorPart = part.getArmorPart(item);
+            ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorPart)
+                    .pattern(part.getPattern(0))
+                    .pattern(part.getPattern(1))
+                    .pattern(part.getPattern(2))
+                    .input('#', itemTagKey)
+                    .criterion(FabricRecipeProvider.hasItem(item), FabricRecipeProvider.conditionsFromItem(item))
+                    .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(armorPart), "armor/" + armorPart.getTranslationKey().split("\\.")[2]));
+            }
+        }
 }

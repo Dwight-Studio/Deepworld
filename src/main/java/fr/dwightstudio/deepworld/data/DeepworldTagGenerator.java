@@ -23,12 +23,12 @@ public class DeepworldTagGenerator{
         private static final TagKey<Item> DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID, "obsidian_infused_steel_blocks"));
         private static final TagKey<Item> DEEPWORLD_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier(Deepworld.MOD_ID, "steel_blocks"));
 
-        private static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_ingots"));
-        private static final TagKey<Item> C_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c","steel_ingots"));
-        private static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_blocks"));
-        private static final TagKey<Item> C_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "steel_blocks"));
-        private static final TagKey<Item> C_WOOD_STICKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wood_sticks"));
-        private static final TagKey<Item> C_WOODEN_RODS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wooden_rods"));
+        public static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_ingots"));
+        public static final TagKey<Item> C_STEEL_INGOTS = TagKey.of(RegistryKeys.ITEM, new Identifier("c","steel_ingots"));
+        public static final TagKey<Item> C_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "obsidian_infused_steel_blocks"));
+        public static final TagKey<Item> C_STEEL_BLOCKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "steel_blocks"));
+        public static final TagKey<Item> C_WOOD_STICKS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wood_sticks"));
+        public static final TagKey<Item> C_WOODEN_RODS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "wooden_rods"));
 
         public DeepworldItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, RegistryKeys.ITEM, registriesFuture);
@@ -55,8 +55,8 @@ public class DeepworldTagGenerator{
         private static final TagKey<Block> DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier(Deepworld.MOD_ID, "obsidian_infused_steel_blocks"));
         private static final TagKey<Block> DEEPWORLD_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier(Deepworld.MOD_ID,"steel_blocks"));
 
-        private static final TagKey<Block> C_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier("c", "obsidian_infused_steel_blocks"));
-        private static final TagKey<Block> C_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier("c","steel_blocks"));
+        public static final TagKey<Block> C_OBSIDIAN_INFUSED_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier("c", "obsidian_infused_steel_blocks"));
+        public static final TagKey<Block> C_STEEL_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier("c","steel_blocks"));
 
         private static final TagKey<Block> FABRIC_NEEDS_TOOL_LEVEL = TagKey.of(RegistryKeys.BLOCK, new Identifier("fabric", "needs_tool_level_4"));
 

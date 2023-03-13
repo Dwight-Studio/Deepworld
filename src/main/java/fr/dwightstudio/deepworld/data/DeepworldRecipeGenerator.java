@@ -5,7 +5,9 @@ import fr.dwightstudio.deepworld.item.DeepworldItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
 
@@ -17,7 +19,12 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        offerReversibleCompactingRecipes(exporter, RecipeCategory.MISC, DeepworldItems.STEEL_INGOT, RecipeCategory.BUILDING_BLOCKS, DeepworldBlocks.STEEL_BLOCK);
-        offerReversibleCompactingRecipes(exporter, RecipeCategory.MISC, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, RecipeCategory.BUILDING_BLOCKS, DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, DeepworldBlocks.STEEL_BLOCK)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .input('#', DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS)
+                .criterion(FabricRecipeProvider.hasItem(DeepworldItems.STEEL_INGOT), FabricRecipeProvider.conditionsFromItem(DeepworldItems.STEEL_INGOT))
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(DeepworldBlocks.STEEL_BLOCK), "blocks/steel_block"));
     }
 }

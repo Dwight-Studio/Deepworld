@@ -40,6 +40,7 @@ public class DeepworldTagGenerator{
             getOrCreateTagBuilder(DEEPWORLD_STEEL_INGOTS).add(DeepworldItems.STEEL_INGOT);
             getOrCreateTagBuilder(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS).add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.asItem());
             getOrCreateTagBuilder(DEEPWORLD_STEEL_BLOCKS).add(DeepworldBlocks.STEEL_BLOCK.asItem());
+
             getOrCreateTagBuilder(C_OBSIDIAN_INFUSED_STEEL_INGOTS).addTag(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_INGOTS);
             getOrCreateTagBuilder(C_STEEL_INGOTS).addTag(DEEPWORLD_STEEL_INGOTS);
             getOrCreateTagBuilder(C_OBSIDIAN_INFUSED_STEEL_BLOCKS).addTag(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS);
@@ -75,9 +76,12 @@ public class DeepworldTagGenerator{
         protected void configure(RegistryWrapper.WrapperLookup arg) {
             getOrCreateTagBuilder(DEEPWORLD_STEEL_BLOCKS).add(DeepworldBlocks.STEEL_BLOCK);
             getOrCreateTagBuilder(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS).add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK);
+
             getOrCreateTagBuilder(C_OBSIDIAN_INFUSED_STEEL_BLOCKS).addTag(DEEPWORLD_OBSIDIAN_INFUSED_STEEL_BLOCKS);
             getOrCreateTagBuilder(C_STEEL_BLOCKS).addTag(DEEPWORLD_STEEL_BLOCKS);
+
             getOrCreateTagBuilder(FABRIC_NEEDS_TOOL_LEVEL);
+
             getOrCreateTagBuilder(MINECRAFT_NEEDS_DIAMOND_TOOL).add(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK);
             getOrCreateTagBuilder(MINECRAFT_NEEDS_IRON_TOOL).add(DeepworldBlocks.STEEL_BLOCK);
             getOrCreateTagBuilder(MINECRAFT_NEEDS_STONE_TOOL);

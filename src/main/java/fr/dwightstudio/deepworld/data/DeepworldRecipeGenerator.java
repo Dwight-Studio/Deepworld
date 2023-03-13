@@ -47,6 +47,7 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
     public void createArmor(Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
         for(Armor part:Armor.values()){
             Item armorPart = part.getArmorPart(item);
+            assert armorPart != null;
             ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, armorPart)
                     .pattern(part.getPattern(0))
                     .pattern(part.getPattern(1))

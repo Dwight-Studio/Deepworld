@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -28,6 +29,9 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
 
         createArmor(DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
         createArmor(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_OBSIDIAN_INFUSED_STEEL_INGOTS, exporter);
+
+        createTools(DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
+        createTools(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_OBSIDIAN_INFUSED_STEEL_INGOTS, exporter);
     }
 
     public void createBlockAndIngots(Block block, Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
@@ -55,6 +59,22 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
                     .input('#', itemTagKey)
                     .criterion(FabricRecipeProvider.hasItem(item), FabricRecipeProvider.conditionsFromItem(item))
                     .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(armorPart), "armor/" + armorPart.getTranslationKey().split("\\.")[2]));
-            }
         }
+    }
+
+    public void createTools(Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
+        for(Tool part:Tool.values()){
+            Item toolPart = part.getToolPart(item);
+            assert toolPart != null;
+            ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, toolPart)
+                    .pattern(part.getPattern(0))
+                    .pattern(part.getPattern(1))
+                    .pattern(part.getPattern(2))
+                    .input('#', itemTagKey)
+                    //.input('/', Ingredient.fromTag(DeepworldTagGenerator.DeepworldItemTagGenerator.C_WOOD_STICKS))
+                    .input('/', DeepworldTagGenerator.DeepworldItemTagGenerator.C_WOODEN_RODS)
+                    .criterion(FabricRecipeProvider.hasItem(item), FabricRecipeProvider.conditionsFromItem(item))
+                    .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(toolPart), part.getName() + "/" + toolPart.getTranslationKey().split("\\.")[2]));
+        }
+    }
 }

@@ -23,20 +23,20 @@ public class DeepworldRecipeGenerator extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        createBlock(RecipeCategory.MISC, DeepworldBlocks.STEEL_BLOCK, DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, "blocks/steel_block", "ingots/steel_ingot_from_block", exporter);
+        createBlock(DeepworldBlocks.STEEL_BLOCK, DeepworldItems.STEEL_INGOT, DeepworldTagGenerator.DeepworldItemTagGenerator.C_STEEL_INGOTS, exporter);
     }
 
-    public void createBlock(RecipeCategory recipeCategory, Block block, Item item, TagKey<Item> itemTagKey, String pathToBlock, String pathToItem, Consumer<RecipeJsonProvider> exporter){
-        ShapedRecipeJsonBuilder.create(recipeCategory, block)
+    public void createBlock(Block block, Item item, TagKey<Item> itemTagKey, Consumer<RecipeJsonProvider> exporter){
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, block)
                 .pattern("###")
                 .pattern("###")
                 .pattern("###")
                 .input('#', itemTagKey)
                 .criterion(FabricRecipeProvider.hasItem(item), FabricRecipeProvider.conditionsFromItem(item))
-                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(block), pathToBlock));
-        ShapelessRecipeJsonBuilder.create(recipeCategory, item, 9)
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(block), "blocks/" + block.getTranslationKey().split("\\.")[2]));
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, item, 9)
                 .input(block)
                 .criterion(FabricRecipeProvider.hasItem(block), FabricRecipeProvider.conditionsFromItem(block))
-                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(item), pathToItem));
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(item), "ingots/" + item.getTranslationKey().split("\\.")[2] + "_from_block"));
     }
 }

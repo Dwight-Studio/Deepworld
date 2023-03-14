@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.block;
 
 import fr.dwightstudio.deepworld.Deepworld;
+import fr.dwightstudio.deepworld.block.frames.DeepworldFrames;
 import fr.dwightstudio.deepworld.item.DeepworldItemGroup;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -20,6 +21,9 @@ public class DeepworldBlocks {
     // Blocks
     public static final Block STEEL_BLOCK = registerBlock("steel_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool()), DeepworldItemGroup.DEEPWORLD);
     public static final Block OBSIDIAN_INFUSED_STEEL_BLOCK = registerBlock("obsidian_infused_steel_block", new Block(FabricBlockSettings.of(Material.STONE).strength(30f, 50.0f).sounds(BlockSoundGroup.METAL).requiresTool()), DeepworldItemGroup.DEEPWORLD);
+
+    // Frames
+    public static final Block WOODEN_FRAME = registerBlock("wooden_frame", new DeepworldFrames(FabricBlockSettings.of(Material.WOOD).strength(2.0f, 2.0f).requiresTool().nonOpaque()), DeepworldItemGroup.DEEPWORLD);
 
     private static Block registerBlock(String name, Block block, ItemGroup group){
         registerBlockItem(name, block, group);

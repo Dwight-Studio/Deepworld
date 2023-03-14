@@ -60,6 +60,7 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_CHESTPLATE, "Obsidian-Infused Steel Chestplate");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_LEGGINGS, "Obsidian-Infused Steel Leggings");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_BOOTS, "Obsidian-Infused Steel Boots");
+            translationBuilder.add(DeepworldBlocks.WOODEN_FRAME, "Wooden Frame");
         }
     }
 
@@ -115,6 +116,7 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_CHESTPLATE, "Plastron en acier imprégné d'obsidienne");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_LEGGINGS, "Jambières en acier imprégné d'obsidienne");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_BOOTS, "Bottes en acier imprégné d'obsidienne");
+            translationBuilder.add(DeepworldBlocks.WOODEN_FRAME, "Cadre en bois");
         }
     }
 

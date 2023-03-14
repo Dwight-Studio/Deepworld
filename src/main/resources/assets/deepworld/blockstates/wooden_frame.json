@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north" : {
+      "model": "deepworld:block/frames/wooden_frame"
+    },
+    "facing=east" : {
+      "model": "deepworld:block/frames/wooden_frame"
+    },
+    "facing=south" : {
+      "model": "deepworld:block/frames/wooden_frame"
+    },
+    "facing=west" : {
+      "model": "deepworld:block/frames/wooden_frame"
+    }
+  }
+}

@@ -35,7 +35,7 @@ public enum DeepworldWoodenFrameComponent {
     );
 
     // Var
-    private final Item item;
+    private final Item item; // <- Should be ComponentItem
     private final ComponentClass componentClass;
     private final ComponentMachine[] machineBlocks;
     private final int ID;

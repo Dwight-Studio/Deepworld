@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld;
 
 import fr.dwightstudio.deepworld.block.DeepworldBlocks;
+import fr.dwightstudio.deepworld.blockentities.DeepworldEntities;
 import fr.dwightstudio.deepworld.item.DeepworldItemGroup;
 import fr.dwightstudio.deepworld.item.DeepworldItems;
 import net.fabricmc.api.ModInitializer;
@@ -19,5 +20,6 @@ public class Deepworld implements ModInitializer {
         DeepworldItemGroup.registerItemGroups();
         DeepworldItems.registerModItems();
         DeepworldBlocks.registerModBlocks();
+        DeepworldEntities.registerBlockEntities();
     }
 }

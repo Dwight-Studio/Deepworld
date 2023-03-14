@@ -26,6 +26,14 @@ public class DeepworldBlocks {
     // Frames
     public static final Block WOODEN_FRAME = registerBlock("wooden_frame", new DeepworldWoodenFrame(), DeepworldItemGroup.DEEPWORLD);
 
+    // Machines
+    public static Block WOODEN_PRESS;
+    public static Block WOODEN_GEAR_SHAPER;
+    public static Block WOODEN_LATHE;
+
+    public static Block IRON_TANK;
+    public static Block PIPE;
+
     private static Block registerBlock(String name, Block block, ItemGroup group){
         registerBlockItem(name, block, group);
         return Registry.register(Registries.BLOCK, new Identifier(Deepworld.MOD_ID, name), block);

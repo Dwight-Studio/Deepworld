@@ -1,17 +1,22 @@
 package fr.dwightstudio.deepworld.block.frames;
 
+import fr.dwightstudio.deepworld.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.components.ComponentClass;
 import fr.dwightstudio.deepworld.components.DeepworldWoodenFrameComponent;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
+import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public class DeepworldWoodenFrame extends DeepworldFrame{
+public class DeepworldWoodenFrame extends DeepworldFrame implements BlockEntityProvider {
 
     public static final Property<Integer> PRIMARY_COMPONENT = IntProperty.of("primary_component", 0, DeepworldWoodenFrameComponent.getLastID(ComponentClass.PRIMARY));
     public static final Property<Integer> SECONDARY_COMPONENT = IntProperty.of("secondary_component", 0, DeepworldWoodenFrameComponent.getLastID(ComponentClass.SECONDARY));
@@ -28,6 +33,12 @@ public class DeepworldWoodenFrame extends DeepworldFrame{
                 .with(PRIMARY_COMPONENT, 0)
                 .with(SECONDARY_COMPONENT, 0)
                 .with(TERTIARY_COMPONENT, 0);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState){
+        return new WoodenFrameBlockEntity(blockPos, blockState);
     }
 
     @Override

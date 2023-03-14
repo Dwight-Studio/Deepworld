@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.item;
 
 import fr.dwightstudio.deepworld.Deepworld;
+import fr.dwightstudio.deepworld.item.parts.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.EquipmentSlot;
@@ -67,6 +68,15 @@ public class DeepworldItems {
     public static final Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new FabricItemSettings()));
     public static final Item OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new FabricItemSettings()));
 
+    // Machine components
+    public static final Item SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", new SimplePressingChamberItem());
+    public static final Item WOODEN_GEARBOX = registerItem("wooden_gearbox", new WoodenGearboxItem());
+    public static final Item WOODEN_CRANK = registerItem("wooden_crank", new WoodenCrankItem());
+    public static final Item SIMPLE_CUTTER = registerItem("simple_cutter", new SimpleCutter());
+    public static final Item SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", new SimpleLeftPartHolder());
+    public static final Item SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", new SimpleRightPartHolder());
+    public static final Item WOODEN_CASE_PANEL = registerItem("wooden_case_panel", new WoodenCasePanelItem());
+
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, new Identifier(Deepworld.MOD_ID, name), item);
     }
@@ -124,6 +134,14 @@ public class DeepworldItems {
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_CHESTPLATE);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_LEGGINGS);
         addToItemGroup(DeepworldItemGroup.DEEPWORLD, OBSIDIAN_INFUSED_STEEL_BOOTS);
+
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, SIMPLE_PRESSING_CHAMBER);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, WOODEN_GEARBOX);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, WOODEN_CRANK);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, SIMPLE_CUTTER);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, SIMPLE_LEFT_PART_HOLDER);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, SIMPLE_RIGHT_PART_HOLDER);
+        addToItemGroup(DeepworldItemGroup.DEEPWORLD, WOODEN_CASE_PANEL);
     }
 
     private static void addToItemGroup(ItemGroup group, Item item){

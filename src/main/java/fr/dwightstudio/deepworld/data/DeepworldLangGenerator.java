@@ -61,6 +61,12 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_LEGGINGS, "Obsidian-Infused Steel Leggings");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_BOOTS, "Obsidian-Infused Steel Boots");
             translationBuilder.add(DeepworldBlocks.WOODEN_FRAME, "Wooden Frame");
+            translationBuilder.add(DeepworldItems.WOODEN_CASE_PANEL, "Wooden Case Panel (Component)");
+            translationBuilder.add(DeepworldItems.WOODEN_GEARBOX, "Wooden Gearbox (Component)");
+            translationBuilder.add(DeepworldItems.SIMPLE_LEFT_PART_HOLDER, "Simple Left Part Holder (Component)");
+            translationBuilder.add(DeepworldItems.SIMPLE_RIGHT_PART_HOLDER, "Simple Right Part Holder (Component)");
+            translationBuilder.add(DeepworldItems.SIMPLE_PRESSING_CHAMBER, "Simple Pressing Chamber (Component)");
+            translationBuilder.add(DeepworldItems.SIMPLE_CUTTER, "Simple Cutter (Component)");
         }
     }
 
@@ -117,6 +123,12 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_LEGGINGS, "Jambières en acier imprégné d'obsidienne");
             translationBuilder.add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_BOOTS, "Bottes en acier imprégné d'obsidienne");
             translationBuilder.add(DeepworldBlocks.WOODEN_FRAME, "Cadre en bois");
+            translationBuilder.add(DeepworldItems.WOODEN_CASE_PANEL, "Plaque de châssis en bois (Composant)");
+            translationBuilder.add(DeepworldItems.WOODEN_GEARBOX, "Boîte à engrenages en bois (Composant)");
+            translationBuilder.add(DeepworldItems.SIMPLE_LEFT_PART_HOLDER, "Support gauche (Composant)");
+            translationBuilder.add(DeepworldItems.SIMPLE_RIGHT_PART_HOLDER, "Support droit (Composant)");
+            translationBuilder.add(DeepworldItems.SIMPLE_PRESSING_CHAMBER, "Chambre de pressage simple (Composant)");
+            translationBuilder.add(DeepworldItems.SIMPLE_CUTTER, "Coupeuse simple (Composant)");
         }
     }
 

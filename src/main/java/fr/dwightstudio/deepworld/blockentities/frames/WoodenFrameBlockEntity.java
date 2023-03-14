@@ -16,8 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.block.Block.NOTIFY_ALL;
-import static net.minecraft.block.Block.NOTIFY_NEIGHBORS;
+import static net.minecraft.block.Block.*;
 
 public class WoodenFrameBlockEntity extends BlockEntity {
 
@@ -83,7 +82,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
                 .with(DeepworldWoodenFrame.SECONDARY_COMPONENT, secondaryComponent)
                 .with(DeepworldWoodenFrame.TERTIARY_COMPONENT, tertiaryComponent);
         if (!newBlockState.equals(currentBlockState)) {
-            this.world.setBlockState(this.pos, newBlockState, NOTIFY_ALL, NOTIFY_NEIGHBORS);
+            this.world.setBlockState(this.pos, newBlockState, NOTIFY_ALL, NOTIFY_LISTENERS);
         }
     }
 
@@ -99,7 +98,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         }
 
         assert this.world != null;
-        this.world.setBlockState(this.pos, state, NOTIFY_ALL, NOTIFY_NEIGHBORS);
+        this.world.setBlockState(this.pos, state, NOTIFY_ALL, NOTIFY_LISTENERS);
         sendUpdate();
     }
 
@@ -131,16 +130,6 @@ public class WoodenFrameBlockEntity extends BlockEntity {
         updateBlockState();
     }
 
-    public @NotNull NbtCompound getUpdateTag() {
-        NbtCompound tag = new NbtCompound();
-        writeNbt(tag);
-        return tag;
-    }
-
-    public void handleUpdateTag(NbtCompound tag) {
-        readNbt(tag);
-    }
-
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
@@ -154,6 +143,7 @@ public class WoodenFrameBlockEntity extends BlockEntity {
 
     private void sendUpdate() {
         assert world != null;
+        markDirty();
         world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), Block.NOTIFY_LISTENERS);
     }
 

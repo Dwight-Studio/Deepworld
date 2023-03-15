@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class WoodenLatheScreen extends HandledScreen<WoodenLatheScreenHandler> {
 
-    private static final Identifier TEXTURE = new Identifier(Deepworld.MOD_ID, "textures/gui/gem_infusing_station_gui");
+    private static final Identifier TEXTURE = new Identifier(Deepworld.MOD_ID, "textures/gui/gem_infusing_station_gui.png");
 
     public WoodenLatheScreen(WoodenLatheScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

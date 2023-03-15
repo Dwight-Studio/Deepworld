@@ -12,7 +12,7 @@ public class DeepworldScreenHandlers{
     public static ScreenHandlerType<WoodenLatheScreenHandler> WOODEN_LATHE_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(WoodenLatheScreenHandler::new);
 
     public static void registerAllScreenHandlers(){
-        WOODEN_LATHE_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, new Identifier(Deepworld.MOD_ID, "wooden_lathe_screen_handler"), WOODEN_LATHE_SCREEN_HANDLER);
+        Registry.register(Registries.SCREEN_HANDLER, new Identifier(Deepworld.MOD_ID, "wooden_lathe_screen_handler"), WOODEN_LATHE_SCREEN_HANDLER);
     }
 
 }

@@ -2,7 +2,6 @@ package fr.dwightstudio.deepworld.block.machines.wood;
 
 import fr.dwightstudio.deepworld.blockentities.DeepworldEntities;
 import fr.dwightstudio.deepworld.blockentities.machines.wood.WoodenLatheBlockEntity;
-import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

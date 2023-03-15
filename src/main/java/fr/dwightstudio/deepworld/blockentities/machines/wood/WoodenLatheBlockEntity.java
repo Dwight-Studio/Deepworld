@@ -2,6 +2,7 @@ package fr.dwightstudio.deepworld.blockentities.machines.wood;
 
 import fr.dwightstudio.deepworld.blockentities.DeepworldEntities;
 import fr.dwightstudio.deepworld.blockentities.ImplementedInventory;
+import fr.dwightstudio.deepworld.screen.WoodenLatheScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -75,7 +76,7 @@ public class WoodenLatheBlockEntity extends BlockEntity implements NamedScreenHa
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return null;
+        return new WoodenLatheScreenHandler(syncId, inv, this, this.propertyDelegate);
     }
 
     @Override

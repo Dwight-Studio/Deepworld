@@ -1,0 +1,9 @@
+{
+  "parent": "deepworld:block/machines/wood/wooden_machine",
+  "textures": {
+    "particle": "deepworld:block/frames/wooden_frame",
+    "wooden_frame": "deepworld:block/frames/wooden_frame",
+    "wooden_front": "deepworld:block/machines/wood/wooden_front",
+    "wooden_machine": "deepworld:block/machines/wood/wooden_lathe"
+  }
+}

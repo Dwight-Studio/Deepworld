@@ -1,0 +1,37 @@
+{
+  "defaults": {
+    "model": "deepworld:block/machines/wood/wooden_lathe"
+  },
+  "variants": {
+    "facing=north,working=false": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_idling"
+    },
+    "facing=east,working=false": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_idling",
+      "y": 90
+    },
+    "facing=south,working=false": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_idling",
+      "y": 180
+    },
+    "facing=west,working=false": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_idling",
+      "y": 270
+    },
+    "facing=north,working=true": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_working"
+    },
+    "facing=east,working=true": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_working",
+      "y": 90
+    },
+    "facing=south,working=true": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_working",
+      "y": 180
+    },
+    "facing=west,working=true": {
+      "model": "deepworld:block/machines/wood/wooden_lathe_working",
+      "y": 270
+    }
+  }
+}

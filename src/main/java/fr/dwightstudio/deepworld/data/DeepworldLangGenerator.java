@@ -67,6 +67,7 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.SIMPLE_RIGHT_PART_HOLDER, "Simple Right Part Holder (Component)");
             translationBuilder.add(DeepworldItems.SIMPLE_PRESSING_CHAMBER, "Simple Pressing Chamber (Component)");
             translationBuilder.add(DeepworldItems.SIMPLE_CUTTER, "Simple Cutter (Component)");
+            translationBuilder.add(DeepworldBlocks.WOODEN_LATHE, "Wooden Lathe");
         }
     }
 
@@ -129,6 +130,7 @@ public class DeepworldLangGenerator {
             translationBuilder.add(DeepworldItems.SIMPLE_RIGHT_PART_HOLDER, "Support droit (Composant)");
             translationBuilder.add(DeepworldItems.SIMPLE_PRESSING_CHAMBER, "Chambre de pressage simple (Composant)");
             translationBuilder.add(DeepworldItems.SIMPLE_CUTTER, "Coupeuse simple (Composant)");
+            translationBuilder.add(DeepworldBlocks.WOODEN_LATHE, "Tour à bois");
         }
     }
 

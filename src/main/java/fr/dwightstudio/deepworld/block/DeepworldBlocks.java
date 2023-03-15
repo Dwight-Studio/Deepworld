@@ -1,8 +1,8 @@
 package fr.dwightstudio.deepworld.block;
 
 import fr.dwightstudio.deepworld.Deepworld;
-import fr.dwightstudio.deepworld.block.frames.DeepworldFrame;
 import fr.dwightstudio.deepworld.block.frames.DeepworldWoodenFrame;
+import fr.dwightstudio.deepworld.block.machines.wood.WoodenLatheBlock;
 import fr.dwightstudio.deepworld.item.DeepworldItemGroup;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -29,7 +29,7 @@ public class DeepworldBlocks {
     // Machines
     public static Block WOODEN_PRESS;
     public static Block WOODEN_GEAR_SHAPER;
-    public static Block WOODEN_LATHE;
+    public static Block WOODEN_LATHE = registerBlock("wooden_lathe", new WoodenLatheBlock(), DeepworldItemGroup.DEEPWORLD);
 
     public static Block IRON_TANK;
     public static Block PIPE;

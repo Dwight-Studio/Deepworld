@@ -13,11 +13,17 @@ public class DeepworldEntities {
 
     public static BlockEntityType<WoodenFrameBlockEntity> WOODEN_FRAME;
 
+    //public static BlockEntityType<WoodenLatheBlockEntity> WOODEN_LATHE;
+
     public static void registerBlockEntities(){
         WOODEN_FRAME = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 new Identifier(Deepworld.MOD_ID, "wooden_frame"),
                 FabricBlockEntityTypeBuilder.create(WoodenFrameBlockEntity::new,
                         DeepworldBlocks.WOODEN_FRAME).build(null));
+        /*WOODEN_LATHE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+                new Identifier(Deepworld.MOD_ID, "wooden_lathe"),
+                FabricBlockEntityTypeBuilder.create(WoodenLatheBlockEntity::new,
+                        DeepworldBlocks.WOODEN_LATHE).build(null));*/
     }
 
 }

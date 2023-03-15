@@ -3,6 +3,7 @@ package fr.dwightstudio.deepworld.blockentities.machines.wood;
 import fr.dwightstudio.deepworld.blockentities.DeepworldEntities;
 import fr.dwightstudio.deepworld.blockentities.ImplementedInventory;
 import fr.dwightstudio.deepworld.screen.WoodenLatheScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,16 +14,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class WoodenLatheBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+public class WoodenLatheBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
@@ -80,6 +82,11 @@ public class WoodenLatheBlockEntity extends BlockEntity implements NamedScreenHa
     }
 
     @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeBlockPos(this.pos);
+    }
+
+    @Override
     protected void writeNbt(NbtCompound nbt){
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
@@ -102,7 +109,7 @@ public class WoodenLatheBlockEntity extends BlockEntity implements NamedScreenHa
 
         if(hasRecipe(entity)){
             entity.inertia = Math.min(WoodenLatheBlockEntity.INERTIA_PER_CLICK + entity.inertia, WoodenLatheBlockEntity.MAX_INERTIA);
-            entity.processProgress = entity.inertia;
+            entity.processProgress += entity.inertia;
             markDirty(world, blockPos, state);
             if(entity.processProgress >= 32000){
                 craftItem(entity);

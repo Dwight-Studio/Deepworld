@@ -146,4 +146,12 @@ public class WoodenLatheBlockEntity extends BlockEntity implements NamedScreenHa
     private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory, int count) {
         return inventory.getStack(2).getMaxCount() > inventory.getStack(2).getCount() + count;
     }
+
+    public ItemStack getRenderStack() {
+        if(this.getStack(2).isEmpty()) {
+            return this.getStack(1);
+        } else {
+            return this.getStack(2);
+        }
+    }
 }

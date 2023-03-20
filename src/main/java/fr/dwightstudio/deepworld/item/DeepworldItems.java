@@ -58,15 +58,15 @@ public class DeepworldItems {
     public static final Item OBSIDIAN_INFUSED_STEEL_HOE = registerItem("obsidian_infused_steel_hoe", new HoeItem(DeepworldToolMaterial.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new FabricItemSettings().maxCount(1)));
 
     // Armors
-    public static final Item STEEL_HELMET = registerItem("steel_helmet", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.HEAD, new FabricItemSettings()));
-    public static final Item STEEL_CHESTPLATE = registerItem("steel_chestplate", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.CHEST, new FabricItemSettings()));
-    public static final Item STEEL_LEGGINGS = registerItem("steel_leggings", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.LEGS, new FabricItemSettings()));
-    public static final Item STEEL_BOOTS = registerItem("steel_boots", new ArmorItem(DeepworldArmorMaterials.STEEL, EquipmentSlot.FEET, new FabricItemSettings()));
+    public static final Item STEEL_HELMET = registerItem("steel_helmet", new ArmorItem(DeepworldArmorMaterials.STEEL, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item STEEL_CHESTPLATE = registerItem("steel_chestplate", new ArmorItem(DeepworldArmorMaterials.STEEL, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item STEEL_LEGGINGS = registerItem("steel_leggings", new ArmorItem(DeepworldArmorMaterials.STEEL, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item STEEL_BOOTS = registerItem("steel_boots", new ArmorItem(DeepworldArmorMaterials.STEEL, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
-    public static final Item OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new FabricItemSettings()));
-    public static final Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new FabricItemSettings()));
-    public static final Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new FabricItemSettings()));
-    public static final Item OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.HELMET, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
+    public static final Item OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", new ArmorItem(DeepworldArmorMaterials.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.BOOTS, new FabricItemSettings()));
 
     // Machine components
     public static final Item SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", new SimplePressingChamberItem());

@@ -17,28 +17,33 @@ package fr.dwightstudio.deepworld.common.data;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Deepworld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DeepworldDataGenerator {
 
     @SubscribeEvent
     public void gatherData(GatherDataEvent event) {
+
+        event.includeServer();
         DataGenerator gen = event.getGenerator();
+        PackOutput packOutput = gen.getPackOutput()
         ExistingFileHelper efh = event.getExistingFileHelper();
 
         gen.addProvider(
                 event.includeClient(),
-                new DeepworldBlockStateProvider(gen, efh)
+                new DeepworldBlockStateProvider(packOutput, efh)
         );
 
         gen.addProvider(
                 event.includeServer(),
-                new DeepworldRecipeProvider(gen)
+                new DeepworldRecipeProvider(packOutput)
         );
+
     }
 
 }

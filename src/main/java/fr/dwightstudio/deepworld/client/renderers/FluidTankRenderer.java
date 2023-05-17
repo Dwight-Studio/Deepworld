@@ -17,9 +17,7 @@ package fr.dwightstudio.deepworld.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import fr.dwightstudio.deepworld.common.blockentities.tanks.SimpleTankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,11 +26,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.Direction;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+import org.joml.AxisAngle4f;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEntity> {
 
@@ -65,7 +67,7 @@ public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEnt
 
         for (int i = 0; i < 4; i++) {
             this.renderSideFace(sprite, matrix4f, matrix3f, builder, color, fluidLevel);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(90));
+            poseStack.mulPose(Axis.YP.rotationDegrees(90));
         }
 
         BlockEntity above = blockEntity.getLevel().getBlockEntity(blockEntity.getBlockPos().above());

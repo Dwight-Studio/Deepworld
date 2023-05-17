@@ -17,6 +17,7 @@ package fr.dwightstudio.deepworld.client;
 
 import fr.dwightstudio.deepworld.client.renderers.FluidTankRenderer;
 import fr.dwightstudio.deepworld.client.screens.WoodenMachineScreen;
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.registries.DeepworldMenus;
 import net.minecraft.client.gui.screens.MenuScreens;

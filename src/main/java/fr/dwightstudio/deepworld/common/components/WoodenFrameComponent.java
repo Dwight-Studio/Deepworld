@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public enum WoodenFrameComponent {
+
     // Components
     SIMPLE_PRESSING_CHAMBER(
             DeepworldItems.SIMPLE_PRESSING_CHAMBER::get,

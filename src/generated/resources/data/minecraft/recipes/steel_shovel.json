@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "deepworld:steel_ingot"
+    },
+    "|": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "#",
+    "|",
+    "|"
+  ],
+  "result": {
+    "item": "deepworld:steel_shovel"
+  }
+}

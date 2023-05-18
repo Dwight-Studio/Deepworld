@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "deepworld:obsidian_infused_steel_ingot"
+    },
+    "|": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "##",
+    " |",
+    " |"
+  ],
+  "result": {
+    "item": "deepworld:obsidian_infused_steel_hoe"
+  }
+}

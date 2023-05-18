@@ -23,7 +23,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashSet;
+import java.util.function.Supplier;
+
 public class DeepworldItems {
+
+    public static final HashSet<Supplier<ItemStack>> modTabContent = new HashSet<>();
 
     // Items
     public static RegistryObject<Item> WOODEN_GEAR;
@@ -103,83 +108,92 @@ public class DeepworldItems {
     public static RegistryObject<Item> SIMPLE_RIGHT_PART_HOLDER;
     public static RegistryObject<Item> WOODEN_CASE_PANEL;
 
-    public DeepworldItems() {
+    private DeepworldItems() {
+    }
+
+    public static void register() {
         // Items
-        WOODEN_GEAR = Deepworld.ITEMS.register("wooden_gear", SimpleDeepworldItem::new);
-        IRON_GEAR = Deepworld.ITEMS.register("iron_gear", SimpleDeepworldItem::new);
-        STEEL_GEAR = Deepworld.ITEMS.register("steel_gear", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_GEAR = Deepworld.ITEMS.register("obsidian_infused_steel_gear", SimpleDeepworldItem::new);
+        WOODEN_GEAR = registerItem("wooden_gear", SimpleDeepworldItem::new);
+        IRON_GEAR = registerItem("iron_gear", SimpleDeepworldItem::new);
+        STEEL_GEAR = registerItem("steel_gear", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_GEAR = registerItem("obsidian_infused_steel_gear", SimpleDeepworldItem::new);
 
-        IRON_NAIL = Deepworld.ITEMS.register("iron_nail", SimpleDeepworldItem::new);
-        STEEl_NAIL = Deepworld.ITEMS.register("steel_nail", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_NAIL = Deepworld.ITEMS.register("obsidian_infused_steel_nail", SimpleDeepworldItem::new);
+        IRON_NAIL = registerItem("iron_nail", SimpleDeepworldItem::new);
+        STEEl_NAIL = registerItem("steel_nail", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_NAIL = registerItem("obsidian_infused_steel_nail", SimpleDeepworldItem::new);
 
-        IRON_PLATE = Deepworld.ITEMS.register("iron_plate", SimpleDeepworldItem::new);
-        STEEL_PLATE = Deepworld.ITEMS.register("steel_plate", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_PLATE = Deepworld.ITEMS.register("obsidian_infused_steel_plate", SimpleDeepworldItem::new);
+        IRON_PLATE = registerItem("iron_plate", SimpleDeepworldItem::new);
+        STEEL_PLATE = registerItem("steel_plate", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_PLATE = registerItem("obsidian_infused_steel_plate", SimpleDeepworldItem::new);
 
-        IRON_ROD = Deepworld.ITEMS.register("iron_rod", SimpleDeepworldItem::new);
-        STEEL_ROD = Deepworld.ITEMS.register("steel_rod", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_ROD = Deepworld.ITEMS.register("obsidian_infused_steel_rod", SimpleDeepworldItem::new);
+        IRON_ROD = registerItem("iron_rod", SimpleDeepworldItem::new);
+        STEEL_ROD = registerItem("steel_rod", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_ROD = registerItem("obsidian_infused_steel_rod", SimpleDeepworldItem::new);
 
-        IRON_SCREW = Deepworld.ITEMS.register("iron_screw", SimpleDeepworldItem::new);
-        STEEL_SCREW = Deepworld.ITEMS.register("steel_screw", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_SCREW = Deepworld.ITEMS.register("obsidian_infused_steel_screw", SimpleDeepworldItem::new);
+        IRON_SCREW = registerItem("iron_screw", SimpleDeepworldItem::new);
+        STEEL_SCREW = registerItem("steel_screw", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_SCREW = registerItem("obsidian_infused_steel_screw", SimpleDeepworldItem::new);
 
-        IRON_SMALL_GEAR = Deepworld.ITEMS.register("iron_small_gear", SimpleDeepworldItem::new);
+        IRON_SMALL_GEAR = registerItem("iron_small_gear", SimpleDeepworldItem::new);
 
-        STEEL_INGOT = Deepworld.ITEMS.register("steel_ingot", SimpleDeepworldItem::new);
-        OBSIDIAN_INFUSED_STEEL_INGOT = Deepworld.ITEMS.register("obsidian_infused_steel_ingot", SimpleDeepworldItem::new);
+        STEEL_INGOT = registerItem("steel_ingot", SimpleDeepworldItem::new);
+        OBSIDIAN_INFUSED_STEEL_INGOT = registerItem("obsidian_infused_steel_ingot", SimpleDeepworldItem::new);
 
-        IRON_PUMP = Deepworld.ITEMS.register("iron_pump", SimpleDeepworldItem::new);
-        IRON_TURBINE = Deepworld.ITEMS.register("iron_turbine", SimpleDeepworldItem::new);
-        PRESSURE_REGULATOR = Deepworld.ITEMS.register("pressure_regulator", SimpleDeepworldItem::new);
-        VALVE_ASSEMBLY = Deepworld.ITEMS.register("valve_assembly", SimpleDeepworldItem::new);
+        IRON_PUMP = registerItem("iron_pump", SimpleDeepworldItem::new);
+        IRON_TURBINE = registerItem("iron_turbine", SimpleDeepworldItem::new);
+        PRESSURE_REGULATOR = registerItem("pressure_regulator", SimpleDeepworldItem::new);
+        VALVE_ASSEMBLY = registerItem("valve_assembly", SimpleDeepworldItem::new);
 
         // BlockItem
-        STEEL_BLOCK = Deepworld.ITEMS.register("steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.STEEL_BLOCK.get()));
-        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.ITEMS.register("obsidian_infused_steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get()));
+        STEEL_BLOCK = registerItem("steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.STEEL_BLOCK.get()));
+        OBSIDIAN_INFUSED_STEEL_BLOCK = registerItem("obsidian_infused_steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get()));
 
-        WOODEN_FRAME = Deepworld.ITEMS.register("wooden_frame", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_FRAME.get()));
+        WOODEN_FRAME = registerItem("wooden_frame", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_FRAME.get()));
 
-        WOODEN_LATHE = Deepworld.ITEMS.register("wooden_lathe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_LATHE.get()));
-        WOODEN_PRESS = Deepworld.ITEMS.register("wooden_press", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_PRESS.get()));
-        WOODEN_GEAR_SHAPER = Deepworld.ITEMS.register("wooden_gear_shaper", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER.get()));
+        WOODEN_LATHE = registerItem("wooden_lathe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_LATHE.get()));
+        WOODEN_PRESS = registerItem("wooden_press", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_PRESS.get()));
+        WOODEN_GEAR_SHAPER = registerItem("wooden_gear_shaper", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER.get()));
 
-        IRON_TANK = Deepworld.ITEMS.register("iron_tank", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.IRON_TANK.get()));
-        PIPE = Deepworld.ITEMS.register("pipe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.PIPE.get()));
+        IRON_TANK = registerItem("iron_tank", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.IRON_TANK.get()));
+        PIPE = registerItem("pipe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.PIPE.get()));
 
         // Tools
-        STEEL_PICKAXE = Deepworld.ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_SWORD = Deepworld.ITEMS.register("steel_sword", () -> new SwordItem(ToolsMaterialsTier.STEEL, 5, -2.4f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_AXE = Deepworld.ITEMS.register("steel_axe", () -> new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_SHOVEL = Deepworld.ITEMS.register("steel_shovel", () -> new ShovelItem(ToolsMaterialsTier.STEEL, 3.5f, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_HOE = Deepworld.ITEMS.register("steel_hoe", () -> new HoeItem(ToolsMaterialsTier.STEEL, 3, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
+        STEEL_PICKAXE = registerItem("steel_pickaxe", () -> new PickaxeItem(ToolsMaterialsTier.STEEL, 3, -2.8f, new Item.Properties()));
+        STEEL_SWORD = registerItem("steel_sword", () -> new SwordItem(ToolsMaterialsTier.STEEL, 5, -2.4f, new Item.Properties()));
+        STEEL_AXE = registerItem("steel_axe", () -> new AxeItem(ToolsMaterialsTier.STEEL, 8, -3.2f, new Item.Properties()));
+        STEEL_SHOVEL = registerItem("steel_shovel", () -> new ShovelItem(ToolsMaterialsTier.STEEL, 3.5f, -2.8f, new Item.Properties()));
+        STEEL_HOE = registerItem("steel_hoe", () -> new HoeItem(ToolsMaterialsTier.STEEL, 3, -2.8f, new Item.Properties()));
 
-        OBSIDIAN_INFUSED_STEEL_PICKAXE = Deepworld.ITEMS.register("obsidian_infused_steel_pickaxe", () -> new PickaxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_SWORD = Deepworld.ITEMS.register("obsidian_infused_steel_sword", () -> new SwordItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 9, -2.2f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_AXE = Deepworld.ITEMS.register("obsidian_infused_steel_axe", () -> new AxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 12, -3.4f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_SHOVEL = Deepworld.ITEMS.register("obsidian_infused_steel_shovel", () -> new ShovelItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4.5f, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_HOE = Deepworld.ITEMS.register("obsidian_infused_steel_hoe", () -> new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new Item.Properties().tab(Deepworld.MOD_TAB)));
+        OBSIDIAN_INFUSED_STEEL_PICKAXE = registerItem("obsidian_infused_steel_pickaxe", () -> new PickaxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_SWORD = registerItem("obsidian_infused_steel_sword", () -> new SwordItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 9, -2.2f, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_AXE = registerItem("obsidian_infused_steel_axe", () -> new AxeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 12, -3.4f, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_SHOVEL = registerItem("obsidian_infused_steel_shovel", () -> new ShovelItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4.5f, -2.8f, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_HOE = registerItem("obsidian_infused_steel_hoe", () -> new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new Item.Properties()));
 
         // Armors
-        STEEL_HELMET = Deepworld.ITEMS.register("steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.HEAD, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_CHESTPLATE = Deepworld.ITEMS.register("steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.CHEST, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_LEGGINGS = Deepworld.ITEMS.register("steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.LEGS, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        STEEL_BOOTS = Deepworld.ITEMS.register("steel_boots", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.FEET, new Item.Properties().tab(Deepworld.MOD_TAB)));
+        STEEL_HELMET = registerItem("steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.HEAD, new Item.Properties()));
+        STEEL_CHESTPLATE = registerItem("steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.CHEST, new Item.Properties()));
+        STEEL_LEGGINGS = registerItem("steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.LEGS, new Item.Properties()));
+        STEEL_BOOTS = registerItem("steel_boots", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.FEET, new Item.Properties()));
 
-        OBSIDIAN_INFUSED_STEEL_HELMET = Deepworld.ITEMS.register("obsidian_infused_steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_CHESTPLATE = Deepworld.ITEMS.register("obsidian_infused_steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_LEGGINGS = Deepworld.ITEMS.register("obsidian_infused_steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new Item.Properties().tab(Deepworld.MOD_TAB)));
-        OBSIDIAN_INFUSED_STEEL_BOOTS = Deepworld.ITEMS.register("obsidian_infused_steel_boots", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new Item.Properties().tab(Deepworld.MOD_TAB)));
+        OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new Item.Properties()));
 
         // Machine components
-        SIMPLE_PRESSING_CHAMBER = Deepworld.ITEMS.register("simple_pressing_chamber", SimplePressingChamberItem::new);
-        WOODEN_GEARBOX = Deepworld.ITEMS.register("wooden_gearbox", WoodenGearboxItem::new);
-        WOODEN_CRANK = Deepworld.ITEMS.register("wooden_crank", WoodenCrankItem::new);
-        SIMPLE_CUTTER = Deepworld.ITEMS.register("simple_cutter", SimpleCutter::new);
-        SIMPLE_LEFT_PART_HOLDER = Deepworld.ITEMS.register("simple_left_part_holder", SimpleLeftPartHolder::new);
-        SIMPLE_RIGHT_PART_HOLDER = Deepworld.ITEMS.register("simple_right_part_holder", SimpleRightPartHolder::new);
-        WOODEN_CASE_PANEL = Deepworld.ITEMS.register("wooden_case_panel", WoodenCasePanelItem::new);
+        SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", SimplePressingChamberItem::new);
+        WOODEN_GEARBOX = registerItem("wooden_gearbox", WoodenGearboxItem::new);
+        WOODEN_CRANK = registerItem("wooden_crank", WoodenCrankItem::new);
+        SIMPLE_CUTTER = registerItem("simple_cutter", SimpleCutter::new);
+        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", SimpleLeftPartHolder::new);
+        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", SimpleRightPartHolder::new);
+        WOODEN_CASE_PANEL = registerItem("wooden_case_panel", WoodenCasePanelItem::new);
+    }
+
+    private static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> itemSupplier) {
+        RegistryObject<T> item = Deepworld.ITEMS.register(name, itemSupplier);
+        modTabContent.add(() -> item.get().getDefaultInstance());
+        return item;
     }
 }

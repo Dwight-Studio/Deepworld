@@ -33,9 +33,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Deepworld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class MultiblocksManager extends SavedData {
 
     private static final Map<LevelAccessor, MultiblocksManager> CLIENT_INSTANCES = new HashMap<>();
@@ -57,7 +56,7 @@ public class MultiblocksManager extends SavedData {
     public @NotNull CompoundTag save(@NotNull CompoundTag tag) {
         ListTag listTag = new ListTag();
 
-        for(MultiblockEntity entity : entities.values()) {
+        for (MultiblockEntity entity : entities.values()) {
             CompoundTag entityTag = new CompoundTag();
             entity.save(entityTag);
             listTag.add(entityTag);
@@ -70,7 +69,7 @@ public class MultiblocksManager extends SavedData {
         if (tag.contains("multiblocks")) {
             ListTag listTag = tag.getList("multiblocks", Tag.TAG_COMPOUND);
             if (!listTag.isEmpty()) {
-                for(Tag sEntityTag : listTag) {
+                for (Tag sEntityTag : listTag) {
                     if (sEntityTag instanceof CompoundTag entityTag && !entityTag.isEmpty()) {
                         if (entities.containsKey(entityTag.getUUID("uuid"))) {
                             entities.get(entityTag.getUUID("uuid")).load(entityTag);
@@ -109,7 +108,7 @@ public class MultiblocksManager extends SavedData {
     }
 
     public void setMultiblockEntity(UUID uuid, MultiblockEntity entity) {
-        entities.put(uuid,entity);
+        entities.put(uuid, entity);
     }
 
     public MultiblockEntity getMultiblockEntity(UUID uuid) {

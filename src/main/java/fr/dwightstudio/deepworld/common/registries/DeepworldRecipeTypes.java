@@ -28,7 +28,10 @@ public class DeepworldRecipeTypes {
     public static RegistryObject<RecipeType<MachineRecipe>> PRESSING;
     public static RegistryObject<RecipeType<MachineRecipe>> GEAR_SHAPING;
 
-    public DeepworldRecipeTypes() {
+    private DeepworldRecipeTypes() {
+    }
+
+    public static void register() {
         LATHING = Deepworld.RECIPE_TYPES.register("lathing", () -> createRecipeType("lathing"));
         PRESSING = Deepworld.RECIPE_TYPES.register("pressing", () -> createRecipeType("pressing"));
         GEAR_SHAPING = Deepworld.RECIPE_TYPES.register("gear_shaping", () -> createRecipeType("gear_shaping"));

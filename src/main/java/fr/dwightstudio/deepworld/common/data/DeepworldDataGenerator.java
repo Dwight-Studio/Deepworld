@@ -27,11 +27,11 @@ import net.minecraftforge.fml.common.Mod;
 public class DeepworldDataGenerator {
 
     @SubscribeEvent
-    public void gatherData(GatherDataEvent event) {
+    public static void gatherData(GatherDataEvent event) {
 
         event.includeServer();
         DataGenerator gen = event.getGenerator();
-        PackOutput packOutput = gen.getPackOutput()
+        PackOutput packOutput = gen.getPackOutput();
         ExistingFileHelper efh = event.getExistingFileHelper();
 
         gen.addProvider(

@@ -20,8 +20,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
 public class TestMultiblockEntity extends MultiblockEntity {
     public TestMultiblockEntity(LevelAccessor level) {
         super(level, DeepworldMultiblocks.TEST);

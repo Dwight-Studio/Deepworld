@@ -22,7 +22,10 @@ public class DeepworldRecipeBookTypes {
     public static RecipeBookType PRESS;
     public static RecipeBookType GEAR_SHAPER;
 
-    public DeepworldRecipeBookTypes() {
+    private DeepworldRecipeBookTypes() {
+    }
+
+    public static void register() {
         LATHE = RecipeBookType.create("LATHE");
         PRESS = RecipeBookType.create("PRESS");
         GEAR_SHAPER = RecipeBookType.create("GEAR_SHAPER");

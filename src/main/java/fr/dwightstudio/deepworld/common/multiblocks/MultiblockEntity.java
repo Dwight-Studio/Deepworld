@@ -35,11 +35,11 @@ public abstract class MultiblockEntity {
     private final DeepworldMultiblocks type;
 
 
-     private MultiblockEntity(UUID uuid, LevelAccessor level, DeepworldMultiblocks type) {
+    private MultiblockEntity(UUID uuid, LevelAccessor level, DeepworldMultiblocks type) {
         this.uuid = uuid;
         this.level = level;
-         this.type = type;
-         blockEntities = new HashSet<>();
+        this.type = type;
+        blockEntities = new HashSet<>();
     }
 
     public MultiblockEntity(LevelAccessor level, DeepworldMultiblocks type) {

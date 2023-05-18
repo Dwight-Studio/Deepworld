@@ -238,14 +238,16 @@ public abstract class AbstractMultiblockHolder<H extends AbstractMultiblockHolde
      *
      * @param tag a {@link CompoundTag} object
      */
-    public void saveMultiblockAdditionnalData(CompoundTag tag) {}
+    public void saveMultiblockAdditionnalData(CompoundTag tag) {
+    }
 
     /**
      * Handle the customData of the Multiblock from a {@link CompoundTag}
      *
      * @param tag a {@link CompoundTag} object
      */
-    public void loadMultiblockAdditionnalData(CompoundTag tag) {}
+    public void loadMultiblockAdditionnalData(CompoundTag tag) {
+    }
 
     /**
      * Transfers parent properties to another MultiblockHolder

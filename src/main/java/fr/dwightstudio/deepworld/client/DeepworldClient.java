@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Deepworld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DeepworldClient {
 
     @SubscribeEvent

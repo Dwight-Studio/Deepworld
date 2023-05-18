@@ -15,20 +15,19 @@
 
 package fr.dwightstudio.deepworld.common.multiblocks;
 
-import net.minecraft.core.BlockPos;
-
 import java.util.UUID;
 
 public interface MultiblockHolder<E extends MultiblockEntity> {
 
     /**
-     * @implSpec the multiblock retrieved from {@link MultiblocksManager#getMultiblockEntity(UUID)}
      * @return the associated multiblock
+     * @implSpec the multiblock retrieved from {@link MultiblocksManager#getMultiblockEntity(UUID)}
      */
     E getMultiblock();
 
     /**
      * Called when associated multiblock is updated
+     *
      * @param multiblockEntity the associated multiblock
      */
     void onMultiblockUpdate(E multiblockEntity);

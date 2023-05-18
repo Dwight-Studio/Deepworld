@@ -24,12 +24,15 @@ public class DeepworldSoundEvents {
 
     public static RegistryObject<SoundEvent> WOODEN_MACHINE;
 
-    public DeepworldSoundEvents() {
-        WOODEN_MACHINE = register("block.wooden_machine.working");
+    private DeepworldSoundEvents() {
     }
 
-    private RegistryObject<SoundEvent> register(String name) {
-        return Deepworld.SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(Deepworld.MOD_ID, name)));
+    public static void register() {
+        WOODEN_MACHINE = registerSound("block.wooden_machine.working");
+    }
+
+    private static RegistryObject<SoundEvent> registerSound(String name) {
+        return Deepworld.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Deepworld.MOD_ID, name)));
     }
 
 }

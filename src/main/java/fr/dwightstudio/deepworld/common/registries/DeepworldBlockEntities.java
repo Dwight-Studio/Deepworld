@@ -36,7 +36,10 @@ public class DeepworldBlockEntities {
     public static RegistryObject<BlockEntityType<IronTankBlockEntity>> IRON_TANK;
     public static RegistryObject<BlockEntityType<PipeBlockEntity>> PIPE;
 
-    public DeepworldBlockEntities() {
+    private DeepworldBlockEntities() {
+    }
+
+    public static void register() {
         WOODEN_FRAME = Deepworld.BLOCK_ENTITY_TYPES.register("wooden_frame", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new WoodenFrameBlockEntity(blockPos, blockState), DeepworldBlocks.WOODEN_FRAME.get()).build(null));
 
         WOODEN_LATHE = Deepworld.BLOCK_ENTITY_TYPES.register("wooden_lathe", () -> BlockEntityType.Builder.of((blockPos, blockState) -> new WoodenLatheBlockEntity(blockPos, blockState), DeepworldBlocks.WOODEN_LATHE.get()).build(null));

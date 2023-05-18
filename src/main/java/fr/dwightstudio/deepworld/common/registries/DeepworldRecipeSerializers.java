@@ -27,7 +27,10 @@ public class DeepworldRecipeSerializers {
     public static RegistryObject<RecipeSerializer<MachineRecipe>> PRESSING;
     public static RegistryObject<RecipeSerializer<MachineRecipe>> GEAR_SHAPING;
 
-    public DeepworldRecipeSerializers() {
+    private DeepworldRecipeSerializers() {
+    }
+
+    public static void register() {
         LATHING = Deepworld.RECIPE_SERIALIZERS.register("lathing", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.LATHING.get()));
         PRESSING = Deepworld.RECIPE_SERIALIZERS.register("pressing", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.PRESSING.get()));
         GEAR_SHAPING = Deepworld.RECIPE_SERIALIZERS.register("gear_shaping", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.GEAR_SHAPING.get()));

@@ -15,7 +15,6 @@
 
 package fr.dwightstudio.deepworld.common.items;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
 import net.minecraft.world.InteractionResult;
@@ -27,7 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class WoodenCasePanelItem extends Item {
 
     public WoodenCasePanelItem() {
-        super(new Properties().tab(Deepworld.MOD_TAB));
+        super(new Properties());
     }
 
     @Override

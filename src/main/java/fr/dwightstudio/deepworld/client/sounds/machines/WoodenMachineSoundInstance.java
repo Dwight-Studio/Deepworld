@@ -17,16 +17,11 @@ package fr.dwightstudio.deepworld.client.sounds.machines;
 
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.registries.DeepworldSoundEvents;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class WoodenMachineSoundInstance extends AbstractTickableSoundInstance {

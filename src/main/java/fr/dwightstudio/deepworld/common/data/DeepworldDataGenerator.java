@@ -16,12 +16,23 @@
 package fr.dwightstudio.deepworld.common.data;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.data.loots.DeepworldBlockLootProvider;
+import fr.dwightstudio.deepworld.common.data.tags.DeepworldBlockTagsProvider;
+import fr.dwightstudio.deepworld.common.data.tags.DeepworldItemTagsProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 @Mod.EventBusSubscriber(modid = Deepworld.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DeepworldDataGenerator {
@@ -31,8 +42,9 @@ public class DeepworldDataGenerator {
 
         event.includeServer();
         DataGenerator gen = event.getGenerator();
-        PackOutput packOutput = gen.getPackOutput();
         ExistingFileHelper efh = event.getExistingFileHelper();
+        PackOutput packOutput = gen.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         gen.addProvider(
                 event.includeClient(),
@@ -42,6 +54,27 @@ public class DeepworldDataGenerator {
         gen.addProvider(
                 event.includeServer(),
                 new DeepworldRecipeProvider(packOutput)
+        );
+
+        DeepworldBlockTagsProvider blockTagsProvider = new DeepworldBlockTagsProvider(packOutput, lookupProvider, efh);
+
+        gen.addProvider(
+                event.includeServer(),
+                blockTagsProvider
+        );
+
+        gen.addProvider(
+                event.includeServer(),
+                new DeepworldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider, efh)
+        );
+
+        gen.addProvider(
+                event.includeServer(),
+                new LootTableProvider(
+                        packOutput,
+                        Set.of(),
+                        List.of(new LootTableProvider.SubProviderEntry(DeepworldBlockLootProvider::new, LootContextParamSets.BLOCK))
+                )
         );
 
     }

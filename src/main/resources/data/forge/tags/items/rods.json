@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:rods/iron",
-    "#forge:rods/steel",
-    "#forge:rods/obsidian_infused_steel"
-  ]
-}

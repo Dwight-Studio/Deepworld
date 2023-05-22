@@ -37,7 +37,7 @@ public class DeepworldItems {
     public static RegistryObject<Item> OBSIDIAN_INFUSED_STEEL_GEAR;
 
     public static RegistryObject<Item> IRON_NAIL;
-    public static RegistryObject<Item> STEEl_NAIL;
+    public static RegistryObject<Item> STEEL_NAIL;
     public static RegistryObject<Item> OBSIDIAN_INFUSED_STEEL_NAIL;
 
     public static RegistryObject<Item> IRON_PLATE;
@@ -52,11 +52,10 @@ public class DeepworldItems {
     public static RegistryObject<Item> STEEL_SCREW;
     public static RegistryObject<Item> OBSIDIAN_INFUSED_STEEL_SCREW;
 
-    public static RegistryObject<Item> IRON_SMALL_GEAR;
-
     public static RegistryObject<Item> STEEL_INGOT;
     public static RegistryObject<Item> OBSIDIAN_INFUSED_STEEL_INGOT;
 
+    public static RegistryObject<Item> IRON_SMALL_GEAR;
     public static RegistryObject<Item> IRON_PUMP;
     public static RegistryObject<Item> IRON_TURBINE;
     public static RegistryObject<Item> PRESSURE_REGULATOR;
@@ -119,7 +118,7 @@ public class DeepworldItems {
         OBSIDIAN_INFUSED_STEEL_GEAR = registerItem("obsidian_infused_steel_gear", SimpleDeepworldItem::new);
 
         IRON_NAIL = registerItem("iron_nail", SimpleDeepworldItem::new);
-        STEEl_NAIL = registerItem("steel_nail", SimpleDeepworldItem::new);
+        STEEL_NAIL = registerItem("steel_nail", SimpleDeepworldItem::new);
         OBSIDIAN_INFUSED_STEEL_NAIL = registerItem("obsidian_infused_steel_nail", SimpleDeepworldItem::new);
 
         IRON_PLATE = registerItem("iron_plate", SimpleDeepworldItem::new);
@@ -134,11 +133,10 @@ public class DeepworldItems {
         STEEL_SCREW = registerItem("steel_screw", SimpleDeepworldItem::new);
         OBSIDIAN_INFUSED_STEEL_SCREW = registerItem("obsidian_infused_steel_screw", SimpleDeepworldItem::new);
 
-        IRON_SMALL_GEAR = registerItem("iron_small_gear", SimpleDeepworldItem::new);
-
         STEEL_INGOT = registerItem("steel_ingot", SimpleDeepworldItem::new);
         OBSIDIAN_INFUSED_STEEL_INGOT = registerItem("obsidian_infused_steel_ingot", SimpleDeepworldItem::new);
 
+        IRON_SMALL_GEAR = registerItem("iron_small_gear", SimpleDeepworldItem::new);
         IRON_PUMP = registerItem("iron_pump", SimpleDeepworldItem::new);
         IRON_TURBINE = registerItem("iron_turbine", SimpleDeepworldItem::new);
         PRESSURE_REGULATOR = registerItem("pressure_regulator", SimpleDeepworldItem::new);
@@ -149,7 +147,6 @@ public class DeepworldItems {
         OBSIDIAN_INFUSED_STEEL_BLOCK = registerItem("obsidian_infused_steel_block", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get()));
 
         WOODEN_FRAME = registerItem("wooden_frame", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_FRAME.get()));
-
         WOODEN_LATHE = registerItem("wooden_lathe", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_LATHE.get()));
         WOODEN_PRESS = registerItem("wooden_press", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_PRESS.get()));
         WOODEN_GEAR_SHAPER = registerItem("wooden_gear_shaper", () -> new SimpleDeepworldBlockItem(DeepworldBlocks.WOODEN_GEAR_SHAPER.get()));

@@ -65,6 +65,8 @@ public class DeepworldRecipeProvider extends RecipeProvider {
                 .hoe(DeepworldItems.OBSIDIAN_INFUSED_STEEL_HOE.get())
                 .sword(DeepworldItems.OBSIDIAN_INFUSED_STEEL_SWORD.get());
         blockFrom9(exporter, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get(), DeepworldItems.OBSIDIAN_INFUSED_STEEL_BLOCK.get());
+
+        
     }
 
     private static void blockFrom4(@NotNull Consumer<FinishedRecipe> exporter, ItemLike material, ItemLike block) {
@@ -85,7 +87,7 @@ public class DeepworldRecipeProvider extends RecipeProvider {
                 .unlockedBy("criteria", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(block.asItem().toString()));
     }
-    
+
     public static InventoryChangeTrigger.TriggerInstance has(@NotNull ItemLike item) {
         return RecipeProvider.has(item);
     }

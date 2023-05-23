@@ -15,7 +15,6 @@
 
 package fr.dwightstudio.deepworld.common.registries;
 
-import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import fr.dwightstudio.deepworld.common.recipes.serializers.MachineRecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -31,8 +30,8 @@ public class DeepworldRecipeSerializers {
     }
 
     public static void register() {
-        LATHING = Deepworld.RECIPE_SERIALIZERS.register("lathing", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.LATHING.get()));
-        PRESSING = Deepworld.RECIPE_SERIALIZERS.register("pressing", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.PRESSING.get()));
-        GEAR_SHAPING = Deepworld.RECIPE_SERIALIZERS.register("gear_shaping", () -> new MachineRecipeSerializer(DeepworldRecipeTypes.GEAR_SHAPING.get()));
+        LATHING = MachineRecipeSerializer.register("lathing", DeepworldRecipeTypes.LATHING);
+        PRESSING = MachineRecipeSerializer.register("pressing", DeepworldRecipeTypes.PRESSING);
+        GEAR_SHAPING = MachineRecipeSerializer.register("gear_shaping", DeepworldRecipeTypes.GEAR_SHAPING);
     }
 }

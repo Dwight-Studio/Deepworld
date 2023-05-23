@@ -2,22 +2,15 @@ package fr.dwightstudio.deepworld.common.data.loots;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class DeepworldBlockLootProvider extends BlockLootSubProvider {

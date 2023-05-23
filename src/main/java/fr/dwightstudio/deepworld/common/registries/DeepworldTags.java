@@ -42,8 +42,8 @@ public class DeepworldTags {
         }
 
         // Ingots
-        public static final TagKey<Item> STEEL_INGOTS = tagForge("ingots/steel");
-        public static final TagKey<Item> OBSIDIAN_INFUSED_STEEL_INGOTS = tagForge("ingots/obsidian_infused_steel");
+        public static final TagKey<Item> INGOTS_STEEL = tagForge("ingots/steel");
+        public static final TagKey<Item> INGOTS_OBSIDIAN_INFUSED_STEEL = tagForge("ingots/obsidian_infused_steel");
 
         // Gears
         public static final TagKey<Item> GEARS = tagForge("gears");

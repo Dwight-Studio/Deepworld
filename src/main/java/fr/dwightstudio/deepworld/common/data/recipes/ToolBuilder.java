@@ -3,8 +3,9 @@ package fr.dwightstudio.deepworld.common.data.recipes;
 import fr.dwightstudio.deepworld.common.data.DeepworldRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
@@ -13,9 +14,9 @@ import java.util.function.Consumer;
 
 public class ToolBuilder {
     Consumer<FinishedRecipe> exporter;
-    ItemLike material;
+    TagKey<Item> material;
 
-    public ToolBuilder(@NotNull Consumer<FinishedRecipe> exporter, ItemLike material) {
+    public ToolBuilder(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material) {
         this.exporter = exporter;
         this.material = material;
     }
@@ -27,7 +28,7 @@ public class ToolBuilder {
                 .pattern(" | ")
                 .define('#', material)
                 .define('|', Tags.Items.RODS_WOODEN)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(pickaxe.asItem().toString()));
         return this;
     }
@@ -39,7 +40,7 @@ public class ToolBuilder {
                 .pattern(" |")
                 .define('#', material)
                 .define('|', Tags.Items.RODS_WOODEN)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(axe.asItem().toString()));
         return this;
     }
@@ -51,7 +52,7 @@ public class ToolBuilder {
                 .pattern("|")
                 .define('#', material)
                 .define('|', Tags.Items.RODS_WOODEN)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(shovel.asItem().toString()));
         return this;
     }
@@ -63,7 +64,7 @@ public class ToolBuilder {
                 .pattern(" |")
                 .define('#', material)
                 .define('|', Tags.Items.RODS_WOODEN)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(hoe.asItem().toString()));
         return this;
     }
@@ -75,7 +76,7 @@ public class ToolBuilder {
                 .pattern("|")
                 .define('#', material)
                 .define('|', Tags.Items.RODS_WOODEN)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(sword.asItem().toString()));
         return this;
     }

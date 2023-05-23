@@ -4,6 +4,8 @@ import fr.dwightstudio.deepworld.common.data.DeepworldRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,9 +14,9 @@ import java.util.function.Consumer;
 public class ArmorBuilder {
 
     Consumer<FinishedRecipe> exporter;
-    ItemLike material;
+    TagKey<Item> material;
 
-    public ArmorBuilder(@NotNull Consumer<FinishedRecipe> exporter, ItemLike material) {
+    public ArmorBuilder(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material) {
         this.exporter = exporter;
         this.material = material;
     }
@@ -24,7 +26,7 @@ public class ArmorBuilder {
                 .pattern("###")
                 .pattern("# #")
                 .define('#', material)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(helmet.asItem().toString()));
         return this;
     }
@@ -35,7 +37,7 @@ public class ArmorBuilder {
                 .pattern("###")
                 .pattern("###")
                 .define('#', material)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(chestplate.asItem().toString()));
         return this;
     }
@@ -46,7 +48,7 @@ public class ArmorBuilder {
                 .pattern("# #")
                 .pattern("# #")
                 .define('#', material)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(leggings.asItem().toString()));
         return this;
     }
@@ -56,7 +58,7 @@ public class ArmorBuilder {
                 .pattern("# #")
                 .pattern("# #")
                 .define('#', material)
-                .unlockedBy("creteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(boots.asItem().toString()));
         return this;
     }

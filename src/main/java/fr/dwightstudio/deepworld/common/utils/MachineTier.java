@@ -15,9 +15,25 @@
 
 package fr.dwightstudio.deepworld.common.utils;
 
+import java.util.Arrays;
+
 public enum MachineTier {
-    WOOD,
-    IRON,
-    STEEL,
-    OBSIDIAN_INFUSED_STEEL;
+    WOOD(0),
+    IRON(1),
+    STEEL(2),
+    OBSIDIAN_INFUSED_STEEL(3);
+
+    private final int level;
+
+    MachineTier(int level) {
+        this.level = level;
+    }
+
+    public Iterable<MachineTier> getSameOrUpper() {
+        return Arrays.stream(values()).filter(tier -> tier.level >= this.level).toList();
+    }
+
+    public Iterable<MachineTier> getSameOrLower() {
+        return Arrays.stream(values()).filter(tier -> tier.level <= this.level).toList();
+    }
 }

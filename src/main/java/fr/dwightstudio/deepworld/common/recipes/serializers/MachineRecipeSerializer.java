@@ -16,6 +16,7 @@
 package fr.dwightstudio.deepworld.common.recipes.serializers;
 
 import com.google.gson.JsonObject;
+import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,20 +27,28 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> {
 
-    private final RecipeType<? extends MachineRecipe> recipeTypes;
+    private final RecipeType<? extends MachineRecipe> recipeType;
+    private final String name;
 
-    public MachineRecipeSerializer(RecipeType<MachineRecipe> recipeTypes) {
-        this.recipeTypes = recipeTypes;
+    private MachineRecipeSerializer(RecipeType<MachineRecipe> recipeType, String name) {
+        this.recipeType = recipeType;
+        this.name = name;
+
+    }
+
+    public static RegistryObject<RecipeSerializer<MachineRecipe>> register(String name, RegistryObject<RecipeType<MachineRecipe>> recipeType) {
+        return Deepworld.RECIPE_SERIALIZERS.register(name, () -> new MachineRecipeSerializer(recipeType.get(), name));
     }
 
     @Override
     public @NotNull MachineRecipe fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
-        Ingredient inputIngredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "ingredients"));
+        Ingredient inputIngredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "ingredient"));
         ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
         int processTime = GsonHelper.getAsInt(jsonObject, "processTime");
         String machineTierString = GsonHelper.getAsString(jsonObject, "machineTier");
@@ -51,7 +60,7 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
 
         MachineTier machineTier = MachineTier.valueOf(machineTierString.toUpperCase());
 
-        return new MachineRecipe(recipeTypes, resourceLocation, inputIngredient, ingredientCount, result, processTime, machineTier);
+        return new MachineRecipe(recipeType, resourceLocation, inputIngredient, ingredientCount, result, processTime, machineTier);
     }
 
     @Override
@@ -63,7 +72,7 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         MachineTier machineTier = MachineTier.valueOf(buf.readUtf().toUpperCase());
         ItemStack result = buf.readItem();
 
-        return new MachineRecipe(recipeTypes, resourceLocation, ingredient, ingredientCount, result, processTime, machineTier);
+        return new MachineRecipe(recipeType, resourceLocation, ingredient, ingredientCount, result, processTime, machineTier);
     }
 
     @Override
@@ -74,5 +83,10 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         buf.writeInt(machineRecipe.getIngredientCount());
         buf.writeUtf(machineRecipe.getMachineTier().name());
         buf.writeItem(machineRecipe.getResultItem());
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

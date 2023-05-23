@@ -23,8 +23,8 @@ public class DeepworldItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         // Items
-        this.tag(DeepworldTags.Items.STEEL_INGOTS).add(DeepworldItems.STEEL_INGOT.getKey());
-        this.tag(DeepworldTags.Items.OBSIDIAN_INFUSED_STEEL_INGOTS).add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.getKey());
+        this.tag(DeepworldTags.Items.INGOTS_STEEL).add(DeepworldItems.STEEL_INGOT.getKey());
+        this.tag(DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL).add(DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.getKey());
         
         this.tag(DeepworldTags.Items.GEARS_WOODEN).add(DeepworldItems.WOODEN_GEAR.getKey());
         this.tag(DeepworldTags.Items.GEARS_IRON).add(DeepworldItems.IRON_GEAR.getKey());
@@ -50,8 +50,8 @@ public class DeepworldItemTagsProvider extends ItemTagsProvider {
         
         // Tags
         this.tag(Tags.Items.INGOTS)
-                .addTag(DeepworldTags.Items.STEEL_INGOTS)
-                .addTag(DeepworldTags.Items.OBSIDIAN_INFUSED_STEEL_INGOTS);
+                .addTag(DeepworldTags.Items.INGOTS_STEEL)
+                .addTag(DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL);
         
         this.tag(DeepworldTags.Items.GEARS)
                 .addTag(DeepworldTags.Items.GEARS_WOODEN)

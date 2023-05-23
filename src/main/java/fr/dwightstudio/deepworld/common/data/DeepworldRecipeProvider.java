@@ -18,14 +18,15 @@ package fr.dwightstudio.deepworld.common.data;
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.data.recipes.ArmorBuilder;
 import fr.dwightstudio.deepworld.common.data.recipes.ToolBuilder;
+import fr.dwightstudio.deepworld.common.data.recipes.WoodenTier;
 import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
+import fr.dwightstudio.deepworld.common.registries.DeepworldTags;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,53 +40,75 @@ public class DeepworldRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> exporter) {
         // Steel
-        new ArmorBuilder(exporter, DeepworldItems.STEEL_INGOT.get())
+        new ArmorBuilder(exporter, DeepworldTags.Items.INGOTS_STEEL)
                 .helmet(DeepworldItems.STEEL_HELMET.get())
                 .chestplate(DeepworldItems.STEEL_CHESTPLATE.get())
                 .leggings(DeepworldItems.STEEL_LEGGINGS.get())
                 .boots(DeepworldItems.STEEL_BOOTS.get());
-        new ToolBuilder(exporter, DeepworldItems.STEEL_INGOT.get())
+        new ToolBuilder(exporter, DeepworldTags.Items.INGOTS_STEEL)
                 .pickaxe(DeepworldItems.STEEL_PICKAXE.get())
                 .axe(DeepworldItems.STEEL_AXE.get())
                 .shovel(DeepworldItems.STEEL_SHOVEL.get())
                 .hoe(DeepworldItems.STEEL_HOE.get())
                 .sword(DeepworldItems.STEEL_SWORD.get());
-        blockFrom9(exporter, DeepworldItems.STEEL_INGOT.get(), DeepworldItems.STEEL_BLOCK.get());
+        blockFrom9(exporter, DeepworldTags.Items.INGOTS_STEEL, DeepworldItems.STEEL_BLOCK.get());
+        //nuggets(exporter, DeepworldTags.Items.INGOTS_STEEL, DeepworldItems.STEEL_NUGGET.get()); TODO: Ajouter Nuggets
 
         // Obsidian Infused Steel
-        new ArmorBuilder(exporter, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get())
+        new ArmorBuilder(exporter, DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL)
                 .helmet(DeepworldItems.OBSIDIAN_INFUSED_STEEL_HELMET.get())
                 .chestplate(DeepworldItems.OBSIDIAN_INFUSED_STEEL_CHESTPLATE.get())
                 .leggings(DeepworldItems.OBSIDIAN_INFUSED_STEEL_LEGGINGS.get())
                 .boots(DeepworldItems.OBSIDIAN_INFUSED_STEEL_BOOTS.get());
-        new ToolBuilder(exporter, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get())
+        new ToolBuilder(exporter, DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL)
                 .pickaxe(DeepworldItems.OBSIDIAN_INFUSED_STEEL_PICKAXE.get())
                 .axe(DeepworldItems.OBSIDIAN_INFUSED_STEEL_AXE.get())
                 .shovel(DeepworldItems.OBSIDIAN_INFUSED_STEEL_SHOVEL.get())
                 .hoe(DeepworldItems.OBSIDIAN_INFUSED_STEEL_HOE.get())
                 .sword(DeepworldItems.OBSIDIAN_INFUSED_STEEL_SWORD.get());
-        blockFrom9(exporter, DeepworldItems.OBSIDIAN_INFUSED_STEEL_INGOT.get(), DeepworldItems.OBSIDIAN_INFUSED_STEEL_BLOCK.get());
+        blockFrom9(exporter, DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL, DeepworldItems.OBSIDIAN_INFUSED_STEEL_BLOCK.get());
+        //nuggets(exporter, DeepworldTags.Items.INGOTS_OBSIDIAN_INFUSED_STEEL, DeepworldItems.OBSIDIAN_INFUSED_NUGGET.get());
 
-        
+        WoodenTier.generate(exporter);
     }
 
-    private static void blockFrom4(@NotNull Consumer<FinishedRecipe> exporter, ItemLike material, ItemLike block) {
+    public static void blockFrom4(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material, ItemLike block) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
                 .pattern("##")
                 .pattern("##")
                 .define('#', material)
-                .unlockedBy("criteria", DeepworldRecipeProvider.has(material))
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(block.asItem().toString()));
     }
 
-    private static void blockFrom9(@NotNull Consumer<FinishedRecipe> exporter, ItemLike material, ItemLike block) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
-                .pattern("###")
-                .pattern("###")
-                .pattern("###")
+    public static void blockFrom9(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material, ItemLike block) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block)
+                    .pattern("###")
+                    .pattern("###")
+                    .pattern("###")
+                    .define('#', material)
+                    .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
+                    .save(exporter, DeepworldRecipeProvider.getResourceLocation(block.asItem().toString()));
+    }
+
+    public static void nuggets(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material, ItemLike nugget) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, nugget, 9)
+                .requires(material)
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
+                .save(exporter, DeepworldRecipeProvider.getResourceLocation(nugget.asItem().toString()));
+    }
+
+    public static void nail(@NotNull Consumer<FinishedRecipe> exporter, TagKey<Item> material, ItemLike nail) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, nail)
+                .pattern("#")
+                .pattern("#")
                 .define('#', material)
-                .unlockedBy("criteria", DeepworldRecipeProvider.has(material))
-                .save(exporter, DeepworldRecipeProvider.getResourceLocation(block.asItem().toString()));
+                .unlockedBy("has_material", DeepworldRecipeProvider.has(material))
+                .save(exporter, DeepworldRecipeProvider.getResourceLocation(nail.asItem().toString()));
+    }
+
+    public static InventoryChangeTrigger.TriggerInstance has(@NotNull TagKey<Item> item) {
+        return RecipeProvider.has(item);
     }
 
     public static InventoryChangeTrigger.TriggerInstance has(@NotNull ItemLike item) {

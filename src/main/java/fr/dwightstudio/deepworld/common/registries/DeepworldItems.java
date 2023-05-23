@@ -182,9 +182,9 @@ public class DeepworldItems {
         SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", SimplePressingChamberItem::new);
         WOODEN_GEARBOX = registerItem("wooden_gearbox", WoodenGearboxItem::new);
         WOODEN_CRANK = registerItem("wooden_crank", WoodenCrankItem::new);
-        SIMPLE_CUTTER = registerItem("simple_cutter", SimpleCutter::new);
-        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", SimpleLeftPartHolder::new);
-        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", SimpleRightPartHolder::new);
+        SIMPLE_CUTTER = registerItem("simple_cutter", SimpleCutterItem::new);
+        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", SimpleLeftPartHolderItem::new);
+        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", SimpleRightPartHolderItem::new);
         WOODEN_CASE_PANEL = registerItem("wooden_case_panel", WoodenCasePanelItem::new);
     }
 

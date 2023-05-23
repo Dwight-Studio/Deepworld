@@ -1,5 +1,7 @@
 package fr.dwightstudio.deepworld.common.data.recipes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import fr.dwightstudio.deepworld.common.utils.MachineTier;

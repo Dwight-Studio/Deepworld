@@ -1,34 +1,42 @@
-/*
- *       ____           _       __    __     _____ __            ___
- *      / __ \_      __(_)___ _/ /_  / /_   / ___// /___  ______/ (_)___
- *     / / / / | /| / / / __ `/ __ \/ __/   \__ \/ __/ / / / __  / / __ \
- *    / /_/ /| |/ |/ / / /_/ / / / / /_    ___/ / /_/ /_/ / /_/ / / /_/ /
- *   /_____/ |__/|__/_/\__, /_/ /_/\__/   /____/\__/\__,_/\__,_/_/\____/
- *                    /____/
- *   Copyright (c) 2022-2023 Dwight Studio's Team <support@dwight-studio.fr>
- *
- *   This Source Code From is subject to the terms of the Mozilla Public
- *   License, v. 2.0. If a copy of the MPL was not distributed with this
- *   file, You can obtain one at https://mozilla.org/MPL/2.0/ .
- *
- */
-
 package fr.dwightstudio.deepworld.common.data;
 
+import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DeepworldBlockLootProvider extends BlockLootSubProvider {
 
-    protected DeepworldBlockLootProvider(Set<Item> p_249153_, FeatureFlagSet p_251215_) {
-        super(p_249153_, p_251215_);
+    private static final Set<Item> EXPLOSION_RESISTANT = new HashSet<>(); // Stream.of(...).map(RegistryObject::get).collect(Collectors.toSet());
+
+    public DeepworldBlockLootProvider() {
+        super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
+    }
+
+    @Override
+    protected @NotNull Iterable<Block> getKnownBlocks() {
+        return Deepworld.BLOCKS.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
     }
 
     @Override
     protected void generate() {
+        this.dropSelf(DeepworldBlocks.STEEL_BLOCK.get());
+        this.dropSelf(DeepworldBlocks.OBSIDIAN_INFUSED_STEEL_BLOCK.get());
 
+        this.dropSelf(DeepworldBlocks.WOODEN_FRAME.get());
+        this.add(DeepworldBlocks.WOODEN_LATHE.get(), noDrop());
+        this.add(DeepworldBlocks.WOODEN_PRESS.get(), noDrop());
+        this.add(DeepworldBlocks.WOODEN_GEAR_SHAPER.get(), noDrop());
+
+        this.dropSelf(DeepworldBlocks.IRON_TANK.get());
+        this.dropSelf(DeepworldBlocks.PIPE.get());
     }
 }

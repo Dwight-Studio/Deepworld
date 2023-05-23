@@ -17,14 +17,15 @@ package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blocks.IronPipeBlock;
-import fr.dwightstudio.deepworld.common.blocks.ObsidianInfusedSteelBlockBlock;
-import fr.dwightstudio.deepworld.common.blocks.SteelBlockBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenGearShaperBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenLatheBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenPressBlock;
 import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
 
 public class DeepworldBlocks {
@@ -50,8 +51,16 @@ public class DeepworldBlocks {
     }
 
     public static void register() {
-        STEEL_BLOCK = Deepworld.BLOCKS.register("steel_block", SteelBlockBlock::new);
-        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.BLOCKS.register("obsidian_infused_steel_block", ObsidianInfusedSteelBlockBlock::new);
+        STEEL_BLOCK = Deepworld.BLOCKS.register("steel_block", () -> new Block(
+                BlockBehaviour.Properties.of(Material.METAL)
+                .requiresCorrectToolForDrops()
+                .sound(SoundType.METAL)
+                .strength(5.0f, 6.0f)
+        ));
+        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.BLOCKS.register("obsidian_infused_steel_block", () -> new Block(
+                BlockBehaviour.Properties.of(Material.STONE)
+                .sound(SoundType.METAL)
+        ));
 
         // Frames
         WOODEN_FRAME = Deepworld.BLOCKS.register("wooden_frame", WoodenFrameBlock::new);

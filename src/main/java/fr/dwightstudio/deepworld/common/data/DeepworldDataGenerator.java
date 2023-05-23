@@ -16,7 +16,6 @@
 package fr.dwightstudio.deepworld.common.data;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.data.loots.DeepworldBlockLootProvider;
 import fr.dwightstudio.deepworld.common.data.tags.DeepworldBlockTagsProvider;
 import fr.dwightstudio.deepworld.common.data.tags.DeepworldItemTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -47,7 +46,17 @@ public class DeepworldDataGenerator {
 
         gen.addProvider(
                 event.includeClient(),
+                new DeepworldBlockModelProvider(packOutput, efh)
+        );
+
+        gen.addProvider(
+                event.includeClient(),
                 new DeepworldBlockStateProvider(packOutput, efh)
+        );
+
+        gen.addProvider(
+                event.includeClient(),
+                new DeepworldItemModelProvider(packOutput, efh)
         );
 
         gen.addProvider(

@@ -18,12 +18,12 @@ package fr.dwightstudio.deepworld.common.items.component;
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class WoodenFrameComponentItem extends Item {
+public class WoodenFrameComponentItem extends FrameItem {
+
     public WoodenFrameComponentItem(Properties properties) {
         super(properties);
     }

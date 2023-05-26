@@ -21,38 +21,38 @@ import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public enum WoodenFrameComponent {
+public enum WoodenFrameComponent implements FrameComponent {
 
     // Components
     SIMPLE_PRESSING_CHAMBER(
             DeepworldItems.SIMPLE_PRESSING_CHAMBER::get,
             ComponentClass.PRIMARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get}
     ),
     WOODEN_GEARBOX(
             DeepworldItems.WOODEN_GEARBOX::get,
             ComponentClass.SECONDARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
     ),
     WOODEN_CRANK(
             DeepworldItems.WOODEN_CRANK::get,
             ComponentClass.TERTIARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_PRESS.get(), () -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
     ),
     SIMPLE_CUTTER(
             DeepworldItems.SIMPLE_CUTTER::get,
             ComponentClass.PRIMARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_GEAR_SHAPER.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
     ),
     SIMPLE_LEFT_PART_HOLDER(
             DeepworldItems.SIMPLE_LEFT_PART_HOLDER::get,
             ComponentClass.SECONDARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_LATHE.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_LATHE::get}
     ),
     SIMPLE_RIGHT_PART_HOLDER(
             DeepworldItems.SIMPLE_RIGHT_PART_HOLDER::get,
             ComponentClass.TERTIARY,
-            new ComponentMachine[]{() -> DeepworldBlocks.WOODEN_LATHE.get()}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_LATHE::get}
     );
 
     // Var
@@ -131,6 +131,10 @@ public enum WoodenFrameComponent {
             }
         }
         return null;
+    }
+
+    public String getName() {
+        return name();
     }
 
     public Item getItem() {

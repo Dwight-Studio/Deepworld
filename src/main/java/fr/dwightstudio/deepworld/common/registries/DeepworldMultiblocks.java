@@ -30,7 +30,7 @@ public enum DeepworldMultiblocks {
     private final MultiblockEntitySupplier supplier;
 
     DeepworldMultiblocks(String location, MultiblockEntitySupplier supplier) {
-        this.location = new ResourceLocation(Deepworld.MOD_ID, location);
+        this.location = Deepworld.loc( location);
         this.supplier = supplier;
     }
 

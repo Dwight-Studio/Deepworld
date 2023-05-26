@@ -13,11 +13,10 @@
  *
  */
 
-package fr.dwightstudio.deepworld.common.items;
+package fr.dwightstudio.deepworld.common.items.component;
 
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
 import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
-import fr.dwightstudio.deepworld.common.items.component.FrameItem;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

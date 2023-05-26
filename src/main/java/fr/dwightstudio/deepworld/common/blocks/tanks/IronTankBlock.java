@@ -31,9 +31,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -50,12 +48,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class IronTankBlock extends Block implements EntityBlock {
+public class IronTankBlock extends TankBlock implements EntityBlock {
 
     private final VoxelShape shape = makeShape();
-
-    public static final BooleanProperty UP = BooleanProperty.create("up");
-    public static final BooleanProperty DOWN = BooleanProperty.create("down");
 
     public IronTankBlock() {
         super(Properties.of(Material.STONE)
@@ -160,11 +155,6 @@ public class IronTankBlock extends Block implements EntityBlock {
     @Override
     public void tick(@NotNull BlockState blockState, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource p_222948_) {
         updateTank(blockState, level, blockPos);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(UP, DOWN, BlockStateProperties.LIT);
     }
 
     @Nullable

@@ -1,515 +1,112 @@
 {
-  "ambientocclusion": false,
-  "render_type": "cutout",
-  "display": {
-    "gui": {
-      "rotation": [
-        30,
-        45,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.625,
-        0.625,
-        0.625
-      ]
-    },
-    "ground": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        3,
-        0
-      ],
-      "scale": [
-        0.25,
-        0.25,
-        0.25
-      ]
-    },
-    "fixed": {
-      "rotation": [
-        0,
-        180,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ]
-    },
-    "head": {
-      "rotation": [
-        0,
-        180,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        0,
-        315,
-        0
-      ],
-      "translation": [
-        0,
-        2.5,
-        0
-      ],
-      "scale": [
-        0.4,
-        0.4,
-        0.4
-      ]
-    },
-    "thirdperson_righthand": {
-      "rotation": [
-        75,
-        315,
-        0
-      ],
-      "translation": [
-        0,
-        2.5,
-        0
-      ],
-      "scale": [
-        0.375,
-        0.375,
-        0.375
-      ]
-    }
-  },
-  "elements": [
-    {
-      "name": "Cube",
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        15
-      ],
-      "faces": {
-        "north": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            1,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#wooden_machine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            15,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            16,
-            15
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            1,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "name": "Facade",
-      "from": [
-        0,
-        0,
-        15
-      ],
-      "to": [
-        16,
-        16,
-        16
-      ],
-      "faces": {
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#wooden_front",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            16,
-            1
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            16,
-            1
-          ]
-        }
-      }
-    },
-    {
-      "name": "Mur gauche",
-      "from": [
-        2,
-        4,
-        15
-      ],
-      "to": [
-        2,
-        14,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            10
-          ]
-        },
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            10
-          ]
-        },
-        "south": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            10
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            10
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            1
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            1
-          ]
-        }
-      }
-    },
-    {
-      "name": "Mur droite",
-      "from": [
-        14,
-        4,
-        15
-      ],
-      "to": [
-        14,
-        14,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            10
-          ]
-        },
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            10
-          ]
-        },
-        "south": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            10
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            10
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            1
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            0,
-            1
-          ]
-        }
-      }
-    },
-    {
-      "name": "Mur haut",
-      "from": [
-        2,
-        14,
-        15
-      ],
-      "to": [
-        14,
-        14,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            0
-          ]
-        },
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        "south": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            0
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            1
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            1
-          ]
-        }
-      }
-    },
-    {
-      "name": "Mur bas",
-      "from": [
-        2,
-        4,
-        15
-      ],
-      "to": [
-        14,
-        4,
-        16
-      ],
-      "faces": {
-        "north": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            0
-          ]
-        },
-        "east": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        "south": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            0
-          ]
-        },
-        "west": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            1,
-            0
-          ]
-        },
-        "up": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            1
-          ]
-        },
-        "down": {
-          "texture": "#wooden_case_panel",
-          "uv": [
-            0,
-            0,
-            12,
-            1
-          ]
-        }
-      }
-    }
-  ]
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"particle": "#wooden_machine"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [0, 0, 1],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#wooden_machine"},
+				"east": {"uv": [0, 0, 15, 16], "texture": "#wooden_case_panel"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#wooden_case_panel"},
+				"west": {"uv": [1, 0, 16, 16], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 16, 15], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 1, 16, 16], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		},
+		{
+			"name": "Facade",
+			"from": [0, 0, 0],
+			"to": [16, 16, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#wooden_front"},
+				"east": {"uv": [0, 0, 1, 16], "texture": "#wooden_case_panel"},
+				"west": {"uv": [0, 0, 1, 16], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 16, 1], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 0, 16, 1], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		},
+		{
+			"name": "Mur gauche",
+			"from": [14, 4, 0],
+			"to": [14, 14, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 10], "texture": "#wooden_case_panel"},
+				"east": {"uv": [0, 0, 1, 10], "texture": "#wooden_case_panel"},
+				"south": {"uv": [0, 0, 0, 10], "texture": "#wooden_case_panel"},
+				"west": {"uv": [0, 0, 1, 10], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 0, 1], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 0, 0, 1], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		},
+		{
+			"name": "Mur droite",
+			"from": [2, 4, 0],
+			"to": [2, 14, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 10], "texture": "#wooden_case_panel"},
+				"east": {"uv": [0, 0, 1, 10], "texture": "#wooden_case_panel"},
+				"south": {"uv": [0, 0, 0, 10], "texture": "#wooden_case_panel"},
+				"west": {"uv": [0, 0, 1, 10], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 0, 1], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 0, 0, 1], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		},
+		{
+			"name": "Mur haut",
+			"from": [2, 14, 0],
+			"to": [14, 14, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 12, 0], "texture": "#wooden_case_panel"},
+				"east": {"uv": [0, 0, 1, 0], "texture": "#wooden_case_panel"},
+				"south": {"uv": [0, 0, 12, 0], "texture": "#wooden_case_panel"},
+				"west": {"uv": [0, 0, 1, 0], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 12, 1], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 0, 12, 1], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		},
+		{
+			"name": "Mur bas",
+			"from": [2, 4, 0],
+			"to": [14, 4, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 12, 0], "texture": "#wooden_case_panel"},
+				"east": {"uv": [0, 0, 1, 0], "texture": "#wooden_case_panel"},
+				"south": {"uv": [0, 0, 12, 0], "texture": "#wooden_case_panel"},
+				"west": {"uv": [0, 0, 1, 0], "texture": "#wooden_case_panel"},
+				"up": {"uv": [0, 0, 12, 1], "rotation": 180, "texture": "#wooden_case_panel"},
+				"down": {"uv": [0, 0, 12, 1], "rotation": 180, "texture": "#wooden_case_panel"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 315, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 315, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"rotation": [0, 180, 0]
+		},
+		"fixed": {
+			"rotation": [0, 180, 0]
+		}
+	}
 }

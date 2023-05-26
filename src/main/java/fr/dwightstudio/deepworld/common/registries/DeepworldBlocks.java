@@ -16,11 +16,13 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenGearShaperBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenLatheBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenPressBlockEntity;
 import fr.dwightstudio.deepworld.common.blocks.IronPipeBlock;
+import fr.dwightstudio.deepworld.common.blocks.SimpleDeepworldBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
-import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenGearShaperBlock;
-import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenLatheBlock;
-import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenPressBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.blocks.tanks.IronTankBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -51,13 +53,13 @@ public class DeepworldBlocks {
     }
 
     public static void register() {
-        STEEL_BLOCK = Deepworld.BLOCKS.register("steel_block", () -> new Block(
+        STEEL_BLOCK = Deepworld.BLOCKS.register("steel_block", () -> new SimpleDeepworldBlock(
                 BlockBehaviour.Properties.of(Material.METAL)
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.METAL)
                 .strength(5.0f, 6.0f)
         ));
-        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.BLOCKS.register("obsidian_infused_steel_block", () -> new Block(
+        OBSIDIAN_INFUSED_STEEL_BLOCK = Deepworld.BLOCKS.register("obsidian_infused_steel_block", () -> new SimpleDeepworldBlock(
                 BlockBehaviour.Properties.of(Material.STONE)
                 .sound(SoundType.METAL)
         ));
@@ -68,9 +70,9 @@ public class DeepworldBlocks {
         //OBSIDIAN_INFUSED_STEEL_FRAME = Deepworld.BLOCKS.register("obsidian_infused_steel_frame", ObsidianInfusedSteelFrame::new);
 
         // Machines
-        WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", WoodenPressBlock::new);
-        WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", WoodenGearShaperBlock::new);
-        WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", WoodenLatheBlock::new);
+        WOODEN_PRESS = Deepworld.BLOCKS.register("wooden_press", () -> new WoodenMachineBlock(WoodenPressBlockEntity::new));
+        WOODEN_GEAR_SHAPER = Deepworld.BLOCKS.register("wooden_gear_shaper", () -> new WoodenMachineBlock(WoodenGearShaperBlockEntity::new));
+        WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", () -> new WoodenMachineBlock(WoodenLatheBlockEntity::new));
 
         IRON_TANK = Deepworld.BLOCKS.register("iron_tank", IronTankBlock::new);
         PIPE = Deepworld.BLOCKS.register("pipe", IronPipeBlock::new);

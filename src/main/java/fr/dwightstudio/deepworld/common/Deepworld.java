@@ -88,7 +88,7 @@ public class Deepworld {
     @SubscribeEvent
     public static void registerTab(CreativeModeTabEvent.Register event) {
         Deepworld.MOD_TAB = event.registerCreativeModeTab(
-                new ResourceLocation(Deepworld.MOD_ID, "deepworld_tab"),
+                Deepworld.loc( "deepworld_tab"),
                 builder -> builder.title(Component.literal("Deepworld")).icon(DeepworldItems.STEEL_BLOCK.get()::getDefaultInstance)
         );
     }
@@ -96,5 +96,9 @@ public class Deepworld {
     @SubscribeEvent
     public static void registerTabContent(CreativeModeTabEvent.BuildContents event) {
         DeepworldItems.modTabContent.forEach(itemStackSupplier -> event.accept(itemStackSupplier.get()));
+    }
+    
+    public static ResourceLocation loc(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 }

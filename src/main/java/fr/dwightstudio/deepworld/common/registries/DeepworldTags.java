@@ -16,7 +16,7 @@ public class DeepworldTags {
     public static class Blocks {
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(Deepworld.MOD_ID, name));
+            return BlockTags.create(Deepworld.loc( name));
         }
 
         private static TagKey<Block> tagForge(String name) {
@@ -34,7 +34,7 @@ public class DeepworldTags {
     public static class Items {
 
         private static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(Deepworld.MOD_ID, name));
+            return ItemTags.create(Deepworld.loc( name));
         }
 
         private static TagKey<Item> tagForge(String name) {

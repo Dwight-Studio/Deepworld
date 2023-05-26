@@ -16,7 +16,7 @@
 package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
 
 import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstance;
-import fr.dwightstudio.deepworld.common.blocks.machines.wood.WoodenMachineBlock;
+import fr.dwightstudio.deepworld.common.blocks.machines.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import net.minecraft.client.Minecraft;

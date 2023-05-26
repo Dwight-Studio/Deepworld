@@ -15,13 +15,40 @@
 
 package fr.dwightstudio.deepworld.common.blocks.frames;
 
-import net.minecraft.world.level.block.Block;
+import fr.dwightstudio.deepworld.common.components.FrameComponent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class ObsidianInfusedSteelFrame extends Block {
+public class ObsidianInfusedSteelFrame extends FrameBlock {
     public ObsidianInfusedSteelFrame() {
         super(Properties.copy(Blocks.OBSIDIAN)
                 .sound(SoundType.METAL));
+    }
+
+    @Override
+    public FrameComponent[] getAllComponents() {
+        return new FrameComponent[0];
+    }
+
+    @Override
+    public IntegerProperty getProperty(int id) {
+        return null;
+    }
+
+    @Override
+    public String getCoverPath() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return null;
     }
 }

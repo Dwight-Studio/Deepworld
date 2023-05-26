@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "deepworld:blocks/steel_frame"
-      }
-    }
-  ]
-}

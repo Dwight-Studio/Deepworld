@@ -46,11 +46,6 @@ public class DeepworldDataGenerator {
 
         gen.addProvider(
                 event.includeClient(),
-                new DeepworldBlockModelProvider(packOutput, efh)
-        );
-
-        gen.addProvider(
-                event.includeClient(),
                 new DeepworldBlockStateProvider(packOutput, efh)
         );
 

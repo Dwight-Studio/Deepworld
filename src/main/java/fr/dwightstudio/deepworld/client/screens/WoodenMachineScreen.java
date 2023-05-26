@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class WoodenMachineScreen extends AbstractContainerScreen<WoodenMachineMenu> implements RecipeUpdateListener {
 
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Deepworld.MOD_ID, "textures/gui/wooden_machine_default.png");
+    private static final ResourceLocation GUI_TEXTURE = Deepworld.loc( "textures/gui/wooden_machine_default.png");
 
     // Coordinates of graphical elements [x,y]
     static final int PROCESS_BAR_XPOS = 79;

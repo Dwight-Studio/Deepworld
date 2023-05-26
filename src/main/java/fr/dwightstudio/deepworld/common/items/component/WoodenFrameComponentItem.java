@@ -24,8 +24,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class WoodenFrameComponentItem extends FrameItem {
 
-    public WoodenFrameComponentItem(Properties properties) {
-        super(properties);
+    private final WoodenFrameComponent component;
+
+    public WoodenFrameComponentItem(WoodenFrameComponent component) {
+        super(new Properties());
+        this.component = component;
     }
 
     @Override
@@ -85,6 +88,6 @@ public class WoodenFrameComponentItem extends FrameItem {
 
     // Get the component (to override)
     public WoodenFrameComponent getComponent() {
-        throw new NullPointerException("Component undefined.");
+        return component;
     }
 }

@@ -17,7 +17,11 @@ package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.armors.ArmorMaterialsTier;
-import fr.dwightstudio.deepworld.common.items.*;
+import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.items.SimpleDeepworldBlockItem;
+import fr.dwightstudio.deepworld.common.items.SimpleDeepworldItem;
+import fr.dwightstudio.deepworld.common.items.component.WoodenCasePanelItem;
+import fr.dwightstudio.deepworld.common.items.component.WoodenFrameComponentItem;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
@@ -179,12 +183,12 @@ public class DeepworldItems {
         OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new Item.Properties()));
 
         // Machine components
-        SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", SimplePressingChamberItem::new);
-        WOODEN_GEARBOX = registerItem("wooden_gearbox", WoodenGearboxItem::new);
-        WOODEN_CRANK = registerItem("wooden_crank", WoodenCrankItem::new);
-        SIMPLE_CUTTER = registerItem("simple_cutter", SimpleCutterItem::new);
-        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", SimpleLeftPartHolderItem::new);
-        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", SimpleRightPartHolderItem::new);
+        SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_PRESSING_CHAMBER));
+        WOODEN_GEARBOX = registerItem("wooden_gearbox", () -> new WoodenFrameComponentItem(WoodenFrameComponent.WOODEN_GEARBOX));
+        WOODEN_CRANK = registerItem("wooden_crank", () -> new WoodenFrameComponentItem(WoodenFrameComponent.WOODEN_CRANK));
+        SIMPLE_CUTTER = registerItem("simple_cutter", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_CUTTER));
+        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_LEFT_PART_HOLDER));
+        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_RIGHT_PART_HOLDER));
         WOODEN_CASE_PANEL = registerItem("wooden_case_panel", WoodenCasePanelItem::new);
     }
 

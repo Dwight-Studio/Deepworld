@@ -116,6 +116,6 @@ public class DeepworldRecipeProvider extends RecipeProvider {
     }
 
     public static ResourceLocation getResourceLocation(String name) {
-        return new ResourceLocation(Deepworld.MOD_ID, name);
+        return Deepworld.loc( name);
     }
 }

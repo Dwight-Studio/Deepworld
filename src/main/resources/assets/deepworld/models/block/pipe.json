@@ -1,7 +1,8 @@
 {
   "textures": {
     "pipe_junction": "deepworld:block/pipe_junction",
-    "pipe": "deepworld:block/pipe"
+    "pipe": "deepworld:block/pipe",
+    "particle": "#pipe"
   },
   "display": {
     "gui": {

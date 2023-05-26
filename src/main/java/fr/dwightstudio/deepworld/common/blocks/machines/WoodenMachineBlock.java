@@ -13,7 +13,7 @@
  *
  */
 
-package fr.dwightstudio.deepworld.common.blocks.machines.wood;
+package fr.dwightstudio.deepworld.common.blocks.machines;
 
 import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -40,16 +40,21 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
+import java.util.function.BiFunction;
+
+public class WoodenMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final Property<Boolean> WORKING = BooleanProperty.create("working");
 
-    public WoodenMachineBlock() {
+    private final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityProvider;
+
+    public WoodenMachineBlock(BiFunction<BlockPos, BlockState, BlockEntity> blockEntityProvider) {
         super(Properties.of(Material.WOOD)
                 .sound(SoundType.WOOD)
                 .strength(3, 2)
                 .noOcclusion());
+        this.blockEntityProvider = blockEntityProvider;
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WORKING, false));
     }
@@ -58,10 +63,6 @@ public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock impl
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, WORKING);
     }
-
-    @Nullable
-    @Override
-    public abstract BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState);
 
     @Override
     public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
@@ -89,6 +90,12 @@ public abstract class WoodenMachineBlock extends HorizontalDirectionalBlock impl
     @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return blockEntityProvider.apply(blockPos, blockState);
     }
 
     @Nullable

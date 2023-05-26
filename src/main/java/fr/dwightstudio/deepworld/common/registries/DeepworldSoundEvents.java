@@ -16,7 +16,6 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -32,7 +31,7 @@ public class DeepworldSoundEvents {
     }
 
     private static RegistryObject<SoundEvent> registerSound(String name) {
-        return Deepworld.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Deepworld.MOD_ID, name)));
+        return Deepworld.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(Deepworld.loc( name)));
     }
 
 }

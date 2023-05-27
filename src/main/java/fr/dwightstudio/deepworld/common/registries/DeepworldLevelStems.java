@@ -1,6 +1,7 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
+import fr.dwightstudio.deepworld.common.dimension.DeepworldBiomeSource;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -15,10 +16,10 @@ public class DeepworldLevelStems {
     public static Holder.Reference<LevelStem> DEEPWORLD;
 
     public static void register(BootstapContext<LevelStem> context) {
-        /*DEEPWORLD = context.register(DEEPWORLD_LEVEL_STEM,
+        DEEPWORLD = context.register(DEEPWORLD_LEVEL_STEM,
                 new LevelStem(context.lookup(Registries.DIMENSION_TYPE).getOrThrow(DeepworldDimensionTypes.DEEPWORLD.key()),
-                new NoiseBasedChunkGenerator()
-                ));*/
+                new NoiseBasedChunkGenerator(DeepworldBiomeSource.create(context.lookup(Registries.BIOME)), DeepworldNoiseSettings.DEEPWORLD)
+                ));
 
     }
 }

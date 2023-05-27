@@ -26,13 +26,13 @@ import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.RegistryObject;
+import org.antlr.v4.runtime.misc.OrderedHashSet;
 
-import java.util.HashSet;
 import java.util.function.Supplier;
 
 public class DeepworldItems {
 
-    public static final HashSet<Supplier<ItemStack>> modTabContent = new HashSet<>();
+    public static final OrderedHashSet<Supplier<ItemStack>> modTabContent = new OrderedHashSet<>();
 
     // Items
     public static RegistryObject<Item> WOODEN_GEAR;

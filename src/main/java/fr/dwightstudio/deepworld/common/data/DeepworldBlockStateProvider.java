@@ -174,13 +174,13 @@ public class DeepworldBlockStateProvider extends BlockStateProvider {
         ModelFile tankModel = models().withExistingParent(name, Deepworld.loc("tank"))
                 .texture("tank", Deepworld.loc(BLOCK_FOLDER + "/" + name));
 
-        ModelFile tankBottom = models().withExistingParent(name, Deepworld.loc("tank_bottom"))
+        ModelFile tankBottom = models().withExistingParent(name + "_bottom", Deepworld.loc("tank_bottom"))
                 .texture("tank", Deepworld.loc(BLOCK_FOLDER + "/" + name));
 
-        ModelFile tankMiddle = models().withExistingParent(name, Deepworld.loc("tank_middle"))
+        ModelFile tankMiddle = models().withExistingParent(name + "_middle", Deepworld.loc("tank_middle"))
                 .texture("tank", Deepworld.loc(BLOCK_FOLDER + "/" + name));
 
-        ModelFile tankTop = models().withExistingParent(name, Deepworld.loc("tank_top"))
+        ModelFile tankTop = models().withExistingParent(name + "_top", Deepworld.loc("tank_top"))
                 .texture("tank", Deepworld.loc(BLOCK_FOLDER + "/" + name));
 
         getVariantBuilder(tankBlock).partialState()

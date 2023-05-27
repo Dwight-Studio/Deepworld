@@ -42,7 +42,7 @@ public class Deepworld {
 
     // Mod info
     public static final String MOD_ID = "deepworld";
-    public static final String MOD_NAME = "Deep World";
+    public static final String MOD_NAME = "Deepworld";
     public static final String LOG_PREFIX = MOD_NAME;
     public static CreativeModeTab MOD_TAB;
     public static final Logger LOGGER = LogManager.getLogger(LOG_PREFIX);
@@ -89,13 +89,13 @@ public class Deepworld {
     public static void registerTab(CreativeModeTabEvent.Register event) {
         Deepworld.MOD_TAB = event.registerCreativeModeTab(
                 Deepworld.loc( "deepworld_tab"),
-                builder -> builder.title(Component.literal("Deepworld")).icon(DeepworldItems.STEEL_BLOCK.get()::getDefaultInstance)
+                builder -> builder.title(Component.literal(MOD_NAME)).icon(DeepworldItems.STEEL_BLOCK.get()::getDefaultInstance)
         );
     }
 
     @SubscribeEvent
     public static void registerTabContent(CreativeModeTabEvent.BuildContents event) {
-        DeepworldItems.modTabContent.forEach(itemStackSupplier -> event.accept(itemStackSupplier.get()));
+        if (event.getTab() == MOD_TAB) DeepworldItems.modTabContent.forEach(itemStackSupplier -> event.accept(itemStackSupplier.get()));
     }
     
     public static ResourceLocation loc(String path) {

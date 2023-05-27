@@ -15,7 +15,11 @@
 
 package fr.dwightstudio.deepworld.common.blocks.machines;
 
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blocks.frames.FrameBlock;
+import fr.dwightstudio.deepworld.common.components.FrameComponent;
+import fr.dwightstudio.deepworld.common.components.WoodenFrameComponent;
+import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +36,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
@@ -42,9 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
-public class WoodenMachineBlock extends HorizontalDirectionalBlock implements EntityBlock {
-
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+public class WoodenMachineBlock extends MachineBlock {
     public static final Property<Boolean> WORKING = BooleanProperty.create("working");
 
     private final BiFunction<BlockPos, BlockState, BlockEntity> blockEntityProvider;
@@ -120,4 +121,13 @@ public class WoodenMachineBlock extends HorizontalDirectionalBlock implements En
     }
 
 
+    @Override
+    public FrameBlock getFrame() {
+        return (FrameBlock) DeepworldBlocks.WOODEN_FRAME.get();
+    }
+
+    @Override
+    public FrameComponent[] getComponents() {
+        return WoodenFrameComponent.getByMachine(this);
+    }
 }

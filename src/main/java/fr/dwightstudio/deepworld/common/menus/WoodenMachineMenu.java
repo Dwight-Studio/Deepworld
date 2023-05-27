@@ -15,7 +15,7 @@
 
 package fr.dwightstudio.deepworld.common.menus;
 
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.recipes.MachineRecipe;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

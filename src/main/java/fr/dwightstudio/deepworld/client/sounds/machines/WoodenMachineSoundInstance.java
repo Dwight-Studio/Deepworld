@@ -15,7 +15,7 @@
 
 package fr.dwightstudio.deepworld.client.sounds.machines;
 
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenMachineBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenMachineBlockEntity;
 import fr.dwightstudio.deepworld.common.registries.DeepworldSoundEvents;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

@@ -1,4 +1,4 @@
-// 1.19.3	2023-05-23T21:31:07.532419	Recipes
+// 1.19.3	2023-05-27T16:03:12.1313695	Recipes
 585a3ef5247bd5f3be529b38c0ab8d5ffbc6b7cb data/deepworld/advancements/recipes/building_blocks/obsidian_infused_steel_block.json
 13d9c6cf312541b6efbfe8f818ec47ede7916cbd data/deepworld/advancements/recipes/building_blocks/steel_block.json
 c3fb6f286b0d7c36e3e0f1d54c6558597f9dfbf3 data/deepworld/advancements/recipes/combat/obsidian_infused_steel_boots.json
@@ -60,7 +60,7 @@ c2551da2d300769c91d6449ecbe8b03fb2229be9 data/deepworld/recipes/steel_hoe.json
 477ca85055f961952296735889743ef918503fa6 data/deepworld/recipes/steel_pickaxe.json
 74af8aef543632c0549f460c63654f748eed69d2 data/deepworld/recipes/steel_shovel.json
 c6456218f8991994475865ecc66ba382c3b7cc81 data/deepworld/recipes/steel_sword.json
-8c9e904979c09593a40c06ff063566664846aaec data/deepworld/recipes/wooden_case_panel.json
+17e5d3f11ecd88c6edf8f828cceb3cd1d768a8d4 data/deepworld/recipes/wooden_case_panel.json
 bd828e221821179a8e870e317088ee8b417c73e7 data/deepworld/recipes/wooden_crank.json
 e05013e58151af277845969112fdb56b66d70623 data/deepworld/recipes/wooden_frame.json
 c0369d27227a898732c977b2fc3718c44d81784b data/deepworld/recipes/wooden_gear.json

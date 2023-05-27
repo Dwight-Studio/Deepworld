@@ -16,9 +16,9 @@
 package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenGearShaperBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenLatheBlockEntity;
-import fr.dwightstudio.deepworld.common.blockentities.machines.wood.WoodenPressBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenGearShaperBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenLatheBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenPressBlockEntity;
 import fr.dwightstudio.deepworld.common.blocks.IronPipeBlock;
 import fr.dwightstudio.deepworld.common.blocks.SimpleDeepworldBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;

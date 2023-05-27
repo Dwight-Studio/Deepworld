@@ -88,9 +88,9 @@ public class WoodenTier {
                 .save(exporter, DeepworldRecipeProvider.getResourceLocation(DeepworldItems.WOODEN_FRAME.get().toString()));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, DeepworldItems.WOODEN_CASE_PANEL.get())
-                .pattern("N N")
-                .pattern(" P ")
-                .pattern("N N")
+                .pattern("NPN")
+                .pattern("PPP")
+                .pattern("NPN")
                 .define('P', ItemTags.PLANKS)
                 .define('N', DeepworldTags.Items.NAILS_IRON)
                 .unlockedBy("has_plank", has(ItemTags.PLANKS))

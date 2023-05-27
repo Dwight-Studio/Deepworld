@@ -13,7 +13,7 @@
  *
  */
 
-package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
+package fr.dwightstudio.deepworld.common.blockentities.machines.wooden;
 
 import fr.dwightstudio.deepworld.client.sounds.machines.WoodenMachineSoundInstance;
 import fr.dwightstudio.deepworld.common.blocks.machines.WoodenMachineBlock;

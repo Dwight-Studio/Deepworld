@@ -16,6 +16,7 @@
 package fr.dwightstudio.deepworld.common.components;
 
 import fr.dwightstudio.deepworld.common.blockentities.frames.WoodenFrameBlockEntity;
+import fr.dwightstudio.deepworld.common.blocks.machines.WoodenMachineBlock;
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
 import net.minecraft.world.item.Item;
@@ -29,36 +30,32 @@ public enum WoodenFrameComponent implements FrameComponent {
             ComponentClass.PRIMARY,
             new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get}
     ),
-    WOODEN_GEARBOX(
-            DeepworldItems.WOODEN_GEARBOX::get,
-            ComponentClass.SECONDARY,
-            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
-    ),
-    WOODEN_CRANK(
-            DeepworldItems.WOODEN_CRANK::get,
-            ComponentClass.TERTIARY,
-            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
-    ),
     SIMPLE_CUTTER(
             DeepworldItems.SIMPLE_CUTTER::get,
             ComponentClass.PRIMARY,
             new ComponentMachine[]{DeepworldBlocks.WOODEN_GEAR_SHAPER::get}
     ),
-    SIMPLE_LEFT_PART_HOLDER(
-            DeepworldItems.SIMPLE_LEFT_PART_HOLDER::get,
-            ComponentClass.SECONDARY,
+    SIMPLE_TURNING_MECHANISM(
+            DeepworldItems.SIMPLE_TURNING_MECHANISM::get,
+            ComponentClass.PRIMARY,
             new ComponentMachine[]{DeepworldBlocks.WOODEN_LATHE::get}
     ),
-    SIMPLE_RIGHT_PART_HOLDER(
-            DeepworldItems.SIMPLE_RIGHT_PART_HOLDER::get,
+
+    WOODEN_GEARBOX(
+            DeepworldItems.WOODEN_GEARBOX::get,
+            ComponentClass.SECONDARY,
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get, DeepworldBlocks.WOODEN_LATHE::get}
+    ),
+    WOODEN_CRANK(
+            DeepworldItems.WOODEN_CRANK::get,
             ComponentClass.TERTIARY,
-            new ComponentMachine[]{DeepworldBlocks.WOODEN_LATHE::get}
+            new ComponentMachine[]{DeepworldBlocks.WOODEN_PRESS::get, DeepworldBlocks.WOODEN_GEAR_SHAPER::get, DeepworldBlocks.WOODEN_LATHE::get}
     );
 
     // Var
     private final ComponentItem item;
     private final ComponentClass componentClass;
-    private final ComponentMachine[] machineBlocks;
+    private final ComponentMachine[] WoodenMachineBlocks;
     private final int ID;
 
     // Static nested class to store LastData.lastID
@@ -66,10 +63,10 @@ public enum WoodenFrameComponent implements FrameComponent {
         private static int[] lastID = {0, 0, 0};
     }
 
-    WoodenFrameComponent(ComponentItem item, ComponentClass componentClass, ComponentMachine[] machineBlocks) {
+    WoodenFrameComponent(ComponentItem item, ComponentClass componentClass, ComponentMachine[] WoodenMachineBlocks) {
         this.item = item;
         this.componentClass = componentClass;
-        this.machineBlocks = machineBlocks;
+        this.WoodenMachineBlocks = WoodenMachineBlocks;
         ID = createID(this.componentClass);
     }
 
@@ -84,7 +81,7 @@ public enum WoodenFrameComponent implements FrameComponent {
 
     public static WoodenFrameComponent getByID(int ID, ComponentClass componentClass) {
         for (WoodenFrameComponent component : WoodenFrameComponent.values()) {
-            if (component.getComponentClass() == componentClass && component.getID() == ID) {
+            if (component.getComponentClass().equals(componentClass) && component.getID() == ID) {
                 return component;
             }
         }
@@ -92,12 +89,12 @@ public enum WoodenFrameComponent implements FrameComponent {
         return null;
     }
 
-    public static WoodenFrameComponent[] getByMachine(Block sMachineBlock) {
+    public static WoodenFrameComponent[] getByMachine(WoodenMachineBlock sWoodenMachineBlock) {
         WoodenFrameComponent[] rtn = {null, null, null};
 
         for (WoodenFrameComponent component : WoodenFrameComponent.values()) {
-            for (Block machineBlock : component.getMachineBlocks()) {
-                if (machineBlock == sMachineBlock) {
+            for (WoodenMachineBlock WoodenMachineBlock : component.getMachineBlocks()) {
+                if (WoodenMachineBlock.equals(sWoodenMachineBlock)) {
                     rtn[component.getComponentClass().getIndex()] = component;
                     break;
                 }
@@ -122,11 +119,11 @@ public enum WoodenFrameComponent implements FrameComponent {
     public static Block getResult(WoodenFrameComponent c1, WoodenFrameComponent c2, WoodenFrameComponent c3) {
         if (c1 == null || c2 == null || c3 == null) return null;
 
-        for (Block PrimaryMachineBlock : c1.getMachineBlocks()) {
-            for (Block SecondaryMachineBlock : c2.getMachineBlocks()) {
-                for (Block TertiaryMachineBlock : c3.getMachineBlocks()) {
-                    if (PrimaryMachineBlock == SecondaryMachineBlock && SecondaryMachineBlock == TertiaryMachineBlock)
-                        return PrimaryMachineBlock;
+        for (Block PrimaryWoodenMachineBlock : c1.getMachineBlocks()) {
+            for (Block SecondaryWoodenMachineBlock : c2.getMachineBlocks()) {
+                for (Block TertiaryWoodenMachineBlock : c3.getMachineBlocks()) {
+                    if (PrimaryWoodenMachineBlock == SecondaryWoodenMachineBlock && SecondaryWoodenMachineBlock == TertiaryWoodenMachineBlock)
+                        return PrimaryWoodenMachineBlock;
                 }
             }
         }
@@ -145,12 +142,12 @@ public enum WoodenFrameComponent implements FrameComponent {
         return this.componentClass;
     }
 
-    public Block[] getMachineBlocks() {
-        Block[] rtn = new Block[machineBlocks.length];
+    public WoodenMachineBlock[] getMachineBlocks() {
+        WoodenMachineBlock[] rtn = new WoodenMachineBlock[WoodenMachineBlocks.length];
 
         int i = 0;
-        for (ComponentMachine machineBlock : machineBlocks) {
-            rtn[i] = machineBlock.get();
+        for (ComponentMachine WoodenMachineBlock : WoodenMachineBlocks) {
+            rtn[i] = WoodenMachineBlock.get();
             i++;
         }
 
@@ -166,6 +163,10 @@ public enum WoodenFrameComponent implements FrameComponent {
     }
 
     private interface ComponentMachine {
-        Block get();
+        default WoodenMachineBlock get() {
+            return (WoodenMachineBlock) getBlock();
+        }
+        
+        Block getBlock();
     }
 }

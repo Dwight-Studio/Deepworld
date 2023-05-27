@@ -13,7 +13,7 @@
  *
  */
 
-package fr.dwightstudio.deepworld.common.blockentities.machines.wood;
+package fr.dwightstudio.deepworld.common.blockentities.machines.wooden;
 
 import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import fr.dwightstudio.deepworld.common.registries.DeepworldMenus;
@@ -24,14 +24,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class WoodenPressBlockEntity extends WoodenMachineBlockEntity {
+public class WoodenGearShaperBlockEntity extends WoodenMachineBlockEntity {
 
-    public WoodenPressBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(DeepworldBlockEntities.WOODEN_PRESS.get(), DeepworldMenus.WOODEN_PRESS.get(), DeepworldRecipeBookTypes.PRESS, blockPos, blockState, DeepworldRecipeTypes.PRESSING.get());
+    public WoodenGearShaperBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(DeepworldBlockEntities.WOODEN_GEAR_SHAPER.get(), DeepworldMenus.WOODEN_GEAR_SHAPER.get(), DeepworldRecipeBookTypes.GEAR_SHAPER, blockPos, blockState, DeepworldRecipeTypes.GEAR_SHAPING.get());
     }
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("container.deepworld.wooden_press");
+        return Component.translatable("container.deepworld.wooden_gear_shaper");
     }
 }

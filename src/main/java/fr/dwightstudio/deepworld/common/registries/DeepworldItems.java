@@ -107,8 +107,7 @@ public class DeepworldItems {
     public static RegistryObject<Item> WOODEN_GEARBOX;
     public static RegistryObject<Item> WOODEN_CRANK;
     public static RegistryObject<Item> SIMPLE_CUTTER;
-    public static RegistryObject<Item> SIMPLE_LEFT_PART_HOLDER;
-    public static RegistryObject<Item> SIMPLE_RIGHT_PART_HOLDER;
+    public static RegistryObject<Item> SIMPLE_TURNING_MECHANISM;
     public static RegistryObject<Item> WOODEN_CASE_PANEL;
 
     private DeepworldItems() {
@@ -187,8 +186,7 @@ public class DeepworldItems {
         WOODEN_GEARBOX = registerItem("wooden_gearbox", () -> new WoodenFrameComponentItem(WoodenFrameComponent.WOODEN_GEARBOX));
         WOODEN_CRANK = registerItem("wooden_crank", () -> new WoodenFrameComponentItem(WoodenFrameComponent.WOODEN_CRANK));
         SIMPLE_CUTTER = registerItem("simple_cutter", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_CUTTER));
-        SIMPLE_LEFT_PART_HOLDER = registerItem("simple_left_part_holder", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_LEFT_PART_HOLDER));
-        SIMPLE_RIGHT_PART_HOLDER = registerItem("simple_right_part_holder", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_RIGHT_PART_HOLDER));
+        SIMPLE_TURNING_MECHANISM = registerItem("simple_turning_mechanism", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_TURNING_MECHANISM));
         WOODEN_CASE_PANEL = registerItem("wooden_case_panel", WoodenCasePanelItem::new);
     }
 

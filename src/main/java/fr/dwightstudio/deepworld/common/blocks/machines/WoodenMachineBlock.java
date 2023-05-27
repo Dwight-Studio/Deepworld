@@ -23,6 +23,7 @@ import fr.dwightstudio.deepworld.common.registries.DeepworldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -68,9 +69,9 @@ public class WoodenMachineBlock extends MachineBlock {
     @Override
     public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tileentity = level.getBlockEntity(blockPos);
-            if (tileentity instanceof WoodenMachineBlockEntity woodenMachineBlockEntity) {
-                dropResources(woodenMachineBlockEntity.getBlockState(), woodenMachineBlockEntity.getLevel(), woodenMachineBlockEntity.getBlockPos(), woodenMachineBlockEntity);
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            if (blockEntity instanceof WoodenMachineBlockEntity woodenMachineBlockEntity) {
+                Containers.dropContents(level, blockPos, woodenMachineBlockEntity);
             }
             super.onRemove(state, level, blockPos, newState, isMoving);  // call it last, because it removes the TileEntity
         }

@@ -80,6 +80,11 @@ public class DeepworldDataGenerator {
                 )
         );
 
+        gen.addProvider(
+                event.includeServer(),
+                new DeepworldDatapackProvider(packOutput, lookupProvider)
+        );
+
     }
 
 }

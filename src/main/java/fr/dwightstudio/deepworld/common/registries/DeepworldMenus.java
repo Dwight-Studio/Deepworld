@@ -17,6 +17,7 @@ package fr.dwightstudio.deepworld.common.registries;
 
 import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.menus.WoodenMachineMenu;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -30,8 +31,8 @@ public class DeepworldMenus {
     }
 
     public static void register() {
-        WOODEN_LATHE = Deepworld.MENU_TYPES.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new));
-        WOODEN_PRESS = Deepworld.MENU_TYPES.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new));
-        WOODEN_GEAR_SHAPER = Deepworld.MENU_TYPES.register("wooden_gear_shaper", () -> new MenuType<>(WoodenMachineMenu::new));
+        WOODEN_LATHE = Deepworld.MENU_TYPES.register("wooden_lathe", () -> new MenuType<>(WoodenMachineMenu::new, FeatureFlags.DEFAULT_FLAGS));
+        WOODEN_PRESS = Deepworld.MENU_TYPES.register("wooden_press", () -> new MenuType<>(WoodenMachineMenu::new, FeatureFlags.DEFAULT_FLAGS));
+        WOODEN_GEAR_SHAPER = Deepworld.MENU_TYPES.register("wooden_gear_shaper", () -> new MenuType<>(WoodenMachineMenu::new, FeatureFlags.DEFAULT_FLAGS));
     }
 }

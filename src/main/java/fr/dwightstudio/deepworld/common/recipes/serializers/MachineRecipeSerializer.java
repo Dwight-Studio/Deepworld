@@ -82,7 +82,7 @@ public class MachineRecipeSerializer implements RecipeSerializer<MachineRecipe> 
         machineRecipe.getIngredient().toNetwork(buf);
         buf.writeInt(machineRecipe.getIngredientCount());
         buf.writeUtf(machineRecipe.getMachineTier().name());
-        buf.writeItem(machineRecipe.getResultItem());
+        buf.writeItem(machineRecipe.getResultItem(null));
     }
 
     @Override

@@ -16,6 +16,7 @@
 package fr.dwightstudio.deepworld.common.recipes;
 
 import fr.dwightstudio.deepworld.common.utils.MachineTier;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +53,7 @@ public class MachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull Container container) {
+    public @NotNull ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess registryAccess) {
         return this.resultItem.copy();
     }
 
@@ -62,7 +63,7 @@ public class MachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem() {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
         return this.resultItem;
     }
 

@@ -19,7 +19,7 @@ import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenGearShaperBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenLatheBlockEntity;
 import fr.dwightstudio.deepworld.common.blockentities.machines.wooden.WoodenPressBlockEntity;
-import fr.dwightstudio.deepworld.common.blocks.IronPipeBlock;
+import fr.dwightstudio.deepworld.common.blocks.PipeBlock;
 import fr.dwightstudio.deepworld.common.blocks.SimpleDeepworldBlock;
 import fr.dwightstudio.deepworld.common.blocks.frames.WoodenFrameBlock;
 import fr.dwightstudio.deepworld.common.blocks.machines.WoodenMachineBlock;
@@ -75,6 +75,6 @@ public class DeepworldBlocks {
         WOODEN_LATHE = Deepworld.BLOCKS.register("wooden_lathe", () -> new WoodenMachineBlock(WoodenLatheBlockEntity::new));
 
         IRON_TANK = Deepworld.BLOCKS.register("iron_tank", IronTankBlock::new);
-        PIPE = Deepworld.BLOCKS.register("pipe", IronPipeBlock::new);
+        PIPE = Deepworld.BLOCKS.register("pipe", PipeBlock::new);
     }
 }

@@ -19,11 +19,12 @@ import fr.dwightstudio.deepworld.common.Deepworld;
 import fr.dwightstudio.deepworld.common.registries.DeepworldItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public enum ArmorMaterialsTier implements ArmorMaterial {
 
@@ -53,14 +54,12 @@ public enum ArmorMaterialsTier implements ArmorMaterial {
         this.repair_material = repair_material;
     }
 
-    @Override
-    public int getDurabilityForSlot(EquipmentSlot type) {
-        return MAX_DAMAGE[type.getIndex()] * this.max_damage_factor;
+    public int getDurabilityForType(ArmorItem.Type type) {
+        return MAX_DAMAGE[type.ordinal()] * this.max_damage_factor;
     }
 
-    @Override
-    public int getDefenseForSlot(EquipmentSlot type) {
-        return this.damage_reduction_amount[type.getIndex()];
+    public int getDefenseForType(ArmorItem.Type type) {
+        return this.damage_reduction_amount[type.ordinal()];
     }
 
     @Override
@@ -69,12 +68,12 @@ public enum ArmorMaterialsTier implements ArmorMaterial {
     }
 
     @Override
-    public SoundEvent getEquipSound() {
+    public @NotNull SoundEvent getEquipSound() {
         return this.sound_event;
     }
 
     @Override
-    public Ingredient getRepairIngredient() {
+    public @NotNull Ingredient getRepairIngredient() {
         return this.repair_material;
     }
 

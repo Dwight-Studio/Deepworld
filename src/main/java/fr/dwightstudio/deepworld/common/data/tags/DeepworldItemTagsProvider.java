@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class DeepworldItemTagsProvider extends ItemTagsProvider {
-    public DeepworldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> futureProvider, TagsProvider<Block> blockTagsProvider,@Nullable ExistingFileHelper existingFileHelper) {
-        super(packOutput, futureProvider, blockTagsProvider, Deepworld.MOD_ID, existingFileHelper);
+    public DeepworldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> futureProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProviderFuture, @Nullable ExistingFileHelper existingFileHelper) {
+        super(packOutput, futureProvider, blockTagsProviderFuture, Deepworld.MOD_ID, existingFileHelper);
     }
 
     @Override

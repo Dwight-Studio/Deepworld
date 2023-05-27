@@ -22,18 +22,17 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class IronPipeBlock extends PipeBlock implements EntityBlock {
+public class PipeBlock extends net.minecraft.world.level.block.PipeBlock implements EntityBlock {
 
-    public IronPipeBlock() {
+    public PipeBlock() {
         super(0.3125F, Properties.of(Material.METAL));
     }
 
@@ -58,7 +57,7 @@ public class IronPipeBlock extends PipeBlock implements EntityBlock {
     public @NotNull BlockState updateShape(@NotNull BlockState blockState, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         boolean flag = neighborState.is(this);
         if (levelAccessor.getBlockEntity(neighborPos) != null && !flag) {
-            flag = levelAccessor.getBlockEntity(neighborPos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).isPresent();
+            flag = levelAccessor.getBlockEntity(neighborPos).getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent();
         }
 
         return blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), flag);

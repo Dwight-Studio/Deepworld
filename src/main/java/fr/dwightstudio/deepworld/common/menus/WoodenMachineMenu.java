@@ -141,7 +141,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
 
                 slot.onQuickCraft(itemstack1, itemstack);
             } else if (slotID != 0) {
-                if (this.isTurnable(itemstack1)) {
+                if (this.isProcessable(itemstack1)) {
                     if (!this.moveItemStackTo(itemstack1, INPUT_SLOT, OUTPUT_SLOT, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -167,7 +167,7 @@ public class WoodenMachineMenu extends RecipeBookMenu<Container> {
         return itemstack;
     }
 
-    public boolean isTurnable(ItemStack itemStack) {
+    public boolean isProcessable(ItemStack itemStack) {
         return this.level.getRecipeManager().getRecipeFor(this.recipeType, new SimpleContainer(itemStack), this.level).isPresent();
 
     }

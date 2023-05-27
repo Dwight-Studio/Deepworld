@@ -280,9 +280,9 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
 
                         // If the output is empty, set the result item else add 1 item to output slot
                         if (outputItem.isEmpty()) {
-                            woodenMachineBlockEntity.items.set(OUTPUT_SLOT, recipe.assemble(woodenMachineBlockEntity));
+                            woodenMachineBlockEntity.items.set(OUTPUT_SLOT, recipe.assemble(woodenMachineBlockEntity, null));
                         } else {
-                            outputItem.grow(recipe.assemble(woodenMachineBlockEntity).getCount());
+                            outputItem.grow(recipe.assemble(woodenMachineBlockEntity, null).getCount());
                         }
 
                         // Empty or decrement the input itemstack
@@ -316,9 +316,9 @@ public abstract class WoodenMachineBlockEntity extends BaseContainerBlockEntity 
     private static boolean canProcess(MachineRecipe recipe, WoodenMachineBlockEntity blockEntity) {
         if (recipe == null) return false;
         if (blockEntity.items.get(INPUT_SLOT).getCount() < recipe.getIngredientCount()) return false;
-        if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty())
+        if (!blockEntity.items.get(OUTPUT_SLOT).sameItem(recipe.assemble(blockEntity, null)) && !blockEntity.items.get(OUTPUT_SLOT).isEmpty())
             return false;
-        return blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity).getCount() <= recipe.assemble(blockEntity).getMaxStackSize();
+        return blockEntity.items.get(OUTPUT_SLOT).getCount() + recipe.assemble(blockEntity, null).getCount() <= recipe.assemble(blockEntity, null).getMaxStackSize();
     }
 
     @Override

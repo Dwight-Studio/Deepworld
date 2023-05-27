@@ -23,7 +23,6 @@ import fr.dwightstudio.deepworld.common.items.SimpleDeepworldItem;
 import fr.dwightstudio.deepworld.common.items.component.WoodenCasePanelItem;
 import fr.dwightstudio.deepworld.common.items.component.WoodenFrameComponentItem;
 import fr.dwightstudio.deepworld.common.tools.ToolsMaterialsTier;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.RegistryObject;
 import org.antlr.v4.runtime.misc.OrderedHashSet;
@@ -171,15 +170,15 @@ public class DeepworldItems {
         OBSIDIAN_INFUSED_STEEL_HOE = registerItem("obsidian_infused_steel_hoe", () -> new HoeItem(ToolsMaterialsTier.OBSIDIAN_INFUSED_STEEL, 4, -2.8f, new Item.Properties()));
 
         // Armors
-        STEEL_HELMET = registerItem("steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.HEAD, new Item.Properties()));
-        STEEL_CHESTPLATE = registerItem("steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.CHEST, new Item.Properties()));
-        STEEL_LEGGINGS = registerItem("steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.LEGS, new Item.Properties()));
-        STEEL_BOOTS = registerItem("steel_boots", () -> new ArmorItem(ArmorMaterialsTier.STEEL, EquipmentSlot.FEET, new Item.Properties()));
+        STEEL_HELMET = registerItem("steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.STEEL, ArmorItem.Type.HELMET, new Item.Properties()));
+        STEEL_CHESTPLATE = registerItem("steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.STEEL, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+        STEEL_LEGGINGS = registerItem("steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.STEEL, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+        STEEL_BOOTS = registerItem("steel_boots", () -> new ArmorItem(ArmorMaterialsTier.STEEL, ArmorItem.Type.BOOTS, new Item.Properties()));
 
-        OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.HEAD, new Item.Properties()));
-        OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.CHEST, new Item.Properties()));
-        OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.LEGS, new Item.Properties()));
-        OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, EquipmentSlot.FEET, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_HELMET = registerItem("obsidian_infused_steel_helmet", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.HELMET, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_CHESTPLATE = registerItem("obsidian_infused_steel_chestplate", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_LEGGINGS = registerItem("obsidian_infused_steel_leggings", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+        OBSIDIAN_INFUSED_STEEL_BOOTS = registerItem("obsidian_infused_steel_boots", () -> new ArmorItem(ArmorMaterialsTier.OBSIDIAN_INFUSED_STEEL, ArmorItem.Type.BOOTS, new Item.Properties()));
 
         // Machine components
         SIMPLE_PRESSING_CHAMBER = registerItem("simple_pressing_chamber", () -> new WoodenFrameComponentItem(WoodenFrameComponent.SIMPLE_PRESSING_CHAMBER));

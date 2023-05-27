@@ -68,7 +68,7 @@ public class DeepworldDataGenerator {
 
         gen.addProvider(
                 event.includeServer(),
-                new DeepworldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider, efh)
+                new DeepworldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), efh)
         );
 
         gen.addProvider(

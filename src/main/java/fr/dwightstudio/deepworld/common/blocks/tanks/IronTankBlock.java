@@ -119,7 +119,6 @@ public class IronTankBlock extends TankBlock implements EntityBlock {
 
     @Override
     public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos blockPos, boolean p_60514_) {
-        getBlockEntity(level, pos).updateMultiblock();
         level.scheduleTick(pos, this, 1);
     }
 
@@ -132,15 +131,16 @@ public class IronTankBlock extends TankBlock implements EntityBlock {
         BlockState newBlockState = blockState;
 
         if (level.getBlockEntity(blockPos.below()) instanceof IronTankBlockEntity blockEntity) {
-            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
-                getBlockEntity(level, blockPos).setParent(blockEntity.getParent().getBlockPos());
+            if (getBlockEntity(level, blockPos).canConnect(blockEntity)) {
                 newBlockState = newBlockState.setValue(DOWN, true);
+            } else {
+                newBlockState = newBlockState.setValue(DOWN, false);
             }
         } else {
             newBlockState = newBlockState.setValue(DOWN, false);
         }
         if (level.getBlockEntity(blockPos.above()) instanceof IronTankBlockEntity blockEntity) {
-            if (blockEntity.canConnect(getBlockEntity(level, blockPos))) {
+            if (getBlockEntity(level, blockPos).canConnect(blockEntity)) {
                 newBlockState = newBlockState.setValue(UP, true);
             } else {
                 newBlockState = newBlockState.setValue(UP, false);

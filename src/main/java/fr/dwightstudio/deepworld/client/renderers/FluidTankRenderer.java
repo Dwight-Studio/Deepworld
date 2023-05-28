@@ -18,7 +18,7 @@ package fr.dwightstudio.deepworld.client.renderers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import fr.dwightstudio.deepworld.common.blockentities.tanks.SimpleTankBlockEntity;
+import fr.dwightstudio.deepworld.common.blockentities.tanks.TankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
-public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEntity> {
+public class FluidTankRenderer implements BlockEntityRenderer<TankBlockEntity> {
 
     private final BlockEntityRendererProvider.Context context;
 
@@ -43,14 +43,14 @@ public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEnt
     }
 
     @Override
-    public void render(@NotNull SimpleTankBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
+    public void render(@NotNull TankBlockEntity blockEntity, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
         if (!blockEntity.isEmpty()) {
             renderFluidInTank(poseStack, blockEntity.getFluid(), bufferSource, blockEntity.getFluidLevel(), blockEntity);
 
         }
     }
 
-    private void renderFluidInTank(PoseStack poseStack, FluidStack fluidStack, MultiBufferSource bufferSource, float fluidLevel, SimpleTankBlockEntity blockEntity) {
+    private void renderFluidInTank(PoseStack poseStack, FluidStack fluidStack, MultiBufferSource bufferSource, float fluidLevel, TankBlockEntity blockEntity) {
         poseStack.pushPose();
         poseStack.translate(0.5d, 0.5d, 0.5d);
 
@@ -70,7 +70,7 @@ public class FluidTankRenderer implements BlockEntityRenderer<SimpleTankBlockEnt
 
         BlockEntity above = blockEntity.getLevel().getBlockEntity(blockEntity.getBlockPos().above());
 
-        if (fluidLevel < 1.0f || (above instanceof SimpleTankBlockEntity && ((SimpleTankBlockEntity) above).isEmpty())) {
+        if (fluidLevel < 1.0f || (above instanceof TankBlockEntity && ((TankBlockEntity) above).isEmpty())) {
             this.renderTopFace(sprite, matrix4f, matrix3f, builder, color, fluidLevel);
         }
 

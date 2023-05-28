@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -33,20 +34,20 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IFluidHandler {
+public class TankBlockEntity extends BlockEntity implements IFluidTank, IFluidHandler {
 
     private int capacity;
     private final int MAX_FILL_LEVEL;
     private FluidStack fluid;
 
 
-    public SimpleTankBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int capacity) {
+    public TankBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, int capacity) {
         super(blockEntityType, blockPos, blockState);
 
         this.MAX_FILL_LEVEL = capacity / 1000;
 
         this.capacity = capacity;
-        this.fluid = FluidStack.EMPTY;
+        this.fluid = FluidStack.EMPTY.copy();
     }
 
     @Override
@@ -56,7 +57,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int getFluidAmount() {
-        return this.fluid.getAmount();
+        return isEmpty() ? 0 : this.fluid.getAmount();
     }
 
     @Override
@@ -91,12 +92,42 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public int fill(FluidStack resource, IFluidHandler.FluidAction action) {
+        return getParentTank().fillAbove(resource, action);
+    }
+    
+    protected int fillAbove(FluidStack resource, IFluidHandler.FluidAction action) {
         int rtn = 0;
-
-        if (this.isFull() || (this.getCapacity() - this.getFluidAmount()) < resource.getAmount()) {
-
-        } else {
-            rtn = this.getParentTank().fill(resource, action);
+        FluidStack sResource = resource.copy();
+        TankBlockEntity nextTank = this;
+        
+        while (!sResource.isEmpty() && nextTank != null && nextTank.canFill(sResource)) {
+            if ((nextTank.getCapacity() - nextTank.getFluidAmount()) < sResource.getAmount()) {
+                int amountFilled = nextTank.getCapacity() - nextTank.getFluidAmount();
+                rtn += amountFilled;
+                sResource.shrink(amountFilled);
+                if (action.execute()) {
+                    if (nextTank.isEmpty()) {
+                        nextTank.fluid = resource.copy();
+                        nextTank.fluid.setAmount(amountFilled);
+                    } else {
+                        nextTank.fluid.grow(amountFilled);
+                    }
+                    nextTank.sendUpdate();
+                }
+            } else {
+                rtn += sResource.getAmount();
+                if (action.execute()) {
+                    if (nextTank.isEmpty()) {
+                        nextTank.fluid = resource.copy();
+                    } else {
+                        nextTank.fluid.grow(sResource.getAmount());
+                    }
+                    nextTank.sendUpdate();
+                }
+                sResource = FluidStack.EMPTY.copy();
+            }
+            
+            nextTank = nextTank.getNextTank();
         }
 
         return rtn;
@@ -105,30 +136,92 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
 
     @Override
     public @NotNull FluidStack drain(int maxDrain, IFluidHandler.FluidAction action) {
-        return FluidStack.EMPTY;
+        int rtn = 0;
+        int amount = maxDrain;
+
+        TankBlockEntity previousTank = getChildTank();
+
+        while (amount != 0 && previousTank != null) {
+            if (!previousTank.isEmpty()) {
+                if (previousTank.getFluidAmount() < amount) {
+                    int amountDrained = previousTank.getFluidAmount();
+                    rtn += amountDrained;
+                    if (action.execute()) {
+                        previousTank.clear();
+                        previousTank.sendUpdate();
+                    }
+                    amount -= amountDrained;
+                } else {
+                    rtn += amount;
+                    if (action.execute()) {
+                        previousTank.fluid.shrink(amount);
+                        previousTank.sendUpdate();
+                    }
+                    amount = 0;
+                }
+            }
+
+            previousTank = previousTank.getPreviousTank();
+        }
+
+        return new FluidStack(Fluids.WATER, rtn);
     }
 
     @Override
     public @NotNull FluidStack drain(FluidStack resource, IFluidHandler.FluidAction action) {
-        return FluidStack.EMPTY;
+        return drain(resource.getAmount(), action);
     }
 
-    public SimpleTankBlockEntity getParentTank() {
-        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().below()) instanceof SimpleTankBlockEntity simpleTank) || !simpleTank.isCompatible(this)) return this;
-        return simpleTank.getParentTank();
+    public void rearrangeFluid() {
+        int amount = 0;
+        TankBlockEntity nextTank = this;
+        TankBlockEntity parent = getParentTank();
+        FluidStack nFluid = parent.getFluid().copy();
+
+        while (nextTank != null && isCompatible(parent)) {
+            if (nFluid.isEmpty() && !nextTank.getFluid().isEmpty()) nFluid = nextTank.getFluid().copy();
+            amount += nextTank.getFluidAmount();
+            nextTank.clear();
+
+            nextTank = nextTank.getNextTank();
+        }
+
+        nFluid.setAmount(amount);
+        parent.fill(nFluid, FluidAction.EXECUTE);
     }
 
-    public @Nullable SimpleTankBlockEntity getNextTank() {
-        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().below()) instanceof SimpleTankBlockEntity simpleTank)) return null;
-        return simpleTank;
+    public TankBlockEntity getParentTank() {
+        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().below()) instanceof TankBlockEntity simpleTank)) return this;
+        TankBlockEntity parent = simpleTank.getParentTank();
+        return parent.isCompatible(this) ? parent : this;
     }
 
-    public boolean canConnect(SimpleTankBlockEntity simpleTank) {
+    public @Nullable TankBlockEntity getPreviousTank() {
+        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().below()) instanceof TankBlockEntity simpleTank)) return null;
+        return simpleTank.isCompatible(getParentTank()) ? simpleTank : null;
+    }
+
+    public TankBlockEntity getChildTank() {
+        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().above()) instanceof TankBlockEntity simpleTank)) return this;
+        TankBlockEntity child = simpleTank.getChildTank();
+        return child.isCompatible(getParentTank()) ? child : this;
+    }
+
+    public @Nullable TankBlockEntity getNextTank() {
+        if (getLevel() == null || !(getLevel().getBlockEntity(getBlockPos().above()) instanceof TankBlockEntity simpleTank)) return null;
+        return simpleTank.isCompatible(getParentTank()) ? simpleTank : null;
+    }
+
+    public boolean canConnect(TankBlockEntity simpleTank) {
         return getParentTank().isCompatible(simpleTank.getParentTank());
     }
 
-    public boolean isCompatible(SimpleTankBlockEntity simpleTank) {
+    public boolean isCompatible(TankBlockEntity simpleTank) {
         return simpleTank.isEmpty() || this.isEmpty() || simpleTank.getFluid().isFluidEqual(this.getFluid());
+    }
+
+    public boolean canFill(FluidStack resource) {
+        return isEmpty() || getFluid().isFluidEqual(resource);
     }
 
     @Override
@@ -180,7 +273,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     }
 
     public boolean isEmpty() {
-        if (this.fluid.getAmount() <= 0) this.fluid = FluidStack.EMPTY;
+        if (this.fluid.getAmount() <= 0) this.fluid = FluidStack.EMPTY.copy();
         return this.fluid.isEmpty() || this.fluid.getAmount() <= 0;
     }
 
@@ -189,7 +282,7 @@ public class SimpleTankBlockEntity extends BlockEntity implements IFluidTank, IF
     }
 
     public void clear() {
-        this.fluid = FluidStack.EMPTY;
+        this.fluid = FluidStack.EMPTY.copy();
         sendUpdate();
     }
 

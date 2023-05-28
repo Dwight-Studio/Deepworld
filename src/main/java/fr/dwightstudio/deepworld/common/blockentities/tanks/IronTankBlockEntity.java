@@ -19,7 +19,7 @@ import fr.dwightstudio.deepworld.common.registries.DeepworldBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class IronTankBlockEntity extends SimpleTankBlockEntity {
+public class IronTankBlockEntity extends TankBlockEntity {
 
     public static final int CAPACITY = 8000;
 
